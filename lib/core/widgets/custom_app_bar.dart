@@ -1,4 +1,3 @@
-import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -45,8 +44,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       Assets.icons.arrowBackIcon,
                       width: 20,
                       height: 20,
-                      colorFilter: const ColorFilter.mode(
-                        AppColors.blackColor,
+                      colorFilter: ColorFilter.mode(
+                        Theme.of(context).colorScheme.onSurface,
                         BlendMode.srcIn,
                       ),
                     ),
