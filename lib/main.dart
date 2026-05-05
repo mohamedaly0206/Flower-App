@@ -1,28 +1,23 @@
-  import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'config/di/di.dart';
+import 'core/router/app_router.dart';
+import 'core/theme/theme.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  configureDependencies();
+  runApp(const FlowerApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class FlowerApp extends StatelessWidget {
+  const FlowerApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flower App',
-      theme: ThemeData(
-      ),
-      home: Home(),
+    return MaterialApp.router(
+      routerConfig: AppRouter.getRouter(),
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.appTheme,
     );
-  }
-}
-class Home extends StatelessWidget {
-  const Home({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
