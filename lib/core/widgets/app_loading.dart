@@ -9,7 +9,7 @@ class AppLoading {
       if (_entry != null) return;
       _entry = OverlayEntry(
         builder: (context) => Container(
-          color:Theme.of(context).colorScheme.scrim,
+          color: Theme.of(context).colorScheme.scrim,
           child: Center(
             child: SpinKitFadingCircle(
               color: Theme.of(context).colorScheme.primary,
