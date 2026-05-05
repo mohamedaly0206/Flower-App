@@ -6,6 +6,7 @@ abstract class AppColors {
   static const primaryColor = Color(0xFFD21E6A);
   static const whiteColor = Color(0xFFF9F9F9);
   static const blackColor = Color(0xFF000000);
+  static const loadingBackgroundColor = Colors.black26;
   static const secondaryColor = Color(0xFFF9ECF0);
   static const errorColor = Color(0xFFCC1010);
   static const successColor = Color(0xFF0CB359);

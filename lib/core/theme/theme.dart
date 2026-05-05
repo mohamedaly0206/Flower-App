@@ -27,6 +27,7 @@ abstract class AppTheme {
       onErrorContainer: AppColors.errorColor,
       surface: AppColors.whiteColor,
       onSurface: AppColors.blackColor,
+      scrim: AppColors.loadingBackgroundColor,
       //surfaceVariant
       onSurfaceVariant: AppColors.secondaryColor,
       onTertiaryFixedVariant: AppColors.transparentColor,
