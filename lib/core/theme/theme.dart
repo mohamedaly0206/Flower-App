@@ -111,17 +111,11 @@ abstract class AppTheme {
       titleLarge: AppTextStyles.textStyleMedium20,
       // section title
       titleMedium: AppTextStyles.textStyleMedium18,
-      // navigation bar text
       titleSmall: AppTextStyles.textStyleSemiBold12,
-      // ? it have one use in the app => exam name in start exam page
       headlineLarge: AppTextStyles.textStyleSemiBold20,
-      // exam time text
       headlineSmall: AppTextStyles.textStyleRegular13,
-      // button text
       headlineMedium: AppTextStyles.textStyleMedium16,
-      //? it have one use in the app => time out Dialog text
       labelLarge: AppTextStyles.textStyleRegular24,
-      // exam time counter text
       labelMedium: AppTextStyles.textStyleRegular20,
       displayLarge: AppTextStyles.textStyleMedium14,
       displaySmall: AppTextStyles.textStyleMedium12,

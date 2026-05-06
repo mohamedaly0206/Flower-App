@@ -14,7 +14,7 @@ abstract class AppStrings {
   static const String passwordKey = 'password';
   static const String enterYourPassword = 'Enter your password';
   static const String rememberMe = 'Remember me';
-  static const String forgetPassword = 'Forget Password?';
+  static const String forgetPassword = 'Forget Password';
   static const String doNotHaveAnAccount = 'Don\'t have an account? ';
   static const String signUp = 'Sign up';
   static const String userName = 'User name';
@@ -35,7 +35,7 @@ abstract class AppStrings {
   static const String termsAndConditions = 'Terms&Conditions';
   static const String signUpSuccessMessage = 'Sign up successfully';
   static const String enterEmail =
-      'Please enter your email associated to your account';
+      'Please enter your email associated to\nyour account';
   static const String alreadyHaveAnAccount = 'Already have an account?';
   static const String confirm = 'Confirm';
   static const String resend = 'Resend';
