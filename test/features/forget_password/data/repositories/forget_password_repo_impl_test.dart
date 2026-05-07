@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flower_app/config/base_response/base_response.dart';
-import 'package:flower_app/features/forget_password/data/data_sources/forget_password_remot_data_source_contract.dart';
+import 'package:flower_app/features/forget_password/data/data_sources/forget_password_remote_data_source_contract.dart';
 import 'package:flower_app/features/forget_password/data/repositories/forget_password_repo_impl.dart';
 import 'package:flower_app/features/forget_password/data/models/requests/enter_reset_email_request.dart';
 import 'package:flower_app/features/forget_password/data/models/requests/reset_password_request.dart';
@@ -17,14 +17,14 @@ import 'package:flower_app/features/forget_password/domain/entities/verify_reset
 import 'forget_password_repo_impl_test.mocks.dart';
 
 @GenerateMocks([
-  ForgetPasswordRemotDataSourceContract,
+  ForgetPasswordRemoteDataSourceContract,
   EnterResetEmailDTO,
   VerifyResetCodeDTO,
   ResetPasswordDTO,
 ])
 void main() {
   late ForgetPasswordRepoImpl repository;
-  late MockForgetPasswordRemotDataSourceContract mockDataSource;
+  late MockForgetPasswordRemoteDataSourceContract mockDataSource;
 
   setUpAll(() {
     provideDummy<BaseResponse<EnterResetEmailDTO>>(
@@ -43,7 +43,7 @@ void main() {
       ),
     );
 
-    mockDataSource = MockForgetPasswordRemotDataSourceContract();
+    mockDataSource = MockForgetPasswordRemoteDataSourceContract();
     repository = ForgetPasswordRepoImpl(mockDataSource);
   });
 

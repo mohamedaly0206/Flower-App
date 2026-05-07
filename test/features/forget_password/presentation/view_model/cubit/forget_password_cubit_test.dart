@@ -9,9 +9,9 @@ import 'package:flower_app/features/forget_password/data/models/requests/verify_
 import 'package:flower_app/features/forget_password/domain/entities/enter_reset_email_entity.dart';
 import 'package:flower_app/features/forget_password/domain/entities/reset_password_entity.dart';
 import 'package:flower_app/features/forget_password/domain/entities/verify_reset_code_entity.dart';
-import 'package:flower_app/features/forget_password/domain/usecases/enter_reset_email_use_case.dart';
-import 'package:flower_app/features/forget_password/domain/usecases/reset_password_use_case.dart';
-import 'package:flower_app/features/forget_password/domain/usecases/verify_reset_code_use_case.dart';
+import 'package:flower_app/features/forget_password/domain/use_cases/enter_reset_email_use_case.dart';
+import 'package:flower_app/features/forget_password/domain/use_cases/reset_password_use_case.dart';
+import 'package:flower_app/features/forget_password/domain/use_cases/verify_reset_code_use_case.dart';
 import 'package:flower_app/features/forget_password/presentation/view_model/cubit/forget_password_cubit.dart';
 import 'package:flower_app/features/forget_password/presentation/view_model/intent/forget_password_intent.dart';
 

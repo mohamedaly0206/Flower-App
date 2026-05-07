@@ -6,7 +6,7 @@ import 'package:flower_app/features/forget_password/data/models/responses/enter_
 import 'package:flower_app/features/forget_password/data/models/responses/reset_password_dto.dart';
 import 'package:flower_app/features/forget_password/data/models/responses/verify_reset_code_dto.dart';
 
-abstract interface class ForgetPasswordRemotDataSourceContract {
+abstract interface class ForgetPasswordRemoteDataSourceContract {
   Future<BaseResponse<EnterResetEmailDTO>> enterResetEmail(
     EnterResetEmailRequest request,
   );

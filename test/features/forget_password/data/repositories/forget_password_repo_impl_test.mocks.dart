@@ -6,7 +6,7 @@
 import 'dart:async' as _i6;
 
 import 'package:flower_app/config/base_response/base_response.dart' as _i7;
-import 'package:flower_app/features/forget_password/data/data_sources/forget_password_remot_data_source_contract.dart'
+import 'package:flower_app/features/forget_password/data/data_sources/forget_password_remote_data_source_contract.dart'
     as _i5;
 import 'package:flower_app/features/forget_password/data/models/requests/enter_reset_email_request.dart'
     as _i9;
@@ -62,12 +62,12 @@ class _FakeResetPasswordEntity_2 extends _i1.SmartFake
     : super(parent, parentInvocation);
 }
 
-/// A class which mocks [ForgetPasswordRemotDataSourceContract].
+/// A class which mocks [ForgetPasswordRemoteDataSourceContract].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockForgetPasswordRemotDataSourceContract extends _i1.Mock
-    implements _i5.ForgetPasswordRemotDataSourceContract {
-  MockForgetPasswordRemotDataSourceContract() {
+class MockForgetPasswordRemoteDataSourceContract extends _i1.Mock
+    implements _i5.ForgetPasswordRemoteDataSourceContract {
+  MockForgetPasswordRemoteDataSourceContract() {
     _i1.throwOnMissingStub(this);
   }
 

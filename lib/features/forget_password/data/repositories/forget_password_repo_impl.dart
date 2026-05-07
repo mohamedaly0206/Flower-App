@@ -1,5 +1,5 @@
 import 'package:flower_app/config/base_response/base_response.dart';
-import 'package:flower_app/features/forget_password/data/data_sources/forget_password_remot_data_source_contract.dart';
+import 'package:flower_app/features/forget_password/data/data_sources/forget_password_remote_data_source_contract.dart';
 import 'package:flower_app/features/forget_password/data/models/requests/enter_reset_email_request.dart';
 import 'package:flower_app/features/forget_password/data/models/requests/reset_password_request.dart';
 import 'package:flower_app/features/forget_password/data/models/requests/verify_reset_code_request.dart';
@@ -14,13 +14,13 @@ import 'package:injectable/injectable.dart';
 
 @Injectable(as: ForgetPasswordRepoContract)
 class ForgetPasswordRepoImpl implements ForgetPasswordRepoContract {
-  ForgetPasswordRemotDataSourceContract forgetPasswordRemotDataSourceContract;
-  ForgetPasswordRepoImpl(this.forgetPasswordRemotDataSourceContract);
+  ForgetPasswordRemoteDataSourceContract forgetPasswordRemoteDataSourceContract;
+  ForgetPasswordRepoImpl(this.forgetPasswordRemoteDataSourceContract);
   @override
   Future<BaseResponse<EnterResetEmailEntity>> enterResetEmail(
     EnterResetEmailRequest request,
   ) async {
-    final response = await forgetPasswordRemotDataSourceContract
+    final response = await forgetPasswordRemoteDataSourceContract
         .enterResetEmail(request);
     switch (response) {
       case SuccessBaseResponse<EnterResetEmailDTO>():
@@ -38,7 +38,7 @@ class ForgetPasswordRepoImpl implements ForgetPasswordRepoContract {
   Future<BaseResponse<ResetPasswordEntity>> resetPassword(
     ResetPasswordRequest request,
   ) async {
-    final response = await forgetPasswordRemotDataSourceContract.resetPassword(
+    final response = await forgetPasswordRemoteDataSourceContract.resetPassword(
       request,
     );
     switch (response) {
@@ -57,7 +57,7 @@ class ForgetPasswordRepoImpl implements ForgetPasswordRepoContract {
   Future<BaseResponse<VerifyResetCodeEntity>> verifyResetCode(
     VerifyResetCodeRequest request,
   ) async {
-    final response = await forgetPasswordRemotDataSourceContract
+    final response = await forgetPasswordRemoteDataSourceContract
         .verifyResetCode(request);
     switch (response) {
       case SuccessBaseResponse<VerifyResetCodeDTO>():

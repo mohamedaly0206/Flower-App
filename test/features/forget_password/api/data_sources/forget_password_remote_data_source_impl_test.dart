@@ -1,4 +1,4 @@
-import 'package:flower_app/features/forget_password/api/data_sources/forget_password_remot_data_source_impl.dart';
+import 'package:flower_app/features/forget_password/api/data_sources/forget_password_remote_data_source_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -10,17 +10,16 @@ import 'package:flower_app/features/forget_password/data/models/requests/verify_
 import 'package:flower_app/features/forget_password/data/models/responses/enter_reset_email_dto.dart';
 import 'package:flower_app/features/forget_password/data/models/responses/reset_password_dto.dart';
 import 'package:flower_app/features/forget_password/data/models/responses/verify_reset_code_dto.dart';
-
-import 'forget_password_remot_data_source_impl_test.mocks.dart';
+import 'forget_password_remote_data_source_impl_test.mocks.dart';
 
 @GenerateMocks([ForgetPasswordApiClient])
 void main() {
-  late ForgetPasswordRemotDataSourceImpl dataSource;
+  late ForgetPasswordRemoteDataSourceImpl dataSource;
   late MockForgetPasswordApiClient mockApiClient;
 
   setUp(() {
     mockApiClient = MockForgetPasswordApiClient();
-    dataSource = ForgetPasswordRemotDataSourceImpl(
+    dataSource = ForgetPasswordRemoteDataSourceImpl(
       forgetPasswordApiClient: mockApiClient,
     );
   });
