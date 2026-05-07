@@ -7,7 +7,7 @@ class ForgetPasswordState extends Equatable {
   final String email;
 
   const ForgetPasswordState({
-    this.email='',
+    this.email = '',
     this.enterEmailState = const BaseState(),
     this.verifyResetCodeState = const BaseState(),
     this.resetPasswordState = const BaseState(),

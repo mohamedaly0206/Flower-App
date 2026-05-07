@@ -56,7 +56,7 @@ class EmailVerificationView extends StatelessWidget {
                 style: theme.textTheme.bodyMedium,
               ),
               SizedBox(height: 32),
-          
+
               CustomOTPTextField(
                 state: state,
                 onSubmit: (otp) {
@@ -77,7 +77,9 @@ class EmailVerificationView extends StatelessWidget {
                   SizedBox(width: 4),
                   TextButton(
                     onPressed: () {
-                      final request = EnterResetEmailRequest(email: state.email);
+                      final request = EnterResetEmailRequest(
+                        email: state.email,
+                      );
                       context.read<ForgetPasswordCubit>().doIntent(
                         EnterResetEmailIntent(request),
                       );

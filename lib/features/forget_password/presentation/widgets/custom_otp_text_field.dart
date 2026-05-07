@@ -34,7 +34,6 @@ class CustomOTPTextField extends StatelessWidget {
           focusedBorderColor: state.verifyResetCodeState.errorMessage == null
               ? theme.colorScheme.primary
               : theme.colorScheme.error,
-          // styles: AppTextStyles.otpTextStyle,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           enabledBorderColor: state.verifyResetCodeState.errorMessage == null
               ? theme.colorScheme.primaryFixed

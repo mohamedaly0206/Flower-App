@@ -15,7 +15,6 @@ import 'package:flower_app/features/forget_password/domain/usecases/verify_reset
 import 'package:flower_app/features/forget_password/presentation/view_model/cubit/forget_password_cubit.dart';
 import 'package:flower_app/features/forget_password/presentation/view_model/intent/forget_password_intent.dart';
 
-// Generate Mocks for UseCases
 @GenerateMocks([
   EnterResetEmailUseCase,
   VerifyResetCodeUseCase,
@@ -29,15 +28,20 @@ void main() {
   late MockResetPasswordUseCase mockResetPasswordUseCase;
 
   setUpAll(() {
-    // Register Dummy values to prevent Mockito generic return type errors
     provideDummy<BaseResponse<EnterResetEmailEntity>>(
-      SuccessBaseResponse<EnterResetEmailEntity>(data:  EnterResetEmailEntity(message: '', info: '')),
+      SuccessBaseResponse<EnterResetEmailEntity>(
+        data: EnterResetEmailEntity(message: '', info: ''),
+      ),
     );
     provideDummy<BaseResponse<VerifyResetCodeEntity>>(
-      SuccessBaseResponse<VerifyResetCodeEntity>(data:  VerifyResetCodeEntity(status: '')),
+      SuccessBaseResponse<VerifyResetCodeEntity>(
+        data: VerifyResetCodeEntity(status: ''),
+      ),
     );
     provideDummy<BaseResponse<ResetPasswordEntity>>(
-      SuccessBaseResponse<ResetPasswordEntity>(data:  ResetPasswordEntity(token: '', message: '')),
+      SuccessBaseResponse<ResetPasswordEntity>(
+        data: ResetPasswordEntity(token: '', message: ''),
+      ),
     );
   });
 
@@ -54,8 +58,10 @@ void main() {
     blocTest<ForgetPasswordCubit, ForgetPasswordState>(
       'emits [loading, success, updateEmail] when EnterResetEmailIntent is successful',
       build: () {
-        when(mockEnterEmailUseCase.call(any))
-            .thenAnswer((_) async => SuccessBaseResponse<EnterResetEmailEntity>(data: tEntity));
+        when(mockEnterEmailUseCase.call(any)).thenAnswer(
+          (_) async =>
+              SuccessBaseResponse<EnterResetEmailEntity>(data: tEntity),
+        );
         return ForgetPasswordCubit(
           mockEnterEmailUseCase,
           mockResetPasswordUseCase,
@@ -64,12 +70,21 @@ void main() {
       },
       act: (cubit) => cubit.doIntent(EnterResetEmailIntent(tRequest)),
       expect: () => [
-        // 1. First emission: isLoading = true
-        isA<ForgetPasswordState>().having((s) => s.enterEmailState.isLoading, 'isLoading', true),
-        // 2. Second emission: data loaded, isLoading = false
-        isA<ForgetPasswordState>().having((s) => s.enterEmailState.data, 'data', tEntity),
-        // 3. Third emission: email field updated
-        isA<ForgetPasswordState>().having((s) => s.email, 'email', 'test@example.com'),
+        isA<ForgetPasswordState>().having(
+          (s) => s.enterEmailState.isLoading,
+          'isLoading',
+          true,
+        ),
+        isA<ForgetPasswordState>().having(
+          (s) => s.enterEmailState.data,
+          'data',
+          tEntity,
+        ),
+        isA<ForgetPasswordState>().having(
+          (s) => s.email,
+          'email',
+          'test@example.com',
+        ),
       ],
       verify: (_) {
         verify(mockEnterEmailUseCase.call(tRequest)).called(1);
@@ -79,8 +94,11 @@ void main() {
     blocTest<ForgetPasswordCubit, ForgetPasswordState>(
       'emits [loading, error] when EnterResetEmailIntent fails',
       build: () {
-        when(mockEnterEmailUseCase.call(any))
-            .thenAnswer((_) async => ErrorBaseResponse<EnterResetEmailEntity>(errorMessage: 'Invalid Email'));
+        when(mockEnterEmailUseCase.call(any)).thenAnswer(
+          (_) async => ErrorBaseResponse<EnterResetEmailEntity>(
+            errorMessage: 'Invalid Email',
+          ),
+        );
         return ForgetPasswordCubit(
           mockEnterEmailUseCase,
           mockResetPasswordUseCase,
@@ -89,8 +107,16 @@ void main() {
       },
       act: (cubit) => cubit.doIntent(EnterResetEmailIntent(tRequest)),
       expect: () => [
-        isA<ForgetPasswordState>().having((s) => s.enterEmailState.isLoading, 'isLoading', true),
-        isA<ForgetPasswordState>().having((s) => s.enterEmailState.errorMessage, 'errorMessage', 'Invalid Email'),
+        isA<ForgetPasswordState>().having(
+          (s) => s.enterEmailState.isLoading,
+          'isLoading',
+          true,
+        ),
+        isA<ForgetPasswordState>().having(
+          (s) => s.enterEmailState.errorMessage,
+          'errorMessage',
+          'Invalid Email',
+        ),
       ],
     );
   });
@@ -102,8 +128,10 @@ void main() {
     blocTest<ForgetPasswordCubit, ForgetPasswordState>(
       'emits [loading, success] when VerifyResetCodeIntent is successful',
       build: () {
-        when(mockVerifyCodeUseCase.call(any))
-            .thenAnswer((_) async => SuccessBaseResponse<VerifyResetCodeEntity>(data: tEntity));
+        when(mockVerifyCodeUseCase.call(any)).thenAnswer(
+          (_) async =>
+              SuccessBaseResponse<VerifyResetCodeEntity>(data: tEntity),
+        );
         return ForgetPasswordCubit(
           mockEnterEmailUseCase,
           mockResetPasswordUseCase,
@@ -112,21 +140,33 @@ void main() {
       },
       act: (cubit) => cubit.doIntent(VerifyResetCodeIntent(tRequest)),
       expect: () => [
-        isA<ForgetPasswordState>().having((s) => s.verifyResetCodeState.isLoading, 'isLoading', true),
-        isA<ForgetPasswordState>().having((s) => s.verifyResetCodeState.data, 'data', tEntity),
+        isA<ForgetPasswordState>().having(
+          (s) => s.verifyResetCodeState.isLoading,
+          'isLoading',
+          true,
+        ),
+        isA<ForgetPasswordState>().having(
+          (s) => s.verifyResetCodeState.data,
+          'data',
+          tEntity,
+        ),
       ],
     );
   });
 
   group('ForgetPasswordCubit - ResetPassword', () {
-    final tRequest = ResetPasswordRequest(email: 'test@example.com', newPassword: 'password123');
+    final tRequest = ResetPasswordRequest(
+      email: 'test@example.com',
+      newPassword: 'password123',
+    );
     final tEntity = ResetPasswordEntity(token: 'new_token', message: '');
 
     blocTest<ForgetPasswordCubit, ForgetPasswordState>(
       'emits [loading, success] when ResetPasswordIntent is successful',
       build: () {
-        when(mockResetPasswordUseCase.call(any))
-            .thenAnswer((_) async => SuccessBaseResponse<ResetPasswordEntity>(data: tEntity));
+        when(mockResetPasswordUseCase.call(any)).thenAnswer(
+          (_) async => SuccessBaseResponse<ResetPasswordEntity>(data: tEntity),
+        );
         return ForgetPasswordCubit(
           mockEnterEmailUseCase,
           mockResetPasswordUseCase,
@@ -135,8 +175,16 @@ void main() {
       },
       act: (cubit) => cubit.doIntent(ResetPasswordIntent(tRequest)),
       expect: () => [
-        isA<ForgetPasswordState>().having((s) => s.resetPasswordState.isLoading, 'isLoading', true),
-        isA<ForgetPasswordState>().having((s) => s.resetPasswordState.data, 'data', tEntity),
+        isA<ForgetPasswordState>().having(
+          (s) => s.resetPasswordState.isLoading,
+          'isLoading',
+          true,
+        ),
+        isA<ForgetPasswordState>().having(
+          (s) => s.resetPasswordState.data,
+          'data',
+          tEntity,
+        ),
       ],
     );
   });

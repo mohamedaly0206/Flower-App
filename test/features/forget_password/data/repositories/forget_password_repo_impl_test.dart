@@ -16,58 +16,68 @@ import 'package:flower_app/features/forget_password/domain/entities/verify_reset
 
 import 'forget_password_repo_impl_test.mocks.dart';
 
-
 @GenerateMocks([
   ForgetPasswordRemotDataSourceContract,
   EnterResetEmailDTO,
   VerifyResetCodeDTO,
   ResetPasswordDTO,
 ])
-
 void main() {
   late ForgetPasswordRepoImpl repository;
   late MockForgetPasswordRemotDataSourceContract mockDataSource;
 
   setUpAll(() {
     provideDummy<BaseResponse<EnterResetEmailDTO>>(
-      SuccessBaseResponse<EnterResetEmailDTO>(data: EnterResetEmailDTO(message: '', info: '')),
+      SuccessBaseResponse<EnterResetEmailDTO>(
+        data: EnterResetEmailDTO(message: '', info: ''),
+      ),
     );
     provideDummy<BaseResponse<VerifyResetCodeDTO>>(
-      SuccessBaseResponse<VerifyResetCodeDTO>(data: VerifyResetCodeDTO(status: '')),
+      SuccessBaseResponse<VerifyResetCodeDTO>(
+        data: VerifyResetCodeDTO(status: ''),
+      ),
     );
     provideDummy<BaseResponse<ResetPasswordDTO>>(
-      SuccessBaseResponse<ResetPasswordDTO>(data: ResetPasswordDTO(message: '', token: '')),
+      SuccessBaseResponse<ResetPasswordDTO>(
+        data: ResetPasswordDTO(message: '', token: ''),
+      ),
     );
-  
+
     mockDataSource = MockForgetPasswordRemotDataSourceContract();
     repository = ForgetPasswordRepoImpl(mockDataSource);
-  } );
+  });
 
   group('enterResetEmail', () {
     final tRequest = EnterResetEmailRequest(email: "test@example.com");
     final tDto = MockEnterResetEmailDTO();
     final tEntity = EnterResetEmailEntity(message: "Success", info: '');
 
-    test('should return SuccessBaseResponse with Entity when Data Source succeeds', () async {
-      // Arrange
-      when(tDto.toDomain()).thenReturn(tEntity);
-      when(mockDataSource.enterResetEmail(any))
-          .thenAnswer((_) async => SuccessBaseResponse<EnterResetEmailDTO>(data: tDto));
+    test(
+      'should return SuccessBaseResponse with Entity when Data Source succeeds',
+      () async {
+        // Arrange
+        when(tDto.toDomain()).thenReturn(tEntity);
+        when(mockDataSource.enterResetEmail(any)).thenAnswer(
+          (_) async => SuccessBaseResponse<EnterResetEmailDTO>(data: tDto),
+        );
 
-      // Act
-      final result = await repository.enterResetEmail(tRequest);
+        // Act
+        final result = await repository.enterResetEmail(tRequest);
 
-      // Assert
-      expect(result, isA<SuccessBaseResponse<EnterResetEmailEntity>>());
-      expect((result as SuccessBaseResponse).data, tEntity);
-      verify(mockDataSource.enterResetEmail(tRequest)).called(1);
-    });
+        // Assert
+        expect(result, isA<SuccessBaseResponse<EnterResetEmailEntity>>());
+        expect((result as SuccessBaseResponse).data, tEntity);
+        verify(mockDataSource.enterResetEmail(tRequest)).called(1);
+      },
+    );
 
     test('should return ErrorBaseResponse when Data Source fails', () async {
       // Arrange
       const tError = "Email not found";
-      when(mockDataSource.enterResetEmail(any))
-          .thenAnswer((_) async => ErrorBaseResponse<EnterResetEmailDTO>(errorMessage: tError));
+      when(mockDataSource.enterResetEmail(any)).thenAnswer(
+        (_) async =>
+            ErrorBaseResponse<EnterResetEmailDTO>(errorMessage: tError),
+      );
 
       // Act
       final result = await repository.enterResetEmail(tRequest);
@@ -83,19 +93,23 @@ void main() {
     final tDto = MockVerifyResetCodeDTO();
     final tEntity = VerifyResetCodeEntity(status: "Verified");
 
-    test('should return SuccessBaseResponse with Entity when code is verified', () async {
-      // Arrange
-      when(tDto.toDomain()).thenReturn(tEntity);
-      when(mockDataSource.verifyResetCode(any))
-          .thenAnswer((_) async => SuccessBaseResponse<VerifyResetCodeDTO>(data: tDto));
+    test(
+      'should return SuccessBaseResponse with Entity when code is verified',
+      () async {
+        // Arrange
+        when(tDto.toDomain()).thenReturn(tEntity);
+        when(mockDataSource.verifyResetCode(any)).thenAnswer(
+          (_) async => SuccessBaseResponse<VerifyResetCodeDTO>(data: tDto),
+        );
 
-      // Act
-      final result = await repository.verifyResetCode(tRequest);
+        // Act
+        final result = await repository.verifyResetCode(tRequest);
 
-      // Assert
-      expect(result, isA<SuccessBaseResponse<VerifyResetCodeEntity>>());
-      expect((result as SuccessBaseResponse).data, tEntity);
-    });
+        // Assert
+        expect(result, isA<SuccessBaseResponse<VerifyResetCodeEntity>>());
+        expect((result as SuccessBaseResponse).data, tEntity);
+      },
+    );
   });
 
   group('resetPassword', () {
@@ -103,18 +117,22 @@ void main() {
     final tDto = MockResetPasswordDTO();
     final tEntity = ResetPasswordEntity(token: "token", message: '');
 
-    test('should return SuccessBaseResponse with Entity when password is reset', () async {
-      // Arrange
-      when(tDto.toDomain()).thenReturn(tEntity);
-      when(mockDataSource.resetPassword(any))
-          .thenAnswer((_) async => SuccessBaseResponse<ResetPasswordDTO>(data: tDto));
+    test(
+      'should return SuccessBaseResponse with Entity when password is reset',
+      () async {
+        // Arrange
+        when(tDto.toDomain()).thenReturn(tEntity);
+        when(mockDataSource.resetPassword(any)).thenAnswer(
+          (_) async => SuccessBaseResponse<ResetPasswordDTO>(data: tDto),
+        );
 
-      // Act
-      final result = await repository.resetPassword(tRequest);
+        // Act
+        final result = await repository.resetPassword(tRequest);
 
-      // Assert
-      expect(result, isA<SuccessBaseResponse<ResetPasswordEntity>>());
-      expect((result as SuccessBaseResponse).data, tEntity);
-    });
+        // Assert
+        expect(result, isA<SuccessBaseResponse<ResetPasswordEntity>>());
+        expect((result as SuccessBaseResponse).data, tEntity);
+      },
+    );
   });
 }

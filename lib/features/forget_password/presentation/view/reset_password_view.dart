@@ -64,7 +64,7 @@ class ResetPasswordView extends StatelessWidget {
                     message: state.resetPasswordState.errorMessage!,
                   );
                 }
-                if (state.resetPasswordState.data != null&&
+                if (state.resetPasswordState.data != null &&
                     state.resetPasswordState.isLoading == false) {
                   AppMessages.showSuccess(
                     context,
@@ -72,7 +72,7 @@ class ResetPasswordView extends StatelessWidget {
                   );
                   // GoRouter.of(context).go(AppRouterPaths.kLoginView);
                 }
-                if (state.resetPasswordState.isLoading ) {
+                if (state.resetPasswordState.isLoading) {
                   AppLoading.toggle(
                     context: context,
                     isLoading: state.resetPasswordState.isLoading,
