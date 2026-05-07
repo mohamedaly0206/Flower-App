@@ -4,10 +4,10 @@ class ForgetPasswordState extends Equatable {
   final BaseState<EnterResetEmailEntity> enterEmailState;
   final BaseState<VerifyResetCodeEntity> verifyResetCodeState;
   final BaseState<ResetPasswordEntity> resetPasswordState;
-  final String? email;
+  final String email;
 
   const ForgetPasswordState({
-    this.email,
+    this.email='',
     this.enterEmailState = const BaseState(),
     this.verifyResetCodeState = const BaseState(),
     this.resetPasswordState = const BaseState(),
@@ -30,5 +30,6 @@ class ForgetPasswordState extends Equatable {
     enterEmailState,
     verifyResetCodeState,
     resetPasswordState,
+    email,
   ];
 }
