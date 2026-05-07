@@ -83,7 +83,7 @@ class ResetPasswordView extends StatelessWidget {
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     final request = ResetPasswordRequest(
-                      email: state.email!,
+                      email: state.email,
                       newPassword: passwordController.text,
                     );
                     context.read<ForgetPasswordCubit>().doIntent(

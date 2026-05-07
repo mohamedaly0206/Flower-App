@@ -77,7 +77,7 @@ class EmailVerificationView extends StatelessWidget {
                   SizedBox(width: 4),
                   TextButton(
                     onPressed: () {
-                      final request = EnterResetEmailRequest(email: state.email!);
+                      final request = EnterResetEmailRequest(email: state.email);
                       context.read<ForgetPasswordCubit>().doIntent(
                         EnterResetEmailIntent(request),
                       );
