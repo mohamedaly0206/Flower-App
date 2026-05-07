@@ -1,12 +1,13 @@
 import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/core/widgets/custom_app_bar.dart';
 import 'package:flower_app/features/forget_password/presentation/view/email_verification_view.dart';
-import 'package:flower_app/features/forget_password/presentation/view/enter_email_view.dart';
+import 'package:flower_app/features/forget_password/presentation/view/enter_reset_email_view.dart';
 import 'package:flower_app/features/forget_password/presentation/view/reset_password_view.dart';
 import 'package:flutter/material.dart';
 
 class ForgetPasswordView extends StatelessWidget {
-  const ForgetPasswordView({super.key});
+  ForgetPasswordView({super.key});
+  final PageController pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +16,11 @@ class ForgetPasswordView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
         child: PageView(
-          controller: PageController(initialPage: 0),
+          controller: pageController,
+          physics: const NeverScrollableScrollPhysics(),
           children: [
-            EnterEmailView(),
-            EmailVerificationView(),
+            EnterResetEmailView(controller: pageController),
+            EmailVerificationView(controller: pageController),
             ResetPasswordView(),
           ],
         ),

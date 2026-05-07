@@ -1,6 +1,14 @@
+import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/utilities/app_validators.dart';
 import 'package:flower_app/core/values/app_strings.dart';
+import 'package:flower_app/core/widgets/app_loading.dart';
+import 'package:flower_app/core/widgets/app_messages.dart';
+import 'package:flower_app/features/forget_password/data/models/requests/reset_password_request.dart';
+import 'package:flower_app/features/forget_password/presentation/view_model/cubit/forget_password_cubit.dart';
+import 'package:flower_app/features/forget_password/presentation/view_model/intent/forget_password_intent.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class ResetPasswordView extends StatelessWidget {
   const ResetPasswordView({super.key});
@@ -45,7 +53,46 @@ class ResetPasswordView extends StatelessWidget {
             controller: confirmPasswordController,
           ),
           SizedBox(height: 48),
-          ElevatedButton(onPressed: () {}, child: Text(AppStrings.confirm)),
+          BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
+            listener: (context, state) {
+              if (state.resetPasswordState.errorMessage != null &&
+                  state.resetPasswordState.isLoading == false) {
+                AppLoading.toggle(context: context, isLoading: false);
+                AppMessages.showError(
+                  context,
+                  message: state.resetPasswordState.errorMessage!,
+                );
+              }
+              if (state.resetPasswordState.data != null) {
+                AppMessages.showSuccess(
+                  context,
+                  message: state.resetPasswordState.data!.message,
+                );
+                // GoRouter.of(context).go(AppRouterPaths.kLoginView);
+              }
+              if (state.resetPasswordState.isLoading &&
+                  state.resetPasswordState.isLoading == false) {
+                AppLoading.toggle(
+                  context: context,
+                  isLoading: state.resetPasswordState.isLoading,
+                );
+              }
+            },
+            builder: (context, state) => ElevatedButton(
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  final request = ResetPasswordRequest(
+                    email: state.email!,
+                    newPassword: passwordController.text,
+                  );
+                  context.read<ForgetPasswordCubit>().doIntent(
+                    ResetPasswordIntent(request),
+                  );
+                }
+              },
+              child: Text(AppStrings.confirm),
+            ),
+          ),
         ],
       ),
     );
