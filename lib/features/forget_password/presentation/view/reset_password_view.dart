@@ -20,80 +20,82 @@ class ResetPasswordView extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
     final passwordController = TextEditingController();
     final confirmPasswordController = TextEditingController();
-    return Form(
-      key: formKey,
-      child: Column(
-        children: [
-          Text(AppStrings.resetPassword, style: theme.textTheme.titleMedium),
-          SizedBox(height: 10),
-          Text(
-            AppStrings.resetPasswordHint,
-            textAlign: TextAlign.center,
-            style: theme.textTheme.bodyMedium,
-          ),
-          SizedBox(height: 32),
-          TextFormField(
-            decoration: InputDecoration(
-              labelText: AppStrings.newPassword,
-              hintText: AppStrings.enterPassword,
+    return SingleChildScrollView(
+      child: Form(
+        key: formKey,
+        child: Column(
+          children: [
+            Text(AppStrings.resetPassword, style: theme.textTheme.titleMedium),
+            SizedBox(height: 10),
+            Text(
+              AppStrings.resetPasswordHint,
+              textAlign: TextAlign.center,
+              style: theme.textTheme.bodyMedium,
             ),
-            obscureText: true,
-            validator: AppValidators.validatePassword,
-            controller: passwordController,
-          ),
-          SizedBox(height: 24),
-          TextFormField(
-            decoration: InputDecoration(
-              labelText: AppStrings.confirmPassword,
-              hintText: AppStrings.confirmPassword,
+            SizedBox(height: 32),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: AppStrings.newPassword,
+                hintText: AppStrings.enterPassword,
+              ),
+              obscureText: true,
+              validator: AppValidators.validatePassword,
+              controller: passwordController,
             ),
-            obscureText: true,
-            validator: (value) =>
-                AppValidators.confirmPassword(passwordController.text, value),
-            controller: confirmPasswordController,
-          ),
-          SizedBox(height: 48),
-          BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
-            listener: (context, state) {
-              if (state.resetPasswordState.errorMessage != null &&
-                  state.resetPasswordState.isLoading == false) {
-                AppLoading.toggle(context: context, isLoading: false);
-                AppMessages.showError(
-                  context,
-                  message: state.resetPasswordState.errorMessage!,
-                );
-              }
-              if (state.resetPasswordState.data != null) {
-                AppMessages.showSuccess(
-                  context,
-                  message: state.resetPasswordState.data!.message,
-                );
-                // GoRouter.of(context).go(AppRouterPaths.kLoginView);
-              }
-              if (state.resetPasswordState.isLoading &&
-                  state.resetPasswordState.isLoading == false) {
-                AppLoading.toggle(
-                  context: context,
-                  isLoading: state.resetPasswordState.isLoading,
-                );
-              }
-            },
-            builder: (context, state) => ElevatedButton(
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  final request = ResetPasswordRequest(
-                    email: state.email!,
-                    newPassword: passwordController.text,
+            SizedBox(height: 24),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: AppStrings.confirmPassword,
+                hintText: AppStrings.confirmPassword,
+              ),
+              obscureText: true,
+              validator: (value) =>
+                  AppValidators.confirmPassword(passwordController.text, value),
+              controller: confirmPasswordController,
+            ),
+            SizedBox(height: 48),
+            BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
+              listener: (context, state) {
+                if (state.resetPasswordState.errorMessage != null &&
+                    state.resetPasswordState.isLoading == false) {
+                  AppLoading.toggle(context: context, isLoading: false);
+                  AppMessages.showError(
+                    context,
+                    message: state.resetPasswordState.errorMessage!,
                   );
-                  context.read<ForgetPasswordCubit>().doIntent(
-                    ResetPasswordIntent(request),
+                }
+                if (state.resetPasswordState.data != null) {
+                  AppMessages.showSuccess(
+                    context,
+                    message: state.resetPasswordState.data!.message,
+                  );
+                  // GoRouter.of(context).go(AppRouterPaths.kLoginView);
+                }
+                if (state.resetPasswordState.isLoading &&
+                    state.resetPasswordState.isLoading == false) {
+                  AppLoading.toggle(
+                    context: context,
+                    isLoading: state.resetPasswordState.isLoading,
                   );
                 }
               },
-              child: Text(AppStrings.confirm),
+              builder: (context, state) => ElevatedButton(
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    final request = ResetPasswordRequest(
+                      email: state.email!,
+                      newPassword: passwordController.text,
+                    );
+                    context.read<ForgetPasswordCubit>().doIntent(
+                      ResetPasswordIntent(request),
+                    );
+                  }
+                },
+                child: Text(AppStrings.confirm),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

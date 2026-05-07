@@ -41,51 +41,53 @@ class EmailVerificationView extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              AppStrings.emailVerification,
-              style: theme.textTheme.titleMedium,
-            ),
-            SizedBox(height: 10),
-            Text(
-              AppStrings.enterCode,
-              textAlign: TextAlign.center,
-              style: theme.textTheme.bodyMedium,
-            ),
-            SizedBox(height: 32),
-
-            CustomOTPTextField(
-              state: state,
-              onSubmit: (otp) {
-                final request = VerifyResetCodeRequest(code: otp);
-                context.read<ForgetPasswordCubit>().doIntent(
-                  VerifyResetCodeIntent(request),
-                );
-              },
-            ),
-            SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  AppStrings.didNotReceiveCode,
-                  style: theme.textTheme.bodyLarge,
-                ),
-                SizedBox(width: 4),
-                TextButton(
-                  onPressed: () {
-                    final request = EnterResetEmailRequest(email: state.email!);
-                    context.read<ForgetPasswordCubit>().doIntent(
-                      EnterResetEmailIntent(request),
-                    );
-                  },
-                  child: Text(AppStrings.resend),
-                ),
-              ],
-            ),
-          ],
+        return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                AppStrings.emailVerification,
+                style: theme.textTheme.titleMedium,
+              ),
+              SizedBox(height: 10),
+              Text(
+                AppStrings.enterCode,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyMedium,
+              ),
+              SizedBox(height: 32),
+          
+              CustomOTPTextField(
+                state: state,
+                onSubmit: (otp) {
+                  final request = VerifyResetCodeRequest(code: otp);
+                  context.read<ForgetPasswordCubit>().doIntent(
+                    VerifyResetCodeIntent(request),
+                  );
+                },
+              ),
+              SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    AppStrings.didNotReceiveCode,
+                    style: theme.textTheme.bodyLarge,
+                  ),
+                  SizedBox(width: 4),
+                  TextButton(
+                    onPressed: () {
+                      final request = EnterResetEmailRequest(email: state.email!);
+                      context.read<ForgetPasswordCubit>().doIntent(
+                        EnterResetEmailIntent(request),
+                      );
+                    },
+                    child: Text(AppStrings.resend),
+                  ),
+                ],
+              ),
+            ],
+          ),
         );
       },
     );
