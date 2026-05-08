@@ -14,7 +14,7 @@ import 'package:injectable/injectable.dart';
 
 @Injectable(as: ForgetPasswordRepoContract)
 class ForgetPasswordRepoImpl implements ForgetPasswordRepoContract {
-  ForgetPasswordRemoteDataSourceContract forgetPasswordRemoteDataSourceContract;
+  final ForgetPasswordRemoteDataSourceContract forgetPasswordRemoteDataSourceContract;
   ForgetPasswordRepoImpl(this.forgetPasswordRemoteDataSourceContract);
   @override
   Future<BaseResponse<EnterResetEmailEntity>> enterResetEmail(

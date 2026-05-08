@@ -6,13 +6,13 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class EnterResetEmailUseCase {
-  ForgetPasswordRepoContract forgetPasswordRepoContract;
+ final  ForgetPasswordRepoContract forgetPasswordRepoContract;
 
   EnterResetEmailUseCase({required this.forgetPasswordRepoContract});
 
   Future<BaseResponse<EnterResetEmailEntity>> call(
     EnterResetEmailRequest request,
-  ) async {
-    return await forgetPasswordRepoContract.enterResetEmail(request);
+  )  {
+    return  forgetPasswordRepoContract.enterResetEmail(request);
   }
 }
