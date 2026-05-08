@@ -5,7 +5,6 @@ import 'app_colors.dart';
 import 'app_text_styles.dart';
 
 abstract class AppTheme {
-  AppTheme._();
 
   static ThemeData appTheme = ThemeData(
     fontFamily: FontFamily.inter,

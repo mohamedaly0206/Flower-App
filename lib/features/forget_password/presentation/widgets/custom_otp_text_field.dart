@@ -12,7 +12,7 @@ class CustomOTPTextField extends StatelessWidget {
     required this.onSubmit,
     required this.state,
   });
-  final Function(String) onSubmit;
+  final ValueChanged<String> onSubmit;
   final ForgetPasswordState state;
 
   @override
