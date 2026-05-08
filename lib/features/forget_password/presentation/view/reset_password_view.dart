@@ -1,4 +1,4 @@
-import 'package:flower_app/core/router/router_paths.dart';
+//import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/utilities/app_validators.dart';
 import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/core/widgets/app_loading.dart';
@@ -8,19 +8,17 @@ import 'package:flower_app/features/forget_password/presentation/view_model/cubi
 import 'package:flower_app/features/forget_password/presentation/view_model/intent/forget_password_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
+//import 'package:go_router/go_router.dart';
 
 class ResetPasswordView extends StatelessWidget {
-  const ResetPasswordView({super.key});
-
+   ResetPasswordView({super.key});
+  final passwordController = TextEditingController();
+    final confirmPasswordController = TextEditingController();
+    final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
-    final formKey = GlobalKey<FormState>();
-    final passwordController = TextEditingController();
-    final confirmPasswordController = TextEditingController();
-    return SingleChildScrollView(
+   return SingleChildScrollView(
       child: Form(
         key: formKey,
         child: Column(
@@ -66,6 +64,8 @@ class ResetPasswordView extends StatelessWidget {
                 }
                 if (state.resetPasswordState.data != null &&
                     state.resetPasswordState.isLoading == false) {
+                                AppLoading.toggle(context: context, isLoading: false);
+
                   AppMessages.showSuccess(
                     context,
                     message: state.resetPasswordState.data!.message,

@@ -34,6 +34,8 @@ class EmailVerificationView extends StatelessWidget {
         }
         if (state.verifyResetCodeState.data != null &&
             state.verifyResetCodeState.isLoading == false) {
+                        AppLoading.toggle(context: context, isLoading: false);
+
           controller.nextPage(
             duration: Duration(milliseconds: 300),
             curve: Curves.easeInOut,

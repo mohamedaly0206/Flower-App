@@ -57,6 +57,8 @@ class EnterResetEmailView extends StatelessWidget {
                 }
                 if (state.enterEmailState.data != null &&
                     state.enterEmailState.isLoading == false) {
+                                AppLoading.toggle(context: context, isLoading: false);
+
                   controller.nextPage(
                     duration: Duration(milliseconds: 300),
                     curve: Curves.easeInOut,
