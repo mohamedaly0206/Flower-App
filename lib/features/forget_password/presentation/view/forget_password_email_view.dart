@@ -8,8 +8,8 @@ import 'package:flower_app/features/forget_password/presentation/view_model/inte
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class EnterResetEmailView extends StatelessWidget {
-  EnterResetEmailView({super.key, required this.controller});
+class ForgetPasswordEmailView extends StatelessWidget {
+  ForgetPasswordEmailView({super.key, required this.controller});
   final emailController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final PageController controller;
@@ -57,7 +57,7 @@ class EnterResetEmailView extends StatelessWidget {
                 }
                 if (state.enterEmailState.data != null &&
                     state.enterEmailState.isLoading == false) {
-                                AppLoading.toggle(context: context, isLoading: false);
+                  AppLoading.toggle(context: context, isLoading: false);
 
                   controller.nextPage(
                     duration: Duration(milliseconds: 300),
