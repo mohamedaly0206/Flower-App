@@ -3,6 +3,9 @@ abstract class AppStrings {
 
   //auth
   static const String login = 'Login';
+  static const String noToken = 'noToken';
+  static const String authorization = 'Authorization';
+  static const String bearer = 'Bearer';
   static const String loginSuccessfully = 'Login Successfully';
   static const String email = 'Email';
   static const String emailKey = 'email';
