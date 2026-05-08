@@ -1,6 +1,11 @@
-class EnterResetEmailEntity {
+import 'package:equatable/equatable.dart';
+
+class EnterResetEmailEntity extends Equatable {
   final String message;
   final String info;
 
-  EnterResetEmailEntity({required this.message, required this.info});
+ const  EnterResetEmailEntity({required this.message, required this.info});
+  
+  @override
+  List<Object?> get props => [message, info];
 }
