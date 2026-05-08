@@ -51,27 +51,30 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
       ),
     );
     final response = await _enterResetEmailUseCase.call(request);
-    if (response is SuccessBaseResponse<EnterResetEmailEntity>) {
-      emit(
-        state.copyWith(
-          enterEmailState: state.enterEmailState.copyWith(
-            dataParam: response.data,
-            isLoadingParam: false,
-            errorMessageParam: null,
+    switch (response) {
+      case SuccessBaseResponse<EnterResetEmailEntity>():
+        emit(
+          state.copyWith(
+            enterEmailState: state.enterEmailState.copyWith(
+              dataParam: response.data,
+              isLoadingParam: false,
+              errorMessageParam: null,
+            ),
           ),
-        ),
-      );
-      emit(state.copyWith(email: request.email));
-    } else if (response is ErrorBaseResponse<EnterResetEmailEntity>) {
-      emit(
-        state.copyWith(
-          enterEmailState: state.enterEmailState.copyWith(
-            errorMessageParam: response.errorMessage,
-            isLoadingParam: false,
-            dataParam: null,
+        );
+        emit(state.copyWith(email: request.email));
+        break;
+      case ErrorBaseResponse<EnterResetEmailEntity>():
+        emit(
+          state.copyWith(
+            enterEmailState: state.enterEmailState.copyWith(
+              errorMessageParam: response.errorMessage,
+              isLoadingParam: false,
+              dataParam: null,
+            ),
           ),
-        ),
-      );
+        );
+        break;
     }
   }
 
@@ -86,26 +89,29 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
       ),
     );
     final response = await _verifyResetCodeUseCase.call(request);
-    if (response is SuccessBaseResponse<VerifyResetCodeEntity>) {
-      emit(
-        state.copyWith(
-          verifyResetCodeState: state.verifyResetCodeState.copyWith(
-            dataParam: response.data,
-            isLoadingParam: false,
-            errorMessageParam: null,
+    switch (response) {
+      case SuccessBaseResponse<VerifyResetCodeEntity>():
+        emit(
+          state.copyWith(
+            verifyResetCodeState: state.verifyResetCodeState.copyWith(
+              dataParam: response.data,
+              isLoadingParam: false,
+              errorMessageParam: null,
+            ),
           ),
-        ),
-      );
-    } else if (response is ErrorBaseResponse<VerifyResetCodeEntity>) {
-      emit(
-        state.copyWith(
-          verifyResetCodeState: state.verifyResetCodeState.copyWith(
-            errorMessageParam: response.errorMessage,
-            isLoadingParam: false,
-            dataParam: null,
+        );
+        break;
+      case ErrorBaseResponse<VerifyResetCodeEntity>():
+        emit(
+          state.copyWith(
+            verifyResetCodeState: state.verifyResetCodeState.copyWith(
+              errorMessageParam: response.errorMessage,
+              isLoadingParam: false,
+              dataParam: null,
+            ),
           ),
-        ),
-      );
+        );
+        break;
     }
   }
 
@@ -120,26 +126,29 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
       ),
     );
     final response = await _resetPasswordUseCase.call(request);
-    if (response is SuccessBaseResponse<ResetPasswordEntity>) {
-      emit(
-        state.copyWith(
-          resetPasswordState: state.resetPasswordState.copyWith(
-            dataParam: response.data,
-            isLoadingParam: false,
-            errorMessageParam: null,
+    switch (response) {
+      case SuccessBaseResponse<ResetPasswordEntity>():
+        emit(
+          state.copyWith(
+            resetPasswordState: state.resetPasswordState.copyWith(
+              dataParam: response.data,
+              isLoadingParam: false,
+              errorMessageParam: null,
+            ),
           ),
-        ),
-      );
-    } else if (response is ErrorBaseResponse<ResetPasswordEntity>) {
-      emit(
-        state.copyWith(
-          resetPasswordState: state.resetPasswordState.copyWith(
-            errorMessageParam: response.errorMessage,
-            isLoadingParam: false,
-            dataParam: null,
+        );
+        break;
+      case ErrorBaseResponse<ResetPasswordEntity>():
+        emit(
+          state.copyWith(
+            resetPasswordState: state.resetPasswordState.copyWith(
+              errorMessageParam: response.errorMessage,
+              isLoadingParam: false,
+              dataParam: null,
+            ),
           ),
-        ),
-      );
+        );
+        break;
     }
   }
 }
