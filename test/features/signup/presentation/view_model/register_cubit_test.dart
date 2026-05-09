@@ -1,11 +1,11 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flower_app/config/base_response/base_response.dart';
-import 'package:flower_app/features/signup/domain/model/register_details.dart';
-import 'package:flower_app/features/signup/domain/model/register_params.dart';
-import 'package:flower_app/features/signup/domain/model/user_entity.dart';
-import 'package:flower_app/features/signup/domain/use_cases/register_use_case.dart';
-import 'package:flower_app/features/signup/presentation/view_model/register_cubit.dart';
-import 'package:flower_app/features/signup/presentation/view_model/register_state.dart';
+import 'package:flower_app/features/auth/signup/domain/model/register_details.dart';
+import 'package:flower_app/features/auth/signup/domain/model/register_params.dart';
+import 'package:flower_app/features/auth/signup/domain/model/user_entity.dart';
+import 'package:flower_app/features/auth/signup/domain/use_cases/register_use_case.dart';
+import 'package:flower_app/features/auth/signup/presentation/view_model/register_cubit.dart';
+import 'package:flower_app/features/auth/signup/presentation/view_model/register_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -16,15 +16,17 @@ void main() {
   late MockRegisterUseCase mockRegisterUseCase;
 
   setUpAll(() {
-    registerFallbackValue(RegisterParams(
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      rePassword: '',
-      phone: '',
-      gender: '',
-    ));
+    registerFallbackValue(
+      RegisterParams(
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        rePassword: '',
+        phone: '',
+        gender: '',
+      ),
+    );
   });
 
   setUp(() {
@@ -72,8 +74,9 @@ void main() {
     blocTest<RegisterCubit, RegisterState>(
       'emits [loading, success] when register is successful',
       build: () {
-        when(() => mockRegisterUseCase(any()))
-            .thenAnswer((_) async => SuccessBaseResponse(data: tRegisterDetails));
+        when(
+          () => mockRegisterUseCase(any()),
+        ).thenAnswer((_) async => SuccessBaseResponse(data: tRegisterDetails));
         return registerCubit;
       },
       act: (cubit) => cubit.register(tRegisterParams),
@@ -92,8 +95,9 @@ void main() {
     blocTest<RegisterCubit, RegisterState>(
       'emits [loading, error] when register fails',
       build: () {
-        when(() => mockRegisterUseCase(any()))
-            .thenAnswer((_) async => ErrorBaseResponse(errorMessage: 'Error message'));
+        when(() => mockRegisterUseCase(any())).thenAnswer(
+          (_) async => ErrorBaseResponse(errorMessage: 'Error message'),
+        );
         return registerCubit;
       },
       act: (cubit) => cubit.register(tRegisterParams),

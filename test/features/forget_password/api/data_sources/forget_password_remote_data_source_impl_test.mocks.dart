@@ -5,19 +5,19 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i6;
 
-import 'package:flower_app/features/forget_password/api/api_client/forget_password_api_client.dart'
+import 'package:flower_app/features/auth/forget_password/api/api_client/forget_password_api_client.dart'
     as _i5;
-import 'package:flower_app/features/forget_password/data/models/requests/enter_reset_email_request.dart'
+import 'package:flower_app/features/auth/forget_password/data/models/requests/enter_reset_email_request.dart'
     as _i7;
-import 'package:flower_app/features/forget_password/data/models/requests/reset_password_request.dart'
+import 'package:flower_app/features/auth/forget_password/data/models/requests/reset_password_request.dart'
     as _i9;
-import 'package:flower_app/features/forget_password/data/models/requests/verify_reset_code_request.dart'
+import 'package:flower_app/features/auth/forget_password/data/models/requests/verify_reset_code_request.dart'
     as _i8;
-import 'package:flower_app/features/forget_password/data/models/responses/enter_reset_email_dto.dart'
+import 'package:flower_app/features/auth/forget_password/data/models/responses/enter_reset_email_dto.dart'
     as _i2;
-import 'package:flower_app/features/forget_password/data/models/responses/reset_password_dto.dart'
+import 'package:flower_app/features/auth/forget_password/data/models/responses/reset_password_dto.dart'
     as _i4;
-import 'package:flower_app/features/forget_password/data/models/responses/verify_reset_code_dto.dart'
+import 'package:flower_app/features/auth/forget_password/data/models/responses/verify_reset_code_dto.dart'
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 

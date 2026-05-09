@@ -1,7 +1,7 @@
-import 'package:flower_app/features/signup/api/api_services/api_services.dart';
-import 'package:flower_app/features/signup/api/data_sources/register_remote_datasource_impl.dart';
-import 'package:flower_app/features/signup/data/model/register_request.dart';
-import 'package:flower_app/features/signup/data/model/register_response.dart';
+import 'package:flower_app/features/auth/signup/api/api_services/api_services.dart';
+import 'package:flower_app/features/auth/signup/api/data_sources/register_remote_datasource_impl.dart';
+import 'package:flower_app/features/auth/signup/data/model/register_request.dart';
+import 'package:flower_app/features/auth/signup/data/model/register_response.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -37,8 +37,9 @@ void main() {
 
   test('should call register on the API service', () async {
     // arrange
-    when(() => mockApiService.register(any()))
-        .thenAnswer((_) async => tRegisterResponse);
+    when(
+      () => mockApiService.register(any()),
+    ).thenAnswer((_) async => tRegisterResponse);
 
     // act
     final result = await dataSource.register(tRegisterRequest);

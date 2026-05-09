@@ -1,9 +1,9 @@
 import 'package:flower_app/config/base_response/base_response.dart';
 import 'package:flower_app/core/values/app_strings.dart';
-import 'package:flower_app/feature/auth/login/data/data_sources/login_local_data_source.dart';
-import 'package:flower_app/feature/auth/login/data/data_sources/login_remote_data_source.dart';
-import 'package:flower_app/feature/auth/login/data/models/login_response/login_response.dart';
-import 'package:flower_app/feature/auth/login/data/repo/login_repository_impl.dart';
+import 'package:flower_app/features/auth/login/data/data_sources/login_local_data_source.dart';
+import 'package:flower_app/features/auth/login/data/data_sources/login_remote_data_source.dart';
+import 'package:flower_app/features/auth/login/data/models/login_response/login_response.dart';
+import 'package:flower_app/features/auth/login/data/repo/login_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class _FakeLoginRemoteDataSource implements LoginRemoteDataSource {

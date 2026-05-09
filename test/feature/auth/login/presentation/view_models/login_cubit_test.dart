@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:flower_app/config/base_response/base_response.dart';
-import 'package:flower_app/feature/auth/login/data/models/login_response/login_response.dart';
-import 'package:flower_app/feature/auth/login/domain/repo/login_repository.dart';
-import 'package:flower_app/feature/auth/login/domain/use_case/login_use_case.dart';
-import 'package:flower_app/feature/auth/login/presentation/view_model/login_cubit.dart';
-import 'package:flower_app/feature/auth/login/presentation/view_model/login_states.dart';
+import 'package:flower_app/features/auth/login/data/models/login_response/login_response.dart';
+import 'package:flower_app/features/auth/login/domain/repo/login_repository.dart';
+import 'package:flower_app/features/auth/login/domain/use_case/login_use_case.dart';
+import 'package:flower_app/features/auth/login/presentation/view_model/login_cubit.dart';
+import 'package:flower_app/features/auth/login/presentation/view_model/login_states.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class _FakeLoginRepository implements LoginRepository {
