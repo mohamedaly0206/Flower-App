@@ -3,6 +3,7 @@ import 'package:flower_app/core/values/api_endpoints.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../../../../core/values/app_strings.dart';
 import '../../data/model/register_request.dart';
 import '../../data/model/register_response.dart';
 
@@ -15,5 +16,6 @@ abstract class RegisterApiService {
   factory RegisterApiService(Dio dio) = _RegisterApiService;
 
   @POST(ApiEndpoints.signUp)
+  @Extra({AppStrings.noToken: true})
   Future<RegisterResponse> register(@Body() RegisterRequest request);
 }
