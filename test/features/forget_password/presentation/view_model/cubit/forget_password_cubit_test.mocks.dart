@@ -71,13 +71,6 @@ class MockEnterResetEmailUseCase extends _i1.Mock
           as _i2.ForgetPasswordRepoContract);
 
   @override
-  set forgetPasswordRepoContract(_i2.ForgetPasswordRepoContract? value) =>
-      super.noSuchMethod(
-        Invocation.setter(#forgetPasswordRepoContract, value),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   _i4.Future<_i5.BaseResponse<_i6.EnterResetEmailEntity>> call(
     _i7.EnterResetEmailRequest? request,
   ) =>
@@ -115,13 +108,6 @@ class MockVerifyResetCodeUseCase extends _i1.Mock
           as _i2.ForgetPasswordRepoContract);
 
   @override
-  set forgetPasswordRepoContract(_i2.ForgetPasswordRepoContract? value) =>
-      super.noSuchMethod(
-        Invocation.setter(#forgetPasswordRepoContract, value),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   _i4.Future<_i5.BaseResponse<_i10.VerifyResetCodeEntity>> call(
     _i11.VerifyResetCodeRequest? request,
   ) =>
@@ -157,13 +143,6 @@ class MockResetPasswordUseCase extends _i1.Mock
             ),
           )
           as _i2.ForgetPasswordRepoContract);
-
-  @override
-  set forgetPasswordRepoContract(_i2.ForgetPasswordRepoContract? value) =>
-      super.noSuchMethod(
-        Invocation.setter(#forgetPasswordRepoContract, value),
-        returnValueForMissingStub: null,
-      );
 
   @override
   _i4.Future<_i5.BaseResponse<_i13.ResetPasswordEntity>> call(

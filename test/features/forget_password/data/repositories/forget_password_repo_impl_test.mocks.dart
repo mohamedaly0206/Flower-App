@@ -3,31 +3,25 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
+import 'dart:async' as _i3;
 
-import 'package:flower_app/config/base_response/base_response.dart' as _i7;
+import 'package:flower_app/config/base_response/base_response.dart' as _i4;
 import 'package:flower_app/features/forget_password/data/data_sources/forget_password_remote_data_source_contract.dart'
-    as _i5;
-import 'package:flower_app/features/forget_password/data/models/requests/enter_reset_email_request.dart'
-    as _i9;
-import 'package:flower_app/features/forget_password/data/models/requests/reset_password_request.dart'
-    as _i14;
-import 'package:flower_app/features/forget_password/data/models/requests/verify_reset_code_request.dart'
-    as _i12;
-import 'package:flower_app/features/forget_password/data/models/responses/enter_reset_email_dto.dart'
-    as _i8;
-import 'package:flower_app/features/forget_password/data/models/responses/reset_password_dto.dart'
-    as _i13;
-import 'package:flower_app/features/forget_password/data/models/responses/verify_reset_code_dto.dart'
-    as _i11;
-import 'package:flower_app/features/forget_password/domain/entities/enter_reset_email_entity.dart'
     as _i2;
-import 'package:flower_app/features/forget_password/domain/entities/reset_password_entity.dart'
-    as _i4;
-import 'package:flower_app/features/forget_password/domain/entities/verify_reset_code_entity.dart'
-    as _i3;
+import 'package:flower_app/features/forget_password/data/models/requests/enter_reset_email_request.dart'
+    as _i6;
+import 'package:flower_app/features/forget_password/data/models/requests/reset_password_request.dart'
+    as _i11;
+import 'package:flower_app/features/forget_password/data/models/requests/verify_reset_code_request.dart'
+    as _i9;
+import 'package:flower_app/features/forget_password/data/models/responses/enter_reset_email_dto.dart'
+    as _i5;
+import 'package:flower_app/features/forget_password/data/models/responses/reset_password_dto.dart'
+    as _i10;
+import 'package:flower_app/features/forget_password/data/models/responses/verify_reset_code_dto.dart'
+    as _i8;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i10;
+import 'package:mockito/src/dummies.dart' as _i7;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -44,219 +38,60 @@ import 'package:mockito/src/dummies.dart' as _i10;
 // ignore_for_file: subtype_of_sealed_class
 // ignore_for_file: invalid_use_of_internal_member
 
-class _FakeEnterResetEmailEntity_0 extends _i1.SmartFake
-    implements _i2.EnterResetEmailEntity {
-  _FakeEnterResetEmailEntity_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-class _FakeVerifyResetCodeEntity_1 extends _i1.SmartFake
-    implements _i3.VerifyResetCodeEntity {
-  _FakeVerifyResetCodeEntity_1(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
-class _FakeResetPasswordEntity_2 extends _i1.SmartFake
-    implements _i4.ResetPasswordEntity {
-  _FakeResetPasswordEntity_2(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
 /// A class which mocks [ForgetPasswordRemoteDataSourceContract].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockForgetPasswordRemoteDataSourceContract extends _i1.Mock
-    implements _i5.ForgetPasswordRemoteDataSourceContract {
+    implements _i2.ForgetPasswordRemoteDataSourceContract {
   MockForgetPasswordRemoteDataSourceContract() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Future<_i7.BaseResponse<_i8.EnterResetEmailDTO>> enterResetEmail(
-    _i9.EnterResetEmailRequest? request,
+  _i3.Future<_i4.BaseResponse<_i5.EnterResetEmailDTO>> enterResetEmail(
+    _i6.EnterResetEmailRequest? request,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#enterResetEmail, [request]),
             returnValue:
-                _i6.Future<_i7.BaseResponse<_i8.EnterResetEmailDTO>>.value(
-                  _i10.dummyValue<_i7.BaseResponse<_i8.EnterResetEmailDTO>>(
+                _i3.Future<_i4.BaseResponse<_i5.EnterResetEmailDTO>>.value(
+                  _i7.dummyValue<_i4.BaseResponse<_i5.EnterResetEmailDTO>>(
                     this,
                     Invocation.method(#enterResetEmail, [request]),
                   ),
                 ),
           )
-          as _i6.Future<_i7.BaseResponse<_i8.EnterResetEmailDTO>>);
+          as _i3.Future<_i4.BaseResponse<_i5.EnterResetEmailDTO>>);
 
   @override
-  _i6.Future<_i7.BaseResponse<_i11.VerifyResetCodeDTO>> verifyResetCode(
-    _i12.VerifyResetCodeRequest? request,
+  _i3.Future<_i4.BaseResponse<_i8.VerifyResetCodeDTO>> verifyResetCode(
+    _i9.VerifyResetCodeRequest? request,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#verifyResetCode, [request]),
             returnValue:
-                _i6.Future<_i7.BaseResponse<_i11.VerifyResetCodeDTO>>.value(
-                  _i10.dummyValue<_i7.BaseResponse<_i11.VerifyResetCodeDTO>>(
+                _i3.Future<_i4.BaseResponse<_i8.VerifyResetCodeDTO>>.value(
+                  _i7.dummyValue<_i4.BaseResponse<_i8.VerifyResetCodeDTO>>(
                     this,
                     Invocation.method(#verifyResetCode, [request]),
                   ),
                 ),
           )
-          as _i6.Future<_i7.BaseResponse<_i11.VerifyResetCodeDTO>>);
+          as _i3.Future<_i4.BaseResponse<_i8.VerifyResetCodeDTO>>);
 
   @override
-  _i6.Future<_i7.BaseResponse<_i13.ResetPasswordDTO>> resetPassword(
-    _i14.ResetPasswordRequest? request,
+  _i3.Future<_i4.BaseResponse<_i10.ResetPasswordDTO>> resetPassword(
+    _i11.ResetPasswordRequest? request,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#resetPassword, [request]),
             returnValue:
-                _i6.Future<_i7.BaseResponse<_i13.ResetPasswordDTO>>.value(
-                  _i10.dummyValue<_i7.BaseResponse<_i13.ResetPasswordDTO>>(
+                _i3.Future<_i4.BaseResponse<_i10.ResetPasswordDTO>>.value(
+                  _i7.dummyValue<_i4.BaseResponse<_i10.ResetPasswordDTO>>(
                     this,
                     Invocation.method(#resetPassword, [request]),
                   ),
                 ),
           )
-          as _i6.Future<_i7.BaseResponse<_i13.ResetPasswordDTO>>);
-}
-
-/// A class which mocks [EnterResetEmailDTO].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockEnterResetEmailDTO extends _i1.Mock
-    implements _i8.EnterResetEmailDTO {
-  MockEnterResetEmailDTO() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  String get message =>
-      (super.noSuchMethod(
-            Invocation.getter(#message),
-            returnValue: _i10.dummyValue<String>(
-              this,
-              Invocation.getter(#message),
-            ),
-          )
-          as String);
-
-  @override
-  String get info =>
-      (super.noSuchMethod(
-            Invocation.getter(#info),
-            returnValue: _i10.dummyValue<String>(
-              this,
-              Invocation.getter(#info),
-            ),
-          )
-          as String);
-
-  @override
-  Map<String, dynamic> toJson() =>
-      (super.noSuchMethod(
-            Invocation.method(#toJson, []),
-            returnValue: <String, dynamic>{},
-          )
-          as Map<String, dynamic>);
-
-  @override
-  _i2.EnterResetEmailEntity toDomain() =>
-      (super.noSuchMethod(
-            Invocation.method(#toDomain, []),
-            returnValue: _FakeEnterResetEmailEntity_0(
-              this,
-              Invocation.method(#toDomain, []),
-            ),
-          )
-          as _i2.EnterResetEmailEntity);
-}
-
-/// A class which mocks [VerifyResetCodeDTO].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockVerifyResetCodeDTO extends _i1.Mock
-    implements _i11.VerifyResetCodeDTO {
-  MockVerifyResetCodeDTO() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  String get status =>
-      (super.noSuchMethod(
-            Invocation.getter(#status),
-            returnValue: _i10.dummyValue<String>(
-              this,
-              Invocation.getter(#status),
-            ),
-          )
-          as String);
-
-  @override
-  Map<String, dynamic> toJson() =>
-      (super.noSuchMethod(
-            Invocation.method(#toJson, []),
-            returnValue: <String, dynamic>{},
-          )
-          as Map<String, dynamic>);
-
-  @override
-  _i3.VerifyResetCodeEntity toDomain() =>
-      (super.noSuchMethod(
-            Invocation.method(#toDomain, []),
-            returnValue: _FakeVerifyResetCodeEntity_1(
-              this,
-              Invocation.method(#toDomain, []),
-            ),
-          )
-          as _i3.VerifyResetCodeEntity);
-}
-
-/// A class which mocks [ResetPasswordDTO].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockResetPasswordDTO extends _i1.Mock implements _i13.ResetPasswordDTO {
-  MockResetPasswordDTO() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  String get message =>
-      (super.noSuchMethod(
-            Invocation.getter(#message),
-            returnValue: _i10.dummyValue<String>(
-              this,
-              Invocation.getter(#message),
-            ),
-          )
-          as String);
-
-  @override
-  String get token =>
-      (super.noSuchMethod(
-            Invocation.getter(#token),
-            returnValue: _i10.dummyValue<String>(
-              this,
-              Invocation.getter(#token),
-            ),
-          )
-          as String);
-
-  @override
-  Map<String, dynamic> toJson() =>
-      (super.noSuchMethod(
-            Invocation.method(#toJson, []),
-            returnValue: <String, dynamic>{},
-          )
-          as Map<String, dynamic>);
-
-  @override
-  _i4.ResetPasswordEntity toDomain() =>
-      (super.noSuchMethod(
-            Invocation.method(#toDomain, []),
-            returnValue: _FakeResetPasswordEntity_2(
-              this,
-              Invocation.method(#toDomain, []),
-            ),
-          )
-          as _i4.ResetPasswordEntity);
+          as _i3.Future<_i4.BaseResponse<_i10.ResetPasswordDTO>>);
 }

@@ -1,15 +1,18 @@
-import 'package:flower_app/features/forget_password/api/data_sources/forget_password_remote_data_source_impl.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:dio/dio.dart';
 import 'package:flower_app/config/base_response/base_response.dart';
+import 'package:flower_app/core/errors/failures.dart';
 import 'package:flower_app/features/forget_password/api/api_client/forget_password_api_client.dart';
+import 'package:flower_app/features/forget_password/api/data_sources/forget_password_remote_data_source_impl.dart';
 import 'package:flower_app/features/forget_password/data/models/requests/enter_reset_email_request.dart';
 import 'package:flower_app/features/forget_password/data/models/requests/reset_password_request.dart';
 import 'package:flower_app/features/forget_password/data/models/requests/verify_reset_code_request.dart';
 import 'package:flower_app/features/forget_password/data/models/responses/enter_reset_email_dto.dart';
 import 'package:flower_app/features/forget_password/data/models/responses/reset_password_dto.dart';
 import 'package:flower_app/features/forget_password/data/models/responses/verify_reset_code_dto.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+
 import 'forget_password_remote_data_source_impl_test.mocks.dart';
 
 @GenerateMocks([ForgetPasswordApiClient])
@@ -43,20 +46,39 @@ void main() {
       },
     );
 
-    test('should return ErrorBaseResponse when API call fails', () async {
-      when(
-        mockApiClient.enterResetEmail(any),
-      ).thenThrow(Exception("Network Error"));
+    test(
+      'should return ErrorBaseResponse with mapped ServerFailure message on DioException',
+      () async {
+        // Arrange: Simulate a 404 error via Dio
+        final tDioException = DioException(
+          requestOptions: RequestOptions(path: ''),
+          type: DioExceptionType.badResponse,
+          response: Response(
+            requestOptions: RequestOptions(path: ''),
+            statusCode: 404,
+          ),
+        );
 
-      final result = await dataSource.enterResetEmail(tRequest);
+        when(mockApiClient.enterResetEmail(any)).thenThrow(tDioException);
 
-      expect(result, isA<ErrorBaseResponse<EnterResetEmailDTO>>());
-      verify(mockApiClient.enterResetEmail(tRequest)).called(1);
-    });
+        // Act
+        final result = await dataSource.enterResetEmail(tRequest);
+
+        // Assert
+        expect(result, isA<ErrorBaseResponse<EnterResetEmailDTO>>());
+        final errorResult = result as ErrorBaseResponse;
+
+        // PR FIX: Check if the message matches the Failure handler's output
+        final expectedMessage = ServerFailure.failureHandler(
+          tDioException,
+        ).errorMessage;
+        expect(errorResult.errorMessage, expectedMessage);
+      },
+    );
   });
 
   group('verifyResetCode', () {
-    final tRequest = VerifyResetCodeRequest(code: '');
+    final tRequest = VerifyResetCodeRequest(code: '123456');
     final tResponseDTO = VerifyResetCodeDTO(status: "Verified");
 
     test('should return SuccessBaseResponse when code is valid', () async {
@@ -68,20 +90,26 @@ void main() {
 
       expect(result, isA<SuccessBaseResponse<VerifyResetCodeDTO>>());
       expect((result as SuccessBaseResponse).data, tResponseDTO);
-      verify(mockApiClient.verifyResetCode(tRequest)).called(1);
     });
 
     test(
-      'should return ErrorBaseResponse when code is invalid/expired',
+      'should return ErrorBaseResponse with default message on generic Exception',
       () async {
-        when(
-          mockApiClient.verifyResetCode(any),
-        ).thenThrow(Exception("Invalid Code"));
+        // Arrange
+        final tException = Exception("Unexpected Error");
+        when(mockApiClient.verifyResetCode(any)).thenThrow(tException);
 
+        // Act
         final result = await dataSource.verifyResetCode(tRequest);
 
+        // Assert
         expect(result, isA<ErrorBaseResponse<VerifyResetCodeDTO>>());
-        verify(mockApiClient.verifyResetCode(tRequest)).called(1);
+        final errorResult = result as ErrorBaseResponse;
+
+        final expectedMessage = ServerFailure.failureHandler(
+          tException,
+        ).errorMessage;
+        expect(errorResult.errorMessage, expectedMessage);
       },
     );
   });
@@ -92,8 +120,8 @@ void main() {
       newPassword: "password123",
     );
     final tResponseDTO = ResetPasswordDTO(
-      token: "new_token_example",
-      message: '',
+      token: "new_token",
+      message: 'Success',
     );
 
     test(
@@ -107,19 +135,33 @@ void main() {
 
         expect(result, isA<SuccessBaseResponse<ResetPasswordDTO>>());
         expect((result as SuccessBaseResponse).data, tResponseDTO);
-        verify(mockApiClient.resetPassword(tRequest)).called(1);
       },
     );
 
-    test('should return ErrorBaseResponse when reset password fails', () async {
-      when(
-        mockApiClient.resetPassword(any),
-      ).thenThrow(Exception("Server Failure"));
+    test(
+      'should return ErrorBaseResponse with custom message from response data (400/401/409)',
+      () async {
+        const customErrorMessage = "Unauthorized access";
+        final tDioException = DioException(
+          requestOptions: RequestOptions(path: ''),
+          type: DioExceptionType.badResponse,
+          response: Response(
+            requestOptions: RequestOptions(path: ''),
+            statusCode: 401,
+            data: {'message': customErrorMessage},
+          ),
+        );
 
-      final result = await dataSource.resetPassword(tRequest);
+        when(mockApiClient.resetPassword(any)).thenThrow(tDioException);
 
-      expect(result, isA<ErrorBaseResponse<ResetPasswordDTO>>());
-      verify(mockApiClient.resetPassword(tRequest)).called(1);
-    });
+        // Act
+        final result = await dataSource.resetPassword(tRequest);
+
+        // Assert
+        expect(result, isA<ErrorBaseResponse<ResetPasswordDTO>>());
+        final errorResult = result as ErrorBaseResponse;
+        expect(errorResult.errorMessage, customErrorMessage);
+      },
+    );
   });
 }
