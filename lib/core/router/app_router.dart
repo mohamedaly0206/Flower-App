@@ -1,5 +1,7 @@
 import 'package:flower_app/config/di/di.dart';
 import 'package:flower_app/core/router/router_paths.dart';
+import 'package:flower_app/features/forget_password/presentation/view_model/cubit/forget_password_cubit.dart';
+import 'package:flower_app/features/forget_password/presentation/view/forget_password_screen.dart';
 import 'package:flower_app/feature/app_sections/app_sections.dart';
 import 'package:flower_app/feature/auth/login/presentation/view_model/login_cubit.dart';
 import 'package:flower_app/feature/auth/login/presentation/views/login_view.dart';
@@ -40,6 +42,13 @@ abstract class AppRouter {
       //   path: AppRouterPaths.kSignUpView,
       //   builder: (context, state) => const SignUpView(),
       // ),
+      GoRoute(
+        path: AppRouterPaths.kForgetPasswordView,
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<ForgetPasswordCubit>(),
+          child: ForgetPasswordScreen(),
+        ),
+      ),
       // GoRoute(
       //   path: AppRouterPaths.kLoginView,
       //   builder: (context, state) => const LoginView(),
