@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:flower_app/config/base_response/base_response.dart';
-import 'package:flower_app/config/base_state/base_state.dart';
 import 'package:flower_app/feature/auth/login/data/models/login_response/login_response.dart';
 import 'package:flower_app/feature/auth/login/domain/repo/login_repository.dart';
 import 'package:flower_app/feature/auth/login/domain/use_case/login_use_case.dart';
 import 'package:flower_app/feature/auth/login/presentation/view_model/login_cubit.dart';
+import 'package:flower_app/feature/auth/login/presentation/view_model/login_states.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class _FakeLoginRepository implements LoginRepository {
@@ -47,23 +47,29 @@ void main() {
       await cubit.close();
     });
 
-    test('starts with initial base state and obscured password', () {
-      expect(cubit.state, const BaseState<LoginResponse>());
-      expect(cubit.obscurePassword, isTrue);
+    test('starts with initial state', () {
+      expect(cubit.state, const LoginInitial());
     });
 
-    test('toggles obscure password value', () {
-      cubit.toggleObscurePassword();
-      expect(cubit.obscurePassword, isFalse);
+    test('toggles password visibility', () async {
+      final emittedStates = <LoginState>[];
+      final subscription = cubit.stream.listen(emittedStates.add);
 
-      cubit.toggleObscurePassword();
-      expect(cubit.obscurePassword, isTrue);
+      cubit.togglePasswordVisibility();
+      cubit.togglePasswordVisibility();
+      await Future<void>.delayed(Duration.zero);
+      await subscription.cancel();
+
+      expect(emittedStates, [
+        const LoginInitial(obscurePassword: false),
+        const LoginInitial(),
+      ]);
     });
 
     test('emits loading then data state on successful login', () async {
       final loginResponse = LoginResponse(message: 'success', token: 'token');
       repository.response = SuccessBaseResponse(data: loginResponse);
-      final emittedStates = <BaseState<LoginResponse>>[];
+      final emittedStates = <LoginState>[];
       final subscription = cubit.stream.listen(emittedStates.add);
 
       await cubit.login(email: 'user@mail.com', password: 'password123');
@@ -73,14 +79,14 @@ void main() {
       expect(repository.receivedEmail, 'user@mail.com');
       expect(repository.receivedPassword, 'password123');
       expect(emittedStates, [
-        const BaseState<LoginResponse>(isLoading: true),
-        BaseState<LoginResponse>(data: loginResponse),
+        const LoginLoading(),
+        LoginSuccess(loginResponse),
       ]);
     });
 
     test('emits loading then error state on failed login', () async {
       repository.response = ErrorBaseResponse(errorMessage: 'invalid login');
-      final emittedStates = <BaseState<LoginResponse>>[];
+      final emittedStates = <LoginState>[];
       final subscription = cubit.stream.listen(emittedStates.add);
 
       await cubit.login(email: 'user@mail.com', password: 'wrongPassword');
@@ -88,8 +94,8 @@ void main() {
       await subscription.cancel();
 
       expect(emittedStates, [
-        const BaseState<LoginResponse>(isLoading: true),
-        const BaseState<LoginResponse>(errorMessage: 'invalid login'),
+        const LoginLoading(),
+        const LoginFailure('invalid login'),
       ]);
     });
 

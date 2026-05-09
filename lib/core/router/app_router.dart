@@ -1,7 +1,10 @@
+import 'package:flower_app/config/di/di.dart';
 import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/feature/app_sections/app_sections.dart';
+import 'package:flower_app/feature/auth/login/presentation/view_model/login_cubit.dart';
 import 'package:flower_app/feature/auth/login/presentation/views/login_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../values/app_strings.dart';
@@ -22,7 +25,10 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: AppRouterPaths.kLoginView,
-        builder: (context, state) => const LoginView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<LoginCubit>(),
+          child: const LoginView(),
+        ),
       ),
       GoRoute(
         path: AppRouterPaths.kAppSections,

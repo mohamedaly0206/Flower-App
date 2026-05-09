@@ -1,44 +1,38 @@
 import 'package:flower_app/config/base_response/base_response.dart';
-import 'package:flower_app/config/base_state/base_state.dart';
 import 'package:flower_app/feature/auth/login/data/models/login_response/login_response.dart';
 import 'package:flower_app/feature/auth/login/domain/use_case/login_use_case.dart';
-import 'package:flutter/material.dart';
+import 'package:flower_app/feature/auth/login/presentation/view_model/login_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class LoginCubit extends Cubit<BaseState<LoginResponse>> {
+class LoginCubit extends Cubit<LoginState> {
   final LoginUseCase _loginUseCase;
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
-  bool obscurePassword = true;
 
-  LoginCubit(this._loginUseCase) : super(const BaseState<LoginResponse>());
+  LoginCubit(this._loginUseCase) : super(const LoginInitial());
 
-  void toggleObscurePassword() {
-    obscurePassword = !obscurePassword;
+  void togglePasswordVisibility() {
+    if (state is LoginLoading) return;
+
+    emit(LoginInitial(obscurePassword: !state.obscurePassword));
   }
 
   Future<void> login({required String email, required String password}) async {
-    if (state.isLoading) return;
+    if (state is LoginLoading) return;
 
-    emit(const BaseState<LoginResponse>(isLoading: true));
+    final obscurePassword = state.obscurePassword;
+
+    emit(LoginLoading(obscurePassword: obscurePassword));
 
     final result = await _loginUseCase(email: email, password: password);
 
     switch (result) {
       case SuccessBaseResponse<LoginResponse>():
-        emit(BaseState<LoginResponse>(data: result.data));
+        emit(LoginSuccess(result.data, obscurePassword: obscurePassword));
       case ErrorBaseResponse<LoginResponse>():
-        emit(BaseState<LoginResponse>(errorMessage: result.errorMessage));
+        emit(
+          LoginFailure(result.errorMessage, obscurePassword: obscurePassword),
+        );
     }
-  }
-
-  @override
-  Future<void> close() {
-    emailController.dispose();
-    passwordController.dispose();
-    return super.close();
   }
 }
