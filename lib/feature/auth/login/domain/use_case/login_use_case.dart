@@ -1,0 +1,18 @@
+import 'package:flower_app/config/base_response/base_response.dart';
+import 'package:flower_app/feature/auth/login/data/models/login_response/login_response.dart';
+import 'package:flower_app/feature/auth/login/domain/repo/login_repository.dart';
+import 'package:injectable/injectable.dart';
+
+@injectable
+class LoginUseCase {
+  final LoginRepository _loginRepository;
+
+  LoginUseCase(this._loginRepository);
+
+  Future<BaseResponse<LoginResponse>> call({
+    required String email,
+    required String password,
+  }) {
+    return _loginRepository.login(email: email, password: password);
+  }
+}
