@@ -1,3 +1,5 @@
+import 'package:flower_app/core/router/router_paths.dart';
+import 'package:flower_app/features/signup/presentation/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -5,7 +7,7 @@ import '../values/app_strings.dart';
 
 abstract class AppRouter {
   static GoRouter getRouter() => GoRouter(
-    //initialLocation: AppRouterPaths.kLoginView,
+    initialLocation: AppRouterPaths.kSignUpView,
     errorBuilder: (context, state) => Scaffold(
       body: Center(
         child: Text(
@@ -19,10 +21,10 @@ abstract class AppRouter {
       //   path: AppRouterPaths.kLoginView,
       //   builder: (context, state) => const LoginView(),
       // ),
-      // GoRoute(
-      //   path: AppRouterPaths.kSignUpView,
-      //   builder: (context, state) => const SignUpView(),
-      // ),
+      GoRoute(
+        path: AppRouterPaths.kSignUpView,
+        builder: (context, state) => const RegisterScreen(),
+      ),
       // GoRoute(
       //   path: AppRouterPaths.kForgetPasswordView,
       //   builder: (context, state) => const ForgetPasswordView(),

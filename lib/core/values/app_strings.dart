@@ -31,7 +31,7 @@ abstract class AppStrings {
   static const String phone = 'Phone Number';
   static const String enterPhoneNumber = 'Enter phone number';
   static const String gender = 'Gender';
-  static const String femail = 'Femail';
+  static const String female = 'Female';
   static const String male = 'Male';
   static const String creatingAnAccountYouAgreeToOur =
       'Creating an account, you agree to our';
