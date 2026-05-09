@@ -9,4 +9,5 @@ abstract class AppRouterPaths {
   static const kSearchView = '/searchView';
   static const kProfileView = '/profileView';
   static const kResetPasswordView = '/resetPasswordView';
+  static const kAppSections = '/appSections';
 }
