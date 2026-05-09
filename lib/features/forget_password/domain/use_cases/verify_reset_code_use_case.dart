@@ -12,7 +12,7 @@ class VerifyResetCodeUseCase {
 
   Future<BaseResponse<VerifyResetCodeEntity>> call(
     VerifyResetCodeRequest request,
-  )  {
-    return  forgetPasswordRepoContract.verifyResetCode(request);
+  ) {
+    return forgetPasswordRepoContract.verifyResetCode(request);
   }
 }

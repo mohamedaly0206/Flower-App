@@ -59,7 +59,8 @@ void main() {
       'emits [loading, success, updateEmail] when EnterResetEmailIntent is successful',
       setUp: () {
         when(mockEnterEmailUseCase.call(any)).thenAnswer(
-          (_) async => SuccessBaseResponse<EnterResetEmailEntity>(data: tEntity),
+          (_) async =>
+              SuccessBaseResponse<EnterResetEmailEntity>(data: tEntity),
         );
       },
       build: () => ForgetPasswordCubit(
@@ -69,9 +70,21 @@ void main() {
       ),
       act: (cubit) => cubit.doIntent(EnterResetEmailIntent(tRequest)),
       expect: () => [
-        isA<ForgetPasswordState>().having((s) => s.enterEmailState.isLoading, 'isLoading', true),
-        isA<ForgetPasswordState>().having((s) => s.enterEmailState.data, 'data', tEntity),
-        isA<ForgetPasswordState>().having((s) => s.email, 'email', 'test@example.com'),
+        isA<ForgetPasswordState>().having(
+          (s) => s.enterEmailState.isLoading,
+          'isLoading',
+          true,
+        ),
+        isA<ForgetPasswordState>().having(
+          (s) => s.enterEmailState.data,
+          'data',
+          tEntity,
+        ),
+        isA<ForgetPasswordState>().having(
+          (s) => s.email,
+          'email',
+          'test@example.com',
+        ),
       ],
       verify: (_) {
         verify(mockEnterEmailUseCase.call(tRequest)).called(1);
@@ -82,7 +95,9 @@ void main() {
       'emits [loading, error] when EnterResetEmailIntent fails',
       setUp: () {
         when(mockEnterEmailUseCase.call(any)).thenAnswer(
-          (_) async => ErrorBaseResponse<EnterResetEmailEntity>(errorMessage: 'Invalid Email'),
+          (_) async => ErrorBaseResponse<EnterResetEmailEntity>(
+            errorMessage: 'Invalid Email',
+          ),
         );
       },
       build: () => ForgetPasswordCubit(
@@ -92,8 +107,16 @@ void main() {
       ),
       act: (cubit) => cubit.doIntent(EnterResetEmailIntent(tRequest)),
       expect: () => [
-        isA<ForgetPasswordState>().having((s) => s.enterEmailState.isLoading, 'isLoading', true),
-        isA<ForgetPasswordState>().having((s) => s.enterEmailState.errorMessage, 'errorMessage', 'Invalid Email'),
+        isA<ForgetPasswordState>().having(
+          (s) => s.enterEmailState.isLoading,
+          'isLoading',
+          true,
+        ),
+        isA<ForgetPasswordState>().having(
+          (s) => s.enterEmailState.errorMessage,
+          'errorMessage',
+          'Invalid Email',
+        ),
       ],
     );
   });
@@ -106,7 +129,8 @@ void main() {
       'emits [loading, success] when VerifyResetCodeIntent is successful',
       setUp: () {
         when(mockVerifyCodeUseCase.call(any)).thenAnswer(
-          (_) async => SuccessBaseResponse<VerifyResetCodeEntity>(data: tEntity),
+          (_) async =>
+              SuccessBaseResponse<VerifyResetCodeEntity>(data: tEntity),
         );
       },
       build: () => ForgetPasswordCubit(
@@ -116,14 +140,25 @@ void main() {
       ),
       act: (cubit) => cubit.doIntent(VerifyResetCodeIntent(tRequest)),
       expect: () => [
-        isA<ForgetPasswordState>().having((s) => s.verifyResetCodeState.isLoading, 'isLoading', true),
-        isA<ForgetPasswordState>().having((s) => s.verifyResetCodeState.data, 'data', tEntity),
+        isA<ForgetPasswordState>().having(
+          (s) => s.verifyResetCodeState.isLoading,
+          'isLoading',
+          true,
+        ),
+        isA<ForgetPasswordState>().having(
+          (s) => s.verifyResetCodeState.data,
+          'data',
+          tEntity,
+        ),
       ],
     );
   });
 
   group('ForgetPasswordCubit - ResetPassword', () {
-    final tRequest = ResetPasswordRequest(email: 'test@example.com', newPassword: 'password123');
+    final tRequest = ResetPasswordRequest(
+      email: 'test@example.com',
+      newPassword: 'password123',
+    );
     const tEntity = ResetPasswordEntity(token: 'new_token', message: '');
 
     blocTest<ForgetPasswordCubit, ForgetPasswordState>(
@@ -140,8 +175,16 @@ void main() {
       ),
       act: (cubit) => cubit.doIntent(ResetPasswordIntent(tRequest)),
       expect: () => [
-        isA<ForgetPasswordState>().having((s) => s.resetPasswordState.isLoading, 'isLoading', true),
-        isA<ForgetPasswordState>().having((s) => s.resetPasswordState.data, 'data', tEntity),
+        isA<ForgetPasswordState>().having(
+          (s) => s.resetPasswordState.isLoading,
+          'isLoading',
+          true,
+        ),
+        isA<ForgetPasswordState>().having(
+          (s) => s.resetPasswordState.data,
+          'data',
+          tEntity,
+        ),
       ],
     );
   });

@@ -11,14 +11,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 //import 'package:go_router/go_router.dart';
 
 class ResetPasswordView extends StatelessWidget {
-   ResetPasswordView({super.key});
+  ResetPasswordView({super.key});
   final passwordController = TextEditingController();
-    final confirmPasswordController = TextEditingController();
-    final formKey = GlobalKey<FormState>();
+  final confirmPasswordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-   return SingleChildScrollView(
+    return SingleChildScrollView(
       child: Form(
         key: formKey,
         child: Column(
@@ -64,7 +64,7 @@ class ResetPasswordView extends StatelessWidget {
                 }
                 if (state.resetPasswordState.data != null &&
                     state.resetPasswordState.isLoading == false) {
-                                AppLoading.toggle(context: context, isLoading: false);
+                  AppLoading.toggle(context: context, isLoading: false);
 
                   AppMessages.showSuccess(
                     context,

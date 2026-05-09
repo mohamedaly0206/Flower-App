@@ -51,22 +51,26 @@ void main() {
     final tDto = EnterResetEmailDTO(message: "Success", info: 'Some info');
     final tExpectedEntity = tDto.toDomain();
 
-    test('should return SuccessBaseResponse with Entity when Data Source succeeds', () async {
-      when(mockDataSource.enterResetEmail(any)).thenAnswer(
-        (_) async => SuccessBaseResponse<EnterResetEmailDTO>(data: tDto),
-      );
+    test(
+      'should return SuccessBaseResponse with Entity when Data Source succeeds',
+      () async {
+        when(mockDataSource.enterResetEmail(any)).thenAnswer(
+          (_) async => SuccessBaseResponse<EnterResetEmailDTO>(data: tDto),
+        );
 
-      final result = await repository.enterResetEmail(tRequest);
+        final result = await repository.enterResetEmail(tRequest);
 
-      expect(result, isA<SuccessBaseResponse<EnterResetEmailEntity>>());
-      expect((result as SuccessBaseResponse).data, tExpectedEntity);
-      verify(mockDataSource.enterResetEmail(tRequest)).called(1);
-    });
+        expect(result, isA<SuccessBaseResponse<EnterResetEmailEntity>>());
+        expect((result as SuccessBaseResponse).data, tExpectedEntity);
+        verify(mockDataSource.enterResetEmail(tRequest)).called(1);
+      },
+    );
 
     test('should return ErrorBaseResponse when Data Source fails', () async {
       const tError = "Server Error";
       when(mockDataSource.enterResetEmail(any)).thenAnswer(
-        (_) async => ErrorBaseResponse<EnterResetEmailDTO>(errorMessage: tError),
+        (_) async =>
+            ErrorBaseResponse<EnterResetEmailDTO>(errorMessage: tError),
       );
 
       final result = await repository.enterResetEmail(tRequest);
@@ -81,27 +85,35 @@ void main() {
     final tDto = VerifyResetCodeDTO(status: "Verified");
     final tExpectedEntity = tDto.toDomain();
 
-    test('should return SuccessBaseResponse with Entity when code is verified', () async {
-      when(mockDataSource.verifyResetCode(any)).thenAnswer(
-        (_) async => SuccessBaseResponse<VerifyResetCodeDTO>(data: tDto),
-      );
+    test(
+      'should return SuccessBaseResponse with Entity when code is verified',
+      () async {
+        when(mockDataSource.verifyResetCode(any)).thenAnswer(
+          (_) async => SuccessBaseResponse<VerifyResetCodeDTO>(data: tDto),
+        );
 
-      final result = await repository.verifyResetCode(tRequest);
+        final result = await repository.verifyResetCode(tRequest);
 
-      expect(result, isA<SuccessBaseResponse<VerifyResetCodeEntity>>());
-      expect((result as SuccessBaseResponse).data, tExpectedEntity);
-    });
+        expect(result, isA<SuccessBaseResponse<VerifyResetCodeEntity>>());
+        expect((result as SuccessBaseResponse).data, tExpectedEntity);
+      },
+    );
 
-    test('should return ErrorBaseResponse when code verification fails', () async {
-      when(mockDataSource.verifyResetCode(any)).thenAnswer(
-        (_) async => ErrorBaseResponse<VerifyResetCodeDTO>(errorMessage: 'Invalid Code'),
-      );
+    test(
+      'should return ErrorBaseResponse when code verification fails',
+      () async {
+        when(mockDataSource.verifyResetCode(any)).thenAnswer(
+          (_) async => ErrorBaseResponse<VerifyResetCodeDTO>(
+            errorMessage: 'Invalid Code',
+          ),
+        );
 
-      final result = await repository.verifyResetCode(tRequest);
+        final result = await repository.verifyResetCode(tRequest);
 
-      expect(result, isA<ErrorBaseResponse<VerifyResetCodeEntity>>());
-      expect((result as ErrorBaseResponse).errorMessage, 'Invalid Code');
-    });
+        expect(result, isA<ErrorBaseResponse<VerifyResetCodeEntity>>());
+        expect((result as ErrorBaseResponse).errorMessage, 'Invalid Code');
+      },
+    );
   });
 
   group('resetPassword', () {
@@ -109,20 +121,24 @@ void main() {
     final tDto = ResetPasswordDTO(token: "token", message: 'Success');
     final tExpectedEntity = tDto.toDomain();
 
-    test('should return SuccessBaseResponse with Entity when password is reset', () async {
-      when(mockDataSource.resetPassword(any)).thenAnswer(
-        (_) async => SuccessBaseResponse<ResetPasswordDTO>(data: tDto),
-      );
+    test(
+      'should return SuccessBaseResponse with Entity when password is reset',
+      () async {
+        when(mockDataSource.resetPassword(any)).thenAnswer(
+          (_) async => SuccessBaseResponse<ResetPasswordDTO>(data: tDto),
+        );
 
-      final result = await repository.resetPassword(tRequest);
+        final result = await repository.resetPassword(tRequest);
 
-      expect(result, isA<SuccessBaseResponse<ResetPasswordEntity>>());
-      expect((result as SuccessBaseResponse).data, tExpectedEntity);
-    });
+        expect(result, isA<SuccessBaseResponse<ResetPasswordEntity>>());
+        expect((result as SuccessBaseResponse).data, tExpectedEntity);
+      },
+    );
 
     test('should return ErrorBaseResponse when password reset fails', () async {
       when(mockDataSource.resetPassword(any)).thenAnswer(
-        (_) async => ErrorBaseResponse<ResetPasswordDTO>(errorMessage: 'Weak Password'),
+        (_) async =>
+            ErrorBaseResponse<ResetPasswordDTO>(errorMessage: 'Weak Password'),
       );
 
       final result = await repository.resetPassword(tRequest);

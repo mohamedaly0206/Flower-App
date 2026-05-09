@@ -13,7 +13,7 @@ import 'package:injectable/injectable.dart';
 @Injectable(as: ForgetPasswordRemoteDataSourceContract)
 class ForgetPasswordRemoteDataSourceImpl
     implements ForgetPasswordRemoteDataSourceContract {
- final  ForgetPasswordApiClient forgetPasswordApiClient;
+  final ForgetPasswordApiClient forgetPasswordApiClient;
   ForgetPasswordRemoteDataSourceImpl({required this.forgetPasswordApiClient});
 
   @override
