@@ -29,6 +29,8 @@ abstract class AppTheme {
       //surfaceVariant
       onSurfaceVariant: AppColors.secondaryColor,
       onTertiaryFixedVariant: AppColors.transparentColor,
+      onTertiaryFixed: AppColors.placeHolderColor,
+
     ),
     // AppBarTheme
     appBarTheme: AppBarTheme(
