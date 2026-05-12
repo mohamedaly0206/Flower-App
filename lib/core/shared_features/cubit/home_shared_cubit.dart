@@ -10,7 +10,7 @@ import 'package:injectable/injectable.dart';
 class HomeSharedCubit extends Cubit<HomeSharedStates> {
   HomeSharedCubit(this.categoriesUseCase) : super(HomeSharedStates());
   final CategoriesUseCase categoriesUseCase;
-  void handleSharedHomeIntent(HomeSharedIntent intent) {
+  void handleHomeSharedIntent(HomeSharedIntent intent) {
 
     switch (intent) {
       case GetAllHomeDataIntent():
