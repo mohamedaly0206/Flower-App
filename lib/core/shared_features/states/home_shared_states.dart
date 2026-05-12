@@ -1,38 +1,18 @@
-abstract class HomeSharedState {
-  final List<dynamic>? categories;
-  final List<dynamic>? occasions;
-  final List<dynamic>? bestSellers;
+import 'package:equatable/equatable.dart';
 
-  const HomeSharedState({this.categories, this.occasions, this.bestSellers});
-}
+class HomeSharedStates extends Equatable {
+  //example for state class
+  // final BaseState<CategoryEntity> categoriesState;
+  
+  const HomeSharedStates(
+    );
+    // HomeSharedStates copyWith({
+    // }) {
+    //   return HomeSharedStates(
+        
+    //   );
+    // }
 
-class HomeSharedInitial extends HomeSharedState {
-  const HomeSharedInitial();
-}
-
-class HomeSharedLoading extends HomeSharedState {
-  const HomeSharedLoading({
-    super.categories,
-    super.occasions,
-    super.bestSellers,
-  });
-}
-
-class HomeSharedSuccess extends HomeSharedState {
-  const HomeSharedSuccess({
-    super.categories,
-    super.occasions,
-    super.bestSellers,
-  });
-}
-
-class HomeSharedFailure extends HomeSharedState {
-  final String errorMessage;
-
-  const HomeSharedFailure(
-    this.errorMessage, {
-    super.categories,
-    super.occasions,
-    super.bestSellers,
-  });
+  @override
+  List<Object> get props => [];
 }
