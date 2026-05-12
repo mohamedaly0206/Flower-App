@@ -29,23 +29,17 @@ class CategoriesView extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
               ),
             ),
-            SizedBox(height: 32),
+            SizedBox(height: 28),
             Expanded(
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: 30,
-                  crossAxisSpacing: 16,
-                  childAspectRatio: 0.59,
+                  mainAxisSpacing: 18,
+                  crossAxisSpacing: 18,
+                  childAspectRatio: 0.7,
                 ),
                 itemBuilder: (context, index) {
-                  return CustomProductCard(
-                    title: 'flower',
-                    imageProvider: NetworkImage(
-                      'https://e7.pngegg.com/pngimages/923/349/png-clipart-flower-bouquet-graphy-vintage-floral-botanical-pull-free-pink-red-and-white-rose-flower-arrangement-painting-ribbon-flower-arranging-thumbnail.png',
-                    ),
-                    price: 20,
-                  );
+                  return CustomProductCard();
                 },
                 shrinkWrap: true,
                 itemCount: 10,
