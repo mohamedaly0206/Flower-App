@@ -70,15 +70,24 @@ abstract class AppTheme {
     ),
     // ButtonTheme
     elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        minimumSize: Size(double.infinity, 48),
-        backgroundColor: AppColors.primaryColor,
-        foregroundColor: AppColors.whiteColor,
-        elevation: 0,
-        textStyle: AppTextStyles.textStyleMedium16,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        side: BorderSide(color: AppColors.primaryColor),
-      ),
+      style:
+          ElevatedButton.styleFrom(
+            minimumSize: const Size(double.infinity, 48),
+            backgroundColor: AppColors.primaryColor,
+            foregroundColor: AppColors.whiteColor,
+            elevation: 0,
+            textStyle: AppTextStyles.textStyleMedium16,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50),
+            ),
+          ).copyWith(
+            side: WidgetStateProperty.resolveWith<BorderSide?>((states) {
+              if (states.contains(WidgetState.disabled)) {
+                return const BorderSide(color: Colors.transparent);
+              }
+              return const BorderSide(color: AppColors.primaryColor);
+            }),
+          ),
     ),
 
     outlinedButtonTheme: OutlinedButtonThemeData(
