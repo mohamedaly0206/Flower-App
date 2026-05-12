@@ -132,34 +132,38 @@ class _PriceRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          '$currency ${_formatPrice(price)}',
-          style: AppTextStyles.textStyleMedium14.copyWith(
-            color: AppColors.blackColor,
-          ),
-        ),
-        if (oldPrice != null) ...[
-          const SizedBox(width: 8),
+    return SizedBox(
+      child: Row(
+        children: [
           Text(
-            _formatPrice(oldPrice!),
-            style: AppTextStyles.textStyleRegular12.copyWith(
-              color: AppColors.greyColor,
-              decoration: TextDecoration.lineThrough,
+            '$currency ${_formatPrice(price)}',
+            style: AppTextStyles.textStyleMedium14.copyWith(
+              color: AppColors.blackColor,
             ),
           ),
-        ],
-        if (discountPercent != null) ...[
-          const SizedBox(width: 8),
-          Text(
-            '$discountPercent%',
-            style: AppTextStyles.textStyleRegular12.copyWith(
-              color: AppColors.successColor,
+          if (oldPrice != null) ...[
+            const SizedBox(width: 8),
+            Text(
+              _formatPrice(oldPrice!),
+              style: AppTextStyles.textStyleRegular12.copyWith(
+                color: AppColors.greyColor,
+                decoration: TextDecoration.lineThrough,
+              ),
             ),
-          ),
+          ],
+          if (discountPercent != null) ...[
+            const SizedBox(width: 8),
+            Text(
+              '$discountPercent%',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.textStyleRegular12.copyWith(
+                color: AppColors.successColor,
+              ),
+            ),
+          ],
         ],
-      ],
+      ),
     );
   }
 
