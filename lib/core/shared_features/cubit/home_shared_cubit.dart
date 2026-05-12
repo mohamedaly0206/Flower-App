@@ -20,6 +20,9 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
       case GetBestSellersIntent():
         _getBestSellers();
         break;
+      case GetProductsIntent():
+        _getProducts();
+        break;
     }
   }
 
@@ -34,4 +37,6 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
   Future<void> _getOccasions() async {}
 
   Future<void> _getBestSellers() async {}
+
+  Future<void> _getProducts() async {}
 }
