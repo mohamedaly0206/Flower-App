@@ -1,38 +1,20 @@
-abstract class HomeSharedState {
-  final List<dynamic>? categories;
-  final List<dynamic>? occasions;
-  final List<dynamic>? bestSellers;
+import 'package:equatable/equatable.dart';
+import 'package:flower_app/config/base_state/base_state.dart';
+import 'package:flower_app/features/app_sections/categories/domain/entities/category_entity.dart';
 
-  const HomeSharedState({this.categories, this.occasions, this.bestSellers});
-}
+class HomeSharedStates extends Equatable {
+  final BaseState<CategoryEntity> categoriesState;
+  const HomeSharedStates({
+    this.categoriesState=const BaseState()
+    });
+    HomeSharedStates copyWith({
+      BaseState<CategoryEntity>? categoriesState,
+    }) {
+      return HomeSharedStates(
+        categoriesState: categoriesState ?? this.categoriesState,
+      );
+    }
 
-class HomeSharedInitial extends HomeSharedState {
-  const HomeSharedInitial();
-}
-
-class HomeSharedLoading extends HomeSharedState {
-  const HomeSharedLoading({
-    super.categories,
-    super.occasions,
-    super.bestSellers,
-  });
-}
-
-class HomeSharedSuccess extends HomeSharedState {
-  const HomeSharedSuccess({
-    super.categories,
-    super.occasions,
-    super.bestSellers,
-  });
-}
-
-class HomeSharedFailure extends HomeSharedState {
-  final String errorMessage;
-
-  const HomeSharedFailure(
-    this.errorMessage, {
-    super.categories,
-    super.occasions,
-    super.bestSellers,
-  });
+  @override
+  List<Object> get props => [categoriesState];
 }
