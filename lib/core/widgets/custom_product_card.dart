@@ -14,8 +14,7 @@ class CustomProductCard extends StatelessWidget {
   final VoidCallback? onTap;
   final String currency;
 
-  const CustomProductCard(
-    {
+  const CustomProductCard({
     required this.title,
     required this.imageProvider,
     required this.price,
@@ -25,13 +24,12 @@ class CustomProductCard extends StatelessWidget {
     this.onAddToCart,
     this.onTap,
     this.currency = 'EGP',
-  }
-  );
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap, 
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
@@ -47,12 +45,11 @@ class CustomProductCard extends StatelessWidget {
               flex: 4,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(2),
-                child: 
-                  Image(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                  ),
+                child: Image(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                ),
               ),
             ),
             SizedBox(height: 8),
@@ -74,7 +71,7 @@ class CustomProductCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.displayLarge,
                           ),
                           Spacer(),
-      
+
                           Text(
                             '$oldPrice',
                             style: Theme.of(context).textTheme.bodySmall

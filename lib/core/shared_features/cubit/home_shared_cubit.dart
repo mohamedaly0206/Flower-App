@@ -3,11 +3,10 @@ import 'package:flower_app/core/shared_features/states/home_shared_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-@lazySingleton
+@injectable
 class HomeSharedCubit extends Cubit<HomeSharedStates> {
   HomeSharedCubit() : super(HomeSharedStates());
   void handleHomeSharedIntent(HomeSharedIntent intent) {
-
     switch (intent) {
       case GetAllHomeDataIntent():
         _getAllHomeData();
@@ -29,7 +28,6 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
     _getOccasions();
     _getBestSellers();
   }
-
 
   Future<void> _getCategories() async {}
 
