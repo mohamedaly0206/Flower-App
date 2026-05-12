@@ -68,35 +68,45 @@ class CustomProductCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTextStyles.textStyleRegular12.copyWith(
-                      color: AppColors.blackColor,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyles.textStyleRegular12.copyWith(
+                        color: AppColors.blackColor,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  _PriceRow(
-                    currency: currency,
-                    price: price,
-                    oldPrice: oldPrice,
-                    discountPercent: discountPercent,
-                  ),
-                ],
+                    const SizedBox(height: 2),
+                    _PriceRow(
+                      currency: currency,
+                      price: price,
+                      oldPrice: oldPrice,
+                      discountPercent: discountPercent,
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 8),
               ElevatedButton(
                 onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity,30),
+             
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SvgPicture.asset(
                       Assets.icons.shoppingCartIcon,
-                      color: AppColors.whiteColor,
+                      colorFilter: ColorFilter.mode(
+                        AppColors.whiteColor,
+                        BlendMode.srcIn,
+                      ),
                       height: 15,
                     ),
                     SizedBox(width: 8),
