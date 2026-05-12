@@ -1,3 +1,5 @@
+import 'package:flower_app/core/shared_features/data/models/product_dto.dart';
+
 abstract class HomeSharedState {
   const HomeSharedState();
 }
@@ -17,4 +19,22 @@ class HomeSharedSuccess extends HomeSharedState {
 class HomeSharedFailure extends HomeSharedState {
   final String errorMessage;
   const HomeSharedFailure(this.errorMessage);
+}
+
+// ─── Products States ──────────────────────────────────────────────────────────
+
+class ProductsLoading extends HomeSharedState {
+  const ProductsLoading();
+}
+
+class ProductsSuccess extends HomeSharedState {
+  final List<ProductDTO> products;
+
+  const ProductsSuccess({required this.products});
+}
+
+class ProductsFailure extends HomeSharedState {
+  final String errorMessage;
+
+  const ProductsFailure(this.errorMessage);
 }
