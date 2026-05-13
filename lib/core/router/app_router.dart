@@ -6,6 +6,8 @@ import 'package:flower_app/features/app_sections/app_sections.dart';
 import 'package:flower_app/features/auth/login/presentation/view_model/login_cubit.dart';
 import 'package:flower_app/features/auth/login/presentation/views/login_view.dart';
 import 'package:flower_app/features/auth/signup/presentation/screens/register_screen.dart';
+import 'package:flower_app/features/product_details/data/models/product_model.dart';
+import 'package:flower_app/features/product_details/presentation/view/product_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -55,6 +57,12 @@ abstract class AppRouter {
       GoRoute(
         path: AppRouterPaths.kSignUpView,
         builder: (context, state) => const RegisterScreen(),
+      ),
+      GoRoute(
+        path: AppRouterPaths.kProductDetailsView,
+        builder: (context, state) => ProductDetailsView(
+          product: state.extra as ProductModel,
+        ),
       ),
       // GoRoute(
       //   path: AppRouterPaths.kForgetPasswordView,
