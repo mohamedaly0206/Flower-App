@@ -25,6 +25,8 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
       case GetBestSellersIntent():
         _getBestSellers();
         break;
+      case ChangeTabIntent():
+        _changeTab(intent);
     }
   }
 
@@ -63,6 +65,9 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
         break;
     }
   }
+  void _changeTab(ChangeTabIntent intent) {
+  emit(state.copyWith(selectedIndex: intent.index));
+}
 
   Future<void> _getOccasions() async {}
 
