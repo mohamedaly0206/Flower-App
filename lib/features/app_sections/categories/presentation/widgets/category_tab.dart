@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CategoryTab extends StatelessWidget {
-  const CategoryTab({super.key, required this.isSelected, required this.categoryName});
-  final bool isSelected ;
-  final String categoryName ;
+  const CategoryTab({
+    super.key,
+    required this.isSelected,
+    required this.categoryName,
+  });
+  final bool isSelected;
+  final String categoryName;
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +19,13 @@ class CategoryTab extends StatelessWidget {
       padding: const EdgeInsets.only(right: 24),
       child: IntrinsicWidth(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, 
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               categoryName,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: color,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyLarge?.copyWith(color: color),
             ),
             const SizedBox(height: 8),
             Container(

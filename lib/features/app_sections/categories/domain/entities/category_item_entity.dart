@@ -1,5 +1,5 @@
 class CategoryItemEntity {
-   final String id;
+  final String id;
   final String name;
   final String image;
 

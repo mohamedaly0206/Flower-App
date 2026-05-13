@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SearchView extends StatelessWidget {
-   SearchView({super.key});
+  SearchView({super.key});
   final TextEditingController searchController = TextEditingController();
 
   @override
-  
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
@@ -19,8 +18,7 @@ class SearchView extends StatelessWidget {
               height: 56,
               child: TextField(
                 controller: searchController,
-                onChanged: (value) {
-                },
+                onChanged: (value) {},
                 autofocus: true,
                 decoration: InputDecoration(
                   prefixIcon: Padding(
@@ -33,7 +31,10 @@ class SearchView extends StatelessWidget {
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(12),
-                      child: SvgPicture.asset(Assets.icons.cancelIcon, width: 20),
+                      child: SvgPicture.asset(
+                        Assets.icons.cancelIcon,
+                        width: 20,
+                      ),
                     ),
                   ),
                   hintText: AppStrings.search,
@@ -53,8 +54,8 @@ class SearchView extends StatelessWidget {
                 child: Text(
                   AppStrings.searchForAnyProduct,
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
               ),
             ),
@@ -63,7 +64,8 @@ class SearchView extends StatelessWidget {
       ),
     );
   }
-   OutlineInputBorder outlineBorder(BuildContext context) {
+
+  OutlineInputBorder outlineBorder(BuildContext context) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
       borderSide: BorderSide(

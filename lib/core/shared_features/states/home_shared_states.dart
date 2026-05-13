@@ -6,18 +6,18 @@ class HomeSharedStates extends Equatable {
   final BaseState<CategoryEntity> categoriesState;
   final int selectedIndex;
   const HomeSharedStates({
-    this.categoriesState=const BaseState(),
+    this.categoriesState = const BaseState(),
     this.selectedIndex = 0,
   });
   HomeSharedStates copyWith({
     BaseState<CategoryEntity>? categoriesState,
     int? selectedIndex,
   }) {
-      return HomeSharedStates(
-        categoriesState: categoriesState ?? this.categoriesState,
-        selectedIndex: selectedIndex ?? this.selectedIndex,
-      );
-    }
+    return HomeSharedStates(
+      categoriesState: categoriesState ?? this.categoriesState,
+      selectedIndex: selectedIndex ?? this.selectedIndex,
+    );
+  }
 
   @override
   List<Object> get props => [categoriesState, selectedIndex];

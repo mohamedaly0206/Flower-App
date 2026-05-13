@@ -10,5 +10,4 @@ class CategoryEntity {
     required this.metadata,
     required this.categories,
   });
- 
 }

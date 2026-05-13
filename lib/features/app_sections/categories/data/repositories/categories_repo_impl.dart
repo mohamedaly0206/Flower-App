@@ -12,12 +12,16 @@ class CategoriesRepoImpl implements CategoriesRepoContract {
   CategoriesRepoImpl({required this.categoryRemoteDataSource});
   @override
   Future<BaseResponse<CategoryEntity>> getCategories() async {
-    final response=await categoryRemoteDataSource.getCategories();
-    switch(response){
+    final response = await categoryRemoteDataSource.getCategories();
+    switch (response) {
       case SuccessBaseResponse<CategoryDto>():
-        return SuccessBaseResponse<CategoryEntity>(data: response.data.toDomain());
+        return SuccessBaseResponse<CategoryEntity>(
+          data: response.data.toDomain(),
+        );
       case ErrorBaseResponse<CategoryDto>():
-        return ErrorBaseResponse<CategoryEntity>(errorMessage: response.errorMessage);
+        return ErrorBaseResponse<CategoryEntity>(
+          errorMessage: response.errorMessage,
+        );
     }
   }
 }

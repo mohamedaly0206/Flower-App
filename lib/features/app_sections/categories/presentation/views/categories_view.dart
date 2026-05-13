@@ -16,7 +16,8 @@ class CategoriesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          getIt<HomeSharedCubit>()..handleHomeSharedIntent(GetCategoriesIntent()),
+          getIt<HomeSharedCubit>()
+            ..handleHomeSharedIntent(GetCategoriesIntent()),
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(16),

@@ -38,7 +38,7 @@ abstract class AppRouter {
         path: AppRouterPaths.kAppSections,
         builder: (context, state) => const AppSections(),
       ),
-  
+
       GoRoute(
         path: AppRouterPaths.kForgetPasswordView,
         builder: (context, state) => BlocProvider(
@@ -46,14 +46,14 @@ abstract class AppRouter {
           child: ForgetPasswordScreen(),
         ),
       ),
-      
+
       GoRoute(
         path: AppRouterPaths.kSignUpView,
         builder: (context, state) => const RegisterScreen(),
       ),
       GoRoute(
         path: AppRouterPaths.kSearchView,
-        builder: (context, state) =>  SearchView(),
+        builder: (context, state) => SearchView(),
       ),
     ],
   );

@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flower_app/config/base_response/base_response.dart';
 import 'package:flower_app/core/shared_features/Intent/home_shared_intent.dart';
 import 'package:flower_app/core/shared_features/states/home_shared_states.dart';
@@ -13,7 +12,6 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
   HomeSharedCubit(this.categoriesUseCase) : super(HomeSharedStates());
   final CategoriesUseCase categoriesUseCase;
   void handleHomeSharedIntent(HomeSharedIntent intent) {
-
     switch (intent) {
       case GetAllHomeDataIntent():
         _getAllHomeData();
@@ -48,7 +46,7 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
     final response = await categoriesUseCase.getCategories();
     switch (response) {
       case SuccessBaseResponse<CategoryEntity>():
-      log('got categories successfully');
+        log('got categories successfully');
         emit(
           state.copyWith(
             categoriesState: state.categoriesState.copyWith(
@@ -58,8 +56,8 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
           ),
         );
       case ErrorBaseResponse<CategoryEntity>():
-      log('error getting categories');
-              log(response.errorMessage);
+        log('error getting categories');
+        log(response.errorMessage);
 
         emit(
           state.copyWith(
@@ -72,9 +70,10 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
         break;
     }
   }
+
   void _changeTab(ChangeTabIntent intent) {
-  emit(state.copyWith(selectedIndex: intent.index));
-}
+    emit(state.copyWith(selectedIndex: intent.index));
+  }
 
   Future<void> _getOccasions() async {}
 
