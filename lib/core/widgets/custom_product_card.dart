@@ -30,6 +30,7 @@ class CustomProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(8),
       child: Container(
         padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
@@ -59,19 +60,24 @@ class CustomProductCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(title, style: Theme.of(context).textTheme.bodySmall),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        title,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ),
                     SizedBox(height: 4),
-                    Expanded(
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
                       child: Row(
                         children: [
                           Text(
                             '$currency $price',
                             style: Theme.of(context).textTheme.displayLarge,
                           ),
-                          Spacer(),
-
+                          SizedBox(width: 8),
                           Text(
                             '$oldPrice',
                             style: Theme.of(context).textTheme.bodySmall
@@ -95,12 +101,11 @@ class CustomProductCard extends StatelessWidget {
               ),
             ),
             SizedBox(height: 8),
-            Expanded(
-              flex: 1,
+            SizedBox(
+              width: double.infinity,
+              height: 30,
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 30),
-                ),
+                style: ElevatedButton.styleFrom(padding: EdgeInsets.zero),
                 onPressed: onAddToCart,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
