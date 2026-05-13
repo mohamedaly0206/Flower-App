@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flower_app/config/base_response/base_response.dart';
 import 'package:flower_app/core/shared_features/Intent/home_shared_intent.dart';
 import 'package:flower_app/core/shared_features/states/home_shared_states.dart';
@@ -37,6 +39,7 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
   }
 
   Future<void> _getCategories() async {
+    log('getting categories');
     emit(
       state.copyWith(
         categoriesState: state.categoriesState.copyWith(isLoadingParam: true),
@@ -45,6 +48,7 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
     final response = await categoriesUseCase.getCategories();
     switch (response) {
       case SuccessBaseResponse<CategoryEntity>():
+      log('got categories successfully');
         emit(
           state.copyWith(
             categoriesState: state.categoriesState.copyWith(
@@ -54,6 +58,9 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
           ),
         );
       case ErrorBaseResponse<CategoryEntity>():
+      log('error getting categories');
+              log(response.errorMessage);
+
         emit(
           state.copyWith(
             categoriesState: state.categoriesState.copyWith(
