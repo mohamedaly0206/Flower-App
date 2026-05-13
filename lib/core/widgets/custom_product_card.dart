@@ -63,7 +63,9 @@ class CustomProductCard extends StatelessWidget {
                   children: [
                     FittedBox(
                       fit: BoxFit.scaleDown,
-                      child: Text(title, style: Theme.of(context).textTheme.bodySmall,
+                      child: Text(
+                        title,
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
                     SizedBox(height: 4),
@@ -103,9 +105,7 @@ class CustomProductCard extends StatelessWidget {
               width: double.infinity,
               height: 30,
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                ),
+                style: ElevatedButton.styleFrom(padding: EdgeInsets.zero),
                 onPressed: onAddToCart,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
