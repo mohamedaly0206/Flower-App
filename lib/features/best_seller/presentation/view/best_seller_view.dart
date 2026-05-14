@@ -6,6 +6,7 @@ import 'package:flower_app/core/widgets/custom_app_bar.dart';
 import 'package:flower_app/features/best_seller/presentation/widgets/custom_best_seller_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class BestSellerView extends StatelessWidget {
   const BestSellerView({super.key});
@@ -30,7 +31,12 @@ class BestSellerView extends StatelessWidget {
                   final bestSellersState = state.bestSellersState;
 
                   if (bestSellersState.isLoading) {
-                    return const Center(child: CircularProgressIndicator());
+                    return Center(
+                      child: SpinKitFadingCircle(
+                        color: Theme.of(context).colorScheme.primary,
+                        size: 50,
+                      ),
+                    );
                   }
 
                   if (bestSellersState.errorMessage != null) {
