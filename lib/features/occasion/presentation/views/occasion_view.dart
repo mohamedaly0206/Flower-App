@@ -1,5 +1,6 @@
 import 'package:flower_app/core/shared_features/cubit/home_shared_cubit.dart';
 import 'package:flower_app/core/shared_features/data/models/product_dto.dart';
+import 'package:flower_app/core/shared_features/intent/home_shared_intent.dart';
 import 'package:flower_app/core/shared_features/states/home_shared_states.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
@@ -86,7 +87,9 @@ class OccasionView extends StatelessWidget {
       final occasion = state.occasions[state.selectedTabIndex];
 
       if (occasion.id != null) {
-        context.read<HomeSharedCubit>().getProducts(occasionId: occasion.id);
+        context.read<HomeSharedCubit>().handleHomeSharedIntent(
+              GetProductsIntent(occasionId: occasion.id),
+            );
       }
     }
 
@@ -163,15 +166,15 @@ class _OccasionProductGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeSharedCubit, HomeSharedState>(
+    return BlocBuilder<HomeSharedCubit, HomeSharedStates>(
       builder: (context, state) {
-        if (state is ProductsLoading) {
+        if (state.productsState.isLoading) {
           return const Center(
             child: CircularProgressIndicator(color: AppColors.primaryColor),
           );
         }
 
-        if (state is ProductsFailure) {
+        if (state.productsState.errorMessage != null) {
           return Center(
             child: Padding(
               padding: const EdgeInsets.all(24),
@@ -187,7 +190,7 @@ class _OccasionProductGrid extends StatelessWidget {
                   const SizedBox(height: 12),
 
                   Text(
-                    state.errorMessage,
+                    state.productsState.errorMessage!,
                     textAlign: TextAlign.center,
                     style: AppTextStyles.textStyleRegular14.copyWith(
                       color: AppColors.greyColor,
@@ -199,9 +202,9 @@ class _OccasionProductGrid extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       if (occasion.id != null) {
-                        context.read<HomeSharedCubit>().getProducts(
-                          occasionId: occasion.id,
-                        );
+                        context.read<HomeSharedCubit>().handleHomeSharedIntent(
+                              GetProductsIntent(occasionId: occasion.id),
+                            );
                       }
                     },
                     child: const Text('Retry'),
@@ -212,8 +215,8 @@ class _OccasionProductGrid extends StatelessWidget {
           );
         }
 
-        if (state is ProductsSuccess) {
-          final products = state.products;
+        if (state.productsState.data != null) {
+          final products = state.productsState.data!;
 
           if (products.isEmpty) {
             return Center(
