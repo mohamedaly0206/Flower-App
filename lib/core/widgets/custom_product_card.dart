@@ -50,6 +50,19 @@ class CustomProductCard extends StatelessWidget {
                   image: imageProvider,
                   fit: BoxFit.cover,
                   width: double.infinity,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.secondary,
+                      child: Center(
+                        child: Icon(
+                          Icons.image_not_supported_outlined,
+                          color: Theme.of(context).colorScheme.outline,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
