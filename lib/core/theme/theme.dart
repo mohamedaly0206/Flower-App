@@ -32,6 +32,7 @@ abstract class AppTheme {
     ),
     // AppBarTheme
     appBarTheme: AppBarTheme(
+      surfaceTintColor: Colors.transparent,
       backgroundColor: AppColors.whiteColor,
       elevation: 0,
       centerTitle: false,
