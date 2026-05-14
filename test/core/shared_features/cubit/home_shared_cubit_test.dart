@@ -125,7 +125,11 @@ void main() {
       expect(repo.callsCount, 1);
 
       repo.completer!.complete(SuccessBaseResponse(data: bestSellers));
-      firstRequest;
+
+      await firstRequest;
+
+      expect(cubit.state.bestSellersState.isLoading, false);
+      expect(cubit.state.bestSellersState.data, bestSellers);
     });
   });
 }

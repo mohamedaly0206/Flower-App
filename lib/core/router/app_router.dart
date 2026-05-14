@@ -62,9 +62,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: AppRouterPaths.kBestSellerView,
-        builder: (context, state) => BlocProvider.value(
-          value: getIt<HomeSharedCubit>()
-            ..handleHomeSharedIntent(GetBestSellersIntent()),
+        builder: (context, state) => BlocProvider(
+          create: (context) =>
+              getIt<HomeSharedCubit>()
+                ..handleHomeSharedIntent(GetBestSellersIntent()),
           child: const BestSellerView(),
         ),
       ),

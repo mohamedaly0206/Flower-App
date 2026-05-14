@@ -8,7 +8,7 @@ import '../values/assets.gen.dart';
 
 class CustomProductCard extends StatelessWidget {
   final String title;
-  final String imageProvider;
+  final String imageUrl;
   final num price;
   final num? oldPrice;
   final int? discountPercent;
@@ -18,7 +18,7 @@ class CustomProductCard extends StatelessWidget {
 
   const CustomProductCard({
     required this.title,
-    required this.imageProvider,
+    required this.imageUrl,
     required this.price,
     super.key,
     this.oldPrice,
@@ -36,9 +36,7 @@ class CustomProductCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
-          border: Border.all(
-            color: AppColors.placeHolderColor,
-          ),
+          border: Border.all(color: AppColors.placeHolderColor),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
@@ -49,7 +47,7 @@ class CustomProductCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(2),
                 child: CachedNetworkImage(
-                  imageUrl: imageProvider,
+                  imageUrl: imageUrl,
                   fit: BoxFit.cover,
                   width: double.infinity,
                   memCacheHeight: 250,
