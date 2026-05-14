@@ -13,7 +13,7 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
 
   HomeSharedCubit(this._bestSellerUseCase) : super(HomeSharedStates());
 
-  void handleHomeSharedIntent(HomeSharedIntent intent) {
+  Future<void> handleHomeSharedIntent(HomeSharedIntent intent) async{
     switch (intent) {
       case GetAllHomeDataIntent():
         _getAllHomeData();

@@ -23,7 +23,7 @@ class CustomBestSellerGrid extends StatelessWidget {
             product.discount > 0 && product.priceAfterDiscount < product.price;
 
         return CustomProductCard(
-          imageProvider: product.imgCover ?? '',
+          imageUrl: product.imgCover ?? '',
           price: product.priceAfterDiscount,
           title: product.title,
           discountPercent: hasDiscount ? product.discount : null,
