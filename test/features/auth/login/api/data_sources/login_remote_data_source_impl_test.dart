@@ -26,9 +26,9 @@ void main() {
       final result = await dataSource.login('user@mail.com', 'password123');
 
       expect(result, same(apiClient.response));
-      expect(apiClient.receivedBody, {
-        ApiParam.email: 'user@mail.com',
-        ApiParam.password: 'password123',
+      expect(apiClient.receivedBody?.toJson(), {
+        'email': 'user@mail.com',
+        'password': 'password123',
       });
     });
   });
