@@ -1,40 +1,39 @@
+import 'package:equatable/equatable.dart';
+import 'package:flower_app/config/base_state/base_state.dart';
 import 'package:flower_app/core/shared_features/data/models/product_dto.dart';
 
-abstract class HomeSharedState {
-  const HomeSharedState();
-}
+class HomeSharedStates extends Equatable {
+  final BaseState<List<dynamic>> categoriesState;
+  final BaseState<List<dynamic>> occasionsState;
+  final BaseState<List<dynamic>> bestSellersState;
+  final BaseState<List<ProductDTO>> productsState;
 
-class HomeSharedInitial extends HomeSharedState {}
+  const HomeSharedStates({
+    this.categoriesState = const BaseState(),
+    this.occasionsState = const BaseState(),
+    this.bestSellersState = const BaseState(),
+    this.productsState = const BaseState(),
+  });
 
-class HomeSharedLoading extends HomeSharedState {}
+  HomeSharedStates copyWith({
+    BaseState<List<dynamic>>? categoriesState,
+    BaseState<List<dynamic>>? occasionsState,
+    BaseState<List<dynamic>>? bestSellersState,
+    BaseState<List<ProductDTO>>? productsState,
+  }) {
+    return HomeSharedStates(
+      categoriesState: categoriesState ?? this.categoriesState,
+      occasionsState: occasionsState ?? this.occasionsState,
+      bestSellersState: bestSellersState ?? this.bestSellersState,
+      productsState: productsState ?? this.productsState,
+    );
+  }
 
-class HomeSharedSuccess extends HomeSharedState {
-  final List<dynamic>? categories;
-  final List<dynamic>? occasions;
-  final List<dynamic>? bestSellers;
-
-  const HomeSharedSuccess({this.categories, this.occasions, this.bestSellers});
-}
-
-class HomeSharedFailure extends HomeSharedState {
-  final String errorMessage;
-  const HomeSharedFailure(this.errorMessage);
-}
-
-// ─── Products States ──────────────────────────────────────────────────────────
-
-class ProductsLoading extends HomeSharedState {
-  const ProductsLoading();
-}
-
-class ProductsSuccess extends HomeSharedState {
-  final List<ProductDTO> products;
-
-  const ProductsSuccess({required this.products});
-}
-
-class ProductsFailure extends HomeSharedState {
-  final String errorMessage;
-
-  const ProductsFailure(this.errorMessage);
+  @override
+  List<Object?> get props => [
+        categoriesState,
+        occasionsState,
+        bestSellersState,
+        productsState,
+      ];
 }
