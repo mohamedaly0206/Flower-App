@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flower_app/core/shared_features/Intent/home_shared_intent.dart';
-import 'package:flower_app/core/shared_features/cubit/home_shared_cubit.dart';
-import 'package:flower_app/core/shared_features/states/home_shared_states.dart';
+import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_shared_intent.dart';
+import 'package:flower_app/core/shared_features/shared_view_model/cubit/home_shared_cubit.dart';
+import 'package:flower_app/core/shared_features/shared_view_model/states/home_shared_states.dart';
 import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/core/values/assets.gen.dart';
 import 'package:flower_app/core/widgets/custom_product_card.dart';

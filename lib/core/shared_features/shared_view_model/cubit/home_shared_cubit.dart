@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:flower_app/config/base_response/base_response.dart';
-import 'package:flower_app/core/shared_features/Intent/home_shared_intent.dart';
+import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_shared_intent.dart';
 import 'package:flower_app/core/shared_features/products/domain/entities/products_response_entity.dart';
 import 'package:flower_app/core/shared_features/products/domain/use_cases/products_use_case.dart';
-import 'package:flower_app/core/shared_features/states/home_shared_states.dart';
+import 'package:flower_app/core/shared_features/shared_view_model/states/home_shared_states.dart';
 import 'package:flower_app/features/app_sections/categories/domain/entities/category_entity.dart';
 import 'package:flower_app/features/app_sections/categories/domain/use_cases/categories_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

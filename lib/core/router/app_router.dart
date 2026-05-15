@@ -1,6 +1,6 @@
 import 'package:flower_app/config/di/di.dart';
 import 'package:flower_app/core/router/router_paths.dart';
-import 'package:flower_app/core/shared_features/cubit/home_shared_cubit.dart';
+import 'package:flower_app/core/shared_features/shared_view_model/cubit/home_shared_cubit.dart';
 import 'package:flower_app/features/auth/forget_password/presentation/view_model/cubit/forget_password_cubit.dart';
 import 'package:flower_app/features/auth/forget_password/presentation/view/forget_password_screen.dart';
 import 'package:flower_app/features/app_sections/app_sections.dart';
