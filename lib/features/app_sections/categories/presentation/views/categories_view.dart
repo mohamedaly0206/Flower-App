@@ -8,6 +8,7 @@ import 'package:flower_app/features/app_sections/categories/presentation/widgets
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class CategoriesView extends StatelessWidget {
   const CategoriesView({super.key});
@@ -42,35 +43,64 @@ class CategoriesView extends StatelessWidget {
                   );
                 },
               ),
-
               SizedBox(height: 28),
-              Expanded(
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: MediaQuery.of(context).size.width > 600
-                        ? 3
-                        : 2,
-                    mainAxisSpacing: 18,
-                    crossAxisSpacing: 18,
-                    childAspectRatio: 0.72,
-                  ),
-                  itemBuilder: (context, index) {
-                    return CustomProductCard(
-                      title: 'fuchsia-brilliance-vase',
-                      imageProvider: CachedNetworkImageProvider(
-                        'https://cdn1.1800flowers.com/wcsstore/Flowers/images/catalog/191167xlx.jpg?height=755&width=690?auto=webp',
-                      ),
-                      price: 6000,
-                      oldPrice: 9000,
-                      discountPercent: 33,
-                      onAddToCart: () {},
-                      onTap: () {},
-                    );
-                  },
-                  shrinkWrap: true,
-                  itemCount: 10,
-                  scrollDirection: Axis.vertical,
-                ),
+              BlocBuilder<HomeSharedCubit, HomeSharedStates>(
+                builder: (context, state) {
+                  final products = state.productsState.data?.products ?? [];
+                  return Expanded(
+                    child: state.productsState.isLoading
+                        ? Center(
+                            child: SpinKitFadingCircle(
+                              color: Theme.of(context).colorScheme.primary,
+                              size: 50,
+                            ),
+                          )
+                        : products.isEmpty
+                        ? Center(
+                            child: Text(
+                              'No products found in this category',
+                              style: Theme.of(context).textTheme.bodyMedium!
+                                  .copyWith(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                  ),
+                            ),
+                          )
+                        : GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount:
+                                      MediaQuery.of(context).size.width > 600
+                                      ? 3
+                                      : 2,
+                                  mainAxisSpacing: 18,
+                                  crossAxisSpacing: 18,
+                                  childAspectRatio: 0.72,
+                                ),
+                            itemBuilder: (context, index) {
+                              final product =
+                                  state.productsState.data?.products?[index];
+                              return CustomProductCard(
+                                title: product?.title ?? 'Product Title',
+                                imageProvider: CachedNetworkImageProvider(
+                                  product?.imageCover ?? '',
+                                ),
+                                price: product?.price ?? 6000,
+
+                                oldPrice: product?.priceAfterDiscount ?? 9000,
+                                discountPercent: product?.discount ?? 0,
+                                onAddToCart: () {},
+                                onTap: () {},
+                              );
+                            },
+                            shrinkWrap: true,
+                            itemCount:
+                                state.productsState.data?.products?.length ?? 0,
+                            scrollDirection: Axis.vertical,
+                          ),
+                  );
+                },
               ),
             ],
           ),
