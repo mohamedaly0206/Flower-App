@@ -70,9 +70,12 @@ abstract class AppStrings {
   static const String status = 'Status';
   static const String pricesIncludedTax = 'All prices include tax';
   static const String description = 'Description';
+  static const String dummyAddress = '2XVP+XC - Sheikh Zayed';
+  static const String deliverTo = 'Deliver to ';
   static const String inStock = 'In stock';
   static const String outOfStock = 'Out of stock';
   static const String egp = 'EGP';
+  static const String noProductsFound = 'No Products Found';
 
   //cart&checkout
   static const String checkout = 'Checkout';
@@ -99,7 +102,6 @@ abstract class AppStrings {
   static const String addNewAddress = 'Add new address';
   static const String sortBy = 'Sort by';
   static const String searchForAnyProduct = 'Search For Any Product You Want';
-  static const String noProductsFound = 'No products found';
   static const next = 'Next';
 
   //track order
