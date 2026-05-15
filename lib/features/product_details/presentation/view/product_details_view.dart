@@ -38,7 +38,6 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.whiteColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -74,6 +73,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                           top: 16,
                           left: 16,
                           child: IconButton(
+                            tooltip: "Back",
                             onPressed: () => context.pop(),
                             icon: const Icon(Icons.arrow_back_ios),
                           ),
@@ -150,20 +150,6 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                           const SizedBox(height: 8),
                           Text(
                             widget.product.description ?? '',
-                            style: AppTextStyles.textStyleRegular14.copyWith(
-                              color: AppColors.greyColor,
-                            ),
-                          ),
-                          const SizedBox(height: 24),
-                          Text(
-                            AppStrings.bouquetInclude,
-                            style: AppTextStyles.textStyleSemiBold12.copyWith(
-                              fontSize: 16,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'Pink roses:15\nWhite wrap',
                             style: AppTextStyles.textStyleRegular14.copyWith(
                               color: AppColors.greyColor,
                             ),

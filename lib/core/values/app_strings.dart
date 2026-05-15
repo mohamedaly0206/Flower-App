@@ -70,7 +70,6 @@ abstract class AppStrings {
   static const String status = 'Status';
   static const String pricesIncludedTax = 'All prices include tax';
   static const String description = 'Description';
-  static const String bouquetInclude = 'Bouquet include';
   static const String inStock = 'In stock';
   static const String outOfStock = 'Out of stock';
   static const String egp = 'EGP';
