@@ -75,7 +75,7 @@ class ProductDTO {
       id: id,
       title: title,
       description: description,
-      price: price?.toDouble(),
+      price: price,
       imageCover: imgCover,
       images: images,
       priceAfterDiscount: priceAfterDiscount,

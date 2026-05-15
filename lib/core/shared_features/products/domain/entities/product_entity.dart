@@ -2,7 +2,7 @@ class ProductEntity {
   final String? id;
   final String? title;
   final String? description;
-  final double? price;
+  final int? price;
   final String? imageCover;
   final List<String>? images;
   final int? priceAfterDiscount;
