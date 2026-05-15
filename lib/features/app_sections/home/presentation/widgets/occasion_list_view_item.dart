@@ -1,9 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flutter/material.dart';
 
-class BestSellerListViewItem extends StatelessWidget {
-  const BestSellerListViewItem({super.key});
+import '../../../../../core/values/app_strings.dart';
+
+class OccasionListViewItem extends StatelessWidget {
+  const OccasionListViewItem({super.key});
 
   @override
   Widget build(BuildContext context) {
