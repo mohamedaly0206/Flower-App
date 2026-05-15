@@ -1,20 +1,20 @@
-import 'package:flower_app/features/app_sections/home/presentation/widgets/categories_list_view_item.dart';
+import 'package:flower_app/features/app_sections/home/presentation/widgets/best_seller_list_view_item.dart';
 import 'package:flutter/material.dart';
 
-class CategoriesListView extends StatelessWidget {
-  const CategoriesListView({super.key});
+class BestSellerListView extends StatelessWidget {
+  const BestSellerListView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 120,
+      height: 210,
       child: ListView.separated(
         itemCount: 10,
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         separatorBuilder: (context, index) => const SizedBox(width: 10),
         itemBuilder: (context, index) {
-          return const CategoriesListViewItem();
+          return const BestSellerListViewItem();
         },
       ),
     );
