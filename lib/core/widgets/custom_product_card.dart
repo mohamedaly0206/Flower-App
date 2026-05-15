@@ -69,12 +69,12 @@ class CustomProductCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      title,
-                      style: Theme.of(context).textTheme.bodySmall,
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      overflow: TextOverflow.ellipsis,
                     ),
+                    maxLines: 2,
                   ),
                   SizedBox(height: 4),
                   FittedBox(
