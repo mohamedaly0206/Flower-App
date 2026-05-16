@@ -1,21 +1,28 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:flower_app/config/base_response/base_response.dart';
+import 'package:flower_app/config/base_state/base_state.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_shared_intent.dart';
 import 'package:flower_app/core/shared_features/products/domain/entities/products_response_entity.dart';
 import 'package:flower_app/core/shared_features/products/domain/use_cases/products_use_case.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/states/home_shared_states.dart';
 import 'package:flower_app/features/app_sections/categories/domain/entities/category_entity.dart';
 import 'package:flower_app/features/app_sections/categories/domain/use_cases/categories_use_case.dart';
+import 'package:flower_app/features/best_seller/domain/models/best_seller_model.dart';
+import 'package:flower_app/features/best_seller/domain/use_case/best_seller_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
 class HomeSharedCubit extends Cubit<HomeSharedStates> {
-  HomeSharedCubit(this.categoriesUseCase, this._getProductsUseCase)
-    : super(HomeSharedStates());
+  HomeSharedCubit(
+    this.categoriesUseCase,
+    this._getProductsUseCase,
+    this._bestSellerUseCase,
+  ) : super(HomeSharedStates());
   final CategoriesUseCase categoriesUseCase;
   final GetProductsUseCase _getProductsUseCase;
+  final BestSellerUseCase _bestSellerUseCase;
   Timer? _searchDebounce;
 
   void handleHomeSharedIntent(HomeSharedIntent intent) {
@@ -107,7 +114,6 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
 
   Future<void> _getOccasions() async {}
 
-  Future<void> _getBestSellers() async {}
   Future<void> _getProducts({
     String? categoryId,
     String? occasionId,
@@ -166,5 +172,38 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
 
       await _getProducts(search: keyword);
     });
+  }
+
+  Future<void> _getBestSellers() async {
+    if (state.bestSellersState.isLoading) return;
+
+    emit(
+      state.copyWith(
+        bestSellersState: const BaseState<List<BestSellerModel>>(
+          isLoading: true,
+        ),
+      ),
+    );
+
+    final result = await _bestSellerUseCase();
+
+    switch (result) {
+      case SuccessBaseResponse<List<BestSellerModel>>():
+        emit(
+          state.copyWith(
+            bestSellersState: BaseState<List<BestSellerModel>>(
+              data: result.data,
+            ),
+          ),
+        );
+      case ErrorBaseResponse<List<BestSellerModel>>():
+        emit(
+          state.copyWith(
+            bestSellersState: BaseState<List<BestSellerModel>>(
+              errorMessage: result.errorMessage,
+            ),
+          ),
+        );
+    }
   }
 }

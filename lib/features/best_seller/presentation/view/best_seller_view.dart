@@ -1,5 +1,5 @@
-import 'package:flower_app/core/shared_features/cubit/home_shared_cubit.dart';
-import 'package:flower_app/core/shared_features/states/home_shared_states.dart';
+import 'package:flower_app/core/shared_features/shared_view_model/cubit/home_shared_cubit.dart';
+import 'package:flower_app/core/shared_features/shared_view_model/states/home_shared_states.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
 import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/core/widgets/custom_app_bar.dart';

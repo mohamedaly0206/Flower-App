@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_app/core/widgets/custom_product_card.dart';
 import 'package:flower_app/features/best_seller/domain/models/best_seller_model.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class CustomBestSellerGrid extends StatelessWidget {
             product.discount > 0 && product.priceAfterDiscount < product.price;
 
         return CustomProductCard(
-          imageUrl: product.imgCover ?? '',
+          imageProvider: CachedNetworkImageProvider(product.imgCover ?? ''),
           price: product.priceAfterDiscount,
           title: product.title,
           discountPercent: hasDiscount ? product.discount : null,
