@@ -2,6 +2,7 @@ import 'package:flower_app/config/di/di.dart';
 import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/shared_features/cubit/home_shared_cubit.dart';
 import 'package:flower_app/core/shared_features/intent/home_shared_intent.dart';
+import 'package:flower_app/core/shared_features/shared_view_model/cubit/home_shared_cubit.dart';
 import 'package:flower_app/features/auth/forget_password/presentation/view_model/cubit/forget_password_cubit.dart';
 import 'package:flower_app/features/auth/forget_password/presentation/view/forget_password_screen.dart';
 import 'package:flower_app/features/app_sections/app_sections.dart';
@@ -9,6 +10,8 @@ import 'package:flower_app/features/auth/login/presentation/view_model/login_cub
 import 'package:flower_app/features/auth/login/presentation/views/login_view.dart';
 import 'package:flower_app/features/auth/signup/presentation/screens/register_screen.dart';
 import 'package:flower_app/features/best_seller/presentation/view/best_seller_view.dart';
+import 'package:flower_app/features/occasion/presentation/view_model/occasion_cubit.dart';
+import 'package:flower_app/features/occasion/presentation/views/occasion_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -73,6 +76,20 @@ abstract class AppRouter {
       //   path: AppRouterPaths.kForgetPasswordView,
       //   builder: (context, state) => const ForgetPasswordView(),
       // ),
+      GoRoute(
+        path: AppRouterPaths.kOccasionView,
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (_) => getIt<OccasionCubit>()..getOccasions(),
+            ),
+            BlocProvider(
+              create: (_) => getIt<HomeSharedCubit>(),
+            ),
+          ],
+          child: const OccasionView(),
+        ),
+      ),
     ],
   );
 }
