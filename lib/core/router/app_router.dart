@@ -13,6 +13,7 @@ import 'package:flower_app/features/occasion/presentation/view_model/occasion_cu
 import 'package:flower_app/features/occasion/presentation/views/occasion_view.dart';
 import 'package:flower_app/features/product_details/data/models/product_model.dart';
 import 'package:flower_app/features/product_details/presentation/view/product_details_view.dart';
+import 'package:flower_app/features/search/presentation/views/search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -34,6 +35,13 @@ abstract class AppRouter {
       ),
     ),
     routes: [
+      GoRoute(
+        path: AppRouterPaths.kSearchView,
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<HomeSharedCubit>(),
+          child: SearchView(),
+        ),
+      ),
       GoRoute(
         path: AppRouterPaths.kLoginView,
         builder: (context, state) => BlocProvider(
