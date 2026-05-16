@@ -1,6 +1,6 @@
 import 'package:flower_app/config/base_response/base_response.dart';
-import 'package:flower_app/features/occasion/data/models/occasions_response.dart';
-import 'package:flower_app/features/occasion/domain/use_case/get_occasions_use_case.dart';
+import 'package:flower_app/features/occasion/domain/entities/occasions_response_entity.dart';
+import 'package:flower_app/features/occasion/domain/use_cases/get_occasions_use_case.dart';
 import 'package:flower_app/features/occasion/presentation/view_model/occasion_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -19,10 +19,10 @@ class OccasionCubit extends Cubit<OccasionState> {
     final result = await _getOccasionsUseCase();
 
     switch (result) {
-      case SuccessBaseResponse<OccasionsResponse>():
+      case SuccessBaseResponse<OccasionsResponseEntity>():
         final occasions = result.data.occasions ?? [];
         emit(OccasionSuccess(occasions: occasions));
-      case ErrorBaseResponse<OccasionsResponse>():
+      case ErrorBaseResponse<OccasionsResponseEntity>():
         emit(OccasionFailure(result.errorMessage));
     }
   }

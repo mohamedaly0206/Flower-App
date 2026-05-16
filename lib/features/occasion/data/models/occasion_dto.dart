@@ -1,3 +1,4 @@
+import 'package:flower_app/features/occasion/domain/entities/occasion_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'occasion_dto.g.dart';
@@ -43,4 +44,12 @@ class OccasionDTO {
       _$OccasionDTOFromJson(json);
 
   Map<String, dynamic> toJson() => _$OccasionDTOToJson(this);
+  OccasionEntity toEntity() {
+    return OccasionEntity(
+      id: id,
+      name: name,
+      slug: slug,
+      image: image,
+    );
+  }
 }

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flower_app/features/occasion/data/models/occasion_dto.dart';
+import 'package:flower_app/features/occasion/domain/entities/occasion_entity.dart';
 
 sealed class OccasionState extends Equatable {
   const OccasionState();
@@ -17,7 +17,7 @@ class OccasionLoading extends OccasionState {
 }
 
 class OccasionSuccess extends OccasionState {
-  final List<OccasionDTO> occasions;
+  final List<OccasionEntity> occasions;
   final int selectedTabIndex;
 
   const OccasionSuccess({
@@ -26,7 +26,7 @@ class OccasionSuccess extends OccasionState {
   });
 
   OccasionSuccess copyWith({
-    List<OccasionDTO>? occasions,
+    List<OccasionEntity>? occasions,
     int? selectedTabIndex,
   }) {
     return OccasionSuccess(

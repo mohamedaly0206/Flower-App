@@ -1,7 +1,7 @@
-import 'package:flower_app/core/shared_features/cubit/home_shared_cubit.dart';
-import 'package:flower_app/core/shared_features/data/models/product_dto.dart';
-import 'package:flower_app/core/shared_features/intent/home_shared_intent.dart';
-import 'package:flower_app/core/shared_features/states/home_shared_states.dart';
+import 'package:flower_app/core/shared_features/products/domain/entities/product_entity.dart';
+import 'package:flower_app/core/shared_features/shared_view_model/cubit/home_shared_cubit.dart';
+import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_shared_intent.dart';
+import 'package:flower_app/core/shared_features/shared_view_model/states/home_shared_states.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
 import 'package:flower_app/core/values/app_strings.dart';
@@ -10,7 +10,7 @@ import 'package:flower_app/core/widgets/app_messages.dart';
 import 'package:flower_app/core/widgets/custom_app_bar.dart';
 import 'package:flower_app/core/widgets/custom_product_card.dart';
 import 'package:flower_app/core/widgets/custom_tab_bar.dart';
-import 'package:flower_app/features/occasion/data/models/occasion_dto.dart';
+import 'package:flower_app/features/occasion/domain/entities/occasion_entity.dart';
 import 'package:flower_app/features/occasion/presentation/view_model/occasion_cubit.dart';
 import 'package:flower_app/features/occasion/presentation/view_model/occasion_state.dart';
 import 'package:flutter/material.dart';
@@ -100,7 +100,7 @@ class OccasionView extends StatelessWidget {
 }
 
 class _OccasionContent extends StatelessWidget {
-  final List<OccasionDTO> occasions;
+  final List<OccasionEntity> occasions;
   final int selectedTabIndex;
 
   const _OccasionContent({
@@ -160,7 +160,7 @@ class _OccasionContent extends StatelessWidget {
 }
 
 class _OccasionProductGrid extends StatelessWidget {
-  final OccasionDTO occasion;
+  final OccasionEntity occasion;
 
   const _OccasionProductGrid({required this.occasion});
 
@@ -216,7 +216,7 @@ class _OccasionProductGrid extends StatelessWidget {
         }
 
         if (state.productsState.data != null) {
-          final products = state.productsState.data!;
+          final products = state.productsState.data!.products ?? [];
 
           if (products.isEmpty) {
             return Center(
@@ -288,7 +288,7 @@ class _OccasionProductGrid extends StatelessWidget {
 }
 
 class _ProductCard extends StatelessWidget {
-  final ProductDTO product;
+  final ProductEntity product;
 
   const _ProductCard({required this.product});
 
