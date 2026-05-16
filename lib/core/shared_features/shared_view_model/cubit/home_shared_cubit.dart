@@ -1,18 +1,17 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:flower_app/config/base_response/base_response.dart';
-import 'package:flower_app/config/base_state/base_state.dart';
 import 'package:flower_app/core/shared_features/products/domain/entities/products_response_entity.dart';
 import 'package:flower_app/core/shared_features/products/domain/use_cases/products_use_case.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_shared_intent.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/states/home_shared_states.dart';
 import 'package:flower_app/features/app_sections/categories/domain/entities/category_entity.dart';
 import 'package:flower_app/features/app_sections/categories/domain/use_cases/categories_use_case.dart';
-import 'package:flower_app/features/best_seller/domain/models/best_seller_model.dart';
 import 'package:flower_app/features/best_seller/domain/use_case/best_seller_use_case.dart';
+import 'package:flower_app/features/occasion/domain/use_cases/get_occasions_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import '../../../../features/occasion/domain/entities/occasions_response_entity.dart';
 
 @injectable
 class HomeSharedCubit extends Cubit<HomeSharedStates> {
@@ -20,11 +19,13 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
       this.categoriesUseCase,
       this._getProductsUseCase,
       this._bestSellerUseCase,
+      this._getOccasionsUseCase
       ) : super(const HomeSharedStates());
 
   final CategoriesUseCase categoriesUseCase;
   final GetProductsUseCase _getProductsUseCase;
   final BestSellerUseCase _bestSellerUseCase;
+  final GetOccasionsUseCase _getOccasionsUseCase;
 
   Timer? _searchDebounce;
 
@@ -147,7 +148,47 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
     await _getProducts(categoryId: selectedCategory.id);
   }
 
-  Future<void> _getOccasions() async {}
+  Future<void> _getOccasions() async {
+    if (isClosed) return;
+
+    emit(
+      state.copyWith(
+        occasionsState: state.occasionsState.copyWith(
+          isLoadingParam: true,
+        ),
+      ),
+    );
+
+    final result = await _getOccasionsUseCase();
+
+    if (isClosed) return;
+
+    switch (result) {
+      case SuccessBaseResponse<OccasionsResponseEntity>():
+
+        emit(
+          state.copyWith(
+            occasionsState: state.occasionsState.copyWith(
+              dataParam: result.data,
+              isLoadingParam: false,
+            ),
+          ),
+        );
+        break;
+
+      case ErrorBaseResponse<OccasionsResponseEntity>():
+
+        emit(
+          state.copyWith(
+            occasionsState: state.occasionsState.copyWith(
+              isLoadingParam: false,
+              errorMessageParam: result.errorMessage,
+            ),
+          ),
+        );
+        break;
+    }
+  }
 
   Future<void> _getProducts({
     String? categoryId,
@@ -233,14 +274,13 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
   }
 
   Future<void> _getBestSellers() async {
-    if (state.bestSellersState.isLoading) return;
 
     if (isClosed) return;
 
     emit(
       state.copyWith(
-        bestSellersState: const BaseState<List<BestSellerModel>>(
-          isLoading: true,
+        bestSellersState: state.bestSellersState.copyWith(
+          isLoadingParam: true,
         ),
       ),
     );
@@ -250,26 +290,31 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
     if (isClosed) return;
 
     switch (result) {
-      case SuccessBaseResponse<List<BestSellerModel>>():
+      case SuccessBaseResponse<ProductsResponseEntity>():
         if (isClosed) return;
+        log('got best sellers successfully 1');
+        log(state.bestSellersState.data?.products?[0].title ?? 'Unknown');
 
         emit(
           state.copyWith(
-            bestSellersState: BaseState<List<BestSellerModel>>(
-              data: result.data,
+            bestSellersState: state.bestSellersState.copyWith(
+              dataParam: result.data,
+              isLoadingParam: false,
             ),
           ),
         );
+        log(state.bestSellersState.data?.products?[0].title ?? 'Unknown');
 
         break;
 
-      case ErrorBaseResponse<List<BestSellerModel>>():
+      case ErrorBaseResponse<ProductsResponseEntity>():
         if (isClosed) return;
 
         emit(
           state.copyWith(
-            bestSellersState: BaseState<List<BestSellerModel>>(
-              errorMessage: result.errorMessage,
+            bestSellersState: state.bestSellersState.copyWith(
+              isLoadingParam: false,
+              errorMessageParam: result.errorMessage,
             ),
           ),
         );

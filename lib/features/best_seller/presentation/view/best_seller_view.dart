@@ -43,10 +43,10 @@ class BestSellerView extends StatelessWidget {
                     return Center(child: Text(bestSellersState.errorMessage!));
                   }
 
-                  final bestSellers = bestSellersState.data ?? [];
+                  final bestSellers = bestSellersState.data!.products ?? [];
 
                   if (bestSellers.isEmpty) {
-                    return const Center(child: Text('No Products Found'));
+                    return const Center(child: Text(AppStrings.noProductsFound));
                   }
 
                   return CustomBestSellerGrid(bestSellers: bestSellers);

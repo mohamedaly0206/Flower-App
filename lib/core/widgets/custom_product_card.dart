@@ -5,14 +5,14 @@ import 'package:flutter_svg/svg.dart';
 import '../values/assets.gen.dart';
 
 class CustomProductCard extends StatelessWidget {
-  final String title;
+  final String? title;
   final ImageProvider imageProvider;
-  final num price;
-  final num? oldPrice;
+  final int? price;
+  final int? oldPrice;
   final int? discountPercent;
   final VoidCallback? onAddToCart;
   final VoidCallback? onTap;
-  final String currency;
+  final String? currency;
 
   const CustomProductCard({
     required this.title,
@@ -70,7 +70,7 @@ class CustomProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    title ?? '',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                       overflow: TextOverflow.ellipsis,
                     ),

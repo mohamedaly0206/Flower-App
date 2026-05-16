@@ -1,6 +1,6 @@
 import 'package:flower_app/config/base_response/base_response.dart';
-import 'package:flower_app/features/best_seller/domain/models/best_seller_model.dart';
+import '../../../../core/shared_features/products/domain/entities/products_response_entity.dart';
 
 abstract class BestSellerRepoContract {
-  Future<BaseResponse<List<BestSellerModel>>> getBestSeller();
+  Future<BaseResponse<ProductsResponseEntity>> getBestSeller();
 }

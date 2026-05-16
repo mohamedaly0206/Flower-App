@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flower_app/core/shared_features/products/domain/entities/product_entity.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
 import 'package:flower_app/core/values/app_strings.dart';
-import 'package:flower_app/features/product_details/data/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ProductDetailsView extends StatefulWidget {
-  final ProductModel product;
+  final ProductEntity product;
 
   const ProductDetailsView({super.key, required this.product});
 
@@ -24,7 +24,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
   void initState() {
     super.initState();
     _allImages = [
-      if (widget.product.imgCover != null) widget.product.imgCover!,
+      if (widget.product.imageCover != null) widget.product.imageCover!,
       ...(widget.product.images ?? []),
     ];
   }

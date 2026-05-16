@@ -1,3 +1,4 @@
+import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_shared_intent.dart';
 import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/core/values/assets.gen.dart';
@@ -7,6 +8,7 @@ import 'package:flower_app/features/app_sections/widgets/custom_search_text_fiel
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../../core/shared_features/shared_view_model/cubit/home_shared_cubit.dart';
 import '../widgets/occasion_list_view.dart';
 import '../widgets/section_header.dart';
@@ -76,10 +78,14 @@ class HomeView extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 5),
-                SectionHeader(title: AppStrings.categories, onPressed: () {}),
+                SectionHeader(title: AppStrings.categories, onPressed: () {
+                  GoRouter.of(context).push(AppRouterPaths.kCategoriesView);
+                }),
                 const CategoriesListView(),
                 const SizedBox(height: 10),
-                SectionHeader(title: AppStrings.bestSeller, onPressed: () {}),
+                SectionHeader(title: AppStrings.bestSeller, onPressed: () {
+                  GoRouter.of(context).push(AppRouterPaths.kBestSellerView);
+                }),
                 const SizedBox(height: 10),
                 const BestSellerListView(),
                 const SizedBox(height: 10),

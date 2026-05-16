@@ -2,13 +2,14 @@ import 'package:equatable/equatable.dart';
 import 'package:flower_app/config/base_state/base_state.dart';
 import 'package:flower_app/core/shared_features/products/domain/entities/products_response_entity.dart';
 import 'package:flower_app/features/app_sections/categories/domain/entities/category_entity.dart';
-import 'package:flower_app/features/best_seller/domain/models/best_seller_model.dart';
+
+import '../../../../features/occasion/domain/entities/occasions_response_entity.dart';
 
 class HomeSharedStates extends Equatable {
-  final BaseState<ProductsResponseEntity> occasionsState;
+  final BaseState<OccasionsResponseEntity> occasionsState;
   final BaseState<CategoryEntity> categoriesState;
   final BaseState<ProductsResponseEntity> productsState;
-  final BaseState<List<BestSellerModel>> bestSellersState;
+  final BaseState<ProductsResponseEntity> bestSellersState;
   final int selectedIndex;
   const HomeSharedStates({
     this.occasionsState = const BaseState(),
@@ -20,9 +21,9 @@ class HomeSharedStates extends Equatable {
   HomeSharedStates copyWith({
     BaseState<CategoryEntity>? categoriesState,
     int? selectedIndex,
-    BaseState<ProductsResponseEntity>? occasionsState,
+    BaseState<OccasionsResponseEntity>? occasionsState,
     BaseState<ProductsResponseEntity>? productsState,
-    BaseState<List<BestSellerModel>>? bestSellersState,
+    BaseState<ProductsResponseEntity>? bestSellersState,
   }) {
     return HomeSharedStates(
       categoriesState: categoriesState ?? this.categoriesState,

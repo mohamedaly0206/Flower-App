@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_app/core/widgets/custom_product_card.dart';
-import 'package:flower_app/features/best_seller/domain/models/best_seller_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/shared_features/products/domain/entities/product_entity.dart';
+
 class CustomBestSellerGrid extends StatelessWidget {
-  final List<BestSellerModel> bestSellers;
+  final List<ProductEntity>? bestSellers;
 
   const CustomBestSellerGrid({super.key, required this.bestSellers});
 
@@ -17,18 +18,16 @@ class CustomBestSellerGrid extends StatelessWidget {
         crossAxisSpacing: 15,
         mainAxisSpacing: 15,
       ),
-      itemCount: bestSellers.length,
+      itemCount: bestSellers?.length,
       itemBuilder: (context, index) {
-        final product = bestSellers[index];
-        final hasDiscount =
-            product.discount > 0 && product.priceAfterDiscount < product.price;
+        final product = bestSellers?[index];
 
         return CustomProductCard(
-          imageProvider: CachedNetworkImageProvider(product.imgCover ?? ''),
+          imageProvider: CachedNetworkImageProvider(product!.imageCover ?? ''),
           price: product.priceAfterDiscount,
           title: product.title,
-          discountPercent: hasDiscount ? product.discount : null,
-          oldPrice: hasDiscount ? product.price : null,
+          discountPercent:  product.discount,
+          oldPrice: product.price ,
         );
       },
     );

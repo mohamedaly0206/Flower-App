@@ -1,6 +1,6 @@
 import 'package:flower_app/config/base_response/base_response.dart';
-import 'package:flower_app/features/best_seller/data/models/best_seller_dto.dart';
+import 'package:flower_app/core/shared_features/products/data/models/products_response.dart';
 
 abstract class BestSellerRemoteDataSourceContract {
-  Future<BaseResponse<List<BestSellerDto>>> getBestSeller();
+  Future<BaseResponse<ProductsResponseDto>> getBestSeller();
 }

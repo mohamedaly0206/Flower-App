@@ -1,7 +1,9 @@
 import 'package:flower_app/config/di/di.dart';
 import 'package:flower_app/core/router/router_paths.dart';
+import 'package:flower_app/core/shared_features/products/domain/entities/product_entity.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/cubit/home_shared_cubit.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_shared_intent.dart';
+import 'package:flower_app/features/app_sections/categories/presentation/views/categories_view.dart';
 import 'package:flower_app/features/auth/forget_password/presentation/view_model/cubit/forget_password_cubit.dart';
 import 'package:flower_app/features/auth/forget_password/presentation/view/forget_password_screen.dart';
 import 'package:flower_app/features/app_sections/app_sections.dart';
@@ -10,7 +12,6 @@ import 'package:flower_app/features/auth/login/presentation/views/login_view.dar
 import 'package:flower_app/features/auth/signup/presentation/screens/register_screen.dart';
 import 'package:flower_app/features/best_seller/presentation/view/best_seller_view.dart';
 import 'package:flower_app/features/occasion/presentation/views/occasion_view.dart';
-import 'package:flower_app/features/product_details/data/models/product_model.dart';
 import 'package:flower_app/features/product_details/presentation/view/product_details_view.dart';
 import 'package:flower_app/features/search/presentation/views/search_view.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,10 @@ abstract class AppRouter {
       GoRoute(
         path: AppRouterPaths.kSearchView,
         builder: (context, state) => SearchView(),
+      ),
+      GoRoute(
+        path: AppRouterPaths.kCategoriesView,
+        builder: (context, state) => CategoriesView(),
       ),
       GoRoute(
         path: AppRouterPaths.kLoginView,
@@ -74,7 +79,7 @@ abstract class AppRouter {
       GoRoute(
         path: AppRouterPaths.kProductDetailsView,
         builder: (context, state) =>
-            ProductDetailsView(product: state.extra as ProductModel),
+            ProductDetailsView(product: state.extra as ProductEntity),
       ),
       GoRoute(
         path: AppRouterPaths.kBestSellerView,

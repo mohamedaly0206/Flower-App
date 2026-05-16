@@ -3,6 +3,7 @@ import 'package:flower_app/core/shared_features/shared_view_model/states/home_sh
 import 'package:flower_app/features/app_sections/home/presentation/widgets/best_seller_list_view_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class BestSellerListView extends StatelessWidget {
   const BestSellerListView({super.key});
@@ -17,10 +18,13 @@ class BestSellerListView extends StatelessWidget {
 
         // loading
         if (bestSellerState.isLoading) {
-          return const SizedBox(
+          return SizedBox(
             height: 210,
             child: Center(
-              child: CircularProgressIndicator(),
+              child: SpinKitFadingCircle(
+                color: Theme.of(context).colorScheme.primary,
+                size: 50,
+              ),
             ),
           );
         }
@@ -39,7 +43,7 @@ class BestSellerListView extends StatelessWidget {
         }
 
         // data
-        final bestSellers = bestSellerState.data ?? [];
+        final bestSellers = bestSellerState.data?.products ?? [];
 
         // empty
         if (bestSellers.isEmpty) {
