@@ -96,6 +96,7 @@ abstract class AppStrings {
   static const String addNewAddress = 'Add new address';
   static const String sortBy = 'Sort by';
   static const String searchForAnyProduct = 'Search For Any Product You Want';
+  static const String noProductsFound = 'No products found';
   static const next = 'Next';
 
   //track order

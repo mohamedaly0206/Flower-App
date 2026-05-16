@@ -39,6 +39,6 @@ class HomeSharedStates extends Equatable {
     selectedIndex,
     occasionsState,
     productsState,
-    bestSellersState
+    bestSellersState,
   ];
 }

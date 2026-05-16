@@ -28,14 +28,16 @@ class CustomTabBar extends StatelessWidget {
               behavior: HitTestBehavior.opaque,
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
-                margin: const EdgeInsets.only(right: 24),
+                margin: EdgeInsets.only(
+                  right: index == tabs.length - 1 ? 0 : 24,
+                ),
                 padding: const EdgeInsets.only(bottom: 4),
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
                       color: isSelected
                           ? AppColors.primaryColor
-                          : AppColors.transparentColor,
+                          : AppColors.placeHolderColor,
                       width: 3,
                     ),
                   ),
