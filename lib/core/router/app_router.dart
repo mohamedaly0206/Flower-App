@@ -9,7 +9,6 @@ import 'package:flower_app/features/auth/login/presentation/view_model/login_cub
 import 'package:flower_app/features/auth/login/presentation/views/login_view.dart';
 import 'package:flower_app/features/auth/signup/presentation/screens/register_screen.dart';
 import 'package:flower_app/features/best_seller/presentation/view/best_seller_view.dart';
-import 'package:flower_app/features/occasion/presentation/view_model/occasion_cubit.dart';
 import 'package:flower_app/features/occasion/presentation/views/occasion_view.dart';
 import 'package:flower_app/features/product_details/data/models/product_model.dart';
 import 'package:flower_app/features/product_details/presentation/view/product_details_view.dart';
@@ -37,10 +36,7 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: AppRouterPaths.kSearchView,
-        builder: (context, state) => BlocProvider(
-          create: (context) => getIt<HomeSharedCubit>(),
-          child: SearchView(),
-        ),
+        builder: (context, state) => SearchView(),
       ),
       GoRoute(
         path: AppRouterPaths.kLoginView,
@@ -53,8 +49,8 @@ abstract class AppRouter {
         path: AppRouterPaths.kAppSections,
         builder: (context, state) => BlocProvider(
           create: (context) =>
-              getIt<HomeSharedCubit>()
-                ..handleHomeSharedIntent(GetAllHomeDataIntent()),
+          getIt<HomeSharedCubit>()
+            ..handleHomeSharedIntent(GetAllHomeDataIntent()),
           child: const AppSections(),
         ),
       ),
@@ -82,22 +78,11 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: AppRouterPaths.kBestSellerView,
-        builder: (context, state) => BlocProvider(
-          create: (context) =>
-              getIt<HomeSharedCubit>()
-                ..handleHomeSharedIntent(GetBestSellersIntent()),
-          child: const BestSellerView(),
-        ),
+        builder: (context, state) => const BestSellerView(),
       ),
       GoRoute(
         path: AppRouterPaths.kOccasionView,
-        builder: (context, state) => MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (_) => getIt<OccasionCubit>()..getOccasions()),
-            BlocProvider(create: (_) => getIt<HomeSharedCubit>()),
-          ],
-          child: const OccasionView(),
-        ),
+        builder: (context, state) => const OccasionView(),
       ),
     ],
   );

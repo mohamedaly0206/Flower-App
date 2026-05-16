@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:developer';
+
 import 'package:flower_app/config/base_response/base_response.dart';
 import 'package:flower_app/config/base_state/base_state.dart';
-import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_shared_intent.dart';
 import 'package:flower_app/core/shared_features/products/domain/entities/products_response_entity.dart';
 import 'package:flower_app/core/shared_features/products/domain/use_cases/products_use_case.dart';
+import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_shared_intent.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/states/home_shared_states.dart';
 import 'package:flower_app/features/app_sections/categories/domain/entities/category_entity.dart';
 import 'package:flower_app/features/app_sections/categories/domain/use_cases/categories_use_case.dart';
@@ -16,38 +17,46 @@ import 'package:injectable/injectable.dart';
 @injectable
 class HomeSharedCubit extends Cubit<HomeSharedStates> {
   HomeSharedCubit(
-    this.categoriesUseCase,
-    this._getProductsUseCase,
-    this._bestSellerUseCase,
-  ) : super(HomeSharedStates());
+      this.categoriesUseCase,
+      this._getProductsUseCase,
+      this._bestSellerUseCase,
+      ) : super(const HomeSharedStates());
+
   final CategoriesUseCase categoriesUseCase;
   final GetProductsUseCase _getProductsUseCase;
   final BestSellerUseCase _bestSellerUseCase;
+
   Timer? _searchDebounce;
 
   void handleHomeSharedIntent(HomeSharedIntent intent) async {
     switch (intent) {
       case GetAllHomeDataIntent():
-        _getAllHomeData();
+        await _getAllHomeData();
         break;
+
       case GetCategoriesIntent():
-        _getCategories();
+        await _getCategories();
         break;
+
       case GetOccasionsIntent():
-        _getOccasions();
+        await _getOccasions();
         break;
+
       case GetBestSellersIntent():
-        _getBestSellers();
+        await _getBestSellers();
         break;
+
       case ChangeTabIntent():
-        _changeCategoriesTab(intent);
+        await _changeCategoriesTab(intent);
         break;
+
       case GetProductsIntent():
-        _getProducts(
+        await _getProducts(
           categoryId: intent.categoryId,
           occasionId: intent.occasionId,
         );
         break;
+
       case SearchIntent():
         _searchProducts(intent);
         break;
@@ -55,22 +64,36 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
   }
 
   Future<void> _getAllHomeData() async {
-    _getCategories();
-    _getOccasions();
-    _getBestSellers();
+    await Future.wait([
+      _getCategories(),
+      _getOccasions(),
+      _getBestSellers(),
+    ]);
   }
 
   Future<void> _getCategories() async {
     log('getting categories');
+
+    if (isClosed) return;
+
     emit(
       state.copyWith(
-        categoriesState: state.categoriesState.copyWith(isLoadingParam: true),
+        categoriesState: state.categoriesState.copyWith(
+          isLoadingParam: true,
+        ),
       ),
     );
+
     final response = await categoriesUseCase.getCategories();
+
+    if (isClosed) return;
+
     switch (response) {
       case SuccessBaseResponse<CategoryEntity>():
         log('got categories successfully');
+
+        if (isClosed) return;
+
         emit(
           state.copyWith(
             categoriesState: state.categoriesState.copyWith(
@@ -79,14 +102,21 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
             ),
           ),
         );
-        final firstCategoryId = response.data.categories.firstOrNull?.id;
+
+        final firstCategoryId =
+            response.data.categories.firstOrNull?.id;
 
         if (firstCategoryId != null) {
           await _getProducts(categoryId: firstCategoryId);
         }
+
+        break;
+
       case ErrorBaseResponse<CategoryEntity>():
         log('error getting categories');
         log(response.errorMessage);
+
+        if (isClosed) return;
 
         emit(
           state.copyWith(
@@ -96,11 +126,16 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
             ),
           ),
         );
+
         break;
     }
   }
 
-  void _changeCategoriesTab(ChangeTabIntent intent) async {
+  Future<void> _changeCategoriesTab(
+      ChangeTabIntent intent,
+      ) async {
+    if (isClosed) return;
+
     emit(state.copyWith(selectedIndex: intent.index));
 
     final categories = state.categoriesState.data?.categories;
@@ -119,9 +154,13 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
     String? occasionId,
     String? search,
   }) async {
+    if (isClosed) return;
+
     emit(
       state.copyWith(
-        productsState: state.productsState.copyWith(isLoadingParam: true),
+        productsState: state.productsState.copyWith(
+          isLoadingParam: true,
+        ),
       ),
     );
 
@@ -131,8 +170,12 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
       search: search,
     );
 
+    if (isClosed) return;
+
     switch (result) {
       case SuccessBaseResponse<ProductsResponseEntity>():
+        if (isClosed) return;
+
         emit(
           state.copyWith(
             productsState: state.productsState.copyWith(
@@ -141,7 +184,12 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
             ),
           ),
         );
+
+        break;
       case ErrorBaseResponse<ProductsResponseEntity>():
+
+        if (isClosed) return;
+
         emit(
           state.copyWith(
             productsState: state.productsState.copyWith(
@@ -150,32 +198,44 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
             ),
           ),
         );
+
+        break;
     }
   }
 
   void _searchProducts(SearchIntent intent) {
     _searchDebounce?.cancel();
 
-    _searchDebounce = Timer(const Duration(seconds: 1), () async {
-      final keyword = intent.search.trim();
+    _searchDebounce = Timer(
+      const Duration(seconds: 1),
+          () async {
+        if (isClosed) return;
 
-      if (keyword.isEmpty) {
-        emit(
-          state.copyWith(
-            productsState: state.productsState.copyWith(
-              dataParam: ProductsResponseEntity(products: []),
+        final keyword = intent.search.trim();
+
+        if (keyword.isEmpty) {
+          if (isClosed) return;
+
+          emit(
+            state.copyWith(
+              productsState: state.productsState.copyWith(
+                dataParam: ProductsResponseEntity(products: []),
+              ),
             ),
-          ),
-        );
-        return;
-      }
+          );
 
-      await _getProducts(search: keyword);
-    });
+          return;
+        }
+
+        await _getProducts(search: keyword);
+      },
+    );
   }
 
   Future<void> _getBestSellers() async {
     if (state.bestSellersState.isLoading) return;
+
+    if (isClosed) return;
 
     emit(
       state.copyWith(
@@ -187,8 +247,12 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
 
     final result = await _bestSellerUseCase();
 
+    if (isClosed) return;
+
     switch (result) {
       case SuccessBaseResponse<List<BestSellerModel>>():
+        if (isClosed) return;
+
         emit(
           state.copyWith(
             bestSellersState: BaseState<List<BestSellerModel>>(
@@ -196,7 +260,12 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
             ),
           ),
         );
+
+        break;
+
       case ErrorBaseResponse<List<BestSellerModel>>():
+        if (isClosed) return;
+
         emit(
           state.copyWith(
             bestSellersState: BaseState<List<BestSellerModel>>(
@@ -204,6 +273,15 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
             ),
           ),
         );
+
+        break;
     }
+  }
+
+  @override
+  Future<void> close() {
+    _searchDebounce?.cancel();
+
+    return super.close();
   }
 }
