@@ -73,12 +73,8 @@ abstract class AppRouter {
         path: AppRouterPaths.kOccasionView,
         builder: (context, state) => MultiBlocProvider(
           providers: [
-            BlocProvider(
-              create: (_) => getIt<OccasionCubit>()..getOccasions(),
-            ),
-            BlocProvider(
-              create: (_) => getIt<HomeSharedCubit>(),
-            ),
+            BlocProvider(create: (_) => getIt<OccasionCubit>()..getOccasions()),
+            BlocProvider(create: (_) => getIt<HomeSharedCubit>()),
           ],
           child: const OccasionView(),
         ),
