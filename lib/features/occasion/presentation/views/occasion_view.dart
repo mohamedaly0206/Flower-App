@@ -88,8 +88,8 @@ class OccasionView extends StatelessWidget {
 
       if (occasion.id != null) {
         context.read<HomeSharedCubit>().handleHomeSharedIntent(
-              GetProductsIntent(occasionId: occasion.id),
-            );
+          GetProductsIntent(occasionId: occasion.id),
+        );
       }
     }
 
@@ -203,8 +203,8 @@ class _OccasionProductGrid extends StatelessWidget {
                     onPressed: () {
                       if (occasion.id != null) {
                         context.read<HomeSharedCubit>().handleHomeSharedIntent(
-                              GetProductsIntent(occasionId: occasion.id),
-                            );
+                          GetProductsIntent(occasionId: occasion.id),
+                        );
                       }
                     },
                     child: const Text('Retry'),

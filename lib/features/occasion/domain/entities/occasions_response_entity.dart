@@ -4,8 +4,5 @@ class OccasionsResponseEntity {
   final String? message;
   final List<OccasionEntity>? occasions;
 
-  OccasionsResponseEntity({
-    this.message,
-    this.occasions,
-  });
+  OccasionsResponseEntity({this.message, this.occasions});
 }

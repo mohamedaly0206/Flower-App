@@ -2,16 +2,12 @@ import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/core/values/assets.gen.dart';
 import 'package:flower_app/features/app_sections/cart/cart_view.dart';
-import 'package:flower_app/features/app_sections/home/presentation/view/home_view.dart';
 import 'package:flower_app/features/app_sections/categories/presentation/views/categories_view.dart';
 import 'package:flower_app/features/app_sections/profile/profile_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../config/di/di.dart';
-import '../../core/shared_features/cubit/home_shared_cubit.dart';
-import '../../core/shared_features/intent/home_shared_intent.dart';
+import 'home/presentation/view/home_view.dart';
 
 class AppSections extends StatefulWidget {
   const AppSections({super.key});
@@ -48,49 +44,44 @@ class _AppSectionsState extends State<AppSections> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          getIt<HomeSharedCubit>()
-            ..handleHomeSharedIntent(GetAllHomeDataIntent()),
-      child: Scaffold(
-        body: SafeArea(
-          child: IndexedStack(
-            index: _currentIndex,
-            children: _sections.map((section) => section.screen).toList(),
-          ),
+    return Scaffold(
+      body: SafeArea(
+        child: IndexedStack(
+          index: _currentIndex,
+          children: _sections.map((section) => section.screen).toList(),
         ),
-        bottomNavigationBar: NavigationBarTheme(
-          data: NavigationBarTheme.of(context).copyWith(
-            labelTextStyle: WidgetStateProperty.resolveWith((states) {
-              final color = states.contains(WidgetState.selected)
-                  ? AppColors.primaryColor
-                  : AppColors.greyColor;
-              return Theme.of(
-                context,
-              ).textTheme.titleSmall?.copyWith(color: color);
-            }),
-          ),
-          child: NavigationBar(
-            height: 56,
-            indicatorColor: AppColors.transparentColor,
-            selectedIndex: _currentIndex,
-            onDestinationSelected: (index) {
-              setState(() => _currentIndex = index);
-            },
-            destinations: _sections.map((section) {
-              return NavigationDestination(
-                icon: _SectionIcon(
-                  iconPath: section.iconPath,
-                  color: AppColors.greyColor,
-                ),
-                selectedIcon: _SectionIcon(
-                  iconPath: section.iconPath,
-                  color: AppColors.primaryColor,
-                ),
-                label: section.label,
-              );
-            }).toList(),
-          ),
+      ),
+      bottomNavigationBar: NavigationBarTheme(
+        data: NavigationBarTheme.of(context).copyWith(
+          labelTextStyle: WidgetStateProperty.resolveWith((states) {
+            final color = states.contains(WidgetState.selected)
+                ? AppColors.primaryColor
+                : AppColors.greyColor;
+            return Theme.of(
+              context,
+            ).textTheme.titleSmall?.copyWith(color: color);
+          }),
+        ),
+        child: NavigationBar(
+          height: 56,
+          indicatorColor: AppColors.transparentColor,
+          selectedIndex: _currentIndex,
+          onDestinationSelected: (index) {
+            setState(() => _currentIndex = index);
+          },
+          destinations: _sections.map((section) {
+            return NavigationDestination(
+              icon: _SectionIcon(
+                iconPath: section.iconPath,
+                color: AppColors.greyColor,
+              ),
+              selectedIcon: _SectionIcon(
+                iconPath: section.iconPath,
+                color: AppColors.primaryColor,
+              ),
+              label: section.label,
+            );
+          }).toList(),
         ),
       ),
     );

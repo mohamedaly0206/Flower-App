@@ -43,7 +43,12 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: AppRouterPaths.kAppSections,
-        builder: (context, state) => const AppSections(),
+        builder: (context, state) => BlocProvider(
+          create: (context) =>
+              getIt<HomeSharedCubit>()
+                ..handleHomeSharedIntent(GetAllHomeDataIntent()),
+          child: const AppSections(),
+        ),
       ),
 
       GoRoute(

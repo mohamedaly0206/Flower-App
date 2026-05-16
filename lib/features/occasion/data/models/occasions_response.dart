@@ -12,10 +12,7 @@ class OccasionsResponse {
   @JsonKey(name: 'occasions')
   List<OccasionDTO>? occasions;
 
-  OccasionsResponse({
-    this.message,
-    this.occasions,
-  });
+  OccasionsResponse({this.message, this.occasions});
 
   factory OccasionsResponse.fromJson(Map<String, dynamic> json) =>
       _$OccasionsResponseFromJson(json);

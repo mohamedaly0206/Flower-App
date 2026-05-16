@@ -25,7 +25,7 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
   final BestSellerUseCase _bestSellerUseCase;
   Timer? _searchDebounce;
 
-  void handleHomeSharedIntent(HomeSharedIntent intent) async{
+  void handleHomeSharedIntent(HomeSharedIntent intent) async {
     switch (intent) {
       case GetAllHomeDataIntent():
         _getAllHomeData();

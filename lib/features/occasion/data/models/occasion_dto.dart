@@ -45,11 +45,6 @@ class OccasionDTO {
 
   Map<String, dynamic> toJson() => _$OccasionDTOToJson(this);
   OccasionEntity toEntity() {
-    return OccasionEntity(
-      id: id,
-      name: name,
-      slug: slug,
-      image: image,
-    );
+    return OccasionEntity(id: id, name: name, slug: slug, image: image);
   }
 }

@@ -77,7 +77,9 @@ class _LoginViewState extends State<LoginView> {
                         ],
                       ),
                       InkWell(
-                        onTap: () {context.push(AppRouterPaths.kForgetPasswordView);},
+                        onTap: () {
+                          context.push(AppRouterPaths.kForgetPasswordView);
+                        },
                         child: Text(
                           AppStrings.forgetPassword,
                           style: AppTextStyles.textStyleRegular12.copyWith(

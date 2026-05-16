@@ -112,11 +112,12 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                               ),
                               RichText(
                                 text: TextSpan(
-                                  style: AppTextStyles.textStyleRegular14.copyWith(
-                                    color: AppColors.blackColor,
-                                  ),
+                                  style: AppTextStyles.textStyleRegular14
+                                      .copyWith(color: AppColors.blackColor),
                                   children: [
-                                    const TextSpan(text: '${AppStrings.status}: '),
+                                    const TextSpan(
+                                      text: '${AppStrings.status}: ',
+                                    ),
                                     TextSpan(
                                       text: (widget.product.quantity ?? 0) > 0
                                           ? AppStrings.inStock
@@ -162,7 +163,10 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 24.0,
+              ),
               child: SizedBox(
                 width: double.infinity,
                 height: 54,

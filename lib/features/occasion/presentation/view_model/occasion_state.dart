@@ -20,10 +20,7 @@ class OccasionSuccess extends OccasionState {
   final List<OccasionEntity> occasions;
   final int selectedTabIndex;
 
-  const OccasionSuccess({
-    required this.occasions,
-    this.selectedTabIndex = 0,
-  });
+  const OccasionSuccess({required this.occasions, this.selectedTabIndex = 0});
 
   OccasionSuccess copyWith({
     List<OccasionEntity>? occasions,

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/values/app_strings.dart';
+import '../../../categories/domain/entities/category_item_entity.dart';
 
 class CategoriesListViewItem extends StatelessWidget {
-  const CategoriesListViewItem({super.key});
+  final CategoryItemEntity category;
+
+  const CategoriesListViewItem({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +23,13 @@ class CategoriesListViewItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
           ),
           child: Icon(
-            Icons.credit_card,
+            Icons.category_outlined,
             color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.7),
           ),
         ),
         const SizedBox(height: 8),
         Text(
-          AppStrings.categories,
+          category.name,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.bodyMedium,

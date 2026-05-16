@@ -31,53 +31,67 @@ void main() {
 
   setUp(() {
     mockRemoteDataSource = MockCategoriesRemoteDataSourceContract();
-    repository = CategoriesRepoImpl(categoryRemoteDataSource: mockRemoteDataSource);
+    repository = CategoriesRepoImpl(
+      categoryRemoteDataSource: mockRemoteDataSource,
+    );
   });
 
   // Prepare dummy data for the success case
   final tCategoryDto = CategoryDto(
     message: 'Success Message',
-    metadata: MetadataDto(currentPage: 1, limit: 10, totalPages: 1, totalItems: 5),
+    metadata: MetadataDto(
+      currentPage: 1,
+      limit: 10,
+      totalPages: 1,
+      totalItems: 5,
+    ),
     categories: [],
   );
 
   group('getCategories Repository Tests', () {
-    test('should return SuccessBaseResponse<CategoryEntity> and map DTO to Entity correctly', () async {
-      // Arrange
-      when(mockRemoteDataSource.getCategories()).thenAnswer(
-        (_) async => SuccessBaseResponse<CategoryDto>(data: tCategoryDto),
-      );
+    test(
+      'should return SuccessBaseResponse<CategoryEntity> and map DTO to Entity correctly',
+      () async {
+        // Arrange
+        when(mockRemoteDataSource.getCategories()).thenAnswer(
+          (_) async => SuccessBaseResponse<CategoryDto>(data: tCategoryDto),
+        );
 
-      // Act
-      final result = await repository.getCategories();
+        // Act
+        final result = await repository.getCategories();
 
-      // Assert
-      expect(result, isA<SuccessBaseResponse<CategoryEntity>>());
-      final successResult = result as SuccessBaseResponse<CategoryEntity>;
-      
-      expect(successResult.data.message, equals(tCategoryDto.message));
-      verify(mockRemoteDataSource.getCategories()).called(1);
-    });
+        // Assert
+        expect(result, isA<SuccessBaseResponse<CategoryEntity>>());
+        final successResult = result as SuccessBaseResponse<CategoryEntity>;
 
-    test('should return ErrorBaseResponse<CategoryEntity> when data source returns an error', () async {
-      // Arrange
-      const tErrorMessage = 'Something went wrong, please try again later';
-      
-      when(mockRemoteDataSource.getCategories()).thenAnswer(
-        (_) async => ErrorBaseResponse<CategoryDto>(errorMessage: tErrorMessage),
-      );
+        expect(successResult.data.message, equals(tCategoryDto.message));
+        verify(mockRemoteDataSource.getCategories()).called(1);
+      },
+    );
 
-      // Act
-      final result = await repository.getCategories();
+    test(
+      'should return ErrorBaseResponse<CategoryEntity> when data source returns an error',
+      () async {
+        // Arrange
+        const tErrorMessage = 'Something went wrong, please try again later';
 
-      // Assert
-      expect(result, isA<ErrorBaseResponse<CategoryEntity>>());
-      final errorResult = result as ErrorBaseResponse<CategoryEntity>;
-      
-      expect(errorResult.errorMessage, equals(tErrorMessage));
-      expect(errorResult.errorMessage, isNotNull);
-      
-      verify(mockRemoteDataSource.getCategories()).called(1);
-    });
+        when(mockRemoteDataSource.getCategories()).thenAnswer(
+          (_) async =>
+              ErrorBaseResponse<CategoryDto>(errorMessage: tErrorMessage),
+        );
+
+        // Act
+        final result = await repository.getCategories();
+
+        // Assert
+        expect(result, isA<ErrorBaseResponse<CategoryEntity>>());
+        final errorResult = result as ErrorBaseResponse<CategoryEntity>;
+
+        expect(errorResult.errorMessage, equals(tErrorMessage));
+        expect(errorResult.errorMessage, isNotNull);
+
+        verify(mockRemoteDataSource.getCategories()).called(1);
+      },
+    );
   });
 }

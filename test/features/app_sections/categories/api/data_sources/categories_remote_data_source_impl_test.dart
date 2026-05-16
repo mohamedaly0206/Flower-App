@@ -26,72 +26,94 @@ void main() {
 
   setUp(() {
     mockApiClient = MockCategoriesApiClient();
-    dataSource = CategoriesRemoteDataSourceImpl(categoriesApiClient: mockApiClient);
+    dataSource = CategoriesRemoteDataSourceImpl(
+      categoriesApiClient: mockApiClient,
+    );
   });
 
   group('getCategories - Success State', () {
-    test('should return SuccessBaseResponse when the API call is successful', () async {
-      // Arrange
-      final tCategoryDto = CategoryDto(
-        message: 'Success',
-        categories: [],
-        metadata: MetadataDto(currentPage: 1),
-      );
-      final tResponse = SuccessBaseResponse<CategoryDto>(data: tCategoryDto);
+    test(
+      'should return SuccessBaseResponse when the API call is successful',
+      () async {
+        // Arrange
+        final tCategoryDto = CategoryDto(
+          message: 'Success',
+          categories: [],
+          metadata: MetadataDto(currentPage: 1),
+        );
+        final tResponse = SuccessBaseResponse<CategoryDto>(data: tCategoryDto);
 
-      when(mockApiClient.getCategories()).thenAnswer((_) async => tResponse.data);
+        when(
+          mockApiClient.getCategories(),
+        ).thenAnswer((_) async => tResponse.data);
 
-      // Act
-      final result = await dataSource.getCategories();
+        // Act
+        final result = await dataSource.getCategories();
 
-      // Assert
-      expect(result, isA<SuccessBaseResponse<CategoryDto>>());
-      expect((result as SuccessBaseResponse).data, equals(tCategoryDto));
-      verify(mockApiClient.getCategories()).called(1);
-    });
+        // Assert
+        expect(result, isA<SuccessBaseResponse<CategoryDto>>());
+        expect((result as SuccessBaseResponse).data, equals(tCategoryDto));
+        verify(mockApiClient.getCategories()).called(1);
+      },
+    );
   });
 
   group('getCategories - Failure States', () {
-    
-    test('should return ErrorBaseResponse when the API client throws a generic Exception', () async {
-      // Arrange
-      when(mockApiClient.getCategories()).thenThrow(Exception('Unexpected Error'));
+    test(
+      'should return ErrorBaseResponse when the API client throws a generic Exception',
+      () async {
+        // Arrange
+        when(
+          mockApiClient.getCategories(),
+        ).thenThrow(Exception('Unexpected Error'));
 
-      // Act
-      final result = await dataSource.getCategories();
+        // Act
+        final result = await dataSource.getCategories();
 
-      // Assert
-      expect(result, isA<ErrorBaseResponse<CategoryDto>>());
-      verify(mockApiClient.getCategories()).called(1);
-    });
+        // Assert
+        expect(result, isA<ErrorBaseResponse<CategoryDto>>());
+        verify(mockApiClient.getCategories()).called(1);
+      },
+    );
 
-    test('should return ErrorBaseResponse with the correct error message', () async {
-      // Arrange
-      final tException = Exception("Network timeout"); 
-      when(mockApiClient.getCategories()).thenThrow(tException);
+    test(
+      'should return ErrorBaseResponse with the correct error message',
+      () async {
+        // Arrange
+        final tException = Exception("Network timeout");
+        when(mockApiClient.getCategories()).thenThrow(tException);
 
-      // Act
-      final result = await dataSource.getCategories();
+        // Act
+        final result = await dataSource.getCategories();
 
-      // Assert
-      expect(result, isA<ErrorBaseResponse<CategoryDto>>());
-      final errorResult = result as ErrorBaseResponse<CategoryDto>;
-      
-      // FIXED: Removed expect(..., isNull) because the message is actually present.
-      expect(errorResult.errorMessage, isNotNull);
-      expect(errorResult.errorMessage, isNotEmpty);
-      expect(errorResult.errorMessage, equals('Something went wrong, please try again later'));
-    });
+        // Assert
+        expect(result, isA<ErrorBaseResponse<CategoryDto>>());
+        final errorResult = result as ErrorBaseResponse<CategoryDto>;
 
-    test('should NOT throw an unhandled exception when API fails with ArgumentError', () async {
-      // Arrange
-      when(mockApiClient.getCategories()).thenThrow(ArgumentError('Invalid argument'));
+        // FIXED: Removed expect(..., isNull) because the message is actually present.
+        expect(errorResult.errorMessage, isNotNull);
+        expect(errorResult.errorMessage, isNotEmpty);
+        expect(
+          errorResult.errorMessage,
+          equals('Something went wrong, please try again later'),
+        );
+      },
+    );
 
-      // Act & Assert
-      // We expect the data source to catch the error and return an ErrorBaseResponse 
-      // instead of letting the app crash.
-      final result = await dataSource.getCategories();
-      expect(result, isA<ErrorBaseResponse<CategoryDto>>());
-    });
+    test(
+      'should NOT throw an unhandled exception when API fails with ArgumentError',
+      () async {
+        // Arrange
+        when(
+          mockApiClient.getCategories(),
+        ).thenThrow(ArgumentError('Invalid argument'));
+
+        // Act & Assert
+        // We expect the data source to catch the error and return an ErrorBaseResponse
+        // instead of letting the app crash.
+        final result = await dataSource.getCategories();
+        expect(result, isA<ErrorBaseResponse<CategoryDto>>());
+      },
+    );
   });
 }

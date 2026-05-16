@@ -4,10 +4,5 @@ class OccasionEntity {
   final String? slug;
   final String? image;
 
-  OccasionEntity({
-    this.id,
-    this.name,
-    this.slug,
-    this.image,
-  });
+  OccasionEntity({this.id, this.name, this.slug, this.image});
 }

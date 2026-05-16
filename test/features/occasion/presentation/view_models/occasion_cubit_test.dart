@@ -69,59 +69,60 @@ void main() {
     // Verifies the cubit emits [OccasionLoading, OccasionSuccess] in order
     // and that the success state holds the correctly mapped entity list.
     // -----------------------------------------------------------------------
-    test('emits [OccasionLoading, OccasionSuccess] on successful fetch',
-        () async {
-      // Arrange
-      final occasions = _makeOccasions(['Birthday', 'Wedding']);
-      repo.response = SuccessBaseResponse(
-        data: OccasionsResponseEntity(
-          message: 'ok',
-          occasions: occasions,
-        ),
-      );
-      final emitted = <OccasionState>[];
-      final sub = cubit.stream.listen(emitted.add);
+    test(
+      'emits [OccasionLoading, OccasionSuccess] on successful fetch',
+      () async {
+        // Arrange
+        final occasions = _makeOccasions(['Birthday', 'Wedding']);
+        repo.response = SuccessBaseResponse(
+          data: OccasionsResponseEntity(message: 'ok', occasions: occasions),
+        );
+        final emitted = <OccasionState>[];
+        final sub = cubit.stream.listen(emitted.add);
 
-      // Act
-      await cubit.getOccasions();
-      await Future<void>.delayed(Duration.zero);
-      await sub.cancel();
+        // Act
+        await cubit.getOccasions();
+        await Future<void>.delayed(Duration.zero);
+        await sub.cancel();
 
-      // Assert
-      expect(emitted, hasLength(2));
-      expect(emitted[0], isA<OccasionLoading>());
-      expect(emitted[1], isA<OccasionSuccess>());
+        // Assert
+        expect(emitted, hasLength(2));
+        expect(emitted[0], isA<OccasionLoading>());
+        expect(emitted[1], isA<OccasionSuccess>());
 
-      final success = emitted[1] as OccasionSuccess;
-      expect(success.occasions, hasLength(2));
-      expect(success.occasions[0].name, 'Birthday');
-      expect(success.occasions[1].name, 'Wedding');
-      expect(success.selectedTabIndex, 0); // default tab
-    });
+        final success = emitted[1] as OccasionSuccess;
+        expect(success.occasions, hasLength(2));
+        expect(success.occasions[0].name, 'Birthday');
+        expect(success.occasions[1].name, 'Wedding');
+        expect(success.selectedTabIndex, 0); // default tab
+      },
+    );
 
     // -----------------------------------------------------------------------
     // Loading → Success with empty list
     // Validates that when the API returns an empty occasions array the cubit
     // still emits OccasionSuccess (not a failure) with an empty list.
     // -----------------------------------------------------------------------
-    test('emits OccasionSuccess with empty list when occasions are empty',
-        () async {
-      // Arrange
-      repo.response = SuccessBaseResponse(
-        data: OccasionsResponseEntity(message: 'ok', occasions: []),
-      );
-      final emitted = <OccasionState>[];
-      final sub = cubit.stream.listen(emitted.add);
+    test(
+      'emits OccasionSuccess with empty list when occasions are empty',
+      () async {
+        // Arrange
+        repo.response = SuccessBaseResponse(
+          data: OccasionsResponseEntity(message: 'ok', occasions: []),
+        );
+        final emitted = <OccasionState>[];
+        final sub = cubit.stream.listen(emitted.add);
 
-      // Act
-      await cubit.getOccasions();
-      await Future<void>.delayed(Duration.zero);
-      await sub.cancel();
+        // Act
+        await cubit.getOccasions();
+        await Future<void>.delayed(Duration.zero);
+        await sub.cancel();
 
-      // Assert
-      expect(emitted[1], isA<OccasionSuccess>());
-      expect((emitted[1] as OccasionSuccess).occasions, isEmpty);
-    });
+        // Assert
+        expect(emitted[1], isA<OccasionSuccess>());
+        expect((emitted[1] as OccasionSuccess).occasions, isEmpty);
+      },
+    );
 
     // -----------------------------------------------------------------------
     // Loading → Success — null occasions falls back to empty list
@@ -152,62 +153,66 @@ void main() {
     // and that the failure state carries the error message returned by the
     // repository.
     // -----------------------------------------------------------------------
-    test('emits [OccasionLoading, OccasionFailure] on error response',
-        () async {
-      // Arrange
-      repo.response = ErrorBaseResponse(
-        errorMessage: 'Something went wrong, please try again later',
-      );
-      final emitted = <OccasionState>[];
-      final sub = cubit.stream.listen(emitted.add);
+    test(
+      'emits [OccasionLoading, OccasionFailure] on error response',
+      () async {
+        // Arrange
+        repo.response = ErrorBaseResponse(
+          errorMessage: 'Something went wrong, please try again later',
+        );
+        final emitted = <OccasionState>[];
+        final sub = cubit.stream.listen(emitted.add);
 
-      // Act
-      await cubit.getOccasions();
-      await Future<void>.delayed(Duration.zero);
-      await sub.cancel();
+        // Act
+        await cubit.getOccasions();
+        await Future<void>.delayed(Duration.zero);
+        await sub.cancel();
 
-      // Assert
-      expect(emitted, hasLength(2));
-      expect(emitted[0], isA<OccasionLoading>());
-      expect(emitted[1], isA<OccasionFailure>());
+        // Assert
+        expect(emitted, hasLength(2));
+        expect(emitted[0], isA<OccasionLoading>());
+        expect(emitted[1], isA<OccasionFailure>());
 
-      final failure = emitted[1] as OccasionFailure;
-      expect(
-        failure.errorMessage,
-        'Something went wrong, please try again later',
-      );
-    });
+        final failure = emitted[1] as OccasionFailure;
+        expect(
+          failure.errorMessage,
+          'Something went wrong, please try again later',
+        );
+      },
+    );
 
     // -----------------------------------------------------------------------
     // Idempotency while loading
     // Verifies that a second call to getOccasions() while the first is still
     // in-flight is ignored — the repository is called exactly once.
     // -----------------------------------------------------------------------
-    test('ignores concurrent getOccasions calls while already loading',
-        () async {
-      // Arrange — hold the future so we can control when it resolves
-      repo.completer = Completer<BaseResponse<OccasionsResponseEntity>>();
+    test(
+      'ignores concurrent getOccasions calls while already loading',
+      () async {
+        // Arrange — hold the future so we can control when it resolves
+        repo.completer = Completer<BaseResponse<OccasionsResponseEntity>>();
 
-      // Act — fire first call (in-flight) then immediately fire a second
-      final first = cubit.getOccasions();
-      await Future<void>.delayed(Duration.zero); // let cubit emit Loading
+        // Act — fire first call (in-flight) then immediately fire a second
+        final first = cubit.getOccasions();
+        await Future<void>.delayed(Duration.zero); // let cubit emit Loading
 
-      await cubit.getOccasions(); // must be a no-op
+        await cubit.getOccasions(); // must be a no-op
 
-      // Resolve the first call
-      repo.completer!.complete(
-        SuccessBaseResponse(
-          data: OccasionsResponseEntity(
-            message: 'ok',
-            occasions: _makeOccasions(['Eid']),
+        // Resolve the first call
+        repo.completer!.complete(
+          SuccessBaseResponse(
+            data: OccasionsResponseEntity(
+              message: 'ok',
+              occasions: _makeOccasions(['Eid']),
+            ),
           ),
-        ),
-      );
-      await first;
+        );
+        await first;
 
-      // Assert — repository was hit only once
-      expect(repo.callsCount, 1);
-    });
+        // Assert — repository was hit only once
+        expect(repo.callsCount, 1);
+      },
+    );
 
     // -----------------------------------------------------------------------
     // selectTab
