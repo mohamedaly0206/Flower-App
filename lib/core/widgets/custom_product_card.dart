@@ -43,7 +43,6 @@ class CustomProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              flex: 4,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(2),
                 child: Image(
@@ -52,9 +51,7 @@ class CustomProductCard extends StatelessWidget {
                   width: double.infinity,
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.surfaceContainerHighest,
+                      color: Theme.of(context).colorScheme.secondary,
                       child: Center(
                         child: Icon(
                           Icons.image_not_supported_outlined,
@@ -67,50 +64,47 @@ class CustomProductCard extends StatelessWidget {
               ),
             ),
             SizedBox(height: 8),
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        title,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 4),
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Row(
-                        children: [
-                          Text(
-                            '$currency $price',
-                            style: Theme.of(context).textTheme.displayLarge,
-                          ),
-                          SizedBox(width: 8),
-                          Text(
-                            '$oldPrice',
-                            style: Theme.of(context).textTheme.bodySmall
-                                ?.copyWith(
-                                  decoration: TextDecoration.lineThrough,
-                                ),
-                          ),
-                          SizedBox(width: 4),
-                          Text(
-                            '${discountPercent ?? 0}%',
-                            style: Theme.of(context).textTheme.bodySmall
-                                ?.copyWith(
-                                  color: Theme.of(context).colorScheme.tertiary,
-                                ),
-                          ),
-                        ],
-                      ),
+                    maxLines: 2,
+                  ),
+                  SizedBox(height: 4),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Row(
+                      children: [
+                        Text(
+                          '$currency $price',
+                          style: Theme.of(context).textTheme.displayLarge,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          '$oldPrice',
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
+                                decoration: TextDecoration.lineThrough,
+                              ),
+                        ),
+                        SizedBox(width: 4),
+                        Text(
+                          '${discountPercent ?? 0}%',
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.tertiary,
+                              ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             SizedBox(height: 8),
