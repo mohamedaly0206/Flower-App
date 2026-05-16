@@ -13,7 +13,7 @@ class OccasionListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeSharedCubit, HomeSharedStates>(
       buildWhen: (previous, current) =>
-      previous.occasionsState != current.occasionsState,
+          previous.occasionsState != current.occasionsState,
       builder: (context, state) {
         final occasionsState = state.occasionsState;
 
@@ -47,9 +47,7 @@ class OccasionListView extends StatelessWidget {
         if (occasions == null || occasions.isEmpty) {
           return const SizedBox(
             height: 210,
-            child: Center(
-              child: Text('No Occasions Found'),
-            ),
+            child: Center(child: Text('No Occasions Found')),
           );
         }
 
@@ -60,14 +58,11 @@ class OccasionListView extends StatelessWidget {
 
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
-            separatorBuilder: (context, index) =>
-            const SizedBox(width: 10),
+            separatorBuilder: (context, index) => const SizedBox(width: 10),
             itemBuilder: (context, index) {
               final occasion = occasions[index];
 
-               return OccasionListViewItem(
-                 occasion: occasion,
-               );
+              return OccasionListViewItem(occasion: occasion);
             },
           ),
         );

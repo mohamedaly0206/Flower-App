@@ -78,14 +78,20 @@ class HomeView extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 5),
-                SectionHeader(title: AppStrings.categories, onPressed: () {
-                  GoRouter.of(context).push(AppRouterPaths.kCategoriesView);
-                }),
+                SectionHeader(
+                  title: AppStrings.categories,
+                  onPressed: () {
+                    GoRouter.of(context).push(AppRouterPaths.kCategoriesView);
+                  },
+                ),
                 const CategoriesListView(),
                 const SizedBox(height: 10),
-                SectionHeader(title: AppStrings.bestSeller, onPressed: () {
-                  GoRouter.of(context).push(AppRouterPaths.kBestSellerView);
-                }),
+                SectionHeader(
+                  title: AppStrings.bestSeller,
+                  onPressed: () {
+                    GoRouter.of(context).push(AppRouterPaths.kBestSellerView);
+                  },
+                ),
                 const SizedBox(height: 10),
                 const BestSellerListView(),
                 const SizedBox(height: 10),

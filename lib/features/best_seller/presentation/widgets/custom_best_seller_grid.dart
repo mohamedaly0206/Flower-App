@@ -26,8 +26,8 @@ class CustomBestSellerGrid extends StatelessWidget {
           imageProvider: CachedNetworkImageProvider(product!.imageCover ?? ''),
           price: product.priceAfterDiscount,
           title: product.title,
-          discountPercent:  product.discount,
-          oldPrice: product.price ,
+          discountPercent: product.discount,
+          oldPrice: product.price,
         );
       },
     );

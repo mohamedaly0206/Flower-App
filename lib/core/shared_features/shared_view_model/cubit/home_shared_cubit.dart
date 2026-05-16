@@ -16,11 +16,11 @@ import '../../../../features/occasion/domain/entities/occasions_response_entity.
 @injectable
 class HomeSharedCubit extends Cubit<HomeSharedStates> {
   HomeSharedCubit(
-      this.categoriesUseCase,
-      this._getProductsUseCase,
-      this._bestSellerUseCase,
-      this._getOccasionsUseCase
-      ) : super(const HomeSharedStates());
+    this.categoriesUseCase,
+    this._getProductsUseCase,
+    this._bestSellerUseCase,
+    this._getOccasionsUseCase,
+  ) : super(const HomeSharedStates());
 
   final CategoriesUseCase categoriesUseCase;
   final GetProductsUseCase _getProductsUseCase;
@@ -65,11 +65,7 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
   }
 
   Future<void> _getAllHomeData() async {
-    await Future.wait([
-      _getCategories(),
-      _getOccasions(),
-      _getBestSellers(),
-    ]);
+    await Future.wait([_getCategories(), _getOccasions(), _getBestSellers()]);
   }
 
   Future<void> _getCategories() async {
@@ -79,9 +75,7 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
 
     emit(
       state.copyWith(
-        categoriesState: state.categoriesState.copyWith(
-          isLoadingParam: true,
-        ),
+        categoriesState: state.categoriesState.copyWith(isLoadingParam: true),
       ),
     );
 
@@ -104,8 +98,7 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
           ),
         );
 
-        final firstCategoryId =
-            response.data.categories.firstOrNull?.id;
+        final firstCategoryId = response.data.categories.firstOrNull?.id;
 
         if (firstCategoryId != null) {
           await _getProducts(categoryId: firstCategoryId);
@@ -132,9 +125,7 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
     }
   }
 
-  Future<void> _changeCategoriesTab(
-      ChangeTabIntent intent,
-      ) async {
+  Future<void> _changeCategoriesTab(ChangeTabIntent intent) async {
     if (isClosed) return;
 
     emit(state.copyWith(selectedIndex: intent.index));
@@ -153,9 +144,7 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
 
     emit(
       state.copyWith(
-        occasionsState: state.occasionsState.copyWith(
-          isLoadingParam: true,
-        ),
+        occasionsState: state.occasionsState.copyWith(isLoadingParam: true),
       ),
     );
 
@@ -165,7 +154,6 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
 
     switch (result) {
       case SuccessBaseResponse<OccasionsResponseEntity>():
-
         emit(
           state.copyWith(
             occasionsState: state.occasionsState.copyWith(
@@ -177,7 +165,6 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
         break;
 
       case ErrorBaseResponse<OccasionsResponseEntity>():
-
         emit(
           state.copyWith(
             occasionsState: state.occasionsState.copyWith(
@@ -199,9 +186,7 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
 
     emit(
       state.copyWith(
-        productsState: state.productsState.copyWith(
-          isLoadingParam: true,
-        ),
+        productsState: state.productsState.copyWith(isLoadingParam: true),
       ),
     );
 
@@ -228,7 +213,6 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
 
         break;
       case ErrorBaseResponse<ProductsResponseEntity>():
-
         if (isClosed) return;
 
         emit(
@@ -247,41 +231,35 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
   void _searchProducts(SearchIntent intent) {
     _searchDebounce?.cancel();
 
-    _searchDebounce = Timer(
-      const Duration(seconds: 1),
-          () async {
+    _searchDebounce = Timer(const Duration(seconds: 1), () async {
+      if (isClosed) return;
+
+      final keyword = intent.search.trim();
+
+      if (keyword.isEmpty) {
         if (isClosed) return;
 
-        final keyword = intent.search.trim();
-
-        if (keyword.isEmpty) {
-          if (isClosed) return;
-
-          emit(
-            state.copyWith(
-              productsState: state.productsState.copyWith(
-                dataParam: ProductsResponseEntity(products: []),
-              ),
+        emit(
+          state.copyWith(
+            productsState: state.productsState.copyWith(
+              dataParam: ProductsResponseEntity(products: []),
             ),
-          );
+          ),
+        );
 
-          return;
-        }
+        return;
+      }
 
-        await _getProducts(search: keyword);
-      },
-    );
+      await _getProducts(search: keyword);
+    });
   }
 
   Future<void> _getBestSellers() async {
-
     if (isClosed) return;
 
     emit(
       state.copyWith(
-        bestSellersState: state.bestSellersState.copyWith(
-          isLoadingParam: true,
-        ),
+        bestSellersState: state.bestSellersState.copyWith(isLoadingParam: true),
       ),
     );
 

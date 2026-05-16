@@ -12,7 +12,7 @@ class BestSellerListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeSharedCubit, HomeSharedStates>(
       buildWhen: (previous, current) =>
-      previous.bestSellersState != current.bestSellersState,
+          previous.bestSellersState != current.bestSellersState,
       builder: (context, state) {
         final bestSellerState = state.bestSellersState;
 
@@ -49,9 +49,7 @@ class BestSellerListView extends StatelessWidget {
         if (bestSellers.isEmpty) {
           return const SizedBox(
             height: 210,
-            child: Center(
-              child: Text('No Best Sellers Found'),
-            ),
+            child: Center(child: Text('No Best Sellers Found')),
           );
         }
 
@@ -61,14 +59,11 @@ class BestSellerListView extends StatelessWidget {
             itemCount: bestSellers.length,
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
-            separatorBuilder: (context, index) =>
-            const SizedBox(width: 10),
+            separatorBuilder: (context, index) => const SizedBox(width: 10),
             itemBuilder: (context, index) {
               final bestSeller = bestSellers[index];
 
-              return BestSellerListViewItem(
-                bestSeller: bestSeller,
-              );
+              return BestSellerListViewItem(bestSeller: bestSeller);
             },
           ),
         );

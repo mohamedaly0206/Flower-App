@@ -56,9 +56,7 @@ class CategoriesView extends StatelessWidget {
                             'No products found in this category',
                             style: Theme.of(context).textTheme.bodyMedium!
                                 .copyWith(
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.primary,
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                           ),
                         )

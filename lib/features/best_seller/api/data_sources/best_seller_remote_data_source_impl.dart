@@ -9,7 +9,8 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/shared_features/products/data/models/products_response.dart';
 
 @Injectable(as: BestSellerRemoteDataSourceContract)
-class BestSellerRemoteDataSourceImpl implements BestSellerRemoteDataSourceContract {
+class BestSellerRemoteDataSourceImpl
+    implements BestSellerRemoteDataSourceContract {
   final BestSellerApiClient _bestSellerApiClient;
 
   BestSellerRemoteDataSourceImpl(this._bestSellerApiClient);

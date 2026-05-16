@@ -2,12 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_app/features/occasion/domain/entities/occasion_entity.dart';
 import 'package:flutter/material.dart';
 
-
 class OccasionListViewItem extends StatelessWidget {
-  const OccasionListViewItem({
-    super.key,
-    required this.occasion,
-  });
+  const OccasionListViewItem({super.key, required this.occasion});
 
   final OccasionEntity occasion;
 
@@ -24,7 +20,7 @@ class OccasionListViewItem extends StatelessWidget {
             width: 130,
             height: 150,
             fit: BoxFit.cover,
-            imageUrl: url ??'',
+            imageUrl: url ?? '',
           ),
 
           const SizedBox(height: 8),
@@ -33,10 +29,9 @@ class OccasionListViewItem extends StatelessWidget {
             occasion.name ?? 'Unknown',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context)
-                .textTheme
-                .headlineMedium
-                ?.copyWith(fontWeight: FontWeight.w600),
+            style: Theme.of(
+              context,
+            ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w600),
           ),
         ],
       ),

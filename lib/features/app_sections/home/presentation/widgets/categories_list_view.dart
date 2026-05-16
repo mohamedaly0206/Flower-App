@@ -20,10 +20,12 @@ class CategoriesListView extends StatelessWidget {
         if (categoriesState.isLoading) {
           return SizedBox(
             height: 120,
-            child: Center(child: SpinKitFadingCircle(
-              color: Theme.of(context).colorScheme.primary,
-              size: 50,
-            ),),
+            child: Center(
+              child: SpinKitFadingCircle(
+                color: Theme.of(context).colorScheme.primary,
+                size: 50,
+              ),
+            ),
           );
         }
 
