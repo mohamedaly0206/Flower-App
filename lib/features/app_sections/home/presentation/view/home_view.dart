@@ -29,9 +29,7 @@ class HomeView extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(child: SvgPicture.asset(Assets.icons.logo)),
-                      const SizedBox(
-                        width: 17,
-                      ), // استبدلنا الـ spacing بـ SizedBox مضمون
+                      const SizedBox(width: 17),
                       Expanded(
                         flex: 3,
                         child: GestureDetector(
