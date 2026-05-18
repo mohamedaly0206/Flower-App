@@ -40,6 +40,8 @@ abstract class AppTheme {
       titleTextStyle: AppTextStyles.textStyleMedium20.copyWith(
         color: AppColors.blackColor,
       ),
+      titleSpacing: 8,
+      leadingWidth: 22,
     ),
     // inputDecorationTheme
     inputDecorationTheme: InputDecorationTheme(

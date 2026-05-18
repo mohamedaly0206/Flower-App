@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/shared_features/products/domain/entities/product_entity.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/cubit/home_shared_cubit.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_shared_intent.dart';
@@ -16,6 +17,7 @@ import 'package:flower_app/features/occasion/presentation/view_model/occasion_cu
 import 'package:flower_app/features/occasion/presentation/view_model/occasion_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class OccasionView extends StatelessWidget {
   const OccasionView({super.key});
@@ -301,6 +303,12 @@ class _ProductCard extends StatelessWidget {
       price: product.priceAfterDiscount ?? product.price ?? 0,
       oldPrice: product.priceAfterDiscount != null ? product.price : null,
       discountPercent: discountPercent,
+      onTap: () {
+        GoRouter.of(
+          context,
+        ).push(AppRouterPaths.kProductDetailsView, extra: product);
+      },
+      onAddToCart: () {},
     );
   }
 }

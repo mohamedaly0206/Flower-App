@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/widgets/custom_product_card.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/shared_features/products/domain/entities/product_entity.dart';
 
@@ -28,6 +30,12 @@ class CustomBestSellerGrid extends StatelessWidget {
           title: product.title,
           discountPercent: product.discount,
           oldPrice: product.price,
+          onTap: () {
+            GoRouter.of(
+              context,
+            ).push(AppRouterPaths.kProductDetailsView, extra: product);
+          },
+          onAddToCart: () {},
         );
       },
     );
