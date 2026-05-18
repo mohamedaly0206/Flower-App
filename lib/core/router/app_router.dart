@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/occasion/presentation/view_model/occasion_cubit.dart';
 import '../values/app_strings.dart';
 
 abstract class AppRouter {
@@ -37,11 +38,14 @@ abstract class AppRouter {
     routes: [
       GoRoute(
         path: AppRouterPaths.kSearchView,
-        builder: (context, state) => SearchView(),
+        builder: (context, state) => BlocProvider.value(
+          value: getIt<HomeSharedCubit>(),
+          child: SearchView(),
+        ),
       ),
       GoRoute(
         path: AppRouterPaths.kCategoriesView,
-        builder: (context, state) => CategoriesView(),
+        builder: (context, state) => const CategoriesView(),
       ),
       GoRoute(
         path: AppRouterPaths.kLoginView,
@@ -59,7 +63,6 @@ abstract class AppRouter {
           child: const AppSections(),
         ),
       ),
-
       GoRoute(
         path: AppRouterPaths.kForgetPasswordView,
         builder: (context, state) => BlocProvider(
@@ -67,15 +70,10 @@ abstract class AppRouter {
           child: ForgetPasswordScreen(),
         ),
       ),
-
       GoRoute(
         path: AppRouterPaths.kSignUpView,
         builder: (context, state) => const RegisterScreen(),
       ),
-      // GoRoute(
-      //   path: AppRouterPaths.kForgetPasswordView,
-      //   builder: (context, state) => const ForgetPasswordView(),
-      // ),
       GoRoute(
         path: AppRouterPaths.kProductDetailsView,
         builder: (context, state) =>
@@ -83,11 +81,30 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: AppRouterPaths.kBestSellerView,
-        builder: (context, state) => const BestSellerView(),
+        builder: (context, state) => BlocProvider.value(
+          value: getIt<HomeSharedCubit>()
+            ..handleHomeSharedIntent(GetBestSellersIntent()),
+          child: const BestSellerView(),
+        ),
       ),
       GoRoute(
         path: AppRouterPaths.kOccasionView,
-        builder: (context, state) => const OccasionView(),
+        builder: (context, state) {
+          final extraParam = state.extra;
+          final initialIndex = extraParam is int ? extraParam : 0;
+
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) =>
+                    getIt<OccasionCubit>()
+                      ..getOccasions(initialIndex: initialIndex),
+              ),
+              BlocProvider.value(value: getIt<HomeSharedCubit>()),
+            ],
+            child: const OccasionView(),
+          );
+        },
       ),
     ],
   );

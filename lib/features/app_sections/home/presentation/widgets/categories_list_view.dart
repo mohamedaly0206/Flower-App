@@ -2,12 +2,13 @@ import 'package:flower_app/features/app_sections/home/presentation/widgets/categ
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import '../../../../../core/shared_features/shared_view_model/cubit/home_shared_cubit.dart';
 import '../../../../../core/shared_features/shared_view_model/states/home_shared_states.dart';
 
 class CategoriesListView extends StatelessWidget {
-  const CategoriesListView({super.key});
+  final VoidCallback onCategorySelected;
+
+  const CategoriesListView({super.key, required this.onCategorySelected});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +60,11 @@ class CategoriesListView extends StatelessWidget {
             separatorBuilder: (context, index) => const SizedBox(width: 10),
             itemBuilder: (context, index) {
               final category = categoriesList[index];
-              return CategoriesListViewItem(category: category);
+              return CategoriesListViewItem(
+                category: category,
+                index: index,
+                onTap: onCategorySelected,
+              );
             },
           ),
         );

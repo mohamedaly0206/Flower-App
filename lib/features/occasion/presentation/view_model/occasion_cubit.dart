@@ -11,7 +11,7 @@ class OccasionCubit extends Cubit<OccasionState> {
 
   OccasionCubit(this._getOccasionsUseCase) : super(const OccasionInitial());
 
-  Future<void> getOccasions() async {
+  Future<void> getOccasions({int initialIndex = 0}) async {
     if (state is OccasionLoading) return;
 
     emit(const OccasionLoading());
@@ -21,7 +21,9 @@ class OccasionCubit extends Cubit<OccasionState> {
     switch (result) {
       case SuccessBaseResponse<OccasionsResponseEntity>():
         final occasions = result.data.occasions ?? [];
-        emit(OccasionSuccess(occasions: occasions));
+        emit(
+          OccasionSuccess(occasions: occasions, selectedTabIndex: initialIndex),
+        );
       case ErrorBaseResponse<OccasionsResponseEntity>():
         emit(OccasionFailure(result.errorMessage));
     }

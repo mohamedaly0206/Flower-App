@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_app/core/shared_features/products/domain/entities/product_entity.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/cubit/home_shared_cubit.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_shared_intent.dart';
@@ -122,7 +123,6 @@ class _OccasionContent extends StatelessWidget {
     }
 
     final tabNames = occasions.map((o) => o.name ?? '').toList();
-
     final selectedOccasion = occasions[selectedTabIndex];
 
     return Column(
@@ -137,9 +137,7 @@ class _OccasionContent extends StatelessWidget {
             ),
           ),
         ),
-
         const SizedBox(height: 12),
-
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: CustomTabBar(
@@ -150,9 +148,7 @@ class _OccasionContent extends StatelessWidget {
             },
           ),
         ),
-
         const SizedBox(height: 16),
-
         Expanded(child: _OccasionProductGrid(occasion: selectedOccasion)),
       ],
     );
@@ -167,6 +163,8 @@ class _OccasionProductGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeSharedCubit, HomeSharedStates>(
+      buildWhen: (previous, current) =>
+          previous.productsState != current.productsState,
       builder: (context, state) {
         if (state.productsState.isLoading) {
           return const Center(
@@ -186,9 +184,7 @@ class _OccasionProductGrid extends StatelessWidget {
                     color: AppColors.errorColor,
                     size: 48,
                   ),
-
                   const SizedBox(height: 12),
-
                   Text(
                     state.productsState.errorMessage!,
                     textAlign: TextAlign.center,
@@ -196,9 +192,7 @@ class _OccasionProductGrid extends StatelessWidget {
                       color: AppColors.greyColor,
                     ),
                   ),
-
                   const SizedBox(height: 20),
-
                   ElevatedButton(
                     onPressed: () {
                       if (occasion.id != null) {
@@ -228,9 +222,7 @@ class _OccasionProductGrid extends StatelessWidget {
                     color: AppColors.placeHolderColor,
                     size: 56,
                   ),
-
                   const SizedBox(height: 12),
-
                   Text(
                     'No products in this occasion yet',
                     style: AppTextStyles.textStyleRegular14.copyWith(
@@ -254,7 +246,6 @@ class _OccasionProductGrid extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 final product = products[index];
-
                 return _ProductCard(product: product);
               },
             ),
@@ -270,9 +261,7 @@ class _OccasionProductGrid extends StatelessWidget {
                 color: AppColors.placeHolderColor,
                 size: 56,
               ),
-
               const SizedBox(height: 12),
-
               Text(
                 'Select an occasion to see products',
                 style: AppTextStyles.textStyleRegular14.copyWith(
@@ -295,7 +284,6 @@ class _ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final imageUrl = product.imageCover ?? '';
-
     int? discountPercent;
 
     if (product.priceAfterDiscount != null &&
@@ -304,13 +292,12 @@ class _ProductCard extends StatelessWidget {
       final pct =
           ((product.price! - product.priceAfterDiscount!) / product.price!) *
           100;
-
       discountPercent = pct.round();
     }
 
     return CustomProductCard(
       title: product.title ?? '',
-      imageProvider: NetworkImage(imageUrl),
+      imageProvider: CachedNetworkImageProvider(imageUrl),
       price: product.priceAfterDiscount ?? product.price ?? 0,
       oldPrice: product.priceAfterDiscount != null ? product.price : null,
       discountPercent: discountPercent,

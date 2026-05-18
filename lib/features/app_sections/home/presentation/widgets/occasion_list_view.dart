@@ -3,11 +3,12 @@ import 'package:flower_app/core/shared_features/shared_view_model/states/home_sh
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import 'occasion_list_view_item.dart';
 
 class OccasionListView extends StatelessWidget {
-  const OccasionListView({super.key});
+  final Function(int) onOccasionSelected;
+
+  const OccasionListView({super.key, required this.onOccasionSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,6 @@ class OccasionListView extends StatelessWidget {
           );
         }
 
-        // error
         if (occasionsState.errorMessage != null) {
           return SizedBox(
             height: 210,
@@ -43,7 +43,6 @@ class OccasionListView extends StatelessWidget {
         }
 
         final occasions = occasionsState.data?.occasions;
-        print(occasions);
         if (occasions == null || occasions.isEmpty) {
           return const SizedBox(
             height: 210,
@@ -55,14 +54,16 @@ class OccasionListView extends StatelessWidget {
           height: 210,
           child: ListView.separated(
             itemCount: occasions.length,
-
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             separatorBuilder: (context, index) => const SizedBox(width: 10),
             itemBuilder: (context, index) {
               final occasion = occasions[index];
 
-              return OccasionListViewItem(occasion: occasion);
+              return OccasionListViewItem(
+                occasion: occasion,
+                onTap: () => onOccasionSelected(index),
+              );
             },
           ),
         );

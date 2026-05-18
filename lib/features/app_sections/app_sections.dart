@@ -19,21 +19,25 @@ class AppSections extends StatefulWidget {
 class _AppSectionsState extends State<AppSections> {
   int _currentIndex = 0;
 
-  static final _sections = [
+  List<_AppSection> get _sections => [
     _AppSection(
       label: AppStrings.home,
       iconPath: Assets.icons.home2Icon,
-      screen: HomeView(),
+      screen: HomeView(
+        onViewAllCategories: () {
+          setState(() => _currentIndex = 1);
+        },
+      ),
     ),
     _AppSection(
       label: AppStrings.categories,
       iconPath: Assets.icons.categoryIcon,
-      screen: CategoriesView(),
+      screen: const CategoriesView(),
     ),
     _AppSection(
       label: AppStrings.cart,
       iconPath: Assets.icons.shoppingCartIcon,
-      screen: CartView(),
+      screen: const CartView(),
     ),
     _AppSection(
       label: AppStrings.profile,

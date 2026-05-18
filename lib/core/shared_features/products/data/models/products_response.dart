@@ -18,6 +18,7 @@ class ProductsResponseDto {
       _$ProductsResponseDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProductsResponseDtoToJson(this);
+
   ProductsResponseEntity toDomain() {
     return ProductsResponseEntity(
       message: message,

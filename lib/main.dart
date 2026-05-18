@@ -33,7 +33,9 @@ class FlowerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerConfig: AppRouter.getRouter(initialLocation: initialLocation),
+      routerConfig: AppRouter.getRouter(
+        initialLocation: AppRouterPaths.kLoginView,
+      ),
       debugShowCheckedModeBanner: false,
       theme: AppTheme.appTheme,
     );

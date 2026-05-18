@@ -270,8 +270,6 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
     switch (result) {
       case SuccessBaseResponse<ProductsResponseEntity>():
         if (isClosed) return;
-        log('got best sellers successfully 1');
-        log(state.bestSellersState.data?.products?[0].title ?? 'Unknown');
 
         emit(
           state.copyWith(
