@@ -38,7 +38,7 @@ class _LoginViewState extends State<LoginView> {
       listener: _loginListener,
       child: Scaffold(
         backgroundColor: AppColors.whiteColor,
-        appBar: CustomAppBar(title: AppStrings.login),
+        appBar: CustomAppBar(title: AppStrings.login, hasBackButton: false),
         body: SingleChildScrollView(
           child: Form(
             key: _formKey,

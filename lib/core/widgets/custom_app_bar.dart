@@ -22,39 +22,26 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return PreferredSize(
       preferredSize: preferredSize,
-      child: AppBar(
-        titleSpacing: 0,
-        leadingWidth: 44,
-        leading: hasBackButton
-            ? InkWell(
-                onTap: () {
-                  if (onBackPressed != null) {
-                    onBackPressed!();
-                  } else {
-                    GoRouter.of(context).pop();
-                  }
-                },
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 16.0, right: 8),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        child: AppBar(
+          leading: hasBackButton
+              ? InkWell(
+                  onTap: () {
+                    if (onBackPressed != null) {
+                      onBackPressed!();
+                    } else {
+                      GoRouter.of(context).pop();
+                    }
+                  },
                   child: Center(
-                    child: SvgPicture.asset(
-                      Assets.icons.arrowBackIcon,
-                      width: 20,
-                      height: 20,
-                      colorFilter: ColorFilter.mode(
-                        Theme.of(context).colorScheme.onSurface,
-                        BlendMode.srcIn,
-                      ),
-                    ),
+                    child: SvgPicture.asset(Assets.icons.arrowBackIcon),
                   ),
-                ),
-              )
-            : null,
-        title: Text(title ?? ''),
-        actions: actions,
+                )
+              : null,
+          title: Text(title ?? ''),
+          actions: actions,
+        ),
       ),
     );
   }
