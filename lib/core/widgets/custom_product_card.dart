@@ -19,10 +19,10 @@ class CustomProductCard extends StatelessWidget {
     required this.imageProvider,
     required this.price,
     super.key,
-    this.oldPrice,
-    this.discountPercent,
-    this.onAddToCart,
-    this.onTap,
+    required this.oldPrice,
+    required this.discountPercent,
+    required this.onAddToCart,
+    required this.onTap,
     this.currency = 'EGP',
   });
 
