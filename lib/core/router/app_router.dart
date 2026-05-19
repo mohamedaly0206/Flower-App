@@ -19,18 +19,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/occasion/presentation/view_model/occasion_cubit.dart';
-import '../values/app_strings.dart';
+import '../../l10n/app_localizations.dart';
+
+final GlobalKey<NavigatorState> navigatorKey =
+GlobalKey<NavigatorState>();
 
 abstract class AppRouter {
   static GoRouter getRouter({
     String initialLocation = AppRouterPaths.kLoginView,
   }) => GoRouter(
+    navigatorKey: navigatorKey,
     initialLocation: initialLocation,
     errorBuilder: (context, state) => Scaffold(
       body: Center(
         child: Text(
           textAlign: TextAlign.center,
-          AppStrings.errorMessage,
+          AppLocalizations.of(context)!.errorMessage,
           style: const TextStyle(fontSize: 18),
         ),
       ),
