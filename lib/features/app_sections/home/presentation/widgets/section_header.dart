@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../../../core/values/app_strings.dart';
+import '../../../../../l10n/app_localizations.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
@@ -28,7 +27,7 @@ class SectionHeader extends StatelessWidget {
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
           child: Text(
-            actionText ?? AppStrings.viewAll,
+            actionText ?? AppLocalizations.of(context)!.viewAll,
             style: Theme.of(context).textTheme.displayLarge?.copyWith(
               color: Theme.of(context).colorScheme.primary,
               decoration: TextDecoration.underline,

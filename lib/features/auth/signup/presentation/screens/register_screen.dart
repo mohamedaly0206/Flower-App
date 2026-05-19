@@ -8,11 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
 import 'package:flower_app/core/utilities/app_validators.dart';
-import 'package:flower_app/core/values/app_strings.dart';
+ 
 import 'package:flower_app/core/widgets/custom_app_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../l10n/app_localizations.dart';
 import '../../domain/model/register_params.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -31,7 +32,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _confirmPasswordController = TextEditingController();
   final _phoneController = TextEditingController();
 
-  String? _selectedGender = AppStrings.female;
+  String? _selectedGender = "female";
 
   @override
   Widget build(BuildContext context) {
@@ -49,14 +50,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
           if (state.status == RegisterStatus.success) {
             AppMessages.showSuccess(
               context,
-              message: AppStrings.signUpSuccessMessage,
+              message: AppLocalizations.of(context)!.signUpSuccessMessage,
             );
             GoRouter.of(context).go(AppRouterPaths.kLoginView);
           }
         },
         builder: (context, state) {
           return Scaffold(
-            appBar: const CustomAppBar(title: AppStrings.signUp),
+            appBar: CustomAppBar(title: AppLocalizations.of(context)!.signUp),
             body: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -70,13 +71,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Expanded(
                             child: TextFormField(
                               controller: _firstNameController,
-                              decoration: const InputDecoration(
-                                labelText: AppStrings.firstName,
-                                hintText: AppStrings.hintFirstNameText,
+                              decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context)!.firstName,
+                                hintText: AppLocalizations.of(context)!.hintFirstNameText,
                               ),
                               validator: (value) => AppValidators.validateName(
                                 value,
-                                AppStrings.firstName,
+                                AppLocalizations.of(context)!.firstName,
                               ),
                             ),
                           ),
@@ -84,13 +85,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Expanded(
                             child: TextFormField(
                               controller: _lastNameController,
-                              decoration: const InputDecoration(
-                                labelText: AppStrings.lastName,
-                                hintText: AppStrings.enterYourLastName,
+                              decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context)!.lastName,
+                                hintText: AppLocalizations.of(context)!.enterYourLastName,
                               ),
                               validator: (value) => AppValidators.validateName(
                                 value,
-                                AppStrings.lastName,
+                                AppLocalizations.of(context)!.lastName,
                               ),
                             ),
                           ),
@@ -99,9 +100,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const SizedBox(height: 16),
                       TextFormField(
                         controller: _emailController,
-                        decoration: const InputDecoration(
-                          labelText: AppStrings.email,
-                          hintText: AppStrings.enterYourEmail,
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!.email,
+                          hintText: AppLocalizations.of(context)!.enterYourEmail,
                         ),
                         validator: AppValidators.validateEmail,
                         keyboardType: TextInputType.emailAddress,
@@ -113,9 +114,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: TextFormField(
                               controller: _passwordController,
                               obscureText: true,
-                              decoration: const InputDecoration(
-                                labelText: AppStrings.password,
-                                hintText: AppStrings.enterPassword,
+                              decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context)!.password,
+                                hintText: AppLocalizations.of(context)!.enterPassword,
                               ),
                               validator: AppValidators.validatePassword,
                             ),
@@ -125,9 +126,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: TextFormField(
                               controller: _confirmPasswordController,
                               obscureText: true,
-                              decoration: const InputDecoration(
-                                labelText: AppStrings.confirmPassword,
-                                hintText: AppStrings.confirmPassword,
+                              decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context)!.confirmPassword,
+                                hintText: AppLocalizations.of(context)!.confirmPassword,
                               ),
                               validator: (value) =>
                                   AppValidators.confirmPassword(
@@ -141,9 +142,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const SizedBox(height: 16),
                       TextFormField(
                         controller: _phoneController,
-                        decoration: const InputDecoration(
-                          labelText: AppStrings.phone,
-                          hintText: AppStrings.enterPhoneNumber,
+                        decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)!.phone,
+                          hintText: AppLocalizations.of(context)!.enterPhoneNumber,
                         ),
                         validator: AppValidators.validatePhoneNumber,
                         keyboardType: TextInputType.phone,
@@ -152,14 +153,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Row(
                         children: [
                           Text(
-                            AppStrings.gender,
+                            AppLocalizations.of(context)!.gender,
                             style: AppTextStyles.textStyleMedium18.copyWith(
                               color: AppColors.greyColor,
                             ),
                           ),
                           const SizedBox(width: 16),
                           Radio<String>(
-                            value: AppStrings.female,
+                            value: "female",
                             groupValue: _selectedGender,
                             activeColor: AppColors.primaryColor,
                             onChanged: (value) {
@@ -169,14 +170,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             },
                           ),
                           Text(
-                            AppStrings.female,
+                            AppLocalizations.of(context)!.female,
                             style: AppTextStyles.textStyleRegular16.copyWith(
                               color: AppColors.greyColor,
                             ),
                           ),
                           const SizedBox(width: 16),
                           Radio<String>(
-                            value: AppStrings.male,
+                            value: "male",
                             groupValue: _selectedGender,
                             activeColor: AppColors.primaryColor,
                             onChanged: (value) {
@@ -186,7 +187,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             },
                           ),
                           Text(
-                            AppStrings.male,
+                            AppLocalizations.of(context)!.male,
                             style: AppTextStyles.textStyleRegular16.copyWith(
                               color: AppColors.greyColor,
                             ),
@@ -200,12 +201,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             color: AppColors.blackColor,
                           ),
                           children: [
-                            const TextSpan(
+                            TextSpan(
                               text:
-                                  '${AppStrings.creatingAnAccountYouAgreeToOur} ',
+                                  '${AppLocalizations.of(context)!.creatingAnAccountYouAgreeToOur} ',
                             ),
                             TextSpan(
-                              text: AppStrings.termsAndConditions,
+                              text: AppLocalizations.of(context)!.termsAndConditions,
                               style: AppTextStyles.textStyleMedium14.copyWith(
                                 decoration: TextDecoration.underline,
                                 fontWeight: FontWeight.w600,
@@ -233,14 +234,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             );
                           }
                         },
-                        child: const Text(AppStrings.signUp),
+                        child: Text(AppLocalizations.of(context)!.signUp),
                       ),
                       const SizedBox(height: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '${AppStrings.alreadyHaveAnAccount} ',
+                            '${AppLocalizations.of(context)!.alreadyHaveAnAccount} ',
                             style: AppTextStyles.textStyleRegular16.copyWith(
                               color: AppColors.blackColor,
                             ),
@@ -251,7 +252,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 context,
                               ).go(AppRouterPaths.kLoginView);
                             },
-                            child: const Text(AppStrings.login),
+                            child: Text(AppLocalizations.of(context)!.login),
                           ),
                         ],
                       ),

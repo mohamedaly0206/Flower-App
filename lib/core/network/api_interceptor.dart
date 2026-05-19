@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import '../../config/security_storage/security_storage.dart';
+import '../../l10n/app_localizations.dart';
 import '../errors/exceptions.dart';
+import '../router/app_router.dart';
 import '../values/app_strings.dart';
 
 @injectable
@@ -36,8 +38,8 @@ class ApiInterceptor extends Interceptor {
       return handler.reject(
         DioException(
           requestOptions: options,
-          error: const CacheException(
-            errorMessage: AppStrings.getCacheExceptionMessage,
+          error: CacheException(
+            errorMessage: AppLocalizations.of(navigatorKey.currentContext!)!.getCacheExceptionMessage,
           ),
           type: DioExceptionType.unknown,
         ),
