@@ -1,6 +1,6 @@
 import 'package:flower_app/config/di/di.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
- 
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flower_app/core/values/assets.gen.dart';
 import 'package:flower_app/features/app_sections/cart/cart_view.dart';
 import 'package:flower_app/features/app_sections/categories/presentation/views/categories_view.dart';

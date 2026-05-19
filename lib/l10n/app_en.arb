@@ -111,6 +111,7 @@
   "change": "Change",
   "currentPassword": "Current password",
   "confirmLogout": "Confirm logout!!",
+  "logout": "Logout",
   "cancel": "Cancel",
   "loading": "Loading",
   "storeCacheExceptionMessage": "failed to store data locally, please try again later",

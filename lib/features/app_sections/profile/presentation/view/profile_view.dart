@@ -1,13 +1,13 @@
 import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
-import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/core/values/assets.gen.dart';
 import 'package:flower_app/features/app_sections/profile/presentation/view_model/profile_cubit.dart';
 import 'package:flower_app/features/app_sections/profile/presentation/view_model/profile_states.dart';
 import 'package:flower_app/features/app_sections/widgets/custom_profile_header.dart';
 import 'package:flower_app/features/app_sections/widgets/custom_profile_info.dart';
 import 'package:flower_app/features/app_sections/widgets/custom_profile_menu_tile.dart';
+import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -41,12 +41,12 @@ class ProfileView extends StatelessWidget {
                   const SizedBox(height: 15),
                   CustomProfileMenuTile(
                     icon: SvgPicture.asset(Assets.icons.transactionOrder),
-                    title: AppStrings.myOrders,
+                    title: AppLocalizations.of(context)!.myOrders,
                     onTap: () {},
                   ),
                   CustomProfileMenuTile(
                     icon: SvgPicture.asset(Assets.icons.locationIcon),
-                    title: AppStrings.savedAddress,
+                    title: AppLocalizations.of(context)!.savedAddress,
                     onTap: () {},
                   ),
                   Divider(color: AppColors.placeHolderColor),
@@ -59,32 +59,32 @@ class ProfileView extends StatelessWidget {
                       inactiveTrackColor: AppColors.placeHolderColor,
                       onChanged: (_) {},
                     ),
-                    title: AppStrings.notification,
+                    title: AppLocalizations.of(context)!.notification,
                     onTap: () {},
                   ),
                   Divider(color: AppColors.placeHolderColor),
                   CustomProfileMenuTile(
                     icon: SvgPicture.asset(Assets.icons.translateIcon),
-                    title: AppStrings.language,
+                    title: AppLocalizations.of(context)!.language,
                     trailing: Text(
-                      AppStrings.english,
+                      AppLocalizations.of(context)!.english,
                       style: AppTextStyles.textStyleRegular12.copyWith(
                         color: AppColors.primaryColor,
                       ),
                     ),
                   ),
                   CustomProfileMenuTile(
-                    title: AppStrings.aboutUs,
+                    title: AppLocalizations.of(context)!.aboutUs,
                     onTap: () {},
                   ),
                   CustomProfileMenuTile(
-                    title: AppStrings.termsAndConditions,
+                    title: AppLocalizations.of(context)!.termsAndConditions,
                     onTap: () {},
                   ),
                   Divider(color: AppColors.placeHolderColor),
                   CustomProfileMenuTile(
                     icon: SvgPicture.asset(Assets.icons.logoutIcon),
-                    title: AppStrings.logout,
+                    title: AppLocalizations.of(context)!.logout,
                     trailing: SvgPicture.asset(Assets.icons.logoutIcon),
                     onTap: () => _showLogoutDialog(context),
                   ),
@@ -126,7 +126,7 @@ void _showLogoutDialog(BuildContext context) {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'LOGOUT',
+                AppLocalizations.of(context)!.logout,
                 style: AppTextStyles.textStyleMedium16.copyWith(
                   color: AppColors.blackColor,
                   fontWeight: FontWeight.w700,
@@ -134,7 +134,7 @@ void _showLogoutDialog(BuildContext context) {
               ),
               const SizedBox(height: 8),
               Text(
-                AppStrings.confirmLogout,
+                AppLocalizations.of(context)!.confirmLogout,
                 style: AppTextStyles.textStyleRegular14.copyWith(
                   color: AppColors.blackColor,
                 ),
@@ -152,7 +152,7 @@ void _showLogoutDialog(BuildContext context) {
                           borderRadius: BorderRadius.circular(24),
                         ),
                       ),
-                      child: const Text(AppStrings.cancel),
+                      child: Text(AppLocalizations.of(context)!.cancel),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -169,7 +169,7 @@ void _showLogoutDialog(BuildContext context) {
                           borderRadius: BorderRadius.circular(24),
                         ),
                       ),
-                      child: const Text('Logout'),
+                      child: Text(AppLocalizations.of(context)!.logout),
                     ),
                   ),
                 ],
