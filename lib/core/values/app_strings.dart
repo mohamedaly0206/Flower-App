@@ -127,6 +127,7 @@ abstract class AppStrings {
   static const String change = 'Change';
   static const String currentPassword = 'Current password';
   static const String confirmLogout = 'Confirm logout!!';
+  static const String logout = 'Logout';
   static const String cancel = 'Cancel';
   static const String loading = 'Loading';
 

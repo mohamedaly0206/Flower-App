@@ -28,10 +28,32 @@ class _FakeLoginRemoteDataSource implements LoginRemoteDataSource {
 
 class _FakeLoginLocalDataSource implements LoginLocalDataSource {
   String? receivedToken;
+  bool didClearToken = false;
+  Map<String, dynamic>? cachedUserData;
+  bool rememberMe = false;
 
   @override
   Future<void> saveToken(String token) async {
     receivedToken = token;
+  }
+
+  @override
+  Future<void> cacheUserData(Map<String, dynamic> userJson) async {
+    cachedUserData = userJson;
+  }
+
+  @override
+  Future<void> clearToken() async {
+    receivedToken = null;
+    didClearToken = true;
+  }
+
+  @override
+  Future<bool> getRememberMe() async => rememberMe;
+
+  @override
+  Future<void> saveRememberMe(bool rememberMe) async {
+    this.rememberMe = rememberMe;
   }
 }
 

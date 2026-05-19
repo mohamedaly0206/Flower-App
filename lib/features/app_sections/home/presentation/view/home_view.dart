@@ -50,36 +50,39 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.location_on_outlined,
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ),
-                    const SizedBox(width: 5),
-                    RichText(
-                      text: TextSpan(
-                        text: AppStrings.deliverTo,
-                        style: Theme.of(context).textTheme.headlineMedium,
-                        children: [
-                          TextSpan(
-                            text: AppStrings.dummyAddress,
-                            style: Theme.of(context).textTheme.headlineMedium
-                                ?.copyWith(fontWeight: FontWeight.w500),
-                          ),
-                        ],
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.location_on_outlined,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
-                    ),
-                    IconButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.keyboard_arrow_down_sharp,
-                        color: Theme.of(context).primaryColor,
-                        size: 35,
+                      const SizedBox(width: 5),
+                      RichText(
+                        text: TextSpan(
+                          text: AppStrings.deliverTo,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                          children: [
+                            TextSpan(
+                              text: AppStrings.dummyAddress,
+                              style: Theme.of(context).textTheme.headlineMedium
+                                  ?.copyWith(fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                      IconButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.keyboard_arrow_down_sharp,
+                          color: Theme.of(context).primaryColor,
+                          size: 35,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 5),
                 SectionHeader(
