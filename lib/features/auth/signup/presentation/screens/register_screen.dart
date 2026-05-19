@@ -31,7 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _confirmPasswordController = TextEditingController();
   final _phoneController = TextEditingController();
 
-  String? _selectedGender = AppStrings.female;
+  final String _selectedGender = AppStrings.female;
 
   @override
   Widget build(BuildContext context) {
@@ -160,13 +160,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           const SizedBox(width: 16),
                           Radio<String>(
                             value: AppStrings.female,
-                            groupValue: _selectedGender,
-                            activeColor: AppColors.primaryColor,
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedGender = value;
-                              });
-                            },
                           ),
                           Text(
                             AppStrings.female,
@@ -177,13 +170,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           const SizedBox(width: 16),
                           Radio<String>(
                             value: AppStrings.male,
-                            groupValue: _selectedGender,
-                            activeColor: AppColors.primaryColor,
-                            onChanged: (value) {
-                              setState(() {
-                                _selectedGender = value;
-                              });
-                            },
                           ),
                           Text(
                             AppStrings.male,
@@ -226,7 +212,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 email: _emailController.text,
                                 phone: _phoneController.text,
                                 gender:
-                                    _selectedGender?.toLowerCase() ?? 'male',
+                                    _selectedGender.toLowerCase(),
                                 password: _passwordController.text,
                                 rePassword: _confirmPasswordController.text,
                               ),
