@@ -107,7 +107,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                '${AppStrings.egp} ${widget.product.priceAfterDiscount ?? widget.product.price}',
+                                '${AppStrings.egp} ${widget.product.price ?? widget.product.price}',
                                 style: AppTextStyles.textStyleSemiBold20,
                               ),
                               RichText(
