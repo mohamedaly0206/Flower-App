@@ -1,10 +1,12 @@
-import 'package:flower_app/core/values/app_strings.dart';
+ 
 import 'package:flower_app/core/values/assets.gen.dart';
 import 'package:flower_app/features/auth/forget_password/presentation/view_model/cubit/forget_password_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../../../../l10n/app_localizations.dart';
 
 class CustomOTPTextField extends StatelessWidget {
   const CustomOTPTextField({
@@ -57,7 +59,7 @@ class CustomOTPTextField extends StatelessWidget {
                   ),
                   SizedBox(width: 4),
                   Text(
-                    AppStrings.invalidCode,
+                    AppLocalizations.of(context)!.invalidCode,
                     style: theme.textTheme.bodySmall!.copyWith(
                       color: theme.colorScheme.error,
                     ),

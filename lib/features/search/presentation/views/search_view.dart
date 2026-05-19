@@ -2,13 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_shared_intent.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/cubit/home_shared_cubit.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/states/home_shared_states.dart';
-import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/core/values/assets.gen.dart';
 import 'package:flower_app/core/widgets/custom_product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../../../l10n/app_localizations.dart';
 
 class SearchView extends StatelessWidget {
   SearchView({super.key});
@@ -48,7 +49,7 @@ class SearchView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  hintText: AppStrings.search,
+                  hintText: AppLocalizations.of(context)!.search,
                   border: outlineBorder(context),
                   enabledBorder: outlineBorder(context),
                   focusedBorder: outlineBorder(context),
@@ -75,8 +76,8 @@ class SearchView extends StatelessWidget {
                       ? Center(
                           child: Text(
                             searchController.text.trim().isEmpty
-                                ? AppStrings.searchForAnyProduct
-                                : AppStrings.noProductsFound,
+                                ? AppLocalizations.of(context)!.searchForAnyProduct
+                                : AppLocalizations.of(context)!.noProductsFound,
                             style: Theme.of(context).textTheme.displayLarge!
                                 .copyWith(
                                   color: Theme.of(context).colorScheme.primary,

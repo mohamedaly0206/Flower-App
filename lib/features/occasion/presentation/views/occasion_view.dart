@@ -6,7 +6,7 @@ import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_sh
 import 'package:flower_app/core/shared_features/shared_view_model/states/home_shared_states.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
-import 'package:flower_app/core/values/app_strings.dart';
+ 
 import 'package:flower_app/core/widgets/app_loading.dart';
 import 'package:flower_app/core/widgets/app_messages.dart';
 import 'package:flower_app/core/widgets/custom_app_bar.dart';
@@ -19,6 +19,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../l10n/app_localizations.dart';
+
 class OccasionView extends StatelessWidget {
   const OccasionView({super.key});
 
@@ -28,7 +30,7 @@ class OccasionView extends StatelessWidget {
       listener: _occasionListener,
       child: Scaffold(
         backgroundColor: AppColors.whiteColor,
-        appBar: CustomAppBar(title: AppStrings.occasion),
+        appBar: CustomAppBar(title: AppLocalizations.of(context)!.occasion),
         body: BlocBuilder<OccasionCubit, OccasionState>(
           builder: (context, state) {
             if (state is OccasionLoading || state is OccasionInitial) {
@@ -133,7 +135,7 @@ class _OccasionContent extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
           child: Text(
-            AppStrings.bloomWithBestSellers,
+            AppLocalizations.of(context)!.bloomWithBestSellers,
             style: AppTextStyles.textStyleRegular13.copyWith(
               color: AppColors.greyColor,
             ),

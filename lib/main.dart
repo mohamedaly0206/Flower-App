@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'config/di/di.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/theme.dart';
+import 'l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,6 +39,9 @@ class FlowerApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       theme: AppTheme.appTheme,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: Locale('en'),
     );
   }
 }

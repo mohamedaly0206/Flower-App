@@ -1,11 +1,13 @@
 import 'package:flower_app/config/base_response/base_response.dart';
-import 'package:flower_app/core/values/app_strings.dart';
+import 'package:flower_app/core/router/app_router.dart';
+ 
 import 'package:flower_app/features/occasion/data/datasources/occasion_remote_data_source.dart';
 import 'package:flower_app/features/occasion/data/models/occasion_dto.dart';
 import 'package:flower_app/features/occasion/data/models/occasions_response.dart';
 import 'package:flower_app/features/occasion/data/repositories/occasion_repository_impl.dart';
 import 'package:flower_app/features/occasion/domain/entities/occasion_entity.dart';
 import 'package:flower_app/features/occasion/domain/entities/occasions_response_entity.dart';
+import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // ---------------------------------------------------------------------------
@@ -104,7 +106,7 @@ void main() {
     // Failure path — generic exception
     // Validates that when the data source throws a non-Dio exception, the
     // repository catches it and returns an ErrorBaseResponse with the generic
-    // AppStrings.errorMessage string.
+    // AppLocalizations.of(navigatorKey.currentContext!)!.errorMessage string.
     // -----------------------------------------------------------------------
     test(
       'returns ErrorBaseResponse with generic message on unknown exception',
@@ -118,7 +120,7 @@ void main() {
         // Assert
         expect(result, isA<ErrorBaseResponse<OccasionsResponseEntity>>());
         final error = result as ErrorBaseResponse<OccasionsResponseEntity>;
-        expect(error.errorMessage, AppStrings.errorMessage);
+        expect(error.errorMessage, AppLocalizations.of(navigatorKey.currentContext!)!.errorMessage);
       },
     );
   });

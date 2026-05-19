@@ -1,5 +1,5 @@
 import 'package:flower_app/core/utilities/app_validators.dart';
-import 'package:flower_app/core/values/app_strings.dart';
+ 
 import 'package:flower_app/core/widgets/app_loading.dart';
 import 'package:flower_app/core/widgets/app_messages.dart';
 import 'package:flower_app/features/auth/forget_password/data/models/requests/enter_reset_email_request.dart';
@@ -7,6 +7,8 @@ import 'package:flower_app/features/auth/forget_password/presentation/view_model
 import 'package:flower_app/features/auth/forget_password/presentation/view_model/intent/forget_password_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../l10n/app_localizations.dart';
 
 class ForgetPasswordEmailView extends StatelessWidget {
   ForgetPasswordEmailView({super.key, required this.controller});
@@ -22,18 +24,18 @@ class ForgetPasswordEmailView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(AppStrings.forgetPassword, style: theme.textTheme.titleMedium),
+            Text(AppLocalizations.of(context)!.forgetPassword, style: theme.textTheme.titleMedium),
             SizedBox(height: 10),
             Text(
-              AppStrings.enterEmail,
+              AppLocalizations.of(context)!.enterEmail,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium,
             ),
             SizedBox(height: 32),
             TextFormField(
               decoration: InputDecoration(
-                labelText: AppStrings.email,
-                hintText: AppStrings.enterYourEmail,
+                labelText: AppLocalizations.of(context)!.email,
+                hintText: AppLocalizations.of(context)!.enterYourEmail,
               ),
               validator: AppValidators.validateEmail,
               controller: emailController,
@@ -77,7 +79,7 @@ class ForgetPasswordEmailView extends StatelessWidget {
                       );
                     }
                   },
-                  child: Text(AppStrings.confirm),
+                  child: Text(AppLocalizations.of(context)!.confirm),
                 );
               },
             ),
