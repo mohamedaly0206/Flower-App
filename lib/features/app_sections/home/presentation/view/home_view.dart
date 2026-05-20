@@ -1,6 +1,7 @@
 import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/core/values/assets.gen.dart';
+import 'package:flower_app/core/widgets/address_widget.dart';
 import 'package:flower_app/features/app_sections/home/presentation/widgets/best_seller_list_view.dart';
 import 'package:flower_app/features/app_sections/home/presentation/widgets/categories_list_view.dart';
 import 'package:flower_app/features/app_sections/widgets/custom_search_text_field.dart';
@@ -50,37 +51,7 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.location_on_outlined,
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ),
-                    const SizedBox(width: 5),
-                    RichText(
-                      text: TextSpan(
-                        text: AppStrings.deliverTo,
-                        style: Theme.of(context).textTheme.headlineMedium,
-                        children: [
-                          TextSpan(
-                            text: AppStrings.dummyAddress,
-                            style: Theme.of(context).textTheme.headlineMedium
-                                ?.copyWith(fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
-                    ),
-                    IconButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.keyboard_arrow_down_sharp,
-                        color: Theme.of(context).primaryColor,
-                        size: 35,
-                      ),
-                    ),
-                  ],
-                ),
+                const AddressWidget(),
                 const SizedBox(height: 5),
                 SectionHeader(
                   title: AppStrings.categories,
