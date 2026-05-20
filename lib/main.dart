@@ -37,9 +37,9 @@ class FlowerApp extends StatelessWidget {
       routerConfig: AppRouter.getRouter(initialLocation: initialLocation),
       debugShowCheckedModeBanner: false,
       theme: AppTheme.appTheme,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        locale: Locale('en'),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: Locale('en'),
     );
   }
 }

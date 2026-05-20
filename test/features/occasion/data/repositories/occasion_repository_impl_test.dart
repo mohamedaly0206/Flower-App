@@ -1,6 +1,6 @@
 import 'package:flower_app/config/base_response/base_response.dart';
 import 'package:flower_app/core/router/app_router.dart';
- 
+
 import 'package:flower_app/features/occasion/data/datasources/occasion_remote_data_source.dart';
 import 'package:flower_app/features/occasion/data/models/occasion_dto.dart';
 import 'package:flower_app/features/occasion/data/models/occasions_response.dart';
@@ -120,7 +120,10 @@ void main() {
         // Assert
         expect(result, isA<ErrorBaseResponse<OccasionsResponseEntity>>());
         final error = result as ErrorBaseResponse<OccasionsResponseEntity>;
-        expect(error.errorMessage, AppLocalizations.of(navigatorKey.currentContext!)!.errorMessage);
+        expect(
+          error.errorMessage,
+          AppLocalizations.of(navigatorKey.currentContext!)!.errorMessage,
+        );
       },
     );
   });

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flower_app/core/values/api_endpoints.dart';
 import 'package:flower_app/features/occasion/domain/entities/occasion_entity.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class OccasionListViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final url = occasion.image;
+    final url = '${ApiEndpoints.uploads}/${occasion.image!}';
 
     return GestureDetector(
       onTap: onTap,
@@ -28,7 +29,7 @@ class OccasionListViewItem extends StatelessWidget {
               width: 130,
               height: 150,
               fit: BoxFit.cover,
-              imageUrl: url ?? '',
+              imageUrl: url,
               errorWidget: (context, error, stackTrace) {
                 return Container(
                   color: Theme.of(context).colorScheme.secondary,
