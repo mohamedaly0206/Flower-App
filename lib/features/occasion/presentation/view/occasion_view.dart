@@ -13,8 +13,9 @@ import 'package:flower_app/core/widgets/custom_app_bar.dart';
 import 'package:flower_app/core/widgets/custom_product_card.dart';
 import 'package:flower_app/core/widgets/custom_tab_bar.dart';
 import 'package:flower_app/features/occasion/domain/entities/occasion_entity.dart';
-import 'package:flower_app/features/occasion/presentation/view_model/occasion_cubit.dart';
-import 'package:flower_app/features/occasion/presentation/view_model/occasion_state.dart';
+import 'package:flower_app/features/occasion/presentation/view_model/intent/occasion_intent.dart';
+import 'package:flower_app/features/occasion/presentation/view_model/state/occasion_state.dart';
+import 'package:flower_app/features/occasion/presentation/view_model/cubit/occasion_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -33,13 +34,14 @@ class OccasionView extends StatelessWidget {
         appBar: CustomAppBar(title: AppLocalizations.of(context)!.occasion),
         body: BlocBuilder<OccasionCubit, OccasionState>(
           builder: (context, state) {
-            if (state is OccasionLoading || state is OccasionInitial) {
+            if (state.status == OccasionStatus.loading ||
+                state.status == OccasionStatus.initial) {
               return const Center(
                 child: CircularProgressIndicator(color: AppColors.primaryColor),
               );
             }
 
-            if (state is OccasionFailure) {
+            if (state.status == OccasionStatus.failure) {
               return Center(
                 child: Padding(
                   padding: const EdgeInsets.all(24),
@@ -53,7 +55,7 @@ class OccasionView extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        state.errorMessage,
+                        state.errorMessage ?? '',
                         textAlign: TextAlign.center,
                         style: AppTextStyles.textStyleRegular14.copyWith(
                           color: AppColors.greyColor,
@@ -62,7 +64,9 @@ class OccasionView extends StatelessWidget {
                       const SizedBox(height: 24),
                       ElevatedButton(
                         onPressed: () =>
-                            context.read<OccasionCubit>().getOccasions(),
+                            context.read<OccasionCubit>().handleIntent(
+                              const LoadOccasionsIntent(),
+                            ),
                         child: const Text('Retry'),
                       ),
                     ],
@@ -71,7 +75,7 @@ class OccasionView extends StatelessWidget {
               );
             }
 
-            if (state is OccasionSuccess) {
+            if (state.status == OccasionStatus.success) {
               return _OccasionContent(
                 occasions: state.occasions,
                 selectedTabIndex: state.selectedTabIndex,
@@ -88,18 +92,21 @@ class OccasionView extends StatelessWidget {
   void _occasionListener(BuildContext context, OccasionState state) {
     AppLoading.toggle(context: context, isLoading: false);
 
-    if (state is OccasionSuccess) {
-      final occasion = state.occasions[state.selectedTabIndex];
+    if (state.status == OccasionStatus.success) {
+      if (state.occasions.isNotEmpty &&
+          state.selectedTabIndex < state.occasions.length) {
+        final occasion = state.occasions[state.selectedTabIndex];
 
-      if (occasion.id != null) {
-        context.read<HomeSharedCubit>().handleHomeSharedIntent(
-          GetProductsIntent(occasionId: occasion.id),
-        );
+        if (occasion.id != null) {
+          context.read<HomeSharedCubit>().handleHomeSharedIntent(
+            GetProductsIntent(occasionId: occasion.id),
+          );
+        }
       }
     }
 
-    if (state is OccasionFailure) {
-      AppMessages.showError(context, message: state.errorMessage);
+    if (state.status == OccasionStatus.failure && state.errorMessage != null) {
+      AppMessages.showError(context, message: state.errorMessage!);
     }
   }
 }
@@ -148,7 +155,9 @@ class _OccasionContent extends StatelessWidget {
             tabs: tabNames,
             selectedIndex: selectedTabIndex,
             onTabSelected: (index) {
-              context.read<OccasionCubit>().selectTab(index);
+              context.read<OccasionCubit>().handleIntent(
+                SelectTabIntent(index),
+              );
             },
           ),
         ),

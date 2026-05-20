@@ -11,14 +11,15 @@ import 'package:flower_app/features/auth/login/presentation/view_model/login_cub
 import 'package:flower_app/features/auth/login/presentation/views/login_view.dart';
 import 'package:flower_app/features/auth/signup/presentation/screens/register_screen.dart';
 import 'package:flower_app/features/best_seller/presentation/view/best_seller_view.dart';
-import 'package:flower_app/features/occasion/presentation/views/occasion_view.dart';
+import 'package:flower_app/features/occasion/presentation/view_model/intent/occasion_intent.dart';
+import 'package:flower_app/features/occasion/presentation/view/occasion_view.dart';
 import 'package:flower_app/features/product_details/presentation/view/product_details_view.dart';
 import 'package:flower_app/features/search/presentation/views/search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/occasion/presentation/view_model/occasion_cubit.dart';
+import 'package:flower_app/features/occasion/presentation/view_model/cubit/occasion_cubit.dart';
 import '../../l10n/app_localizations.dart';
 
 final GlobalKey<NavigatorState> navigatorKey =
@@ -100,9 +101,10 @@ abstract class AppRouter {
           return MultiBlocProvider(
             providers: [
               BlocProvider(
-                create: (context) =>
-                    getIt<OccasionCubit>()
-                      ..getOccasions(initialIndex: initialIndex),
+                create: (context) => getIt<OccasionCubit>()
+                  ..handleIntent(
+                    LoadOccasionsIntent(initialIndex: initialIndex),
+                  ),
               ),
               BlocProvider.value(value: getIt<HomeSharedCubit>()),
             ],
