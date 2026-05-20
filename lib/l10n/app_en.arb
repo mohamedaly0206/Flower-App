@@ -76,6 +76,7 @@
   "cashOnDelivery": "Cash on delivery",
   "creditCard": "Credit card",
   "itIsGift": "It is a gift",
+  "items":"items",
   "subTotal": "Sub Total",
   "deliveryFee": "Delivery Fee",
   "total": "Total",

@@ -52,41 +52,7 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-<<<<<<< HEAD
                 const AddressWidget(),
-=======
-                Row(
-                  children: [
-                    Icon(
-                      Icons.location_on_outlined,
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ),
-                    const SizedBox(width: 5),
-                    RichText(
-                      text: TextSpan(
-                        text: AppLocalizations.of(context)!.deliverTo,
-                        style: Theme.of(context).textTheme.headlineMedium,
-                        children: [
-                          TextSpan(
-                            text: AppLocalizations.of(context)!.dummyAddress,
-                            style: Theme.of(context).textTheme.headlineMedium
-                                ?.copyWith(fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
-                    ),
-                    IconButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.keyboard_arrow_down_sharp,
-                        color: Theme.of(context).primaryColor,
-                        size: 35,
-                      ),
-                    ),
-                  ],
-                ),
->>>>>>> d9976f87fceac775736c77f2cda79ba2e1f64e00
                 const SizedBox(height: 5),
                 SectionHeader(
                   title: AppLocalizations.of(context)!.categories,

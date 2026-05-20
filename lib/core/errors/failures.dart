@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../../l10n/app_localizations.dart';
+import 'package:flower_app/l10n/app_localizations.dart';
 import '../router/app_router.dart';
 import 'exceptions.dart';
 

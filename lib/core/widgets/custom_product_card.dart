@@ -83,7 +83,7 @@ class CustomProductCard extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          '$currency $price',
+                          '${AppLocalizations.of(context)!.egp} $price',
                           style: Theme.of(context).textTheme.displayLarge,
                         ),
                         SizedBox(width: 8),

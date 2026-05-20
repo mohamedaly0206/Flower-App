@@ -1,7 +1,7 @@
 import 'package:flower_app/core/theme/app_colors.dart';
  
 import 'package:flower_app/core/values/assets.gen.dart';
-import 'package:flower_app/features/app_sections/features/cart/presentation/views/cart_view.dart';
+import 'package:flower_app/features/app_sections/cart/presentation/views/cart_view.dart';
 import 'package:flower_app/features/app_sections/categories/presentation/views/categories_view.dart';
 import 'package:flower_app/features/app_sections/profile/profile_view.dart';
 import 'package:flutter/material.dart';
