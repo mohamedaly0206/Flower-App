@@ -1,4 +1,4 @@
-import 'package:flower_app/features/change_password/data/models/change_password_request_dto.dart';
+import 'package:flower_app/features/change_password/data/models/change_password_request.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../config/base_response/base_response.dart';
@@ -14,10 +14,10 @@ class ChangePasswordRepoImpl implements ChangePasswordRepoContract {
 
   @override
   Future<BaseResponse<ChangePasswordResponseEntity>> changePassword(
-      ChangePasswordRequestDto changePasswordRequestDto,
+      ChangePasswordRequest changePasswordRequest,
       ) async {
     final response = await _dataSource.changePassword(
-      changePasswordRequestDto,
+      changePasswordRequest,
     );
 
     switch (response) {

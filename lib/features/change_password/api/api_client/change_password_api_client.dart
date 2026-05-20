@@ -4,7 +4,7 @@ import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
 import '../../../../core/values/api_endpoints.dart';
-import '../../data/models/change_password_request_dto.dart';
+import '../../data/models/change_password_request.dart';
 import '../../data/models/change_password_response_dto.dart';
 
 part 'change_password_api_client.g.dart';
@@ -16,6 +16,6 @@ abstract class ChangePasswordApiClient {
   factory ChangePasswordApiClient(Dio dio) = _ChangePasswordApiClient;
   @PATCH(ApiEndpoints.changePassword)
   Future<ChangePasswordResponseDto> changePassword({
-    @Body() required ChangePasswordRequestDto changePasswordRequestDto,
+    @Body() required ChangePasswordRequest changePasswordRequestDto,
   });
 }

@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 import '../../../../config/base_response/base_response.dart';
 import '../../../../core/errors/failures.dart';
 import '../../data/data_source/change_password_remote_data_source_contract.dart';
-import '../../data/models/change_password_request_dto.dart';
+import '../../data/models/change_password_request.dart';
 import '../../data/models/change_password_response_dto.dart';
 import '../api_client/change_password_api_client.dart';
 
@@ -15,7 +15,7 @@ class ChangePasswordRemoteDataSourceImpl
   const ChangePasswordRemoteDataSourceImpl(this.changePasswordApiClient);
   @override
   Future<BaseResponse<ChangePasswordResponseDto>> changePassword(
-    ChangePasswordRequestDto changePasswordRequestDto,
+    ChangePasswordRequest changePasswordRequestDto,
   ) async {
     try {
       final response = await changePasswordApiClient.changePassword(
