@@ -1,4 +1,4 @@
-import 'package:flower_app/core/values/app_strings.dart';
+ 
 import 'package:flower_app/core/widgets/app_loading.dart';
 import 'package:flower_app/core/widgets/app_messages.dart';
 import 'package:flower_app/features/auth/forget_password/data/models/requests/enter_reset_email_request.dart';
@@ -8,6 +8,8 @@ import 'package:flower_app/features/auth/forget_password/presentation/view_model
 import 'package:flower_app/features/auth/forget_password/presentation/widgets/custom_otp_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../l10n/app_localizations.dart';
 
 class EmailVerificationView extends StatelessWidget {
   const EmailVerificationView({super.key, required this.controller});
@@ -22,12 +24,12 @@ class EmailVerificationView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            AppStrings.emailVerification,
+            AppLocalizations.of(context)!.emailVerification,
             style: theme.textTheme.titleMedium,
           ),
           SizedBox(height: 10),
           Text(
-            AppStrings.enterCode,
+            AppLocalizations.of(context)!.enterCode,
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyMedium,
           ),
@@ -76,7 +78,7 @@ class EmailVerificationView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        AppStrings.didNotReceiveCode,
+                        AppLocalizations.of(context)!.didNotReceiveCode,
                         style: theme.textTheme.bodyLarge,
                       ),
                       SizedBox(width: 4),
@@ -89,7 +91,7 @@ class EmailVerificationView extends StatelessWidget {
                             EnterResetEmailIntent(request),
                           );
                         },
-                        child: Text(AppStrings.resend),
+                        child: Text(AppLocalizations.of(context)!.resend),
                       ),
                     ],
                   ),

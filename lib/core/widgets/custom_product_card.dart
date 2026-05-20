@@ -1,7 +1,8 @@
-import 'package:flower_app/core/values/app_strings.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../values/assets.gen.dart';
 
 class CustomProductCard extends StatelessWidget {
@@ -127,7 +128,7 @@ class CustomProductCard extends StatelessWidget {
                     ),
                     SizedBox(width: 8),
                     Text(
-                      AppStrings.addToCart,
+                      AppLocalizations.of(context)!.addToCart,
                       style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         color: Theme.of(context).colorScheme.onPrimary,
                       ),

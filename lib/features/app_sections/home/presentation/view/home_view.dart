@@ -1,5 +1,5 @@
 import 'package:flower_app/core/router/router_paths.dart';
-import 'package:flower_app/core/values/app_strings.dart';
+ 
 import 'package:flower_app/core/values/assets.gen.dart';
 import 'package:flower_app/core/widgets/address_widget.dart';
 import 'package:flower_app/features/app_sections/home/presentation/widgets/best_seller_list_view.dart';
@@ -8,6 +8,7 @@ import 'package:flower_app/features/app_sections/widgets/custom_search_text_fiel
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../../l10n/app_localizations.dart';
 import '../widgets/occasion_list_view.dart';
 import '../widgets/section_header.dart';
 
@@ -40,9 +41,9 @@ class HomeView extends StatelessWidget {
                             ).push(AppRouterPaths.kSearchView);
                           },
                           behavior: HitTestBehavior.opaque,
-                          child: const IgnorePointer(
+                          child: IgnorePointer(
                             child: CustomSearchTextField(
-                              hintText: AppStrings.search,
+                              hintText: AppLocalizations.of(context)!.search,
                             ),
                           ),
                         ),
@@ -51,16 +52,50 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
+<<<<<<< HEAD
                 const AddressWidget(),
+=======
+                Row(
+                  children: [
+                    Icon(
+                      Icons.location_on_outlined,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                    const SizedBox(width: 5),
+                    RichText(
+                      text: TextSpan(
+                        text: AppLocalizations.of(context)!.deliverTo,
+                        style: Theme.of(context).textTheme.headlineMedium,
+                        children: [
+                          TextSpan(
+                            text: AppLocalizations.of(context)!.dummyAddress,
+                            style: Theme.of(context).textTheme.headlineMedium
+                                ?.copyWith(fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.keyboard_arrow_down_sharp,
+                        color: Theme.of(context).primaryColor,
+                        size: 35,
+                      ),
+                    ),
+                  ],
+                ),
+>>>>>>> d9976f87fceac775736c77f2cda79ba2e1f64e00
                 const SizedBox(height: 5),
                 SectionHeader(
-                  title: AppStrings.categories,
+                  title: AppLocalizations.of(context)!.categories,
                   onPressed: onViewAllCategories,
                 ),
                 CategoriesListView(onCategorySelected: onViewAllCategories),
                 const SizedBox(height: 10),
                 SectionHeader(
-                  title: AppStrings.bestSeller,
+                  title: AppLocalizations.of(context)!.bestSeller,
                   onPressed: () {
                     GoRouter.of(context).push(AppRouterPaths.kBestSellerView);
                   },
@@ -69,7 +104,7 @@ class HomeView extends StatelessWidget {
                 const BestSellerListView(),
                 const SizedBox(height: 10),
                 SectionHeader(
-                  title: AppStrings.occasion,
+                  title: AppLocalizations.of(context)!.occasion,
                   onPressed: () {
                     GoRouter.of(context).push(AppRouterPaths.kOccasionView);
                   },

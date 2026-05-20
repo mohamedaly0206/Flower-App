@@ -2,10 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_app/core/shared_features/products/domain/entities/product_entity.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
-import 'package:flower_app/core/values/app_strings.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../../../../l10n/app_localizations.dart';
 
 class ProductDetailsView extends StatefulWidget {
   final ProductEntity product;
@@ -107,7 +109,11 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
+<<<<<<< HEAD
                                 '${AppStrings.egp} ${widget.product.price ?? widget.product.price}',
+=======
+                                '${AppLocalizations.of(context)!.egp} ${widget.product.priceAfterDiscount ?? widget.product.price}',
+>>>>>>> d9976f87fceac775736c77f2cda79ba2e1f64e00
                                 style: AppTextStyles.textStyleSemiBold20,
                               ),
                               RichText(
@@ -115,13 +121,13 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                   style: AppTextStyles.textStyleRegular14
                                       .copyWith(color: AppColors.blackColor),
                                   children: [
-                                    const TextSpan(
-                                      text: '${AppStrings.status}: ',
+                                    TextSpan(
+                                      text: '${AppLocalizations.of(context)!.status}: ',
                                     ),
                                     TextSpan(
                                       text: (widget.product.quantity ?? 0) > 0
-                                          ? AppStrings.inStock
-                                          : AppStrings.outOfStock,
+                                          ? AppLocalizations.of(context)!.inStock
+                                          : AppLocalizations.of(context)!.outOfStock,
                                       style: AppTextStyles.textStyleRegular14,
                                     ),
                                   ],
@@ -131,7 +137,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            AppStrings.pricesIncludedTax,
+                            AppLocalizations.of(context)!.pricesIncludedTax,
                             style: AppTextStyles.textStyleRegular12.copyWith(
                               color: AppColors.placeHolderColor,
                             ),
@@ -143,7 +149,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                           ),
                           const SizedBox(height: 24),
                           Text(
-                            AppStrings.description,
+                            AppLocalizations.of(context)!.description,
                             style: AppTextStyles.textStyleSemiBold12.copyWith(
                               fontSize: 16,
                             ),
@@ -179,8 +185,8 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                       borderRadius: BorderRadius.circular(25),
                     ),
                   ),
-                  child: const Text(
-                    AppStrings.addToCart,
+                  child: Text(
+                    AppLocalizations.of(context)!.addToCart,
                     style: AppTextStyles.textStyleMedium16,
                   ),
                 ),

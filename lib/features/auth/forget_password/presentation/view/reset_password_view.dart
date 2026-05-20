@@ -1,6 +1,6 @@
 import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/utilities/app_validators.dart';
-import 'package:flower_app/core/values/app_strings.dart';
+ 
 import 'package:flower_app/core/widgets/app_loading.dart';
 import 'package:flower_app/core/widgets/app_messages.dart';
 import 'package:flower_app/features/auth/forget_password/data/models/requests/reset_password_request.dart';
@@ -9,6 +9,8 @@ import 'package:flower_app/features/auth/forget_password/presentation/view_model
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../../../l10n/app_localizations.dart';
 
 class ResetPasswordView extends StatelessWidget {
   ResetPasswordView({super.key});
@@ -23,18 +25,18 @@ class ResetPasswordView extends StatelessWidget {
         key: formKey,
         child: Column(
           children: [
-            Text(AppStrings.resetPassword, style: theme.textTheme.titleMedium),
+            Text(AppLocalizations.of(context)!.resetPassword, style: theme.textTheme.titleMedium),
             SizedBox(height: 10),
             Text(
-              AppStrings.resetPasswordHint,
+              AppLocalizations.of(context)!.resetPasswordHint,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium,
             ),
             SizedBox(height: 32),
             TextFormField(
               decoration: InputDecoration(
-                labelText: AppStrings.newPassword,
-                hintText: AppStrings.enterPassword,
+                labelText: AppLocalizations.of(context)!.newPassword,
+                hintText: AppLocalizations.of(context)!.enterPassword,
               ),
               obscureText: true,
               validator: AppValidators.validatePassword,
@@ -43,8 +45,8 @@ class ResetPasswordView extends StatelessWidget {
             SizedBox(height: 24),
             TextFormField(
               decoration: InputDecoration(
-                labelText: AppStrings.confirmPassword,
-                hintText: AppStrings.confirmPassword,
+                labelText: AppLocalizations.of(context)!.confirmPassword,
+                hintText: AppLocalizations.of(context)!.confirmPassword,
               ),
               obscureText: true,
               validator: (value) =>
@@ -91,7 +93,7 @@ class ResetPasswordView extends StatelessWidget {
                     );
                   }
                 },
-                child: Text(AppStrings.confirm),
+                child: Text(AppLocalizations.of(context)!.confirm),
               ),
             ),
           ],

@@ -1,5 +1,5 @@
 import 'package:flower_app/core/theme/app_colors.dart';
-import 'package:flower_app/core/values/app_strings.dart';
+ 
 import 'package:flower_app/core/values/assets.gen.dart';
 import 'package:flower_app/features/app_sections/features/cart/presentation/views/cart_view.dart';
 import 'package:flower_app/features/app_sections/categories/presentation/views/categories_view.dart';
@@ -7,6 +7,7 @@ import 'package:flower_app/features/app_sections/profile/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../l10n/app_localizations.dart';
 import 'home/presentation/view/home_view.dart';
 
 class AppSections extends StatefulWidget {
@@ -21,7 +22,7 @@ class _AppSectionsState extends State<AppSections> {
 
   List<_AppSection> get _sections => [
     _AppSection(
-      label: AppStrings.home,
+      label: AppLocalizations.of(context)!.home,
       iconPath: Assets.icons.home2Icon,
       screen: HomeView(
         onViewAllCategories: () {
@@ -30,17 +31,17 @@ class _AppSectionsState extends State<AppSections> {
       ),
     ),
     _AppSection(
-      label: AppStrings.categories,
+      label: AppLocalizations.of(context)!.categories,
       iconPath: Assets.icons.categoryIcon,
       screen: const CategoriesView(),
     ),
     _AppSection(
-      label: AppStrings.cart,
+      label: AppLocalizations.of(context)!.cart,
       iconPath: Assets.icons.shoppingCartIcon,
       screen: const CartView(),
     ),
     _AppSection(
-      label: AppStrings.profile,
+      label: AppLocalizations.of(context)!.profile,
       iconPath: Assets.icons.personIcon,
       screen: ProfileView(),
     ),
