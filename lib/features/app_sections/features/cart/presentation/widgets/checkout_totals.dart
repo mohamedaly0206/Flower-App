@@ -5,7 +5,7 @@ class CheckoutTotals extends StatelessWidget {
     super.key,
     required this.title,
     required this.value,
-    this.isTotal=false,
+    this.isTotal = false,
   });
 
   final String title;
@@ -21,7 +21,7 @@ class CheckoutTotals extends StatelessWidget {
           title,
           style: isTotal == true
               ? Theme.of(context).textTheme.titleMedium!.copyWith(
-                fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.onSurface,
                 )
               : Theme.of(context).textTheme.bodyLarge!.copyWith(

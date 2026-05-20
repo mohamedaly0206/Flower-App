@@ -85,8 +85,7 @@ class CartItem extends StatelessWidget {
                       Row(
                         children: [
                           CountItem(
-                            onTap: () {
-                            },
+                            onTap: () {},
                             iconPath: Assets.icons.removeIcon,
                           ),
                           const SizedBox(width: 4),
@@ -97,8 +96,7 @@ class CartItem extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           CountItem(
-                            onTap: () {
-                            },
+                            onTap: () {},
                             iconPath: Assets.icons.addIcon,
                           ),
                         ],

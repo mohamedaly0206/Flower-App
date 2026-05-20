@@ -2,9 +2,7 @@ import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class AddressWidget extends StatelessWidget {
-  const AddressWidget({
-    super.key,
-  });
+  const AddressWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +20,9 @@ class AddressWidget extends StatelessWidget {
             children: [
               TextSpan(
                 text: AppStrings.dummyAddress,
-                style: Theme.of(context).textTheme.headlineMedium
-                    ?.copyWith(fontWeight: FontWeight.w500),
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),

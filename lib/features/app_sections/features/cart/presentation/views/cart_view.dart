@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 
 class CartView extends StatelessWidget {
   const CartView({super.key});
-  final int itemCount = 5; // Example item count, replace with actual data in real implementation
+  final int itemCount =
+      5; // Example item count, replace with actual data in real implementation
 
   @override
   Widget build(BuildContext context) {
@@ -34,31 +35,20 @@ class CartView extends StatelessWidget {
               padding: const EdgeInsets.only(top: 16, bottom: 30),
               child: Column(
                 children: [
-                  CheckoutTotals(
-                    title: 'Sub Total',
-                    value: '100\$',
-                  ),
+                  CheckoutTotals(title: 'Sub Total', value: '100\$'),
                   const SizedBox(height: 12),
-                  CheckoutTotals(
-                    title: 'Delivery Fee',
-                    value: '10\$',
-                  ),
+                  CheckoutTotals(title: 'Delivery Fee', value: '10\$'),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 16.0),
                     child: Divider(thickness: 1, height: 1),
                   ),
-                  CheckoutTotals(
-                    title: 'Total',
-                    value: '110\$',
-                    isTotal: true,
-                  ),
+                  CheckoutTotals(title: 'Total', value: '110\$', isTotal: true),
                   const SizedBox(height: 24),
 
                   // Checkout Button
                   SizedBox(
                     child: ElevatedButton(
-                      onPressed: () {
-                      },
+                      onPressed: () {},
                       child: Text('Checkout'),
                     ),
                   ),
@@ -73,4 +63,3 @@ class CartView extends StatelessWidget {
 
   // Helper widget to generate the rows for the summary
 }
-
