@@ -46,8 +46,9 @@ class CartRepoImpl implements CartRepoContract {
   Future<BaseResponse<CartResponseEntity>> removeItemFromCart(
     String productId,
   ) async {
-    final response =
-        await _cartRemoteDataSourceContract.removeItemFromCart(productId);
+    final response = await _cartRemoteDataSourceContract.removeItemFromCart(
+      productId,
+    );
     switch (response) {
       case SuccessBaseResponse<CartResponseDto>():
         return SuccessBaseResponse<CartResponseEntity>(
@@ -64,7 +65,7 @@ class CartRepoImpl implements CartRepoContract {
   Future<BaseResponse<CartResponseEntity>> updateCartItemQuantity(
     String productId,
     int quantity,
-  )async {
+  ) async {
     final response = await _cartRemoteDataSourceContract.updateCartItemQuantity(
       productId,
       quantity,
@@ -79,6 +80,5 @@ class CartRepoImpl implements CartRepoContract {
           errorMessage: response.errorMessage,
         );
     }
-    
   }
 }

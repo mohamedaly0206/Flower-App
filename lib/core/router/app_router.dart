@@ -21,8 +21,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/occasion/presentation/view_model/occasion_cubit.dart';
 import '../../l10n/app_localizations.dart';
 
-final GlobalKey<NavigatorState> navigatorKey =
-GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 abstract class AppRouter {
   static GoRouter getRouter({

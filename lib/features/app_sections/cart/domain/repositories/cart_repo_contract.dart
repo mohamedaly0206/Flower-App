@@ -4,7 +4,12 @@ import 'package:flower_app/features/app_sections/cart/domain/entities/cart_respo
 
 abstract interface class CartRepoContract {
   Future<BaseResponse<CartResponseEntity>> getCartItems();
-  Future<BaseResponse<CartResponseEntity>> addItemToCart(AddToCartRequest request);
+  Future<BaseResponse<CartResponseEntity>> addItemToCart(
+    AddToCartRequest request,
+  );
   Future<BaseResponse<CartResponseEntity>> removeItemFromCart(String productId);
-  Future<BaseResponse<CartResponseEntity>> updateCartItemQuantity(String productId, int quantity);
+  Future<BaseResponse<CartResponseEntity>> updateCartItemQuantity(
+    String productId,
+    int quantity,
+  );
 }

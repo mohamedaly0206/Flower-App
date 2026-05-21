@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 
 class CartView extends StatelessWidget {
   const CartView({super.key});
-  final int itemCount =
-      5; // Example item count, replace with actual data in real implementation
+  final int itemCount = 5;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: '${AppLocalizations.of(context)!.cart} ($itemCount ${AppLocalizations.of(context)!.items})',
+        title:
+            '${AppLocalizations.of(context)!.cart} ($itemCount ${AppLocalizations.of(context)!.items})',
         hasBackButton: false,
       ),
       body: Padding(
@@ -35,14 +35,24 @@ class CartView extends StatelessWidget {
               padding: const EdgeInsets.only(top: 16, bottom: 30),
               child: Column(
                 children: [
-                  CheckoutTotals(title: AppLocalizations.of(context)!.subTotal, value: '100\$'),
+                  CheckoutTotals(
+                    title: AppLocalizations.of(context)!.subTotal,
+                    value: '100\$',
+                  ),
                   const SizedBox(height: 12),
-                  CheckoutTotals(title: AppLocalizations.of(context)!.deliveryFee, value: '10\$'),
+                  CheckoutTotals(
+                    title: AppLocalizations.of(context)!.deliveryFee,
+                    value: '10\$',
+                  ),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 16.0),
                     child: Divider(thickness: 1, height: 1),
                   ),
-                  CheckoutTotals(title: AppLocalizations.of(context)!.total, value: '110\$', isTotal: true),
+                  CheckoutTotals(
+                    title: AppLocalizations.of(context)!.total,
+                    value: '110\$',
+                    isTotal: true,
+                  ),
                   const SizedBox(height: 24),
 
                   // Checkout Button
@@ -60,6 +70,4 @@ class CartView extends StatelessWidget {
       ),
     );
   }
-
-  // Helper widget to generate the rows for the summary
 }

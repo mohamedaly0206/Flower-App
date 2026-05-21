@@ -39,7 +39,9 @@ class ApiInterceptor extends Interceptor {
         DioException(
           requestOptions: options,
           error: CacheException(
-            errorMessage: AppLocalizations.of(navigatorKey.currentContext!)!.getCacheExceptionMessage,
+            errorMessage: AppLocalizations.of(
+              navigatorKey.currentContext!,
+            )!.getCacheExceptionMessage,
           ),
           type: DioExceptionType.unknown,
         ),

@@ -6,11 +6,5 @@ class CartItemEntity {
   final int? quantity;
   final double? price;
 
-  CartItemEntity({
-    this.id,
-    this.product,
-    this.quantity,
-    this.price,
-  });
-} 
-  
+  CartItemEntity({this.id, this.product, this.quantity, this.price});
+}

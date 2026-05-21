@@ -1,7 +1,7 @@
 import 'package:flower_app/config/base_response/base_response.dart';
 import 'package:flower_app/core/errors/exceptions.dart';
 import 'package:flower_app/core/errors/failures.dart';
- 
+
 import 'package:flower_app/features/auth/login/data/data_sources/login_local_data_source.dart';
 import 'package:flower_app/features/auth/login/data/data_sources/login_remote_data_source.dart';
 import 'package:flower_app/features/auth/login/data/models/login_response/login_response.dart';
@@ -27,7 +27,11 @@ class LoginRepositoryImpl implements LoginRepository {
       final response = await _remoteDataSource.login(email, password);
       final token = response.token;
       if (token == null || token.isEmpty) {
-        throw CacheException(errorMessage: AppLocalizations.of(navigatorKey.currentContext!)!.cacheStorageError);
+        throw CacheException(
+          errorMessage: AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.cacheStorageError,
+        );
       }
       await _localDataSource.saveToken(token);
       return SuccessBaseResponse(data: response);

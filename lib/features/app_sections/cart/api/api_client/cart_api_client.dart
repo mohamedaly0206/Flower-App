@@ -29,6 +29,4 @@ abstract class CartApiClient {
   Future<CartResponseDto> removeItemFromCart(
     @Path('productId') String productId,
   );
-
-
 }

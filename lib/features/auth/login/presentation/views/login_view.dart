@@ -2,7 +2,7 @@ import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
 import 'package:flower_app/core/utilities/app_validators.dart';
- 
+
 import 'package:flower_app/core/widgets/app_loading.dart';
 import 'package:flower_app/core/widgets/app_messages.dart';
 import 'package:flower_app/core/widgets/custom_app_bar.dart';
@@ -40,7 +40,10 @@ class _LoginViewState extends State<LoginView> {
       listener: _loginListener,
       child: Scaffold(
         backgroundColor: AppColors.whiteColor,
-        appBar: CustomAppBar(title: AppLocalizations.of(context)!.login, hasBackButton: false),
+        appBar: CustomAppBar(
+          title: AppLocalizations.of(context)!.login,
+          hasBackButton: false,
+        ),
         body: SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -155,7 +158,9 @@ class _LoginViewState extends State<LoginView> {
       case LoginSuccess():
         AppMessages.showSuccess(
           context,
-          message: state.response.message ?? AppLocalizations.of(context)!.loginSuccessfully,
+          message:
+              state.response.message ??
+              AppLocalizations.of(context)!.loginSuccessfully,
         );
         context.go(AppRouterPaths.kAppSections);
       case LoginInitial():

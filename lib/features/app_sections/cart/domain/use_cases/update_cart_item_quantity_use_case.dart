@@ -5,7 +5,10 @@ import 'package:flower_app/features/app_sections/cart/domain/repositories/cart_r
 class UpdateCartItemQuantityUseCase {
   final CartRepoContract _cartRepoContract;
   UpdateCartItemQuantityUseCase(this._cartRepoContract);
-  Future<BaseResponse<CartResponseEntity>> call(String productId, int request) async {
+  Future<BaseResponse<CartResponseEntity>> call(
+    String productId,
+    int request,
+  ) async {
     return _cartRepoContract.updateCartItemQuantity(productId, request);
   }
 }

@@ -6,5 +6,8 @@ abstract interface class CartRemoteDataSourceContract {
   Future<BaseResponse<CartResponseDto>> getCartItems();
   Future<BaseResponse<CartResponseDto>> addItemToCart(AddToCartRequest request);
   Future<BaseResponse<CartResponseDto>> removeItemFromCart(String productId);
-  Future<BaseResponse<CartResponseDto>> updateCartItemQuantity(String productId, int quantity);
+  Future<BaseResponse<CartResponseDto>> updateCartItemQuantity(
+    String productId,
+    int quantity,
+  );
 }
