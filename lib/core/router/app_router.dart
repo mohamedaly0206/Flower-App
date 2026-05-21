@@ -20,6 +20,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flower_app/features/occasion/presentation/view_model/cubit/occasion_cubit.dart';
+import 'package:flower_app/features/edite_profile/presentation/view_model/cubit/edite_profile_cubit.dart';
+import 'package:flower_app/features/edite_profile/presentation/view/edite_profile_view.dart';
 import '../../l10n/app_localizations.dart';
 
 final GlobalKey<NavigatorState> navigatorKey =
@@ -111,6 +113,13 @@ abstract class AppRouter {
             child: const OccasionView(),
           );
         },
+      ),
+      GoRoute(
+        path: AppRouterPaths.kEditProfileView,
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<EditeProfileCubit>(),
+          child: const EditeProfileView(),
+        ),
       ),
     ],
   );
