@@ -1,4 +1,4 @@
-part of 'change_password_cubit.dart';
+part of '../cubit/change_password_cubit.dart';
 
 class ChangePasswordState extends Equatable {
   final BaseState<ChangePasswordResponseEntity> changePasswordState;

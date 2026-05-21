@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+
 import '../../l10n/app_localizations.dart';
 import '../router/app_router.dart';
 import 'exceptions.dart';
@@ -72,6 +73,7 @@ class ServerFailure extends Failure {
       case 401:
       case 403:
         final String errorMessageRes =
+            response?['error'] ??
             response?['message'] ??
             AppLocalizations.of(navigatorKey.currentContext!)!.errorMessage;
         return ServerFailure(errorMessageRes);

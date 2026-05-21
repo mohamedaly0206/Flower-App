@@ -4,6 +4,6 @@ import '../entities/change_password_response_entity.dart';
 
 abstract interface class ChangePasswordRepoContract {
   Future<BaseResponse<ChangePasswordResponseEntity>> changePassword(
-      ChangePasswordRequest changePasswordRequestEntity,
-      );
+    ChangePasswordRequest changePasswordRequestEntity,
+  );
 }

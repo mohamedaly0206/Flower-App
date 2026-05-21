@@ -14,11 +14,9 @@ class ChangePasswordRepoImpl implements ChangePasswordRepoContract {
 
   @override
   Future<BaseResponse<ChangePasswordResponseEntity>> changePassword(
-      ChangePasswordRequest changePasswordRequest,
-      ) async {
-    final response = await _dataSource.changePassword(
-      changePasswordRequest,
-    );
+    ChangePasswordRequest changePasswordRequest,
+  ) async {
+    final response = await _dataSource.changePassword(changePasswordRequest);
 
     switch (response) {
       case SuccessBaseResponse<ChangePasswordResponseDto>():
