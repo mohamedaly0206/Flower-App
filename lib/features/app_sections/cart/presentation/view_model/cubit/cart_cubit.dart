@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flower_app/config/base_response/base_response.dart';
+import 'package:flower_app/features/app_sections/cart/data/models/request/update_cart_item_quantity_request.dart';
 import 'package:flower_app/features/app_sections/cart/domain/entities/cart_response_entity.dart';
 import 'package:flower_app/features/app_sections/cart/domain/use_cases/add_item_to_cart_use_case.dart';
 import 'package:flower_app/features/app_sections/cart/domain/use_cases/get_items_cart_use_case.dart';
@@ -8,7 +11,9 @@ import 'package:flower_app/features/app_sections/cart/presentation/view_model/in
 import 'package:flower_app/features/app_sections/cart/presentation/view_model/state/cart_state.dart';
 import 'package:flower_app/features/app_sections/cart/data/models/request/add_to_cart_request.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class CartCubit extends Cubit<CartState> {
   final GetItemsCartUseCase _getItemsCartUseCase;
   final AddItemToCartUseCase _addItemToCartUseCase;
@@ -20,7 +25,7 @@ class CartCubit extends Cubit<CartState> {
     this._addItemToCartUseCase,
     this._removeItemFromCartUseCase,
     this._updateCartItemQuantityInCartUseCase,
-  ) : super(const CartState());
+  ) : super(CartState());
 
   void cartIntentHandler(CartIntent intent) async {
     switch (intent) {
@@ -60,6 +65,7 @@ class CartCubit extends Cubit<CartState> {
             ),
           ),
         );
+        log('items fetched successfully');
         break;
       case ErrorBaseResponse<CartResponseEntity>():
         emit(
@@ -70,6 +76,7 @@ class CartCubit extends Cubit<CartState> {
             ),
           ),
         );
+        log('items fetch failed');
         break;
     }
   }
@@ -93,8 +100,13 @@ class CartCubit extends Cubit<CartState> {
               dataParam: response.data,
               isLoadingParam: false,
             ),
+            getCartItemsState: state.getCartItemsState?.copyWith(
+              dataParam: response.data,
+            ),
           ),
         );
+
+        log('item added successfully');
         break;
       case ErrorBaseResponse<CartResponseEntity>():
         emit(
@@ -105,6 +117,7 @@ class CartCubit extends Cubit<CartState> {
             ),
           ),
         );
+        log('item add failed');
         break;
     }
   }
@@ -128,8 +141,12 @@ class CartCubit extends Cubit<CartState> {
               dataParam: response.data,
               isLoadingParam: false,
             ),
+            getCartItemsState: state.getCartItemsState?.copyWith(
+              dataParam: response.data,
+            ),
           ),
         );
+        log('item removed successfully');
         break;
       case ErrorBaseResponse<CartResponseEntity>():
         emit(
@@ -140,13 +157,14 @@ class CartCubit extends Cubit<CartState> {
             ),
           ),
         );
+        log('item remove failed');
         break;
     }
   }
 
   Future<void> _updateCartItemQuantityInCart(
     String productId,
-    int quantity,
+    UpdateCartQuantityRequest request,
   ) async {
     emit(
       state.copyWith(
@@ -157,7 +175,7 @@ class CartCubit extends Cubit<CartState> {
 
     final response = await _updateCartItemQuantityInCartUseCase(
       productId,
-      quantity,
+      UpdateCartQuantityRequest(quantity: request.quantity),
     );
 
     switch (response) {
@@ -166,8 +184,12 @@ class CartCubit extends Cubit<CartState> {
           state.copyWith(
             updateItemQuantityInCartState: state.updateItemQuantityInCartState
                 ?.copyWith(dataParam: response.data, isLoadingParam: false),
+            getCartItemsState: state.getCartItemsState?.copyWith(
+              dataParam: response.data,
+            ),
           ),
         );
+        log('quantity updated successfully');
         break;
       case ErrorBaseResponse<CartResponseEntity>():
         emit(
@@ -179,6 +201,8 @@ class CartCubit extends Cubit<CartState> {
                 ),
           ),
         );
+        log('quantity update failed');
+        log(response.errorMessage);
         break;
     }
   }

@@ -1,4 +1,8 @@
+import 'package:flower_app/features/app_sections/cart/data/models/request/add_to_cart_request.dart';
+import 'package:flower_app/features/app_sections/cart/presentation/view_model/cubit/cart_cubit.dart';
+import 'package:flower_app/features/app_sections/cart/presentation/view_model/intent/cart_intent.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../l10n/app_localizations.dart';
@@ -10,9 +14,9 @@ class CustomProductCard extends StatelessWidget {
   final int? price;
   final int? oldPrice;
   final int? discountPercent;
-  final VoidCallback? onAddToCart;
   final VoidCallback? onTap;
   final String? currency;
+  final String? productId;
 
   const CustomProductCard({
     required this.title,
@@ -21,9 +25,9 @@ class CustomProductCard extends StatelessWidget {
     super.key,
     required this.oldPrice,
     required this.discountPercent,
-    required this.onAddToCart,
     required this.onTap,
     this.currency = 'EGP',
+    required this.productId,
   });
 
   @override
@@ -113,7 +117,17 @@ class CustomProductCard extends StatelessWidget {
               height: 30,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(padding: EdgeInsets.zero),
-                onPressed: onAddToCart,
+                onPressed: () {
+                  int quantity = 0;
+                  context.read<CartCubit>().cartIntentHandler(
+                    AddItemToCartIntent(
+                      request: AddToCartRequest(
+                        productId: productId!,
+                        quantity: ++quantity,
+                      ),
+                    ),
+                  );
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

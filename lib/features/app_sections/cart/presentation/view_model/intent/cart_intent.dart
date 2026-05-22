@@ -1,4 +1,5 @@
 import 'package:flower_app/features/app_sections/cart/data/models/request/add_to_cart_request.dart';
+import 'package:flower_app/features/app_sections/cart/data/models/request/update_cart_item_quantity_request.dart';
 
 sealed class CartIntent {}
 
@@ -11,7 +12,7 @@ class RemoveItemFromCartIntent extends CartIntent {
 
 class UpdateCartItemQuantityIntent extends CartIntent {
   final String productId;
-  final int quantity;
+  final UpdateCartQuantityRequest quantity;
   UpdateCartItemQuantityIntent({
     required this.productId,
     required this.quantity,

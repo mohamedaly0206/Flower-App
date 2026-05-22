@@ -2,8 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_app/core/shared_features/products/domain/entities/product_entity.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
+import 'package:flower_app/features/app_sections/cart/data/models/request/add_to_cart_request.dart';
+import 'package:flower_app/features/app_sections/cart/presentation/view_model/cubit/cart_cubit.dart';
+import 'package:flower_app/features/app_sections/cart/presentation/view_model/intent/cart_intent.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -178,7 +182,17 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                 width: double.infinity,
                 height: 54,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    int quantity = 0;
+                    context.read<CartCubit>().cartIntentHandler(
+                      AddItemToCartIntent(
+                        request: AddToCartRequest(
+                          productId: widget.product.id!,
+                          quantity: ++quantity,
+                        ),
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryColor,
                     foregroundColor: Colors.white,

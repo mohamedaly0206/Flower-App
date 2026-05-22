@@ -3,6 +3,7 @@ import 'package:flower_app/core/errors/failures.dart';
 import 'package:flower_app/features/app_sections/cart/api/api_client/cart_api_client.dart';
 import 'package:flower_app/features/app_sections/cart/data/data_sources/cart_remote_data_source_contract.dart';
 import 'package:flower_app/features/app_sections/cart/data/models/request/add_to_cart_request.dart';
+import 'package:flower_app/features/app_sections/cart/data/models/request/update_cart_item_quantity_request.dart';
 import 'package:flower_app/features/app_sections/cart/data/models/response/cart_response_dto.dart';
 import 'package:injectable/injectable.dart';
 
@@ -54,12 +55,12 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSourceContract {
   @override
   Future<BaseResponse<CartResponseDto>> updateCartItemQuantity(
     String productId,
-    int quantity,
+    UpdateCartQuantityRequest request,
   ) async {
     try {
       final response = await _cartApiClient.updateCartItemQuantity(
         productId,
-        quantity,
+        UpdateCartQuantityRequest(quantity: request.quantity),
       );
       return SuccessBaseResponse<CartResponseDto>(data: response);
     } catch (e) {

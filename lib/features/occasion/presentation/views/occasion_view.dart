@@ -300,6 +300,7 @@ class _ProductCard extends StatelessWidget {
     }
 
     return CustomProductCard(
+      productId: product.id,
       title: product.title ?? '',
       imageProvider: CachedNetworkImageProvider(imageUrl),
       price: product.priceAfterDiscount ?? product.price ?? 0,
@@ -310,7 +311,6 @@ class _ProductCard extends StatelessWidget {
           context,
         ).push(AppRouterPaths.kProductDetailsView, extra: product);
       },
-      onAddToCart: () {},
     );
   }
 }

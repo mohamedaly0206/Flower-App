@@ -254,7 +254,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get total => 'الإجمالي';
 
   @override
-  String get placeOrder => 'إتمام الطلب';
+  String get emptyCart => 'سلة التسوق فارغة 🌸\nابدأ التسوق واعثر على ما تحبه!';
 
   @override
   String get address => 'العنوان';

@@ -80,7 +80,7 @@
   "subTotal": "Sub Total",
   "deliveryFee": "Delivery Fee",
   "total": "Total",
-  "placeOrder": "Place order",
+  "emptyCart":"Your cart is empty 🌸\nStart shopping and find something you’ll love!",
   "address": "Address",
   "enterAddress": "Enter the address",
   "enterRecipientName": "Enter the recipient name",

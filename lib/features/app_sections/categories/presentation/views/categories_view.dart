@@ -77,15 +77,15 @@ class CategoriesView extends StatelessWidget {
                             final product =
                                 state.productsState.data?.products?[index];
                             return CustomProductCard(
+                              productId: product?.id,
                               title: product?.title ?? 'Product Title',
                               imageProvider: CachedNetworkImageProvider(
                                 product?.imageCover ?? '',
                               ),
-                              price: product?.price ?? 6000,
+                              price: product?.priceAfterDiscount ?? 0,
 
-                              oldPrice: product?.priceAfterDiscount ?? 9000,
+                              oldPrice: product?.price ?? 9000,
                               discountPercent: product?.discount ?? 0,
-                              onAddToCart: () {},
                               onTap: () {
                                 GoRouter.of(context).push(
                                   AppRouterPaths.kProductDetailsView,

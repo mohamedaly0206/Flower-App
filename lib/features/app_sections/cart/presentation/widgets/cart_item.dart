@@ -1,11 +1,34 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_app/core/values/assets.gen.dart';
+import 'package:flower_app/features/app_sections/cart/data/models/request/update_cart_item_quantity_request.dart';
+import 'package:flower_app/features/app_sections/cart/presentation/view_model/cubit/cart_cubit.dart';
+import 'package:flower_app/features/app_sections/cart/presentation/view_model/intent/cart_intent.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CartItem extends StatelessWidget {
-  const CartItem({super.key});
+class CartItem extends StatefulWidget {
+  final String productId;
+  final String title;
+  final String subtitle;
+  final String imageUrl;
+  final num price;
+  final int quantity;
+  const CartItem({
+    super.key,
+    required this.productId,
+    required this.title,
+    required this.subtitle,
+    required this.imageUrl,
+    required this.price,
+    required this.quantity,
+  });
 
+  @override
+  State<CartItem> createState() => _CartItemState();
+}
+
+class _CartItemState extends State<CartItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,15 +45,17 @@ class CartItem extends StatelessWidget {
         children: [
           Container(
             width: 96,
-            height: 102,
+            height: 101,
             decoration: BoxDecoration(
-              color: Colors.red, // Light Pink Background
+              color: Theme.of(context).colorScheme.secondary,
               borderRadius: BorderRadius.circular(8),
-              image: const DecorationImage(
-                image: CachedNetworkImageProvider(
-                  'https://m.media-amazon.com/images/I/81OXEQrFPTL._AC_UF1000,1000_QL80_.jpg',
-                ),
+              image: DecorationImage(
+                image: CachedNetworkImageProvider(widget.imageUrl),
                 fit: BoxFit.cover,
+                onError: (error, stackTrace) => Icon(
+                  Icons.image_not_supported_outlined,
+                  color: Theme.of(context).colorScheme.outline,
+                ),
               ),
             ),
           ),
@@ -45,13 +70,22 @@ class CartItem extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Red roses',
-                        style: Theme.of(context).textTheme.headlineMedium,
+                      Expanded(
+                        child: Text(
+                          widget.title,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
+                      SizedBox(width: 8),
                       InkWell(
                         onTap: () {
-                          // Handle delete action
+                          context.read<CartCubit>().cartIntentHandler(
+                            RemoveItemFromCartIntent(
+                              productId: widget.productId,
+                            ),
+                          );
                         },
                         child: SvgPicture.asset(
                           Assets.icons.deleteIcon,
@@ -68,35 +102,56 @@ class CartItem extends StatelessWidget {
                   const SizedBox(height: 4),
                   // Subtitle
                   Text(
-                    '15 Pink Rose Bouquet',
+                    widget.subtitle,
                     style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                       color: Theme.of(context).colorScheme.onInverseSurface,
                     ),
+                    maxLines: 1,
                   ),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'EGP 600',
+                        '\$${widget.price.toInt()}',
                         style: Theme.of(context).textTheme.displayLarge!
                             .copyWith(fontWeight: FontWeight.w600),
                       ),
                       Row(
                         children: [
                           CountItem(
-                            onTap: () {},
+                            onTap: () {
+                              if (widget.quantity > 1) {
+                                context.read<CartCubit>().cartIntentHandler(
+                                  UpdateCartItemQuantityIntent(
+                                    productId: widget.productId,
+                                    quantity: UpdateCartQuantityRequest(
+                                      quantity: widget.quantity - 1,
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
                             iconPath: Assets.icons.removeIcon,
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            '1',
+                            widget.quantity.toString(),
                             style: Theme.of(context).textTheme.displayLarge!
                                 .copyWith(fontWeight: FontWeight.w600),
                           ),
                           const SizedBox(width: 4),
                           CountItem(
-                            onTap: () {},
+                            onTap: () {
+                              context.read<CartCubit>().cartIntentHandler(
+                                UpdateCartItemQuantityIntent(
+                                  productId: widget.productId,
+                                  quantity: UpdateCartQuantityRequest(
+                                    quantity: widget.quantity + 1,
+                                  ),
+                                ),
+                              );
+                            },
                             iconPath: Assets.icons.addIcon,
                           ),
                         ],
@@ -121,9 +176,7 @@ class CountItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        onTap();
-      },
+      onTap: onTap,
       child: SvgPicture.asset(
         iconPath,
         width: 20,

@@ -256,7 +256,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get total => 'Total';
 
   @override
-  String get placeOrder => 'Place order';
+  String get emptyCart =>
+      'Your cart is empty 🌸\nStart shopping and find something you’ll love!';
 
   @override
   String get address => 'Address';
