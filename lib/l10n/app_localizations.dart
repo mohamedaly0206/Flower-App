@@ -560,6 +560,12 @@ abstract class AppLocalizations {
   /// **'It is a gift'**
   String get itIsGift;
 
+  /// No description provided for @items.
+  ///
+  /// In en, this message translates to:
+  /// **'items'**
+  String get items;
+
   /// No description provided for @subTotal.
   ///
   /// In en, this message translates to:
@@ -578,11 +584,17 @@ abstract class AppLocalizations {
   /// **'Total'**
   String get total;
 
-  /// No description provided for @placeOrder.
+  /// No description provided for @emptyCart.
   ///
   /// In en, this message translates to:
-  /// **'Place order'**
-  String get placeOrder;
+  /// **'Your cart is empty 🌸\nStart shopping and find something you’ll love!'**
+  String get emptyCart;
+
+  /// No description provided for @successAddToCart.
+  ///
+  /// In en, this message translates to:
+  /// **'Item added to cart'**
+  String get successAddToCart;
 
   /// No description provided for @address.
   ///

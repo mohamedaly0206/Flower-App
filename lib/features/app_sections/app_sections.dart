@@ -2,7 +2,7 @@ import 'package:flower_app/config/di/di.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 
 import 'package:flower_app/core/values/assets.gen.dart';
-import 'package:flower_app/features/app_sections/cart/cart_view.dart';
+import 'package:flower_app/features/app_sections/cart/presentation/views/cart_view.dart';
 import 'package:flower_app/features/app_sections/categories/presentation/views/categories_view.dart';
 import 'package:flower_app/features/change_password/presentation/view/change_password_view.dart';
 import 'package:flutter/material.dart';

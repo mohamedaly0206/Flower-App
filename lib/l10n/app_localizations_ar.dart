@@ -242,6 +242,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get itIsGift => 'إنها هدية';
 
   @override
+  String get items => 'اغراض';
+
+  @override
   String get subTotal => 'المجموع الفرعي';
 
   @override
@@ -251,7 +254,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get total => 'الإجمالي';
 
   @override
-  String get placeOrder => 'إتمام الطلب';
+  String get emptyCart => 'سلة التسوق فارغة 🌸\nابدأ التسوق واعثر على ما تحبه!';
+
+  @override
+  String get successAddToCart => 'تم اضافه المنتج للسله';
 
   @override
   String get address => 'العنوان';

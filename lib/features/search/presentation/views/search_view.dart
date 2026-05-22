@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_shared_intent.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/cubit/home_shared_cubit.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/states/home_shared_states.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../l10n/app_localizations.dart';
 
@@ -101,16 +103,21 @@ class SearchView extends StatelessWidget {
                             final product =
                                 state.productsState.data?.products?[index];
                             return CustomProductCard(
+                              productId: product?.id,
                               title: product?.title ?? 'Product Title',
                               imageProvider: CachedNetworkImageProvider(
                                 product?.imageCover ?? '',
                               ),
-                              price: product?.price ?? 6000,
+                              price: product?.priceAfterDiscount ?? 6000,
 
-                              oldPrice: product?.priceAfterDiscount ?? 9000,
+                              oldPrice: product?.price ?? 9000,
                               discountPercent: product?.discount ?? 0,
-                              onAddToCart: () {},
-                              onTap: () {},
+                              onTap: () {
+                                GoRouter.of(context).push(
+                                  AppRouterPaths.kProductDetailsView,
+                                  extra: product,
+                                );
+                              },
                             );
                           },
                           shrinkWrap: true,

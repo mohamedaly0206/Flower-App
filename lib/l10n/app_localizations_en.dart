@@ -244,6 +244,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get itIsGift => 'It is a gift';
 
   @override
+  String get items => 'items';
+
+  @override
   String get subTotal => 'Sub Total';
 
   @override
@@ -253,7 +256,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get total => 'Total';
 
   @override
-  String get placeOrder => 'Place order';
+  String get emptyCart =>
+      'Your cart is empty 🌸\nStart shopping and find something you’ll love!';
+
+  @override
+  String get successAddToCart => 'Item added to cart';
 
   @override
   String get address => 'Address';
