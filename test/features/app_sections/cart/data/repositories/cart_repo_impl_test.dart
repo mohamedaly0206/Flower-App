@@ -9,7 +9,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-// Run 'flutter pub run build_runner build' to generate this file
 @GenerateMocks([CartRemoteDataSourceContract, CartResponseDto, CartResponseEntity])
 import 'cart_repo_impl_test.mocks.dart';
 
@@ -23,7 +22,6 @@ void main() {
     mockCartResponseDto = MockCartResponseDto();
     mockCartResponseEntity = MockCartResponseEntity();
 
-    // Register dummy values required by mockito for generic type fallbacks
     provideDummy<BaseResponse<CartResponseDto>>(
       SuccessBaseResponse<CartResponseDto>(data: mockCartResponseDto),
     );
@@ -34,13 +32,11 @@ void main() {
     repository = CartRepoImpl(mockRemoteDataSource);
   });
 
-  // Common Test Dummy Data
   const tProductId = 'prod_987';
   const tErrorMessage = 'Network error, please check connection';
   final tAddToCartRequest = AddToCartRequest(productId: tProductId, quantity: 2);
   final tUpdateCartQuantityRequest = UpdateCartQuantityRequest(quantity: 4);
 
-  /// Helper setup method to isolate mapping configuration 
   void setUpSuccessfulMapping() {
     // Stubs the .toDomain() conversion method on your DTO class
     when(mockCartResponseDto.toDomain()).thenReturn(mockCartResponseEntity);

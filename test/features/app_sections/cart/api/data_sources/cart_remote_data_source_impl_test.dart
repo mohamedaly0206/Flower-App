@@ -1,6 +1,6 @@
 import 'package:flower_app/config/base_response/base_response.dart';
 import 'package:flower_app/features/app_sections/cart/api/api_client/cart_api_client.dart';
-import 'package:flower_app/features/app_sections/cart/api/data_sourses/cart_remote_data_source_impl.dart';
+import 'package:flower_app/features/app_sections/cart/api/data_sources/cart_remote_data_source_impl.dart';
 import 'package:flower_app/features/app_sections/cart/data/models/request/add_to_cart_request.dart';
 import 'package:flower_app/features/app_sections/cart/data/models/request/update_cart_item_quantity_request.dart';
 import 'package:flower_app/features/app_sections/cart/data/models/response/cart_response_dto.dart';
@@ -8,22 +8,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-// Run 'flutter pub run build_runner build' to generate this file
 @GenerateMocks([CartApiClient])
 import 'cart_remote_data_source_impl_test.mocks.dart';
 
 void main() {
-  // Ensure Flutter bindings are active for context/localization fallbacks inside error handlers
   TestWidgetsFlutterBinding.ensureInitialized();
 
   late CartRemoteDataSourceImpl dataSource;
   late MockCartApiClient mockApiClient;
 
   setUpAll(() {
-    // Registering your generic dummy response model matching your reference pattern
     provideDummy<BaseResponse<CartResponseDto>>(
       SuccessBaseResponse<CartResponseDto>(
-        data: CartResponseDto(), // Adjust constructor args if CartResponseDto requires them
+        data: CartResponseDto(), 
       ),
     );
   });
@@ -33,7 +30,6 @@ void main() {
     dataSource = CartRemoteDataSourceImpl(mockApiClient);
   });
 
-  // Common Test Variables
   const tProductId = 'product_id_123';
   final tCartResponseDto = CartResponseDto(); 
   final tAddToCartRequest = AddToCartRequest(productId: tProductId, quantity: 1);

@@ -22,14 +22,14 @@ import 'cart_cubit_test.mocks.dart';
   UpdateCartItemQuantityUseCase,
 ])
 
+
 void main() {
   late MockGetItemsCartUseCase mockGetItemsUseCase;
   late MockAddItemToCartUseCase mockAddItemUseCase;
   late MockRemoveItemFromCartUseCase mockRemoveItemUseCase;
   late MockUpdateCartItemQuantityUseCase mockUpdateQuantityUseCase;
 
-  // Dummy object for success responses
-  final tCartEntity = CartResponseEntity(); // Update with your entity fields if needed
+  final tCartEntity = CartResponseEntity(); 
 
   setUpAll(() {
     provideDummy<BaseResponse<CartResponseEntity>>(
