@@ -1,5 +1,7 @@
+import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class EditProfilePasswordRow extends StatelessWidget {
   const EditProfilePasswordRow({super.key});
@@ -11,7 +13,7 @@ class EditProfilePasswordRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(color: AppColors.greyColor),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(4),
       ),
       child: Row(
         children: [
@@ -38,7 +40,9 @@ class EditProfilePasswordRow extends StatelessWidget {
           ),
           TextButton(
             key: const Key('edit_profile_change_password'),
-            onPressed: () {},
+            onPressed: () {
+              context.push(AppRouterPaths.kChangePasswordView);
+            },
             style: TextButton.styleFrom(
               foregroundColor: AppColors.primaryColor,
               padding: EdgeInsets.zero,

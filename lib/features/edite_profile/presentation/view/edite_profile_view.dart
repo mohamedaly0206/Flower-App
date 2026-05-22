@@ -108,7 +108,45 @@ class _EditeProfileViewState extends State<EditeProfileView> {
 
         return Scaffold(
           backgroundColor: AppColors.whiteColor,
-          appBar: const CustomAppBar(title: 'Edit profile'),
+          appBar: CustomAppBar(
+            title: 'Edit profile',
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    const Icon(
+                      Icons.notifications_none_outlined,
+                      size: 28,
+                      color: AppColors.blackColor,
+                    ),
+                    Positioned(
+                      right: -2,
+                      top: -6,
+                      child: Container(
+                        width: 18,
+                        height: 18,
+                        alignment: Alignment.center,
+                        decoration: const BoxDecoration(
+                          color: AppColors.errorColor,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Text(
+                          '0',
+                          style: TextStyle(
+                            color: AppColors.whiteColor,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
           body: isInitialLoading
               ? const Center(
                   child: CircularProgressIndicator(
