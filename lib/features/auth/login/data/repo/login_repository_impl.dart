@@ -33,11 +33,6 @@ class LoginRepositoryImpl implements LoginRepository {
             navigatorKey.currentContext!,
           )!.cacheStorageError,
         );
-        throw CacheException(
-          errorMessage: AppLocalizations.of(
-            navigatorKey.currentContext!,
-          )!.cacheStorageError,
-        );
       }
       await _localDataSource.saveToken(token);
       await _localDataSource.saveRememberMe(rememberMe);

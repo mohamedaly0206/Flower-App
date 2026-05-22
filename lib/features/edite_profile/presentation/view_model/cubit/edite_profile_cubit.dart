@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flower_app/config/base_response/base_response.dart';
+import 'package:flower_app/core/values/api_param.dart';
 import 'package:flower_app/features/edite_profile/domain/entities/edit_profile_body.dart';
 import 'package:flower_app/features/edite_profile/domain/entities/user_profile_entity.dart';
 import 'package:flower_app/features/edite_profile/domain/use_cases/edit_profile_use_case.dart';
@@ -8,6 +9,7 @@ import 'package:flower_app/features/edite_profile/domain/use_cases/upload_profil
 import 'package:flower_app/features/edite_profile/presentation/view_model/intent/edite_profile_intent.dart';
 import 'package:flower_app/features/edite_profile/presentation/view_model/state/edite_profile_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
@@ -15,13 +17,14 @@ class EditeProfileCubit extends Cubit<EditeProfileState> {
   final GetProfileUseCase _getProfileUseCase;
   final EditProfileUseCase _editProfileUseCase;
   final UploadProfilePhotoUseCase _uploadProfilePhotoUseCase;
-
+  final FlutterSecureStorage _secureStorage;
   UserEntity? _baselineUser;
 
   EditeProfileCubit(
     this._getProfileUseCase,
     this._editProfileUseCase,
     this._uploadProfilePhotoUseCase,
+    this._secureStorage,
   ) : super(const EditeProfileState());
 
   void handleIntent(EditeProfileIntent intent) {
@@ -216,6 +219,7 @@ class EditeProfileCubit extends Cubit<EditeProfileState> {
           sentBody: body,
         );
         _baselineUser = updatedUser;
+        await _cacheUserData(updatedUser);
         emit(
           state.copyWith(
             status: EditeProfileStatus.success,
@@ -237,13 +241,16 @@ class EditeProfileCubit extends Cubit<EditeProfileState> {
   }
 
   /// upload-photo returns `{ "message": "success" }` only — refresh from GET.
-  Future<void> _refetchProfileAfterMutation({required String successMessage}) async {
+  Future<void> _refetchProfileAfterMutation({
+    required String successMessage,
+  }) async {
     final response = await _getProfileUseCase();
 
     switch (response) {
       case SuccessBaseResponse():
         final user = userWithNormalizedGender(response.data.user);
         _baselineUser = user;
+        await _cacheUserData(user);
         emit(
           state.copyWith(
             status: EditeProfileStatus.success,
@@ -262,5 +269,22 @@ class EditeProfileCubit extends Cubit<EditeProfileState> {
           ),
         );
     }
+  }
+
+  Future<void> _cacheUserData(UserEntity? user) async {
+    if (user == null) return;
+
+    await _secureStorage.write(
+      key: ApiParam.userName,
+      value: user.firstName ?? 'User',
+    );
+    await _secureStorage.write(
+      key: ApiParam.userEmail,
+      value: user.email ?? '',
+    );
+    await _secureStorage.write(
+      key: ApiParam.userPhoto,
+      value: user.photo ?? '',
+    );
   }
 }
