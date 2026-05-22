@@ -11,26 +11,33 @@ import 'package:flower_app/features/auth/login/presentation/view_model/login_cub
 import 'package:flower_app/features/auth/login/presentation/views/login_view.dart';
 import 'package:flower_app/features/auth/signup/presentation/screens/register_screen.dart';
 import 'package:flower_app/features/best_seller/presentation/view/best_seller_view.dart';
-import 'package:flower_app/features/occasion/presentation/views/occasion_view.dart';
+import 'package:flower_app/features/occasion/presentation/view_model/intent/occasion_intent.dart';
+import 'package:flower_app/features/occasion/presentation/view/occasion_view.dart';
 import 'package:flower_app/features/product_details/presentation/view/product_details_view.dart';
 import 'package:flower_app/features/search/presentation/views/search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/occasion/presentation/view_model/occasion_cubit.dart';
-import '../values/app_strings.dart';
+import 'package:flower_app/features/occasion/presentation/view_model/cubit/occasion_cubit.dart';
+import 'package:flower_app/features/edite_profile/presentation/view_model/cubit/edite_profile_cubit.dart';
+import 'package:flower_app/features/edite_profile/presentation/view/edite_profile_view.dart';
+import '../../l10n/app_localizations.dart';
+
+final GlobalKey<NavigatorState> navigatorKey =
+GlobalKey<NavigatorState>();
 
 abstract class AppRouter {
   static GoRouter getRouter({
     String initialLocation = AppRouterPaths.kLoginView,
   }) => GoRouter(
+    navigatorKey: navigatorKey,
     initialLocation: initialLocation,
     errorBuilder: (context, state) => Scaffold(
       body: Center(
         child: Text(
           textAlign: TextAlign.center,
-          AppStrings.errorMessage,
+          AppLocalizations.of(context)!.errorMessage,
           style: const TextStyle(fontSize: 18),
         ),
       ),
@@ -96,15 +103,23 @@ abstract class AppRouter {
           return MultiBlocProvider(
             providers: [
               BlocProvider(
-                create: (context) =>
-                    getIt<OccasionCubit>()
-                      ..getOccasions(initialIndex: initialIndex),
+                create: (context) => getIt<OccasionCubit>()
+                  ..handleIntent(
+                    LoadOccasionsIntent(initialIndex: initialIndex),
+                  ),
               ),
               BlocProvider.value(value: getIt<HomeSharedCubit>()),
             ],
             child: const OccasionView(),
           );
         },
+      ),
+      GoRoute(
+        path: AppRouterPaths.kEditProfileView,
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<EditeProfileCubit>(),
+          child: const EditeProfileView(),
+        ),
       ),
     ],
   );

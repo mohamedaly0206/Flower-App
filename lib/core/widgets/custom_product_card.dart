@@ -1,7 +1,8 @@
-import 'package:flower_app/core/values/app_strings.dart';
+ 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../l10n/app_localizations.dart';
 import '../values/assets.gen.dart';
 
 class CustomProductCard extends StatelessWidget {
@@ -19,10 +20,10 @@ class CustomProductCard extends StatelessWidget {
     required this.imageProvider,
     required this.price,
     super.key,
-    this.oldPrice,
-    this.discountPercent,
-    this.onAddToCart,
-    this.onTap,
+    required this.oldPrice,
+    required this.discountPercent,
+    required this.onAddToCart,
+    required this.onTap,
     this.currency = 'EGP',
   });
 
@@ -127,7 +128,7 @@ class CustomProductCard extends StatelessWidget {
                     ),
                     SizedBox(width: 8),
                     Text(
-                      AppStrings.addToCart,
+                      AppLocalizations.of(context)!.addToCart,
                       style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         color: Theme.of(context).colorScheme.onPrimary,
                       ),

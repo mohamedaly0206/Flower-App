@@ -1,3 +1,4 @@
+import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_shared_intent.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/cubit/home_shared_cubit.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/states/home_shared_states.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:go_router/go_router.dart';
 
 class CategoriesView extends StatelessWidget {
   const CategoriesView({super.key});
@@ -84,7 +86,12 @@ class CategoriesView extends StatelessWidget {
                               oldPrice: product?.priceAfterDiscount ?? 9000,
                               discountPercent: product?.discount ?? 0,
                               onAddToCart: () {},
-                              onTap: () {},
+                              onTap: () {
+                                GoRouter.of(context).push(
+                                  AppRouterPaths.kProductDetailsView,
+                                  extra: product,
+                                );
+                              },
                             );
                           },
                           shrinkWrap: true,

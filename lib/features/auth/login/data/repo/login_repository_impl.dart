@@ -1,12 +1,15 @@
 import 'package:flower_app/config/base_response/base_response.dart';
 import 'package:flower_app/core/errors/exceptions.dart';
 import 'package:flower_app/core/errors/failures.dart';
-import 'package:flower_app/core/values/app_strings.dart';
+ 
 import 'package:flower_app/features/auth/login/data/data_sources/login_local_data_source.dart';
 import 'package:flower_app/features/auth/login/data/data_sources/login_remote_data_source.dart';
 import 'package:flower_app/features/auth/login/data/models/login_response/login_response.dart';
 import 'package:flower_app/features/auth/login/domain/repo/login_repository.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../../../../core/router/app_router.dart';
+import '../../../../../l10n/app_localizations.dart';
 
 @Injectable(as: LoginRepository)
 class LoginRepositoryImpl implements LoginRepository {
@@ -24,7 +27,7 @@ class LoginRepositoryImpl implements LoginRepository {
       final response = await _remoteDataSource.login(email, password);
       final token = response.token;
       if (token == null || token.isEmpty) {
-        throw CacheException(errorMessage: AppStrings.cacheStorageError);
+        throw CacheException(errorMessage: AppLocalizations.of(navigatorKey.currentContext!)!.cacheStorageError);
       }
       await _localDataSource.saveToken(token);
       return SuccessBaseResponse(data: response);

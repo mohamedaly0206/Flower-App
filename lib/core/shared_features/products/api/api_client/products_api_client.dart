@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flower_app/core/shared_features/products/data/models/products_response.dart';
 import 'package:flower_app/core/values/api_endpoints.dart';
-import 'package:flower_app/core/values/app_strings.dart';
+ 
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
+
+import '../../../../values/app_strings.dart';
 
 part 'products_api_client.g.dart';
 

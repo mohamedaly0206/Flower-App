@@ -1,11 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:flower_app/config/base_response/base_response.dart';
-import 'package:flower_app/core/values/app_strings.dart';
+import 'package:flower_app/core/router/app_router.dart';
 import 'package:flower_app/features/occasion/data/datasources/occasion_remote_data_source.dart';
 import 'package:flower_app/features/occasion/data/models/occasion_dto.dart';
 import 'package:flower_app/features/occasion/data/models/occasions_response.dart';
 import 'package:flower_app/features/occasion/data/repositories/occasion_repository_impl.dart';
 import 'package:flower_app/features/occasion/domain/entities/occasion_entity.dart';
 import 'package:flower_app/features/occasion/domain/entities/occasions_response_entity.dart';
+import 'package:flower_app/l10n/app_localizations.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // ---------------------------------------------------------------------------
@@ -104,11 +107,21 @@ void main() {
     // Failure path — generic exception
     // Validates that when the data source throws a non-Dio exception, the
     // repository catches it and returns an ErrorBaseResponse with the generic
-    // AppStrings.errorMessage string.
+    // AppLocalizations.of(navigatorKey.currentContext!)!.errorMessage string.
     // -----------------------------------------------------------------------
-    test(
+    testWidgets(
       'returns ErrorBaseResponse with generic message on unknown exception',
-      () async {
+      (tester) async {
+        // Build MaterialApp to provide a valid navigatorKey.currentContext
+        await tester.pumpWidget(
+          MaterialApp(
+            navigatorKey: navigatorKey,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: const SizedBox(),
+          ),
+        );
+
         // Arrange
         remoteDataSource.error = Exception('unexpected error');
 
@@ -118,7 +131,44 @@ void main() {
         // Assert
         expect(result, isA<ErrorBaseResponse<OccasionsResponseEntity>>());
         final error = result as ErrorBaseResponse<OccasionsResponseEntity>;
-        expect(error.errorMessage, AppStrings.errorMessage);
+        expect(error.errorMessage, AppLocalizations.of(navigatorKey.currentContext!)!.errorMessage);
+      },
+    );
+
+    // -----------------------------------------------------------------------
+    // Failure path — DioException connectionTimeout
+    // Validates that when the data source throws a DioException of type
+    // connectionTimeout, the repository catches it and returns an
+    // ErrorBaseResponse with the localizable connection timeout error message.
+    // -----------------------------------------------------------------------
+    testWidgets(
+      'returns ErrorBaseResponse with connection timeout message on connection timeout DioException',
+      (tester) async {
+        await tester.pumpWidget(
+          MaterialApp(
+            navigatorKey: navigatorKey,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: const SizedBox(),
+          ),
+        );
+
+        // Arrange
+        remoteDataSource.error = DioException(
+          requestOptions: RequestOptions(path: ''),
+          type: DioExceptionType.connectionTimeout,
+        );
+
+        // Act
+        final result = await repository.getOccasions();
+
+        // Assert
+        expect(result, isA<ErrorBaseResponse<OccasionsResponseEntity>>());
+        final error = result as ErrorBaseResponse<OccasionsResponseEntity>;
+        expect(
+          error.errorMessage,
+          AppLocalizations.of(navigatorKey.currentContext!)!.serverConnTimeout,
+        );
       },
     );
   });

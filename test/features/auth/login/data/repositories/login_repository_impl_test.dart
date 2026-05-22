@@ -1,9 +1,11 @@
 import 'package:flower_app/config/base_response/base_response.dart';
-import 'package:flower_app/core/values/app_strings.dart';
+import 'package:flower_app/core/router/app_router.dart';
+
 import 'package:flower_app/features/auth/login/data/data_sources/login_local_data_source.dart';
 import 'package:flower_app/features/auth/login/data/data_sources/login_remote_data_source.dart';
 import 'package:flower_app/features/auth/login/data/models/login_response/login_response.dart';
 import 'package:flower_app/features/auth/login/data/repo/login_repository_impl.dart';
+import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class _FakeLoginRemoteDataSource implements LoginRemoteDataSource {
@@ -79,7 +81,7 @@ void main() {
       expect(result, isA<ErrorBaseResponse<LoginResponse>>());
       expect(
         (result as ErrorBaseResponse<LoginResponse>).errorMessage,
-        AppStrings.errorMessage,
+        AppLocalizations.of(navigatorKey.currentContext!)!.errorMessage,
       );
       expect(localDataSource.receivedToken, isNull);
     });
@@ -98,7 +100,7 @@ void main() {
       expect(result, isA<ErrorBaseResponse<LoginResponse>>());
       expect(
         (result as ErrorBaseResponse<LoginResponse>).errorMessage,
-        AppStrings.cacheStorageError,
+        AppLocalizations.of(navigatorKey.currentContext!)!.cacheStorageError,
       );
       expect(localDataSource.receivedToken, isNull);
     });
