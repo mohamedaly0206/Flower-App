@@ -2,14 +2,17 @@ import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
 import 'package:flower_app/core/values/assets.gen.dart';
-import 'package:flower_app/features/app_sections/profile/presentation/view_model/profile_cubit.dart';
-import 'package:flower_app/features/app_sections/profile/presentation/view_model/profile_states.dart';
+import 'package:flower_app/features/app_sections/profile/presentation/view_model/cubit/profile_cubit.dart';
+import 'package:flower_app/features/app_sections/profile/presentation/view_model/state/profile_states.dart';
 import 'package:flower_app/features/app_sections/widgets/custom_profile_header.dart';
 import 'package:flower_app/features/app_sections/widgets/custom_profile_info.dart';
 import 'package:flower_app/features/app_sections/widgets/custom_profile_menu_tile.dart';
+import 'package:flower_app/features/app_sections/widgets/profile_language_bottom_sheet.dart';
+import 'package:flower_app/features/app_sections/widgets/profile_logout_dialog.dart';
 import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -67,10 +70,14 @@ class ProfileView extends StatelessWidget {
                     icon: SvgPicture.asset(Assets.icons.translateIcon),
                     title: AppLocalizations.of(context)!.language,
                     trailing: Text(
-                      AppLocalizations.of(context)!.english,
+                      languageName(context, state.languageCode),
                       style: AppTextStyles.textStyleRegular12.copyWith(
                         color: AppColors.primaryColor,
                       ),
+                    ),
+                    onTap: () => showLanguageBottomSheet(
+                      context,
+                      selectedLanguageCode: state.languageCode,
                     ),
                   ),
                   CustomProfileMenuTile(
@@ -86,7 +93,7 @@ class ProfileView extends StatelessWidget {
                     icon: SvgPicture.asset(Assets.icons.logoutIcon),
                     title: AppLocalizations.of(context)!.logout,
                     trailing: SvgPicture.asset(Assets.icons.logoutIcon),
-                    onTap: () => _showLogoutDialog(context),
+                    onTap: () => showLogoutDialog(context),
                   ),
                   const SizedBox(height: 20),
                   Text(
@@ -106,78 +113,15 @@ class ProfileView extends StatelessWidget {
           return Scaffold(body: Center(child: Text(state.message)));
         }
 
-        return const Scaffold(body: Center(child: CircularProgressIndicator()));
+        return Scaffold(
+          body: Center(
+            child: SpinKitFadingCircle(
+              color: Theme.of(context).colorScheme.primary,
+              size: 50,
+            ),
+          ),
+        );
       },
     );
   }
-}
-
-void _showLogoutDialog(BuildContext context) {
-  showDialog<void>(
-    context: context,
-    barrierColor: AppColors.blackColor.withValues(alpha: 0.45),
-    builder: (dialogContext) {
-      return Dialog(
-        backgroundColor: AppColors.whiteColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(24, 24, 24, 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                AppLocalizations.of(context)!.logout,
-                style: AppTextStyles.textStyleMedium16.copyWith(
-                  color: AppColors.blackColor,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                AppLocalizations.of(context)!.confirmLogout,
-                style: AppTextStyles.textStyleRegular14.copyWith(
-                  color: AppColors.blackColor,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () => Navigator.of(dialogContext).pop(),
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: AppColors.blackColor,
-                        side: const BorderSide(color: AppColors.greyColor),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                      ),
-                      child: Text(AppLocalizations.of(context)!.cancel),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(dialogContext).pop();
-                        context.read<ProfileCubit>().logout();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryColor,
-                        foregroundColor: AppColors.whiteColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                      ),
-                      child: Text(AppLocalizations.of(context)!.logout),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      );
-    },
-  );
 }

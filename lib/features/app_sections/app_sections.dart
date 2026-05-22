@@ -1,11 +1,11 @@
 import 'package:flower_app/config/di/di.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flower_app/features/app_sections/profile/presentation/view_model/cubit/profile_cubit.dart';
 import 'package:flower_app/core/values/assets.gen.dart';
 import 'package:flower_app/features/app_sections/cart/cart_view.dart';
 import 'package:flower_app/features/app_sections/categories/presentation/views/categories_view.dart';
 import 'package:flower_app/features/app_sections/profile/presentation/view/profile_view.dart';
-import 'package:flower_app/features/app_sections/profile/presentation/view_model/profile_cubit.dart';
+import 'package:flower_app/features/app_sections/profile/presentation/view_model/intent/profile_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -47,7 +47,7 @@ class _AppSectionsState extends State<AppSections> {
       label: AppLocalizations.of(context)!.profile,
       iconPath: Assets.icons.personIcon,
       screen: BlocProvider(
-        create: (_) => getIt<ProfileCubit>()..loadUserProfile(),
+        create: (_) => getIt<ProfileCubit>()..doIntent(LoadUserProfileIntent()),
         child: const ProfileView(),
       ),
     ),

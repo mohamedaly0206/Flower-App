@@ -2,7 +2,6 @@ import 'package:flower_app/config/base_response/base_response.dart';
 import 'package:flower_app/core/errors/exceptions.dart';
 import 'package:flower_app/core/errors/failures.dart';
 import 'package:flower_app/core/values/api_param.dart';
-import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/features/auth/login/data/data_sources/login_local_data_source.dart';
 import 'package:flower_app/features/auth/login/data/data_sources/login_remote_data_source.dart';
 import 'package:flower_app/features/auth/login/data/models/login_response/login_response.dart';
@@ -23,14 +22,20 @@ class LoginRepositoryImpl implements LoginRepository {
   Future<BaseResponse<LoginResponse>> login({
     required String email,
     required String password,
+    required bool rememberMe,
   }) async {
     try {
       final response = await _remoteDataSource.login(email, password);
       final token = response.token;
       if (token == null || token.isEmpty) {
-        throw CacheException(errorMessage: AppLocalizations.of(navigatorKey.currentContext!)!.cacheStorageError);
+        throw CacheException(
+          errorMessage: AppLocalizations.of(
+            navigatorKey.currentContext!,
+          )!.cacheStorageError,
+        );
       }
       await _localDataSource.saveToken(token);
+       await _localDataSource.saveRememberMe(rememberMe);
       final user = response.user;
 
       await _localDataSource.cacheUserData({
@@ -48,5 +53,10 @@ class LoginRepositoryImpl implements LoginRepository {
             : ServerFailure.failureHandler(error).errorMessage,
       );
     }
+  }
+
+  @override
+  Future<bool> getRememberMe() {
+    return _localDataSource.getRememberMe();
   }
 }

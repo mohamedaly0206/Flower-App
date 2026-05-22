@@ -14,11 +14,13 @@ class ProfileSuccess extends ProfileState {
   final String name;
   final String email;
   final String photoUrl;
+  final String languageCode;
 
   const ProfileSuccess({
     required this.name,
     required this.email,
     required this.photoUrl,
+    required this.languageCode,
   });
 }
 

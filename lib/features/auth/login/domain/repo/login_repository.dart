@@ -5,5 +5,7 @@ abstract class LoginRepository {
   Future<BaseResponse<LoginResponse>> login({
     required String email,
     required String password,
+    required bool rememberMe,
   });
+  Future<bool> getRememberMe();
 }
