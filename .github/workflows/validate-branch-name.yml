@@ -1,0 +1,28 @@
+name: Validate PR Branch Name
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  validate-branch-name:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate branch name
+        run: |
+          BRANCH_NAME="${{ github.head_ref }}"
+
+          echo "Checking branch: $BRANCH_NAME"
+
+          REGEX='^(feature|feat|bugfix|fix|hotfix|release|chore|docs|refactor|test|ci|build|perf|style)\/[A-Z]+-[0-9]+-[a-zA-Z0-9-]+$'
+
+          if [[ $BRANCH_NAME =~ $REGEX ]]; then
+            echo "Branch name is valid"
+          else
+            echo "Invalid branch name"
+            echo ""
+            echo "Expected format:"
+            echo "feature/ECOM-27-initialize-project"
+            exit 1
+          fi
