@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_app/core/shared_features/products/domain/entities/product_entity.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
- 
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -118,12 +118,17 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                       .copyWith(color: AppColors.blackColor),
                                   children: [
                                     TextSpan(
-                                      text: '${AppLocalizations.of(context)!.status}: ',
+                                      text:
+                                          '${AppLocalizations.of(context)!.status}: ',
                                     ),
                                     TextSpan(
                                       text: (widget.product.quantity ?? 0) > 0
-                                          ? AppLocalizations.of(context)!.inStock
-                                          : AppLocalizations.of(context)!.outOfStock,
+                                          ? AppLocalizations.of(
+                                              context,
+                                            )!.inStock
+                                          : AppLocalizations.of(
+                                              context,
+                                            )!.outOfStock,
                                       style: AppTextStyles.textStyleRegular14,
                                     ),
                                   ],

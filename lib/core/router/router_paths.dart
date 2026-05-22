@@ -2,6 +2,7 @@ abstract class AppRouterPaths {
   static const kLoginView = '/loginView';
   static const kSignUpView = '/signUpView';
   static const kForgetPasswordView = '/forgetPasswordView';
+  static const kChangePasswordView = '/changePasswordView';
   static const kHomeView = '/homeView';
   static const kCategoriesView = '/categoriesView';
   static const kBestSellerView = '/bestSellerView';

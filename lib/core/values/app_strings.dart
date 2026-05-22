@@ -37,6 +37,8 @@ abstract class AppStrings {
       'Creating an account, you agree to our';
   static const String termsAndConditions = 'Terms&Conditions';
   static const String signUpSuccessMessage = 'Sign up successfully';
+  static const String changePasswordSuccess = 'Password changed successfully';
+  static const String changePasswordError = 'Failed to change password';
   static const String enterEmail =
       'Please enter your email associated to\nyour account';
   static const String alreadyHaveAnAccount = 'Already have an account?';

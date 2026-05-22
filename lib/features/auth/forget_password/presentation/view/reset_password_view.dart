@@ -1,6 +1,6 @@
 import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/utilities/app_validators.dart';
- 
+
 import 'package:flower_app/core/widgets/app_loading.dart';
 import 'package:flower_app/core/widgets/app_messages.dart';
 import 'package:flower_app/features/auth/forget_password/data/models/requests/reset_password_request.dart';
@@ -25,7 +25,10 @@ class ResetPasswordView extends StatelessWidget {
         key: formKey,
         child: Column(
           children: [
-            Text(AppLocalizations.of(context)!.resetPassword, style: theme.textTheme.titleMedium),
+            Text(
+              AppLocalizations.of(context)!.resetPassword,
+              style: theme.textTheme.titleMedium,
+            ),
             SizedBox(height: 10),
             Text(
               AppLocalizations.of(context)!.resetPasswordHint,

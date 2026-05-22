@@ -18,7 +18,9 @@ abstract class AppValidators {
 
   static String? validatePassword(String? password) {
     if (password == null || password.isEmpty) {
-      return AppLocalizations.of(navigatorKey.currentContext!)!.passwordRequired;
+      return AppLocalizations.of(
+        navigatorKey.currentContext!,
+      )!.passwordRequired;
     }
 
     if (password.length < 8) {
@@ -38,7 +40,9 @@ abstract class AppValidators {
     if (password != confirmPassword ||
         confirmPassword == null ||
         confirmPassword.isEmpty) {
-      return AppLocalizations.of(navigatorKey.currentContext!)!.passwordNotMatched;
+      return AppLocalizations.of(
+        navigatorKey.currentContext!,
+      )!.passwordNotMatched;
     }
 
     return null;

@@ -76,7 +76,9 @@ class SearchView extends StatelessWidget {
                       ? Center(
                           child: Text(
                             searchController.text.trim().isEmpty
-                                ? AppLocalizations.of(context)!.searchForAnyProduct
+                                ? AppLocalizations.of(
+                                    context,
+                                  )!.searchForAnyProduct
                                 : AppLocalizations.of(context)!.noProductsFound,
                             style: Theme.of(context).textTheme.displayLarge!
                                 .copyWith(

@@ -1,7 +1,7 @@
 import 'package:flower_app/core/shared_features/shared_view_model/cubit/home_shared_cubit.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/states/home_shared_states.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
- 
+
 import 'package:flower_app/core/widgets/custom_app_bar.dart';
 import 'package:flower_app/features/best_seller/presentation/widgets/custom_best_seller_grid.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +49,9 @@ class BestSellerView extends StatelessWidget {
 
                   if (bestSellers.isEmpty) {
                     return Center(
-                      child: Text(AppLocalizations.of(context)!.noProductsFound),
+                      child: Text(
+                        AppLocalizations.of(context)!.noProductsFound,
+                      ),
                     );
                   }
 
