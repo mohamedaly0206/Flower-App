@@ -1,0 +1,28 @@
+name: Validate PR Title
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  validate-pr-title:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate PR Title
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+
+          echo "Checking PR Title: $PR_TITLE"
+
+          REGEX='^(feature|feat|bugfix|fix|hotfix|release|chore|docs|refactor|test|ci|build|perf|style):\s?[A-Z]+-[0-9]+.+$'
+
+          if [[ $PR_TITLE =~ $REGEX ]]; then
+            echo "PR title is valid"
+          else
+            echo "Invalid PR title"
+            echo ""
+            echo "Expected format:"
+            echo "feature: ECOM-27-initialize-project"
+            exit 1
+          fi
