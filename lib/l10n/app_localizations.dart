@@ -590,6 +590,12 @@ abstract class AppLocalizations {
   /// **'Your cart is empty 🌸\nStart shopping and find something you’ll love!'**
   String get emptyCart;
 
+  /// No description provided for @successAddToCart.
+  ///
+  /// In en, this message translates to:
+  /// **'Item added to cart'**
+  String get successAddToCart;
+
   /// No description provided for @address.
   ///
   /// In en, this message translates to:

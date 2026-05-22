@@ -1,14 +1,17 @@
+import 'package:flower_app/core/widgets/app_messages.dart';
 import 'package:flower_app/features/app_sections/cart/data/models/request/add_to_cart_request.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/view_model/cubit/cart_cubit.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/view_model/intent/cart_intent.dart';
+import 'package:flower_app/features/app_sections/cart/presentation/view_model/state/cart_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../values/assets.gen.dart';
 
-class CustomProductCard extends StatelessWidget {
+class CustomProductCard extends StatefulWidget {
   final String? title;
   final ImageProvider imageProvider;
   final int? price;
@@ -31,12 +34,21 @@ class CustomProductCard extends StatelessWidget {
   });
 
   @override
+  State<CustomProductCard> createState() => _CustomProductCardState();
+}
+
+class _CustomProductCardState extends State<CustomProductCard> {
+  // Two-step tracking state machine to prevent premature resets
+  bool _isWaitingToStart = false;
+  bool _isThisItemLoading = false;
+
+  @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: widget.onTap,
       borderRadius: BorderRadius.circular(8),
       child: Container(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           border: Border.all(
             color: Theme.of(context).colorScheme.onTertiaryFixed,
@@ -50,7 +62,7 @@ class CustomProductCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(2),
                 child: Image(
-                  image: imageProvider,
+                  image: widget.imageProvider,
                   fit: BoxFit.cover,
                   width: double.infinity,
                   errorBuilder: (context, error, stackTrace) {
@@ -67,39 +79,39 @@ class CustomProductCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title ?? '',
+                    widget.title ?? '',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                       overflow: TextOverflow.ellipsis,
                     ),
                     maxLines: 2,
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Row(
                       children: [
                         Text(
-                          '${AppLocalizations.of(context)!.egp} $price',
+                          '${AppLocalizations.of(context)!.egp} ${widget.price}',
                           style: Theme.of(context).textTheme.displayLarge,
                         ),
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         Text(
-                          '$oldPrice',
+                          '${widget.oldPrice}',
                           style: Theme.of(context).textTheme.bodySmall
                               ?.copyWith(
                                 decoration: TextDecoration.lineThrough,
                               ),
                         ),
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
                         Text(
-                          '${discountPercent ?? 0}%',
+                          '${widget.discountPercent ?? 0}%',
                           style: Theme.of(context).textTheme.bodySmall
                               ?.copyWith(
                                 color: Theme.of(context).colorScheme.tertiary,
@@ -111,44 +123,92 @@ class CustomProductCard extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 8),
-            SizedBox(
-              width: double.infinity,
-              height: 30,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(padding: EdgeInsets.zero),
-                onPressed: () {
-                  int quantity = 0;
-                  context.read<CartCubit>().cartIntentHandler(
-                    AddItemToCartIntent(
-                      request: AddToCartRequest(
-                        productId: productId!,
-                        quantity: ++quantity,
-                      ),
-                    ),
-                  );
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      Assets.icons.shoppingCartIcon,
-                      width: 15,
-                      colorFilter: ColorFilter.mode(
-                        Theme.of(context).colorScheme.onPrimary,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      AppLocalizations.of(context)!.addToCart,
-                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            const SizedBox(height: 8),
+            BlocConsumer<CartCubit, CartState>(
+              listener: (context, state) {
+                final cartState = state.addItemToCartState;
+                if (cartState == null) return;
+
+                if (_isWaitingToStart && cartState.isLoading == true) {
+                  setState(() {
+                    _isWaitingToStart = false;
+                    _isThisItemLoading = true;
+                  });
+                }
+
+                if (_isThisItemLoading && cartState.isLoading == false) {
+                  if (cartState.data != null) {
+                    AppMessages.showSuccess(
+                      context,
+                      message: AppLocalizations.of(context)!.successAddToCart,
+                    );
+                  }
+                  if (cartState.errorMessage != null) {
+                    AppMessages.showError(
+                      context,
+                      message: cartState.errorMessage!,
+                    );
+                  }
+
+                  setState(() {
+                    _isThisItemLoading = false;
+                  });
+                }
+              },
+              builder: (context, state) {
+                return SizedBox(
+                  width: double.infinity,
+                  height: 30,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(padding: EdgeInsets.zero),
+                    onPressed: () {
+                      setState(() {
+                        _isWaitingToStart = true;
+                        _isThisItemLoading = false;
+                      });
+
+                      int quantity = 0;
+                      context.read<CartCubit>().cartIntentHandler(
+                        AddItemToCartIntent(
+                          request: AddToCartRequest(
+                            productId: widget.productId!,
+                            quantity: ++quantity,
+                          ),
+                        ),
+                      );
+                    },
+                    // Depend cleanly on the confirmed local loading flag
+                    child: _isThisItemLoading
+                        ? SpinKitFadingCircle(
+                            color: Theme.of(context).colorScheme.secondary,
+                            size: 20,
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                Assets.icons.shoppingCartIcon,
+                                width: 15,
+                                colorFilter: ColorFilter.mode(
+                                  Theme.of(context).colorScheme.onPrimary,
+                                  BlendMode.srcIn,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                AppLocalizations.of(context)!.addToCart,
+                                style: Theme.of(context).textTheme.labelSmall
+                                    ?.copyWith(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onPrimary,
+                                    ),
+                              ),
+                            ],
+                          ),
+                  ),
+                );
+              },
             ),
           ],
         ),

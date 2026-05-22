@@ -5,6 +5,7 @@ import 'package:flower_app/features/app_sections/cart/presentation/view_model/cu
 import 'package:flower_app/features/app_sections/cart/presentation/view_model/intent/cart_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toastification/toastification.dart';
 import 'config/di/di.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/theme.dart';
@@ -46,6 +47,9 @@ class FlowerApp extends StatelessWidget {
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         locale: Locale('en'),
+        builder: (context, child) {
+          return ToastificationWrapper(child: child!);
+        },
       ),
     );
   }

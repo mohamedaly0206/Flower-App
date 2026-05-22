@@ -257,6 +257,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get emptyCart => 'سلة التسوق فارغة 🌸\nابدأ التسوق واعثر على ما تحبه!';
 
   @override
+  String get successAddToCart => 'تم اضافه المنتج للسله';
+
+  @override
   String get address => 'العنوان';
 
   @override

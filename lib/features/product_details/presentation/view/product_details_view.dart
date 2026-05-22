@@ -2,12 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flower_app/core/shared_features/products/domain/entities/product_entity.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
+import 'package:flower_app/core/widgets/app_messages.dart';
 import 'package:flower_app/features/app_sections/cart/data/models/request/add_to_cart_request.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/view_model/cubit/cart_cubit.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/view_model/intent/cart_intent.dart';
+import 'package:flower_app/features/app_sections/cart/presentation/view_model/state/cart_state.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -178,33 +181,52 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                 horizontal: 16.0,
                 vertical: 24.0,
               ),
-              child: SizedBox(
-                width: double.infinity,
-                height: 54,
-                child: ElevatedButton(
-                  onPressed: () {
-                    int quantity = 0;
-                    context.read<CartCubit>().cartIntentHandler(
-                      AddItemToCartIntent(
-                        request: AddToCartRequest(
-                          productId: widget.product.id!,
-                          quantity: ++quantity,
-                        ),
-                      ),
+              child: BlocConsumer<CartCubit, CartState>(
+                listener: (context, state) {
+                  if (state.addItemToCartState!.data != null &&
+                      state.addItemToCartState!.isLoading == false) {
+                    AppMessages.showSuccess(
+                      context,
+                      message: AppLocalizations.of(context)!.successAddToCart,
                     );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryColor,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
+                  }
+                  if (state.addItemToCartState!.errorMessage != null &&
+                      state.addItemToCartState!.isLoading == false) {
+                    AppMessages.showError(
+                      context,
+                      message: state.addItemToCartState!.errorMessage!,
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  return SizedBox(
+                    width: double.infinity,
+                    height: 54,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        int quantity = 0;
+                        context.read<CartCubit>().cartIntentHandler(
+                          AddItemToCartIntent(
+                            request: AddToCartRequest(
+                              productId: widget.product.id!,
+                              quantity: ++quantity,
+                            ),
+                          ),
+                        );
+                      },
+
+                      child: state.addItemToCartState!.isLoading
+                          ? SpinKitFadingCircle(
+                              color: Theme.of(context).colorScheme.secondary,
+                              size: 50,
+                            )
+                          : Text(
+                              AppLocalizations.of(context)!.addToCart,
+                              style: AppTextStyles.textStyleMedium16,
+                            ),
                     ),
-                  ),
-                  child: Text(
-                    AppLocalizations.of(context)!.addToCart,
-                    style: AppTextStyles.textStyleMedium16,
-                  ),
-                ),
+                  );
+                },
               ),
             ),
           ],

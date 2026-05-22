@@ -260,6 +260,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your cart is empty 🌸\nStart shopping and find something you’ll love!';
 
   @override
+  String get successAddToCart => 'Item added to cart';
+
+  @override
   String get address => 'Address';
 
   @override

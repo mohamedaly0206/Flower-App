@@ -5,7 +5,6 @@ import 'package:flower_app/features/app_sections/cart/data/models/request/update
 import 'package:flower_app/features/app_sections/cart/data/models/response/cart_response_dto.dart';
 import 'package:flower_app/features/app_sections/cart/domain/entities/cart_response_entity.dart';
 import 'package:flower_app/features/app_sections/cart/domain/repositories/cart_repo_contract.dart';
-import 'package:flower_app/features/app_sections/cart/presentation/view_model/intent/cart_intent.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable(as: CartRepoContract)

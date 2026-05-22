@@ -81,6 +81,7 @@
   "deliveryFee": "رسوم التوصيل",
   "total": "الإجمالي",
   "emptyCart":"سلة التسوق فارغة 🌸\nابدأ التسوق واعثر على ما تحبه!",
+  "successAddToCart":"تم اضافه المنتج للسله",
   "placeOrder": "إتمام الطلب",
   "address": "العنوان",
   "enterAddress": "أدخل العنوان",
