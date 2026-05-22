@@ -4,6 +4,9 @@ import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/values/assets.gen.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/views/cart_view.dart';
 import 'package:flower_app/features/app_sections/categories/presentation/views/categories_view.dart';
+import 'package:flower_app/features/app_sections/profile/presentation/view/profile_view.dart';
+import 'package:flower_app/features/app_sections/profile/presentation/view_model/cubit/profile_cubit.dart';
+import 'package:flower_app/features/app_sections/profile/presentation/view_model/intent/profile_intent.dart';
 import 'package:flower_app/features/change_password/presentation/view/change_password_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,8 +52,8 @@ class _AppSectionsState extends State<AppSections> {
       iconPath: Assets.icons.personIcon,
       //will be removed after merging
       screen: BlocProvider(
-        create: (context) => getIt<ChangePasswordCubit>(),
-        child: ChangePasswordView(),
+        create: (_) => getIt<ProfileCubit>()..doIntent(LoadUserProfileIntent()),
+        child: const ProfileView(),
       ),
     ),
   ];

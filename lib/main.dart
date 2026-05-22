@@ -73,12 +73,12 @@ class FlowerApp extends StatelessWidget {
       create: (context) =>
           getIt<CartCubit>()..cartIntentHandler(GetCartItemsIntent()),
       child: MaterialApp.router(
-        routerConfig: AppRouter.getRouter(initialLocation: initialLocation),
+        routerConfig: _getRouter(),
         debugShowCheckedModeBanner: false,
         theme: AppTheme.appTheme,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        locale: Locale('en'),
+        locale: locale,
         builder: (context, child) {
           return ToastificationWrapper(child: child!);
         },

@@ -12,6 +12,7 @@ import 'package:flower_app/features/auth/login/presentation/views/login_view.dar
 import 'package:flower_app/features/auth/signup/presentation/screens/register_screen.dart';
 import 'package:flower_app/features/best_seller/presentation/view/best_seller_view.dart';
 import 'package:flower_app/features/change_password/presentation/view/change_password_view.dart';
+import 'package:flower_app/features/change_password/presentation/view_model/cubit/change_password_cubit.dart';
 import 'package:flower_app/features/occasion/presentation/view_model/intent/occasion_intent.dart';
 import 'package:flower_app/features/occasion/presentation/view/occasion_view.dart';
 import 'package:flower_app/features/product_details/presentation/view/product_details_view.dart';
@@ -79,8 +80,12 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: AppRouterPaths.kChangePasswordView,
-        builder: (context, state) => ChangePasswordView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<ChangePasswordCubit>(),
+          child: ChangePasswordView(),
+        ),
       ),
+
       GoRoute(
         path: AppRouterPaths.kSignUpView,
         builder: (context, state) => const RegisterScreen(),
