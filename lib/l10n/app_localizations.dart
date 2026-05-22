@@ -770,6 +770,12 @@ abstract class AppLocalizations {
   /// **'Confirm logout!!'**
   String get confirmLogout;
 
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
+
   /// No description provided for @cancel.
   ///
   /// In en, this message translates to:

@@ -347,6 +347,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get confirmLogout => 'تأكيد تسجيل الخروج!!';
 
   @override
+  String get logout => 'تسجيل الخروج';
+
+  @override
   String get cancel => 'إلغاء';
 
   @override

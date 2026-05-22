@@ -7,17 +7,24 @@ import 'package:flutter_test/flutter_test.dart';
 class _FakeLoginRepository implements LoginRepository {
   String? receivedEmail;
   String? receivedPassword;
+  bool? receivedRememberMe;
+  bool rememberMe = false;
   late BaseResponse<LoginResponse> response;
 
   @override
   Future<BaseResponse<LoginResponse>> login({
     required String email,
     required String password,
+    required bool rememberMe,
   }) async {
     receivedEmail = email;
     receivedPassword = password;
+    receivedRememberMe = rememberMe;
     return response;
   }
+
+  @override
+  Future<bool> getRememberMe() async => rememberMe;
 }
 
 void main() {
@@ -31,11 +38,20 @@ void main() {
       final result = await useCase(
         email: 'user@mail.com',
         password: 'password123',
+        rememberMe: true,
       );
 
       expect(result, same(repository.response));
       expect(repository.receivedEmail, 'user@mail.com');
       expect(repository.receivedPassword, 'password123');
+      expect(repository.receivedRememberMe, isTrue);
+    });
+
+    test('forwards remember me reads to repository', () async {
+      final repository = _FakeLoginRepository()..rememberMe = true;
+      final useCase = LoginUseCase(repository);
+
+      expect(await useCase.getRememberMe(), isTrue);
     });
   });
 }
