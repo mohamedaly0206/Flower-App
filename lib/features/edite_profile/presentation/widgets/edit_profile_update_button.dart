@@ -1,4 +1,5 @@
 import 'package:flower_app/core/theme/app_colors.dart';
+import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class EditProfileUpdateButton extends StatelessWidget {
@@ -36,13 +37,7 @@ class EditProfileUpdateButton extends StatelessWidget {
                   strokeWidth: 2.5,
                 ),
               )
-            : const Text(
-                'Update',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+            : const Text(AppStrings.updateProfile),
       ),
     );
   }

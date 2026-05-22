@@ -52,6 +52,9 @@ abstract class AppStrings {
   static const String verifyButton = 'Didn\'t receive code? ';
   static const String resendButton = 'Resend';
   static const String resetPassword = 'Reset password';
+  static const String editProfile = 'Edit profile';
+  static const String updateProfile = 'Update';
+
   static const String resetPasswordHint =
       'Password must not be empty and must contain \n 6 characters with upper case letter and one \n number at least ';
   static const String newPassword = 'New Password';

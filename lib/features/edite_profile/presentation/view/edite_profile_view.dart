@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flower_app/core/theme/app_colors.dart';
+import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/core/widgets/custom_app_bar.dart';
 import 'package:flower_app/features/edite_profile/presentation/view_model/cubit/edite_profile_cubit.dart';
 import 'package:flower_app/features/edite_profile/presentation/view_model/intent/edite_profile_intent.dart';
@@ -109,7 +110,7 @@ class _EditeProfileViewState extends State<EditeProfileView> {
         return Scaffold(
           backgroundColor: AppColors.whiteColor,
           appBar: CustomAppBar(
-            title: 'Edit profile',
+            title: AppStrings.editProfile,
             actions: [
               IconButton(
                 onPressed: () {},

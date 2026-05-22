@@ -48,6 +48,7 @@ class EditProfilePasswordRow extends StatelessWidget {
               padding: EdgeInsets.zero,
               minimumSize: Size.zero,
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              textStyle: const TextStyle(decoration: TextDecoration.none),
             ),
             child: const Text(
               'Change',
