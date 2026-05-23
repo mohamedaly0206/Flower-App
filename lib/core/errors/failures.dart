@@ -71,7 +71,9 @@ class ServerFailure extends Failure {
       case 401:
       case 403:
         final String errorMessageRes =
-            response?['message'] ?? _getTranslation((loc) => loc.errorMessage);
+            response?['message'] ??
+                response?['error'] ??
+                _getTranslation((loc) => loc.errorMessage);
         return ServerFailure(errorMessageRes);
 
       case 404:
