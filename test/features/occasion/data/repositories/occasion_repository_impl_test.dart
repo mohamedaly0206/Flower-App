@@ -1,14 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flower_app/config/base_response/base_response.dart';
 import 'package:flower_app/core/router/app_router.dart';
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/feature/change-password
-=======
-
->>>>>>> origin/feature/cart
 import 'package:flower_app/features/occasion/data/datasources/occasion_remote_data_source.dart';
 import 'package:flower_app/features/occasion/data/models/occasion_dto.dart';
 import 'package:flower_app/features/occasion/data/models/occasions_response.dart';
@@ -143,16 +135,9 @@ void main() {
           error.errorMessage,
           AppLocalizations.of(navigatorKey.currentContext!)!.errorMessage,
         );
-<<<<<<< HEAD
       },
     );
 
-    // -----------------------------------------------------------------------
-    // Failure path — DioException connectionTimeout
-    // Validates that when the data source throws a DioException of type
-    // connectionTimeout, the repository catches it and returns an
-    // ErrorBaseResponse with the localizable connection timeout error message.
-    // -----------------------------------------------------------------------
     testWidgets(
       'returns ErrorBaseResponse with connection timeout message on connection timeout DioException',
       (tester) async {
@@ -165,24 +150,19 @@ void main() {
           ),
         );
 
-        // Arrange
         remoteDataSource.error = DioException(
           requestOptions: RequestOptions(path: ''),
           type: DioExceptionType.connectionTimeout,
         );
 
-        // Act
         final result = await repository.getOccasions();
 
-        // Assert
         expect(result, isA<ErrorBaseResponse<OccasionsResponseEntity>>());
         final error = result as ErrorBaseResponse<OccasionsResponseEntity>;
         expect(
           error.errorMessage,
           AppLocalizations.of(navigatorKey.currentContext!)!.serverConnTimeout,
         );
-=======
->>>>>>> origin/feature/cart
       },
     );
   });

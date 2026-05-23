@@ -10,7 +10,11 @@ import 'package:flower_app/features/edite_profile/domain/use_cases/upload_profil
 import 'package:flower_app/features/edite_profile/presentation/view_model/cubit/edite_profile_cubit.dart';
 import 'package:flower_app/features/edite_profile/presentation/view_model/intent/edite_profile_intent.dart';
 import 'package:flower_app/features/edite_profile/presentation/view_model/state/edite_profile_state.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+
+class _MockSecureStorage extends Mock implements FlutterSecureStorage {}
 
 class _FakeEditeProfileRepo implements EditeProfileRepoContract {
   BaseResponse<UserProfileEntity>? getProfileResponse;
@@ -47,6 +51,7 @@ void main() {
     late EditProfileUseCase editProfileUseCase;
     late UploadProfilePhotoUseCase uploadProfilePhotoUseCase;
     late EditeProfileCubit cubit;
+    late _MockSecureStorage mockSecureStorage;
 
     final dummyUser = UserEntity(
       id: '123',
@@ -65,6 +70,10 @@ void main() {
 
     setUp(() {
       fakeRepo = _FakeEditeProfileRepo();
+      mockSecureStorage = _MockSecureStorage();
+      when(
+        () => mockSecureStorage.write(key: any(named: 'key'), value: any(named: 'value')),
+      ).thenAnswer((_) async {});
       getProfileUseCase = GetProfileUseCase(fakeRepo);
       editProfileUseCase = EditProfileUseCase(fakeRepo);
       uploadProfilePhotoUseCase = UploadProfilePhotoUseCase(fakeRepo);
@@ -72,6 +81,7 @@ void main() {
         getProfileUseCase,
         editProfileUseCase,
         uploadProfilePhotoUseCase,
+        mockSecureStorage,
       );
     });
 

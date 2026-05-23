@@ -13,6 +13,14 @@ void main() {
   late MockBestSellerRepoContract mockBestSellerRepoContract;
   late BestSellerUseCase useCase;
 
+  setUpAll(() {
+    provideDummy<BaseResponse<ProductsResponseEntity>>(
+      SuccessBaseResponse<ProductsResponseEntity>(
+        data: ProductsResponseEntity(),
+      ),
+    );
+  });
+
   setUp(() {
     mockBestSellerRepoContract = MockBestSellerRepoContract();
     useCase = BestSellerUseCase(mockBestSellerRepoContract);

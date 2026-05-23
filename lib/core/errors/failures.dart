@@ -9,13 +9,17 @@ String _getTranslation(
   String Function(AppLocalizations) selector, [
   String fallback = 'Something went wrong, please try again later',
 ]) {
-  final context = navigatorKey.currentContext;
-  if (context == null) return fallback;
-  
-  final loc = AppLocalizations.of(context);
-  if (loc == null) return fallback;
-  
-  return selector(loc);
+  try {
+    final context = navigatorKey.currentContext;
+    if (context == null) return fallback;
+
+    final loc = AppLocalizations.of(context);
+    if (loc == null) return fallback;
+
+    return selector(loc);
+  } catch (_) {
+    return fallback;
+  }
 }
 
 abstract class Failure {

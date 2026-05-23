@@ -1,18 +1,14 @@
 import 'package:flower_app/config/base_response/base_response.dart';
-<<<<<<< HEAD
-import 'package:flower_app/core/values/app_strings.dart';
-=======
 import 'package:flower_app/core/router/app_router.dart';
-
-<<<<<<< HEAD
->>>>>>> origin/feature/change-password
-=======
->>>>>>> origin/feature/cart
+import 'package:flower_app/core/values/api_param.dart';
+import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/features/auth/login/data/data_sources/login_local_data_source.dart';
 import 'package:flower_app/features/auth/login/data/data_sources/login_remote_data_source.dart';
 import 'package:flower_app/features/auth/login/data/models/login_response/login_response.dart';
 import 'package:flower_app/features/auth/login/data/models/user_dto.dart';
 import 'package:flower_app/features/auth/login/data/repo/login_repository_impl.dart';
+import 'package:flower_app/l10n/app_localizations.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class _FakeLoginRemoteDataSource implements LoginRemoteDataSource {
@@ -160,9 +156,10 @@ void main() {
 
       expect(result, isA<SuccessBaseResponse<LoginResponse>>());
       expect(localDataSource.cachedUserData, {
-        'user_email': 'user@mail.com',
-        'user_name': 'user',
-        'user_photo': '',
+        ApiParam.userEmail: 'user@mail.com',
+        ApiParam.userName: 'User',
+        ApiParam.userPhoto:
+            'https://imgs.search.brave.com/2IB7Irk4sEHgNdKDJmVoI-PU8O8sgZHGf_Rcsk4Oe34/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNDE0/MzgyNDU4L3N0b2Nr/LXZlY3Rvci1waWN0/dXJlLXByb2ZpbGUt/aWNvbi1tYWxlLWlj/b24taHVtYW4tcGVv/cGxlLXNpZ24tc3lt/Ym9sLXZlY3Rvcg',
       });
     });
 
@@ -186,7 +183,18 @@ void main() {
       expect(localDataSource.receivedToken, isNull);
     });
 
-    test('returns error response when login token is missing', () async {
+    testWidgets('returns error response when login token is missing', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          navigatorKey: navigatorKey,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const SizedBox(),
+        ),
+      );
+
       final remoteDataSource = _FakeLoginRemoteDataSource()
         ..response = LoginResponse(message: 'success');
       final localDataSource = _FakeLoginLocalDataSource();
@@ -201,7 +209,7 @@ void main() {
       expect(result, isA<ErrorBaseResponse<LoginResponse>>());
       expect(
         (result as ErrorBaseResponse<LoginResponse>).errorMessage,
-        AppStrings.cacheStorageError,
+        AppLocalizations.of(navigatorKey.currentContext!)!.cacheStorageError,
       );
       expect(localDataSource.receivedToken, isNull);
     });

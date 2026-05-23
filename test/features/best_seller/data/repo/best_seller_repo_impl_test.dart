@@ -14,6 +14,12 @@ void main() {
   late MockBestSellerRemoteDataSourceContract mockRemoteDataSource;
   late BestSellerRepoImpl repository;
 
+  setUpAll(() {
+    provideDummy<BaseResponse<BestSellerDto>>(
+      SuccessBaseResponse<BestSellerDto>(data: BestSellerDto(bestSeller: [])),
+    );
+  });
+
   setUp(() {
     mockRemoteDataSource = MockBestSellerRemoteDataSourceContract();
     repository = BestSellerRepoImpl(mockRemoteDataSource);
