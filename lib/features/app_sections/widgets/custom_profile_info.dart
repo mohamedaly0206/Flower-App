@@ -2,8 +2,11 @@ import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
 import 'package:flower_app/core/values/assets.gen.dart';
+import 'package:flower_app/features/app_sections/profile/presentation/view_model/cubit/profile_cubit.dart';
+import 'package:flower_app/features/app_sections/profile/presentation/view_model/intent/profile_intent.dart';
 import 'package:flower_app/features/app_sections/profile/presentation/view_model/state/profile_states.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -43,7 +46,12 @@ class CustomProfileInfo extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                context.push(AppRouterPaths.kEditProfileView);
+                // context.push(AppRouterPaths.kEditProfileView);
+                context.push(AppRouterPaths.kEditProfileView).then((_) {
+                  context.read<ProfileCubit>().doIntent(
+                    LoadUserProfileIntent(),
+                  );
+                });
               },
               child: SvgPicture.asset(Assets.icons.notoV1Pen),
             ),
