@@ -80,6 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 )!.hintFirstNameText,
                               ),
                               validator: (value) => AppValidators.validateName(
+                                context,
                                 value,
                                 AppLocalizations.of(context)!.firstName,
                               ),
@@ -98,6 +99,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 )!.enterYourLastName,
                               ),
                               validator: (value) => AppValidators.validateName(
+                                context,
                                 value,
                                 AppLocalizations.of(context)!.lastName,
                               ),
@@ -114,7 +116,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             context,
                           )!.enterYourEmail,
                         ),
-                        validator: AppValidators.validateEmail,
+                        validator: (value) => AppValidators.validateEmail(
+                          context,
+                          value,
+                        ),
                         keyboardType: TextInputType.emailAddress,
                       ),
                       const SizedBox(height: 16),
@@ -132,7 +137,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   context,
                                 )!.enterPassword,
                               ),
-                              validator: AppValidators.validatePassword,
+                              validator: (value) =>
+                                  AppValidators.validatePassword(
+                                context,
+                                value,
+                              ),
                             ),
                           ),
                           const SizedBox(width: 16),
@@ -150,6 +159,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                               validator: (value) =>
                                   AppValidators.confirmPassword(
+                                    context,
                                     _passwordController.text,
                                     value,
                                   ),
@@ -166,7 +176,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             context,
                           )!.enterPhoneNumber,
                         ),
-                        validator: AppValidators.validatePhoneNumber,
+                        validator: (value) => AppValidators.validatePhoneNumber(
+                          context,
+                          value,
+                        ),
                         keyboardType: TextInputType.phone,
                       ),
                       const SizedBox(height: 24),

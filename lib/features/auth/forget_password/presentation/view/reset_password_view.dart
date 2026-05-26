@@ -42,7 +42,7 @@ class ResetPasswordView extends StatelessWidget {
                 hintText: AppLocalizations.of(context)!.enterPassword,
               ),
               obscureText: true,
-              validator: AppValidators.validatePassword,
+              validator:(value) => AppValidators.validatePassword(context, value),
               controller: passwordController,
             ),
             SizedBox(height: 24),
@@ -53,7 +53,7 @@ class ResetPasswordView extends StatelessWidget {
               ),
               obscureText: true,
               validator: (value) =>
-                  AppValidators.confirmPassword(passwordController.text, value),
+                  AppValidators.confirmPassword(context ,passwordController.text, value),
               controller: confirmPasswordController,
             ),
             SizedBox(height: 48),
