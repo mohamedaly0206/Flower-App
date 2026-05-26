@@ -82,46 +82,51 @@ class CartCubit extends Cubit<CartState> {
   }
 
   Future<void> _addItemToCart(AddToCartRequest request) async {
-  emit(
-    state.copyWith(
-      loadingProductIds: {...state.loadingProductIds, request.productId},
-      addItemToCartState: state.addItemToCartState?.copyWith(isLoadingParam: true),
-    ),
-  );
-
-  final response = await _addItemToCartUseCase(request);
-
-  final updatedLoadingSet = Set<String>.from(state.loadingProductIds)..remove(request.productId);
-
-  switch (response) {
-    case SuccessBaseResponse<CartResponseEntity>():
-      emit(
-        state.copyWith(
-          loadingProductIds: updatedLoadingSet,
-          addItemToCartState: state.addItemToCartState?.copyWith(
-            dataParam: response.data,
-            isLoadingParam: false,
-          ),
-          getCartItemsState: state.getCartItemsState?.copyWith(dataParam: response.data),
+    emit(
+      state.copyWith(
+        loadingProductIds: {...state.loadingProductIds, request.productId},
+        addItemToCartState: state.addItemToCartState?.copyWith(
+          isLoadingParam: true,
         ),
-      );
-      log('item added successfully');
-      break;
-      
-    case ErrorBaseResponse<CartResponseEntity>():
-      emit(
-        state.copyWith(
-          loadingProductIds: updatedLoadingSet,
-          addItemToCartState: state.addItemToCartState?.copyWith(
-            errorMessageParam: response.errorMessage,
-            isLoadingParam: false,
+      ),
+    );
+
+    final response = await _addItemToCartUseCase(request);
+
+    final updatedLoadingSet = Set<String>.from(state.loadingProductIds)
+      ..remove(request.productId);
+
+    switch (response) {
+      case SuccessBaseResponse<CartResponseEntity>():
+        emit(
+          state.copyWith(
+            loadingProductIds: updatedLoadingSet,
+            addItemToCartState: state.addItemToCartState?.copyWith(
+              dataParam: response.data,
+              isLoadingParam: false,
+            ),
+            getCartItemsState: state.getCartItemsState?.copyWith(
+              dataParam: response.data,
+            ),
           ),
-        ),
-      );
-      log('item add failed');
-      break;
+        );
+        log('item added successfully');
+        break;
+
+      case ErrorBaseResponse<CartResponseEntity>():
+        emit(
+          state.copyWith(
+            loadingProductIds: updatedLoadingSet,
+            addItemToCartState: state.addItemToCartState?.copyWith(
+              errorMessageParam: response.errorMessage,
+              isLoadingParam: false,
+            ),
+          ),
+        );
+        log('item add failed');
+        break;
+    }
   }
-}
 
   Future<void> _removeItemFromCart(String productId) async {
     emit(

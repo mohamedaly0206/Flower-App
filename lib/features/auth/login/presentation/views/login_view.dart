@@ -53,7 +53,8 @@ class _LoginViewState extends State<LoginView> {
                 children: [
                   TextFormField(
                     controller: _emailController,
-                    validator: (value) => AppValidators.validateEmail(context, value),
+                    validator: (value) =>
+                        AppValidators.validateEmail(context, value),
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       hintText: AppLocalizations.of(context)!.email,

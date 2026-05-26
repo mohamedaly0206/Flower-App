@@ -8,7 +8,7 @@ class CartState extends Equatable {
   final BaseState<CartResponseEntity>? addItemToCartState;
   final BaseState<CartResponseEntity>? removeItemFromCartState;
   final BaseState<CartResponseEntity>? updateItemQuantityInCartState;
-  final Set<String> loadingProductIds; 
+  final Set<String> loadingProductIds;
 
   const CartState({
     this.getCartItemsState = const BaseState(),
@@ -28,18 +28,20 @@ class CartState extends Equatable {
     return CartState(
       getCartItemsState: getCartItemsState ?? this.getCartItemsState,
       addItemToCartState: addItemToCartState ?? this.addItemToCartState,
-      removeItemFromCartState: removeItemFromCartState ?? this.removeItemFromCartState,
-      updateItemQuantityInCartState: updateItemQuantityInCartState ?? this.updateItemQuantityInCartState,
+      removeItemFromCartState:
+          removeItemFromCartState ?? this.removeItemFromCartState,
+      updateItemQuantityInCartState:
+          updateItemQuantityInCartState ?? this.updateItemQuantityInCartState,
       loadingProductIds: loadingProductIds ?? this.loadingProductIds,
     );
   }
 
   @override
   List<Object?> get props => [
-        getCartItemsState,
-        addItemToCartState,
-        removeItemFromCartState,
-        updateItemQuantityInCartState,
-        loadingProductIds,
-      ];
+    getCartItemsState,
+    addItemToCartState,
+    removeItemFromCartState,
+    updateItemQuantityInCartState,
+    loadingProductIds,
+  ];
 }

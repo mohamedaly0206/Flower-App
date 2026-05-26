@@ -78,8 +78,8 @@ class CustomProductCard extends StatelessWidget {
                   Text(
                     title ?? '',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                     maxLines: 2,
                   ),
                   const SizedBox(height: 4),
@@ -94,14 +94,16 @@ class CustomProductCard extends StatelessWidget {
                         const SizedBox(width: 8),
                         Text(
                           '$oldPrice',
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
                                 decoration: TextDecoration.lineThrough,
                               ),
                         ),
                         const SizedBox(width: 4),
                         Text(
                           '${discountPercent ?? 0}%',
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(
                                 color: Theme.of(context).colorScheme.tertiary,
                               ),
                         ),
@@ -114,7 +116,6 @@ class CustomProductCard extends StatelessWidget {
             const SizedBox(height: 8),
             BlocConsumer<CartCubit, CartState>(
               listenWhen: (previous, current) {
-            
                 return previous.loadingProductIds.contains(productId) &&
                     !current.loadingProductIds.contains(productId);
               },
@@ -137,7 +138,9 @@ class CustomProductCard extends StatelessWidget {
               },
               builder: (context, state) {
                 // Explicitly check if this individual card is currently loading
-                final isThisItemLoading = state.loadingProductIds.contains(productId);
+                final isThisItemLoading = state.loadingProductIds.contains(
+                  productId,
+                );
 
                 return SizedBox(
                   width: double.infinity,
@@ -148,13 +151,13 @@ class CustomProductCard extends StatelessWidget {
                         ? null // Disable the button while processing
                         : () {
                             context.read<CartCubit>().cartIntentHandler(
-                                  AddItemToCartIntent(
-                                    request: AddToCartRequest(
-                                      productId: productId!,
-                                      quantity: 1,
-                                    ),
-                                  ),
-                                );
+                              AddItemToCartIntent(
+                                request: AddToCartRequest(
+                                  productId: productId!,
+                                  quantity: 1,
+                                ),
+                              ),
+                            );
                           },
                     child: isThisItemLoading
                         ? SpinKitFadingCircle(
@@ -175,8 +178,11 @@ class CustomProductCard extends StatelessWidget {
                               const SizedBox(width: 8),
                               Text(
                                 AppLocalizations.of(context)!.addToCart,
-                                style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                                      color: Theme.of(context).colorScheme.onPrimary,
+                                style: Theme.of(context).textTheme.labelSmall
+                                    ?.copyWith(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onPrimary,
                                     ),
                               ),
                             ],

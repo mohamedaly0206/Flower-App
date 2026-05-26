@@ -52,14 +52,21 @@ abstract class AppValidators {
     return null;
   }
 
-  static String? validateEmptyTextFormField(BuildContext context, String? value) {
+  static String? validateEmptyTextFormField(
+    BuildContext context,
+    String? value,
+  ) {
     if (value == null || value.trim().isEmpty) {
       return AppLocalizations.of(context)!.fieldRequired;
     }
     return null;
   }
 
-  static String? validateName(BuildContext context, String? value, String fieldName) {
+  static String? validateName(
+    BuildContext context,
+    String? value,
+    String fieldName,
+  ) {
     final loc = AppLocalizations.of(context)!;
 
     if (value == null || value.trim().isEmpty) {
@@ -84,7 +91,10 @@ abstract class AppValidators {
     return null;
   }
 
-  static String? validatePhoneNumber(BuildContext context, String? phoneNumber) {
+  static String? validatePhoneNumber(
+    BuildContext context,
+    String? phoneNumber,
+  ) {
     final loc = AppLocalizations.of(context)!;
 
     if (phoneNumber == null || phoneNumber.isEmpty) {

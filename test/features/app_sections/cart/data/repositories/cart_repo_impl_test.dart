@@ -9,7 +9,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-@GenerateMocks([CartRemoteDataSourceContract, CartResponseDto, CartResponseEntity])
+@GenerateMocks([
+  CartRemoteDataSourceContract,
+  CartResponseDto,
+  CartResponseEntity,
+])
 import 'cart_repo_impl_test.mocks.dart';
 
 void main() {
@@ -34,7 +38,10 @@ void main() {
 
   const tProductId = 'prod_987';
   const tErrorMessage = 'Network error, please check connection';
-  final tAddToCartRequest = AddToCartRequest(productId: tProductId, quantity: 2);
+  final tAddToCartRequest = AddToCartRequest(
+    productId: tProductId,
+    quantity: 2,
+  );
   final tUpdateCartQuantityRequest = UpdateCartQuantityRequest(quantity: 4);
 
   void setUpSuccessfulMapping() {
@@ -49,7 +56,8 @@ void main() {
         // Arrange
         setUpSuccessfulMapping();
         when(mockRemoteDataSource.addItemToCart(any)).thenAnswer(
-          (_) async => SuccessBaseResponse<CartResponseDto>(data: mockCartResponseDto),
+          (_) async =>
+              SuccessBaseResponse<CartResponseDto>(data: mockCartResponseDto),
         );
 
         // Act
@@ -57,7 +65,10 @@ void main() {
 
         // Assert
         expect(result, isA<SuccessBaseResponse<CartResponseEntity>>());
-        expect((result as SuccessBaseResponse).data, equals(mockCartResponseEntity));
+        expect(
+          (result as SuccessBaseResponse).data,
+          equals(mockCartResponseEntity),
+        );
         verify(mockRemoteDataSource.addItemToCart(tAddToCartRequest)).called(1);
       },
     );
@@ -67,7 +78,8 @@ void main() {
       () async {
         // Arrange
         when(mockRemoteDataSource.addItemToCart(any)).thenAnswer(
-          (_) async => ErrorBaseResponse<CartResponseDto>(errorMessage: tErrorMessage),
+          (_) async =>
+              ErrorBaseResponse<CartResponseDto>(errorMessage: tErrorMessage),
         );
 
         // Act
@@ -75,7 +87,10 @@ void main() {
 
         // Assert
         expect(result, isA<ErrorBaseResponse<CartResponseEntity>>());
-        expect((result as ErrorBaseResponse).errorMessage, equals(tErrorMessage));
+        expect(
+          (result as ErrorBaseResponse).errorMessage,
+          equals(tErrorMessage),
+        );
         verify(mockRemoteDataSource.addItemToCart(tAddToCartRequest)).called(1);
       },
     );
@@ -88,7 +103,8 @@ void main() {
         // Arrange
         setUpSuccessfulMapping();
         when(mockRemoteDataSource.getCartItems()).thenAnswer(
-          (_) async => SuccessBaseResponse<CartResponseDto>(data: mockCartResponseDto),
+          (_) async =>
+              SuccessBaseResponse<CartResponseDto>(data: mockCartResponseDto),
         );
 
         // Act
@@ -96,7 +112,10 @@ void main() {
 
         // Assert
         expect(result, isA<SuccessBaseResponse<CartResponseEntity>>());
-        expect((result as SuccessBaseResponse).data, equals(mockCartResponseEntity));
+        expect(
+          (result as SuccessBaseResponse).data,
+          equals(mockCartResponseEntity),
+        );
         verify(mockRemoteDataSource.getCartItems()).called(1);
       },
     );
@@ -106,7 +125,8 @@ void main() {
       () async {
         // Arrange
         when(mockRemoteDataSource.getCartItems()).thenAnswer(
-          (_) async => ErrorBaseResponse<CartResponseDto>(errorMessage: tErrorMessage),
+          (_) async =>
+              ErrorBaseResponse<CartResponseDto>(errorMessage: tErrorMessage),
         );
 
         // Act
@@ -114,7 +134,10 @@ void main() {
 
         // Assert
         expect(result, isA<ErrorBaseResponse<CartResponseEntity>>());
-        expect((result as ErrorBaseResponse).errorMessage, equals(tErrorMessage));
+        expect(
+          (result as ErrorBaseResponse).errorMessage,
+          equals(tErrorMessage),
+        );
         verify(mockRemoteDataSource.getCartItems()).called(1);
       },
     );
@@ -127,7 +150,8 @@ void main() {
         // Arrange
         setUpSuccessfulMapping();
         when(mockRemoteDataSource.removeItemFromCart(any)).thenAnswer(
-          (_) async => SuccessBaseResponse<CartResponseDto>(data: mockCartResponseDto),
+          (_) async =>
+              SuccessBaseResponse<CartResponseDto>(data: mockCartResponseDto),
         );
 
         // Act
@@ -135,7 +159,10 @@ void main() {
 
         // Assert
         expect(result, isA<SuccessBaseResponse<CartResponseEntity>>());
-        expect((result as SuccessBaseResponse).data, equals(mockCartResponseEntity));
+        expect(
+          (result as SuccessBaseResponse).data,
+          equals(mockCartResponseEntity),
+        );
         verify(mockRemoteDataSource.removeItemFromCart(tProductId)).called(1);
       },
     );
@@ -145,7 +172,8 @@ void main() {
       () async {
         // Arrange
         when(mockRemoteDataSource.removeItemFromCart(any)).thenAnswer(
-          (_) async => ErrorBaseResponse<CartResponseDto>(errorMessage: tErrorMessage),
+          (_) async =>
+              ErrorBaseResponse<CartResponseDto>(errorMessage: tErrorMessage),
         );
 
         // Act
@@ -153,7 +181,10 @@ void main() {
 
         // Assert
         expect(result, isA<ErrorBaseResponse<CartResponseEntity>>());
-        expect((result as ErrorBaseResponse).errorMessage, equals(tErrorMessage));
+        expect(
+          (result as ErrorBaseResponse).errorMessage,
+          equals(tErrorMessage),
+        );
         verify(mockRemoteDataSource.removeItemFromCart(tProductId)).called(1);
       },
     );
@@ -166,7 +197,8 @@ void main() {
         // Arrange
         setUpSuccessfulMapping();
         when(mockRemoteDataSource.updateCartItemQuantity(any, any)).thenAnswer(
-          (_) async => SuccessBaseResponse<CartResponseDto>(data: mockCartResponseDto),
+          (_) async =>
+              SuccessBaseResponse<CartResponseDto>(data: mockCartResponseDto),
         );
 
         // Act
@@ -177,11 +209,16 @@ void main() {
 
         // Assert
         expect(result, isA<SuccessBaseResponse<CartResponseEntity>>());
-        expect((result as SuccessBaseResponse).data, equals(mockCartResponseEntity));
-        verify(mockRemoteDataSource.updateCartItemQuantity(
-          tProductId,
-          argThat(isA<UpdateCartQuantityRequest>()),
-        )).called(1);
+        expect(
+          (result as SuccessBaseResponse).data,
+          equals(mockCartResponseEntity),
+        );
+        verify(
+          mockRemoteDataSource.updateCartItemQuantity(
+            tProductId,
+            argThat(isA<UpdateCartQuantityRequest>()),
+          ),
+        ).called(1);
       },
     );
 
@@ -190,7 +227,8 @@ void main() {
       () async {
         // Arrange
         when(mockRemoteDataSource.updateCartItemQuantity(any, any)).thenAnswer(
-          (_) async => ErrorBaseResponse<CartResponseDto>(errorMessage: tErrorMessage),
+          (_) async =>
+              ErrorBaseResponse<CartResponseDto>(errorMessage: tErrorMessage),
         );
 
         // Act
@@ -201,11 +239,16 @@ void main() {
 
         // Assert
         expect(result, isA<ErrorBaseResponse<CartResponseEntity>>());
-        expect((result as ErrorBaseResponse).errorMessage, equals(tErrorMessage));
-        verify(mockRemoteDataSource.updateCartItemQuantity(
-          tProductId,
-          argThat(isA<UpdateCartQuantityRequest>()),
-        )).called(1);
+        expect(
+          (result as ErrorBaseResponse).errorMessage,
+          equals(tErrorMessage),
+        );
+        verify(
+          mockRemoteDataSource.updateCartItemQuantity(
+            tProductId,
+            argThat(isA<UpdateCartQuantityRequest>()),
+          ),
+        ).called(1);
       },
     );
   });

@@ -34,7 +34,7 @@ class ApiInterceptor extends Interceptor {
       return handler.reject(
         DioException(
           requestOptions: options,
-          error: CacheException(errorMessage: 'cache_read_error'), 
+          error: CacheException(errorMessage: 'cache_read_error'),
           type: DioExceptionType.unknown,
         ),
       );
