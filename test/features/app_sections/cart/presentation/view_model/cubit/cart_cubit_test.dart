@@ -29,6 +29,7 @@ void main() {
   late MockUpdateCartItemQuantityUseCase mockUpdateQuantityUseCase;
 
   final tCartEntity = CartResponseEntity();
+  const tErrorMessage = 'Network error occurred';
 
   setUpAll(() {
     provideDummy<BaseResponse<CartResponseEntity>>(
@@ -72,6 +73,36 @@ void main() {
         ),
       ],
     );
+
+    blocTest<CartCubit, CartState>(
+      'emits [loading, error] when GetCartItemsIntent fails',
+      setUp: () {
+        when(mockGetItemsUseCase.call()).thenAnswer(
+          (_) async => ErrorBaseResponse<CartResponseEntity>(
+            errorMessage: tErrorMessage,
+          ),
+        );
+      },
+      build: () => CartCubit(
+        mockGetItemsUseCase,
+        mockAddItemUseCase,
+        mockRemoveItemUseCase,
+        mockUpdateQuantityUseCase,
+      ),
+      act: (cubit) => cubit.cartIntentHandler(GetCartItemsIntent()),
+      expect: () => [
+        isA<CartState>().having(
+          (s) => s.getCartItemsState?.isLoading,
+          'isLoading',
+          true,
+        ),
+        isA<CartState>().having(
+          (s) => s.getCartItemsState?.errorMessage,
+          'errorMessage',
+          tErrorMessage,
+        ),
+      ],
+    );
   });
 
   group('CartCubit - AddItemToCart', () {
@@ -103,6 +134,37 @@ void main() {
           (s) => s.addItemToCartState?.data,
           'data',
           tCartEntity,
+        ),
+      ],
+    );
+
+    blocTest<CartCubit, CartState>(
+      'emits [loading, error] when AddItemToCartIntent fails',
+      setUp: () {
+        when(mockAddItemUseCase.call(any)).thenAnswer(
+          (_) async => ErrorBaseResponse<CartResponseEntity>(
+            errorMessage: tErrorMessage,
+          ),
+        );
+      },
+      build: () => CartCubit(
+        mockGetItemsUseCase,
+        mockAddItemUseCase,
+        mockRemoveItemUseCase,
+        mockUpdateQuantityUseCase,
+      ),
+      act: (cubit) =>
+          cubit.cartIntentHandler(AddItemToCartIntent(request: tRequest)),
+      expect: () => [
+        isA<CartState>().having(
+          (s) => s.addItemToCartState?.isLoading,
+          'isLoading',
+          true,
+        ),
+        isA<CartState>().having(
+          (s) => s.addItemToCartState?.errorMessage,
+          'errorMessage',
+          tErrorMessage,
         ),
       ],
     );
@@ -141,6 +203,38 @@ void main() {
         ),
       ],
     );
+
+    blocTest<CartCubit, CartState>(
+      'emits [loading, error] when RemoveItemFromCartIntent fails',
+      setUp: () {
+        when(mockRemoveItemUseCase.call(any)).thenAnswer(
+          (_) async => ErrorBaseResponse<CartResponseEntity>(
+            errorMessage: tErrorMessage,
+          ),
+        );
+      },
+      build: () => CartCubit(
+        mockGetItemsUseCase,
+        mockAddItemUseCase,
+        mockRemoveItemUseCase,
+        mockUpdateQuantityUseCase,
+      ),
+      act: (cubit) => cubit.cartIntentHandler(
+        RemoveItemFromCartIntent(productId: tProductId),
+      ),
+      expect: () => [
+        isA<CartState>().having(
+          (s) => s.removeItemFromCartState?.isLoading,
+          'isLoading',
+          true,
+        ),
+        isA<CartState>().having(
+          (s) => s.removeItemFromCartState?.errorMessage,
+          'errorMessage',
+          tErrorMessage,
+        ),
+      ],
+    );
   });
 
   group('CartCubit - UpdateCartItemQuantity', () {
@@ -174,6 +268,38 @@ void main() {
           (s) => s.updateItemQuantityInCartState?.data,
           'data',
           tCartEntity,
+        ),
+      ],
+    );
+
+    blocTest<CartCubit, CartState>(
+      'emits [loading, error] when UpdateCartItemQuantityIntent fails',
+      setUp: () {
+        when(mockUpdateQuantityUseCase.call(any, any)).thenAnswer(
+          (_) async => ErrorBaseResponse<CartResponseEntity>(
+            errorMessage: tErrorMessage,
+          ),
+        );
+      },
+      build: () => CartCubit(
+        mockGetItemsUseCase,
+        mockAddItemUseCase,
+        mockRemoveItemUseCase,
+        mockUpdateQuantityUseCase,
+      ),
+      act: (cubit) => cubit.cartIntentHandler(
+        UpdateCartItemQuantityIntent(productId: tProductId, quantity: tRequest),
+      ),
+      expect: () => [
+        isA<CartState>().having(
+          (s) => s.updateItemQuantityInCartState?.isLoading,
+          'isLoading',
+          true,
+        ),
+        isA<CartState>().having(
+          (s) => s.updateItemQuantityInCartState?.errorMessage,
+          'errorMessage',
+          tErrorMessage,
         ),
       ],
     );

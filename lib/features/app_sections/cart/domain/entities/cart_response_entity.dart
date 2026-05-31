@@ -6,7 +6,7 @@ class CartResponseEntity extends Equatable {
   final int? numOfCartItems;
   final CartEntity? cart;
 
- const  CartResponseEntity({this.message, this.numOfCartItems, this.cart});
+  const CartResponseEntity({this.message, this.numOfCartItems, this.cart});
 
   @override
   List<Object?> get props => [message, numOfCartItems, cart];

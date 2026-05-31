@@ -81,22 +81,24 @@ class CartItem extends StatelessWidget {
                       BlocBuilder<CartCubit, CartState>(
                         builder: (context, state) {
                           // Check global state if THIS item is being deleted
-                          final isDeleteLoading =
-                              state.deletingProductIds.contains(productId);
+                          final isDeleteLoading = state.deletingProductIds
+                              .contains(productId);
 
                           return InkWell(
                             onTap: isDeleteLoading
                                 ? null // Disable tap while loading
                                 : () {
                                     context.read<CartCubit>().cartIntentHandler(
-                                          RemoveItemFromCartIntent(
-                                            productId: productId,
-                                          ),
-                                        );
+                                      RemoveItemFromCartIntent(
+                                        productId: productId,
+                                      ),
+                                    );
                                   },
                             child: isDeleteLoading
                                 ? SpinKitFadingCircle(
-                                    color: Theme.of(context).colorScheme.primary,
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
                                     size: 20,
                                   )
                                 : SvgPicture.asset(
@@ -118,8 +120,8 @@ class CartItem extends StatelessWidget {
                   Text(
                     subtitle,
                     style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                          color: Theme.of(context).colorScheme.onInverseSurface,
-                        ),
+                      color: Theme.of(context).colorScheme.onInverseSurface,
+                    ),
                     maxLines: 1,
                   ),
                   const SizedBox(height: 20),
@@ -128,17 +130,15 @@ class CartItem extends StatelessWidget {
                     children: [
                       Text(
                         '\$${price.toInt()}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayLarge!
+                        style: Theme.of(context).textTheme.displayLarge!
                             .copyWith(fontWeight: FontWeight.w600),
                       ),
                       // --- QUANTITY CONTROLS ---
                       BlocBuilder<CartCubit, CartState>(
                         builder: (context, state) {
                           // Check global state if THIS item's quantity is updating
-                          final isQuantityLoading =
-                              state.updatingProductIds.contains(productId);
+                          final isQuantityLoading = state.updatingProductIds
+                              .contains(productId);
 
                           return Row(
                             children: [
@@ -146,13 +146,13 @@ class CartItem extends StatelessWidget {
                                 onTap: () {
                                   if (quantity > 1 && !isQuantityLoading) {
                                     context.read<CartCubit>().cartIntentHandler(
-                                          UpdateCartItemQuantityIntent(
-                                            productId: productId,
-                                            quantity: UpdateCartQuantityRequest(
-                                              quantity: quantity - 1,
-                                            ),
-                                          ),
-                                        );
+                                      UpdateCartItemQuantityIntent(
+                                        productId: productId,
+                                        quantity: UpdateCartQuantityRequest(
+                                          quantity: quantity - 1,
+                                        ),
+                                      ),
+                                    );
                                   }
                                 },
                                 iconPath: Assets.icons.removeIcon,
@@ -160,8 +160,9 @@ class CartItem extends StatelessWidget {
                               const SizedBox(width: 4),
                               isQuantityLoading
                                   ? SpinKitFadingCircle(
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
                                       size: 15,
                                     )
                                   : Text(
@@ -185,8 +186,8 @@ class CartItem extends StatelessWidget {
                                                 productId: productId,
                                                 quantity:
                                                     UpdateCartQuantityRequest(
-                                                  quantity: quantity + 1,
-                                                ),
+                                                      quantity: quantity + 1,
+                                                    ),
                                               ),
                                             );
                                       },

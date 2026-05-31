@@ -9,7 +9,7 @@ class CartEntity extends Equatable {
   final double? discount;
   final double? totalPriceAfterDiscount;
 
- const CartEntity({
+  const CartEntity({
     this.id,
     this.user,
     this.cartItems,
@@ -19,5 +19,12 @@ class CartEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, user, cartItems, appliedCoupons, discount, totalPriceAfterDiscount];
+  List<Object?> get props => [
+    id,
+    user,
+    cartItems,
+    appliedCoupons,
+    discount,
+    totalPriceAfterDiscount,
+  ];
 }

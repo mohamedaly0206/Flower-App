@@ -16,21 +16,21 @@ class CartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
 
-    // 1. Target the AppBar title selectively.
-    // context.select ensures the Scaffold only rebuilds when the itemCount actually changes.
-    final itemCount = context.select<CartCubit, int>((cubit) =>
-        cubit.state.getCartItemsState?.data?.numOfCartItems ?? 0);
+    final itemCount = context.select<CartCubit, int>(
+      (cubit) => cubit.state.itemCount,
+    );
 
-    String appBarTitle = itemCount > 0
+    final appBarTitle = itemCount > 0
         ? '${appLocalizations.cart} ($itemCount ${appLocalizations.items})'
         : appLocalizations.cart;
 
-    // 2. Use BlocListener strictly for side effects (like SnackBars)
     return BlocListener<CartCubit, CartState>(
       listenWhen: (previous, current) =>
           previous.removeItemFromCartState != current.removeItemFromCartState ||
-          previous.updateItemQuantityInCartState != current.updateItemQuantityInCartState,
+          previous.updateItemQuantityInCartState !=
+              current.updateItemQuantityInCartState,
       listener: (context, state) {
         if (state.removeItemFromCartState?.errorMessage != null) {
           AppMessages.showError(
@@ -47,40 +47,23 @@ class CartView extends StatelessWidget {
       },
       child: Scaffold(
         appBar: CustomAppBar(title: appBarTitle, hasBackButton: false),
-        // 3. Scope BlocBuilder strictly to the body and filter unnecessary rebuilds.
         body: BlocBuilder<CartCubit, CartState>(
           buildWhen: (previous, current) =>
               previous.getCartItemsState != current.getCartItemsState,
           builder: (context, state) {
-            final theme = Theme.of(context);
-            final getCartState = state.getCartItemsState;
-            final cartResponse = getCartState?.data;
-            final cartData = cartResponse?.cart;
-            final cartItems = cartData?.cartItems ?? [];
-
-            double subTotal = 0.0;
-            for (var item in cartItems) {
-              final price =
-                  item.product?.priceAfterDiscount ?? item.product?.price ?? 0;
-              final quantity = item.quantity ?? 1;
-              subTotal += (price * quantity);
-            }
-
-            const deliveryFee = 10.0;
-            final total = subTotal + deliveryFee;
-
-            if (getCartState?.isLoading == true && cartItems.isEmpty) {
+            if (state.getCartItemsState?.isLoading == true &&
+                state.isCartEmpty) {
               return Center(
-                child: SpinKitFadingCircle(
-                  color: theme.colorScheme.primary,
-                ),
+                child: SpinKitFadingCircle(color: theme.colorScheme.primary),
               );
             }
 
-            if (getCartState?.errorMessage != null && cartItems.isNotEmpty) {
+            if (state.getCartItemsState?.errorMessage != null &&
+                state.isCartEmpty) {
               return Center(
                 child: Text(
-                  getCartState!.errorMessage ?? appLocalizations.errorMessage,
+                  state.getCartItemsState!.errorMessage ??
+                      appLocalizations.errorMessage,
                   style: theme.textTheme.displayLarge!.copyWith(
                     color: theme.colorScheme.primary,
                   ),
@@ -89,7 +72,7 @@ class CartView extends StatelessWidget {
               );
             }
 
-            if (cartItems.isEmpty) {
+            if (state.isCartEmpty) {
               return Center(
                 child: Text(
                   appLocalizations.emptyCart,
@@ -109,9 +92,9 @@ class CartView extends StatelessWidget {
                   const SizedBox(height: 16),
                   Expanded(
                     child: ListView.builder(
-                      itemCount: cartItems.length,
+                      itemCount: state.cartItems.length,
                       itemBuilder: (context, index) {
-                        final item = cartItems[index];
+                        final item = state.cartItems[index];
                         final product = item.product;
 
                         return CartItem(
@@ -119,7 +102,10 @@ class CartView extends StatelessWidget {
                           title: product?.title ?? '',
                           subtitle: product?.description ?? '',
                           imageUrl: product?.imageCover ?? '',
-                          price: product?.priceAfterDiscount ?? 0,
+                          price:
+                              product?.priceAfterDiscount ??
+                              product?.price ??
+                              0,
                           quantity: item.quantity ?? 0,
                         );
                       },
@@ -131,12 +117,12 @@ class CartView extends StatelessWidget {
                       children: [
                         CartCheckoutPrices(
                           title: appLocalizations.subTotal,
-                          value: '$subTotal\$',
+                          value: '${state.subTotal}\$',
                         ),
                         const SizedBox(height: 12),
                         CartCheckoutPrices(
                           title: appLocalizations.deliveryFee,
-                          value: '$deliveryFee\$',
+                          value: '${state.deliveryFee}\$',
                         ),
                         const Padding(
                           padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -144,7 +130,7 @@ class CartView extends StatelessWidget {
                         ),
                         CartCheckoutPrices(
                           title: appLocalizations.total,
-                          value: '$total\$',
+                          value: '${state.totalPrice}\$',
                           isTotal: true,
                         ),
                         const SizedBox(height: 24),

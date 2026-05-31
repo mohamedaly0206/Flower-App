@@ -8,10 +8,37 @@ class CartState extends Equatable {
   final BaseState<CartResponseEntity>? addItemToCartState;
   final BaseState<CartResponseEntity>? removeItemFromCartState;
   final BaseState<CartResponseEntity>? updateItemQuantityInCartState;
-  
-  final Set<String> loadingProductIds; 
-  final Set<String> deletingProductIds; 
-  final Set<String> updatingProductIds; 
+
+  final Set<String> loadingProductIds;
+  final Set<String> deletingProductIds;
+  final Set<String> updatingProductIds;
+
+  /// Returns the total number of items in the cart
+  int get itemCount => getCartItemsState?.data?.numOfCartItems ?? 0;
+
+  /// Safely extracts the list of cart items
+  List<dynamic> get cartItems => getCartItemsState?.data?.cart?.cartItems ?? [];
+
+  /// Checks if the cart is completely empty
+  bool get isCartEmpty => cartItems.isEmpty;
+
+  /// Calculates the subtotal of all items in the cart
+  double get subTotal {
+    double total = 0.0;
+    for (var item in cartItems) {
+      final price =
+          item.product?.priceAfterDiscount ?? item.product?.price ?? 0;
+      final quantity = item.quantity ?? 1;
+      total += (price * quantity);
+    }
+    return total;
+  }
+
+  /// The delivery fee (can be made dynamic later if needed)
+  double get deliveryFee => 10.0;
+
+  /// Calculates the final total price
+  double get totalPrice => subTotal + deliveryFee;
 
   const CartState({
     this.getCartItemsState = const BaseState(),
@@ -47,12 +74,12 @@ class CartState extends Equatable {
 
   @override
   List<Object?> get props => [
-        getCartItemsState,
-        addItemToCartState,
-        removeItemFromCartState,
-        updateItemQuantityInCartState,
-        loadingProductIds,
-        deletingProductIds,
-        updatingProductIds,
-      ];
+    getCartItemsState,
+    addItemToCartState,
+    removeItemFromCartState,
+    updateItemQuantityInCartState,
+    loadingProductIds,
+    deletingProductIds,
+    updatingProductIds,
+  ];
 }
