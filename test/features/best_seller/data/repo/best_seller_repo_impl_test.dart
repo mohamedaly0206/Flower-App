@@ -27,8 +27,6 @@ void main() {
 
   group('getBestSeller Repository Tests', () {
     final tBestSellerDto = BestSellerDto(bestSeller: []);
-    final tProductsResponseEntity = ProductsResponseEntity();
-
     test(
       'should return SuccessBaseResponse with Domain Entity when Remote Data Source succeeds',
       () async {

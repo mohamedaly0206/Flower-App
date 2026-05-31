@@ -10,6 +10,7 @@ import 'package:flower_app/features/edit_profile/presentation/view_model/state/e
 import 'package:flower_app/features/edit_profile/presentation/widgets/edit_profile_form_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditProfileView extends StatefulWidget {
@@ -79,7 +80,7 @@ class _EditProfileViewState extends State<EditProfileView> {
         _syncControllers(state);
         if (state.status == EditProfileStatus.error &&
             state.errorMessage != null) {
-        AppMessages.showError(context, message: state.errorMessage!);
+          AppMessages.showError(context, message: state.errorMessage!);
         }
         if (state.status == EditProfileStatus.success &&
             state.successMessage != null) {
@@ -89,10 +90,7 @@ class _EditProfileViewState extends State<EditProfileView> {
             _emailCtrl.text = state.user!.email ?? '';
             _phoneCtrl.text = state.user!.phone ?? '';
           }
-          AppMessages.showSuccess(
-            context,
-            message: state.successMessage!,
-          );
+          AppMessages.showSuccess(context, message: state.successMessage!);
         }
       },
       builder: (context, state) {
@@ -141,9 +139,10 @@ class _EditProfileViewState extends State<EditProfileView> {
             ],
           ),
           body: isInitialLoading
-              ? const Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.primaryColor,
+              ? Center(
+                  child: SpinKitFadingCircle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    size: 20,
                   ),
                 )
               : EditProfileFormContent(

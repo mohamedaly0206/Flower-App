@@ -46,14 +46,15 @@ class CustomProfileInfo extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
+                final cubit = context.read<ProfileCubit>();
                 // context.push(AppRouterPaths.kEditProfileView);
-                context.push(AppRouterPaths.kEditProfileView).then((_) {
-                  context.read<ProfileCubit>().doIntent(
-                    LoadUserProfileIntent(),
-                  );
-                });
+                GoRouter.of(context).push(AppRouterPaths.kEditProfileView).then(
+                  (_) {
+                    cubit.doIntent(LoadUserProfileIntent());
+                  },
+                );
               },
-              child: SvgPicture.asset(Assets.icons.notoV1Pen),
+              child: SvgPicture.asset(Assets.icons.notePen),
             ),
           ],
         ),
