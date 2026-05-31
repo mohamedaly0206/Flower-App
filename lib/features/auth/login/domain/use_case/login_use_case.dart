@@ -12,7 +12,16 @@ class LoginUseCase {
   Future<BaseResponse<LoginResponse>> call({
     required String email,
     required String password,
+    required bool rememberMe,
   }) {
-    return _loginRepository.login(email: email, password: password);
+    return _loginRepository.login(
+      email: email,
+      password: password,
+      rememberMe: rememberMe,
+    );
+  }
+
+  Future<bool> getRememberMe() {
+    return _loginRepository.getRememberMe();
   }
 }

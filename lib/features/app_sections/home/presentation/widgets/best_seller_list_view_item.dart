@@ -39,7 +39,7 @@ class BestSellerListViewItem extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             Text(
-              '${bestSeller.price} EGP',
+              '${bestSeller.priceAfterDiscount} EGP',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(

@@ -1,11 +1,14 @@
 import 'package:flower_app/config/base_response/base_response.dart';
 import 'package:flower_app/core/router/app_router.dart';
- 
+import 'package:flower_app/core/values/api_param.dart';
+import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/features/auth/login/data/data_sources/login_local_data_source.dart';
 import 'package:flower_app/features/auth/login/data/data_sources/login_remote_data_source.dart';
 import 'package:flower_app/features/auth/login/data/models/login_response/login_response.dart';
+import 'package:flower_app/features/auth/login/data/models/user_dto.dart';
 import 'package:flower_app/features/auth/login/data/repo/login_repository_impl.dart';
 import 'package:flower_app/l10n/app_localizations.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class _FakeLoginRemoteDataSource implements LoginRemoteDataSource {
@@ -30,10 +33,32 @@ class _FakeLoginRemoteDataSource implements LoginRemoteDataSource {
 
 class _FakeLoginLocalDataSource implements LoginLocalDataSource {
   String? receivedToken;
+  bool rememberMe = false;
+  bool didClearToken = false;
+  Map<String, dynamic>? cachedUserData;
 
   @override
   Future<void> saveToken(String token) async {
     receivedToken = token;
+  }
+
+  @override
+  Future<void> clearToken() async {
+    receivedToken = null;
+    didClearToken = true;
+  }
+
+  @override
+  Future<void> saveRememberMe(bool rememberMe) async {
+    this.rememberMe = rememberMe;
+  }
+
+  @override
+  Future<bool> getRememberMe() async => rememberMe;
+
+  @override
+  Future<void> cacheUserData(Map<String, dynamic> userJson) async {
+    cachedUserData = userJson;
   }
 }
 
@@ -54,6 +79,7 @@ void main() {
         final result = await repository.login(
           email: 'user@mail.com',
           password: 'password123',
+          rememberMe: true,
         );
 
         expect(remoteDataSource.receivedEmail, 'user@mail.com');
@@ -64,8 +90,78 @@ void main() {
           loginResponse,
         );
         expect(localDataSource.receivedToken, 'token');
+        expect(localDataSource.rememberMe, isTrue);
       },
     );
+
+    test('caches user data on successful login', () async {
+      final loginResponse = LoginResponse(
+        message: 'success',
+        token: 'token',
+        user: UserDTO(
+          email: 'test@mail.com',
+          firstName: 'Ahmed',
+          photo: 'photo_url',
+        ),
+      );
+      final remoteDataSource = _FakeLoginRemoteDataSource()
+        ..response = loginResponse;
+      final localDataSource = _FakeLoginLocalDataSource();
+      final repository = LoginRepositoryImpl(remoteDataSource, localDataSource);
+
+      await repository.login(
+        email: 'test@mail.com',
+        password: 'password123',
+        rememberMe: true,
+      );
+
+      expect(localDataSource.cachedUserData, {
+        'user_email': 'test@mail.com',
+        'user_name': 'Ahmed',
+        'user_photo': 'photo_url',
+      });
+    });
+
+    test('stores token even when remember me is false', () async {
+      final loginResponse = LoginResponse(message: 'success', token: 'token');
+      final remoteDataSource = _FakeLoginRemoteDataSource()
+        ..response = loginResponse;
+      final localDataSource = _FakeLoginLocalDataSource();
+      final repository = LoginRepositoryImpl(remoteDataSource, localDataSource);
+
+      final result = await repository.login(
+        email: 'user@mail.com',
+        password: 'password123',
+        rememberMe: false,
+      );
+
+      expect(result, isA<SuccessBaseResponse<LoginResponse>>());
+      expect(localDataSource.receivedToken, 'token');
+      expect(localDataSource.didClearToken, isFalse);
+      expect(localDataSource.rememberMe, isFalse);
+    });
+
+    test('caches fallback profile data when user is missing', () async {
+      final loginResponse = LoginResponse(message: 'success', token: 'token');
+      final remoteDataSource = _FakeLoginRemoteDataSource()
+        ..response = loginResponse;
+      final localDataSource = _FakeLoginLocalDataSource();
+      final repository = LoginRepositoryImpl(remoteDataSource, localDataSource);
+
+      final result = await repository.login(
+        email: 'user@mail.com',
+        password: 'password123',
+        rememberMe: true,
+      );
+
+      expect(result, isA<SuccessBaseResponse<LoginResponse>>());
+      expect(localDataSource.cachedUserData, {
+        ApiParam.userEmail: 'user@mail.com',
+        ApiParam.userName: 'User',
+        ApiParam.userPhoto:
+            'https://imgs.search.brave.com/2IB7Irk4sEHgNdKDJmVoI-PU8O8sgZHGf_Rcsk4Oe34/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNDE0/MzgyNDU4L3N0b2Nr/LXZlY3Rvci1waWN0/dXJlLXByb2ZpbGUt/aWNvbi1tYWxlLWlj/b24taHVtYW4tcGVv/cGxlLXNpZ24tc3lt/Ym9sLXZlY3Rvcg',
+      });
+    });
 
     test('returns error response when remote data source throws', () async {
       final remoteDataSource = _FakeLoginRemoteDataSource()
@@ -76,17 +172,29 @@ void main() {
       final result = await repository.login(
         email: 'user@mail.com',
         password: 'password123',
+        rememberMe: false,
       );
 
       expect(result, isA<ErrorBaseResponse<LoginResponse>>());
       expect(
         (result as ErrorBaseResponse<LoginResponse>).errorMessage,
-        AppLocalizations.of(navigatorKey.currentContext!)!.errorMessage,
+        AppStrings.errorMessage,
       );
       expect(localDataSource.receivedToken, isNull);
     });
 
-    test('returns error response when login token is missing', () async {
+    testWidgets('returns error response when login token is missing', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          navigatorKey: navigatorKey,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: const SizedBox(),
+        ),
+      );
+
       final remoteDataSource = _FakeLoginRemoteDataSource()
         ..response = LoginResponse(message: 'success');
       final localDataSource = _FakeLoginLocalDataSource();
@@ -95,6 +203,7 @@ void main() {
       final result = await repository.login(
         email: 'user@mail.com',
         password: 'password123',
+        rememberMe: false,
       );
 
       expect(result, isA<ErrorBaseResponse<LoginResponse>>());

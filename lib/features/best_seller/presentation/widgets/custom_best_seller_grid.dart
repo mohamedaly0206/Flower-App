@@ -35,7 +35,7 @@ class CustomBestSellerGrid extends StatelessWidget {
               context,
             ).push(AppRouterPaths.kProductDetailsView, extra: product);
           },
-          onAddToCart: () {},
+          productId: product.id,
         );
       },
     );

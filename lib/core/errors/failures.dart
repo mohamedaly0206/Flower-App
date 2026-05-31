@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
-import '../../l10n/app_localizations.dart';
-import '../router/app_router.dart';
+import '../values/app_strings.dart';
 import 'exceptions.dart';
 
 abstract class Failure {
@@ -16,37 +15,37 @@ class ServerFailure extends Failure {
     if (e is DioException) {
       return ServerFailure.fromDioException(e);
     } else {
-      return ServerFailure(AppLocalizations.of(navigatorKey.currentContext!)!.errorMessage);
+      return ServerFailure(AppStrings.errorMessage);
     }
   }
 
   factory ServerFailure.fromDioException(DioException exception) {
     switch (exception.type) {
       case DioExceptionType.connectionTimeout:
-        return ServerFailure(AppLocalizations.of(navigatorKey.currentContext!)!.serverConnTimeout);
+        return ServerFailure(AppStrings.serverConnTimeout);
       case DioExceptionType.sendTimeout:
-        return ServerFailure(AppLocalizations.of(navigatorKey.currentContext!)!.serverSendTimeout);
+        return ServerFailure(AppStrings.serverSendTimeout);
       case DioExceptionType.receiveTimeout:
-        return ServerFailure(AppLocalizations.of(navigatorKey.currentContext!)!.serverRecTimeout);
+        return ServerFailure(AppStrings.serverRecTimeout);
       case DioExceptionType.badCertificate:
-        return ServerFailure(AppLocalizations.of(navigatorKey.currentContext!)!.serverCertError);
+        return ServerFailure(AppStrings.serverCertError);
       case DioExceptionType.badResponse:
         return ServerFailure.fromResponse(
           exception.response?.statusCode,
           exception.response?.data,
         );
       case DioExceptionType.cancel:
-        return ServerFailure(AppLocalizations.of(navigatorKey.currentContext!)!.serverCancel);
+        return ServerFailure(AppStrings.serverCancel);
       case DioExceptionType.connectionError:
-        return ServerFailure(AppLocalizations.of(navigatorKey.currentContext!)!.serverConnError);
+        return ServerFailure(AppStrings.serverConnError);
       case DioExceptionType.unknown:
-        return ServerFailure(AppLocalizations.of(navigatorKey.currentContext!)!.serverNoInternet);
+        return ServerFailure(AppStrings.serverNoInternet);
     }
   }
 
   factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
     if (statusCode == null) {
-      return ServerFailure(AppLocalizations.of(navigatorKey.currentContext!)!.serverDefaultError);
+      return ServerFailure(AppStrings.serverDefaultError);
     }
 
     switch (statusCode) {
@@ -54,22 +53,22 @@ class ServerFailure extends Failure {
       case 401:
       case 403:
         final String errorMessageRes =
-            response?['message'] ?? AppLocalizations.of(navigatorKey.currentContext!)!.errorMessage;
+            response?['message'] ?? AppStrings.errorMessage;
         return ServerFailure(errorMessageRes);
 
       case 404:
-        return ServerFailure(AppLocalizations.of(navigatorKey.currentContext!)!.serverNotFound);
+        return ServerFailure(AppStrings.serverNotFound);
 
       case 409:
         final message =
-            response?['message']?.toString() ?? AppLocalizations.of(navigatorKey.currentContext!)!.errorMessage;
+            response?['message']?.toString() ?? AppStrings.errorMessage;
         return ServerFailure(message);
 
       case 500:
-        return ServerFailure(AppLocalizations.of(navigatorKey.currentContext!)!.serverInternalError);
+        return ServerFailure(AppStrings.serverInternalError);
 
       default:
-        return ServerFailure(AppLocalizations.of(navigatorKey.currentContext!)!.serverDefaultError);
+        return ServerFailure(AppStrings.serverDefaultError);
     }
   }
 }
@@ -77,6 +76,6 @@ class ServerFailure extends Failure {
 class CacheFailure extends Failure {
   CacheFailure(Object e)
     : super(
-        e is CacheException ? e.errorMessage : AppLocalizations.of(navigatorKey.currentContext!)!.cacheStorageError,
+        e is CacheException ? e.errorMessage : AppStrings.cacheStorageError,
       );
 }

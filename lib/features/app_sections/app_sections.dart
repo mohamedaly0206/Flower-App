@@ -1,13 +1,20 @@
+import 'package:flower_app/config/di/di.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
- 
+
 import 'package:flower_app/core/values/assets.gen.dart';
-import 'package:flower_app/features/app_sections/cart/cart_view.dart';
+import 'package:flower_app/features/app_sections/cart/presentation/views/cart_view.dart';
 import 'package:flower_app/features/app_sections/categories/presentation/views/categories_view.dart';
-import 'package:flower_app/features/app_sections/profile/profile_view.dart';
+import 'package:flower_app/features/app_sections/profile/presentation/view/profile_view.dart';
+import 'package:flower_app/features/app_sections/profile/presentation/view_model/cubit/profile_cubit.dart';
+import 'package:flower_app/features/app_sections/profile/presentation/view_model/intent/profile_intent.dart';
+import 'package:flower_app/features/change_password/presentation/view/change_password_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../config/di/di.dart';
 import '../../l10n/app_localizations.dart';
+import '../change_password/presentation/view_model/cubit/change_password_cubit.dart';
 import 'home/presentation/view/home_view.dart';
 
 class AppSections extends StatefulWidget {
@@ -43,7 +50,11 @@ class _AppSectionsState extends State<AppSections> {
     _AppSection(
       label: AppLocalizations.of(context)!.profile,
       iconPath: Assets.icons.personIcon,
-      screen: ProfileView(),
+      //will be removed after merging
+      screen: BlocProvider(
+        create: (_) => getIt<ProfileCubit>()..doIntent(LoadUserProfileIntent()),
+        child: const ProfileView(),
+      ),
     ),
   ];
 

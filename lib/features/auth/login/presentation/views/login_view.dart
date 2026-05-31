@@ -2,17 +2,17 @@ import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
 import 'package:flower_app/core/utilities/app_validators.dart';
- 
+
 import 'package:flower_app/core/widgets/app_loading.dart';
 import 'package:flower_app/core/widgets/app_messages.dart';
 import 'package:flower_app/core/widgets/custom_app_bar.dart';
-import 'package:flower_app/features/auth/login/presentation/view_model/login_cubit.dart';
-import 'package:flower_app/features/auth/login/presentation/view_model/login_states.dart';
+import 'package:flower_app/features/auth/login/presentation/view_model/cubit/login_cubit.dart';
+import 'package:flower_app/features/auth/login/presentation/view_model/intent/login_intent.dart';
+import 'package:flower_app/features/auth/login/presentation/view_model/state/login_states.dart';
+import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../../../l10n/app_localizations.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -25,6 +25,12 @@ class _LoginViewState extends State<LoginView> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<LoginCubit>().doIntent(LoadRememberMeIntent());
+  }
 
   @override
   void dispose() {
@@ -40,7 +46,10 @@ class _LoginViewState extends State<LoginView> {
       listener: _loginListener,
       child: Scaffold(
         backgroundColor: AppColors.whiteColor,
-        appBar: CustomAppBar(title: AppLocalizations.of(context)!.login, hasBackButton: false),
+        appBar: CustomAppBar(
+          title: AppLocalizations.of(context)!.login,
+          hasBackButton: false,
+        ),
         body: SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -50,7 +59,8 @@ class _LoginViewState extends State<LoginView> {
                 children: [
                   TextFormField(
                     controller: _emailController,
-                    validator: AppValidators.validateEmail,
+                    validator: (value) =>
+                        AppValidators.validateEmail(context, value),
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       hintText: AppLocalizations.of(context)!.email,
@@ -67,10 +77,27 @@ class _LoginViewState extends State<LoginView> {
                     children: [
                       Row(
                         children: [
-                          Checkbox(
-                            value: false,
-                            onChanged: (value) {},
-                            checkColor: AppColors.placeHolderColor,
+                          BlocBuilder<LoginCubit, LoginState>(
+                            buildWhen: (previous, current) =>
+                                previous.rememberMe != current.rememberMe ||
+                                (previous is LoginLoading) !=
+                                    (current is LoginLoading),
+                            builder: (context, state) {
+                              return Checkbox(
+                                value: state.rememberMe,
+                                onChanged: state is LoginLoading
+                                    ? null
+                                    : (value) =>
+                                          context.read<LoginCubit>().doIntent(
+                                            ToggleRememberMeIntent(value),
+                                          ),
+                                checkColor: AppColors.placeHolderColor,
+                                side: const BorderSide(
+                                  color: AppColors.placeHolderColor,
+                                  width: 2.0,
+                                ),
+                              );
+                            },
                           ),
                           Text(
                             AppLocalizations.of(context)!.rememberMe,
@@ -79,9 +106,7 @@ class _LoginViewState extends State<LoginView> {
                         ],
                       ),
                       InkWell(
-                        onTap: () {
-                          context.push(AppRouterPaths.kForgetPasswordView);
-                        },
+                        onTap: () {},
                         child: Text(
                           AppLocalizations.of(context)!.forgetPassword,
                           style: AppTextStyles.textStyleRegular12.copyWith(
@@ -155,7 +180,9 @@ class _LoginViewState extends State<LoginView> {
       case LoginSuccess():
         AppMessages.showSuccess(
           context,
-          message: state.response.message ?? AppLocalizations.of(context)!.loginSuccessfully,
+          message:
+              state.response.message ??
+              AppLocalizations.of(context)!.loginSuccessfully,
         );
         context.go(AppRouterPaths.kAppSections);
       case LoginInitial():
@@ -166,9 +193,11 @@ class _LoginViewState extends State<LoginView> {
 
   void _submitLogin(BuildContext context) {
     if (_formKey.currentState!.validate()) {
-      context.read<LoginCubit>().login(
-        email: _emailController.text.trim(),
-        password: _passwordController.text,
+      context.read<LoginCubit>().doIntent(
+        SubmitLoginIntent(
+          email: _emailController.text.trim(),
+          password: _passwordController.text,
+        ),
       );
     }
   }
@@ -186,7 +215,7 @@ class _PasswordField extends StatelessWidget {
       builder: (context, state) {
         return TextFormField(
           controller: controller,
-          validator: AppValidators.validatePassword,
+          validator: (value) => AppValidators.validatePassword(context, value),
           obscureText: state.obscurePassword,
           textInputAction: TextInputAction.done,
           onFieldSubmitted: (_) => onSubmitted(),
@@ -195,7 +224,9 @@ class _PasswordField extends StatelessWidget {
             labelText: AppLocalizations.of(context)!.password,
             suffixIcon: IconButton(
               onPressed: () {
-                context.read<LoginCubit>().togglePasswordVisibility();
+                context.read<LoginCubit>().doIntent(
+                  TogglePasswordVisibilityIntent(),
+                );
               },
               icon: Icon(
                 state.obscurePassword

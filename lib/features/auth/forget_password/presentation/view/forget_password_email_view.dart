@@ -1,5 +1,5 @@
 import 'package:flower_app/core/utilities/app_validators.dart';
- 
+
 import 'package:flower_app/core/widgets/app_loading.dart';
 import 'package:flower_app/core/widgets/app_messages.dart';
 import 'package:flower_app/features/auth/forget_password/data/models/requests/enter_reset_email_request.dart';
@@ -24,7 +24,10 @@ class ForgetPasswordEmailView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(AppLocalizations.of(context)!.forgetPassword, style: theme.textTheme.titleMedium),
+            Text(
+              AppLocalizations.of(context)!.forgetPassword,
+              style: theme.textTheme.titleMedium,
+            ),
             SizedBox(height: 10),
             Text(
               AppLocalizations.of(context)!.enterEmail,
@@ -37,7 +40,7 @@ class ForgetPasswordEmailView extends StatelessWidget {
                 labelText: AppLocalizations.of(context)!.email,
                 hintText: AppLocalizations.of(context)!.enterYourEmail,
               ),
-              validator: AppValidators.validateEmail,
+              validator: (value) => AppValidators.validateEmail(context, value),
               controller: emailController,
             ),
             SizedBox(height: 48),

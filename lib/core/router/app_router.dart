@@ -7,22 +7,26 @@ import 'package:flower_app/features/app_sections/categories/presentation/views/c
 import 'package:flower_app/features/auth/forget_password/presentation/view_model/cubit/forget_password_cubit.dart';
 import 'package:flower_app/features/auth/forget_password/presentation/view/forget_password_screen.dart';
 import 'package:flower_app/features/app_sections/app_sections.dart';
-import 'package:flower_app/features/auth/login/presentation/view_model/login_cubit.dart';
+import 'package:flower_app/features/auth/login/presentation/view_model/cubit/login_cubit.dart';
 import 'package:flower_app/features/auth/login/presentation/views/login_view.dart';
 import 'package:flower_app/features/auth/signup/presentation/screens/register_screen.dart';
 import 'package:flower_app/features/best_seller/presentation/view/best_seller_view.dart';
-import 'package:flower_app/features/occasion/presentation/views/occasion_view.dart';
+import 'package:flower_app/features/change_password/presentation/view/change_password_view.dart';
+import 'package:flower_app/features/change_password/presentation/view_model/cubit/change_password_cubit.dart';
+import 'package:flower_app/features/occasion/presentation/view_model/intent/occasion_intent.dart';
+import 'package:flower_app/features/occasion/presentation/view/occasion_view.dart';
 import 'package:flower_app/features/product_details/presentation/view/product_details_view.dart';
 import 'package:flower_app/features/search/presentation/views/search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/occasion/presentation/view_model/occasion_cubit.dart';
+import 'package:flower_app/features/occasion/presentation/view_model/cubit/occasion_cubit.dart';
+import 'package:flower_app/features/edite_profile/presentation/view_model/cubit/edite_profile_cubit.dart';
+import 'package:flower_app/features/edite_profile/presentation/view/edite_profile_view.dart';
 import '../../l10n/app_localizations.dart';
 
-final GlobalKey<NavigatorState> navigatorKey =
-GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 abstract class AppRouter {
   static GoRouter getRouter({
@@ -75,6 +79,14 @@ abstract class AppRouter {
         ),
       ),
       GoRoute(
+        path: AppRouterPaths.kChangePasswordView,
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<ChangePasswordCubit>(),
+          child: ChangePasswordView(),
+        ),
+      ),
+
+      GoRoute(
         path: AppRouterPaths.kSignUpView,
         builder: (context, state) => const RegisterScreen(),
       ),
@@ -100,15 +112,23 @@ abstract class AppRouter {
           return MultiBlocProvider(
             providers: [
               BlocProvider(
-                create: (context) =>
-                    getIt<OccasionCubit>()
-                      ..getOccasions(initialIndex: initialIndex),
+                create: (context) => getIt<OccasionCubit>()
+                  ..handleIntent(
+                    LoadOccasionsIntent(initialIndex: initialIndex),
+                  ),
               ),
               BlocProvider.value(value: getIt<HomeSharedCubit>()),
             ],
             child: const OccasionView(),
           );
         },
+      ),
+      GoRoute(
+        path: AppRouterPaths.kEditProfileView,
+        builder: (context, state) => BlocProvider(
+          create: (context) => getIt<EditeProfileCubit>(),
+          child: const EditeProfileView(),
+        ),
       ),
     ],
   );
