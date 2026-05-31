@@ -103,6 +103,7 @@ abstract class AppStrings {
   static const String sortBy = 'Sort by';
   static const String searchForAnyProduct = 'Search For Any Product You Want';
   static const next = 'Next';
+  static const productId = 'productId';
 
   //track order
   static const String trackOrder = 'Track order';

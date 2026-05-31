@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flower_app/core/values/api_endpoints.dart';
+import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/features/app_sections/cart/data/models/request/add_to_cart_request.dart';
 import 'package:flower_app/features/app_sections/cart/data/models/request/update_cart_item_quantity_request.dart';
 import 'package:flower_app/features/app_sections/cart/data/models/response/cart_response_dto.dart';
@@ -22,12 +23,12 @@ abstract class CartApiClient {
 
   @PUT('${ApiEndpoints.cart}/{productId}')
   Future<CartResponseDto> updateCartItemQuantity(
-    @Path('productId') String productId,
+    @Path(AppStrings.productId) String productId,
     @Body() UpdateCartQuantityRequest request,
   );
 
   @DELETE('${ApiEndpoints.cart}/{productId}')
   Future<CartResponseDto> removeItemFromCart(
-    @Path('productId') String productId,
+    @Path(AppStrings.productId) String productId,
   );
 }

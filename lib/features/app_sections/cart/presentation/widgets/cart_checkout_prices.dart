@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CheckoutTotals extends StatelessWidget {
-  const CheckoutTotals({
+class CartCheckoutPrices extends StatelessWidget {
+  const CartCheckoutPrices({
     super.key,
     required this.title,
     required this.value,
@@ -14,29 +14,30 @@ class CheckoutTotals extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           title,
           style: isTotal == true
-              ? Theme.of(context).textTheme.titleMedium!.copyWith(
+              ? theme.textTheme.titleMedium!.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.onSurface,
+                  color: theme.colorScheme.onSurface,
                 )
-              : Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onTertiaryFixed,
+              : theme.textTheme.bodyLarge!.copyWith(
+                  color: theme.colorScheme.onTertiaryFixed,
                 ),
         ),
         Text(
           value,
           style: isTotal == true
-              ? Theme.of(context).textTheme.titleMedium!.copyWith(
+              ? theme.textTheme.titleMedium!.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.onSurface,
+                  color: theme.colorScheme.onSurface,
                 )
-              : Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onTertiaryFixed,
+              : theme.textTheme.bodyLarge!.copyWith(
+                  color: theme.colorScheme.onTertiaryFixed,
                 ),
         ),
       ],

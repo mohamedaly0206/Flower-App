@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flower_app/config/base_response/base_response.dart';
 import 'package:flower_app/features/app_sections/cart/data/models/request/update_cart_item_quantity_request.dart';
 import 'package:flower_app/features/app_sections/cart/domain/entities/cart_response_entity.dart';
@@ -13,7 +11,7 @@ import 'package:flower_app/features/app_sections/cart/data/models/request/add_to
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-@injectable
+@singleton
 class CartCubit extends Cubit<CartState> {
   final GetItemsCartUseCase _getItemsCartUseCase;
   final AddItemToCartUseCase _addItemToCartUseCase;
@@ -25,7 +23,7 @@ class CartCubit extends Cubit<CartState> {
     this._addItemToCartUseCase,
     this._removeItemFromCartUseCase,
     this._updateCartItemQuantityInCartUseCase,
-  ) : super(CartState());
+  ) : super(const CartState());
 
   void cartIntentHandler(CartIntent intent) async {
     switch (intent) {
@@ -65,7 +63,6 @@ class CartCubit extends Cubit<CartState> {
             ),
           ),
         );
-        log('items fetched successfully');
         break;
       case ErrorBaseResponse<CartResponseEntity>():
         emit(
@@ -76,7 +73,6 @@ class CartCubit extends Cubit<CartState> {
             ),
           ),
         );
-        log('items fetch failed');
         break;
     }
   }
@@ -110,7 +106,6 @@ class CartCubit extends Cubit<CartState> {
             ),
           ),
         );
-        log('item added successfully');
         break;
 
       case ErrorBaseResponse<CartResponseEntity>():
@@ -123,7 +118,6 @@ class CartCubit extends Cubit<CartState> {
             ),
           ),
         );
-        log('item add failed');
         break;
     }
   }
@@ -131,6 +125,8 @@ class CartCubit extends Cubit<CartState> {
   Future<void> _removeItemFromCart(String productId) async {
     emit(
       state.copyWith(
+        // Add ID to deleting set
+        deletingProductIds: {...state.deletingProductIds, productId},
         removeItemFromCartState: state.removeItemFromCartState?.copyWith(
           isLoadingParam: true,
         ),
@@ -139,10 +135,15 @@ class CartCubit extends Cubit<CartState> {
 
     final response = await _removeItemFromCartUseCase(productId);
 
+    // Remove ID from deleting set
+    final updatedDeletingSet = Set<String>.from(state.deletingProductIds)
+      ..remove(productId);
+
     switch (response) {
       case SuccessBaseResponse<CartResponseEntity>():
         emit(
           state.copyWith(
+            deletingProductIds: updatedDeletingSet, // Emit new set
             removeItemFromCartState: state.removeItemFromCartState?.copyWith(
               dataParam: response.data,
               isLoadingParam: false,
@@ -152,18 +153,17 @@ class CartCubit extends Cubit<CartState> {
             ),
           ),
         );
-        log('item removed successfully');
         break;
       case ErrorBaseResponse<CartResponseEntity>():
         emit(
           state.copyWith(
+            deletingProductIds: updatedDeletingSet, // Emit new set
             removeItemFromCartState: state.removeItemFromCartState?.copyWith(
               errorMessageParam: response.errorMessage,
               isLoadingParam: false,
             ),
           ),
         );
-        log('item remove failed');
         break;
     }
   }
@@ -174,6 +174,8 @@ class CartCubit extends Cubit<CartState> {
   ) async {
     emit(
       state.copyWith(
+        // Add ID to updating set
+        updatingProductIds: {...state.updatingProductIds, productId},
         updateItemQuantityInCartState: state.updateItemQuantityInCartState
             ?.copyWith(isLoadingParam: true),
       ),
@@ -184,10 +186,15 @@ class CartCubit extends Cubit<CartState> {
       UpdateCartQuantityRequest(quantity: request.quantity),
     );
 
+    // Remove ID from updating set
+    final updatedUpdatingSet = Set<String>.from(state.updatingProductIds)
+      ..remove(productId);
+
     switch (response) {
       case SuccessBaseResponse<CartResponseEntity>():
         emit(
           state.copyWith(
+            updatingProductIds: updatedUpdatingSet, // Emit new set
             updateItemQuantityInCartState: state.updateItemQuantityInCartState
                 ?.copyWith(dataParam: response.data, isLoadingParam: false),
             getCartItemsState: state.getCartItemsState?.copyWith(
@@ -195,11 +202,11 @@ class CartCubit extends Cubit<CartState> {
             ),
           ),
         );
-        log('quantity updated successfully');
         break;
       case ErrorBaseResponse<CartResponseEntity>():
         emit(
           state.copyWith(
+            updatingProductIds: updatedUpdatingSet, // Emit new set
             updateItemQuantityInCartState: state.updateItemQuantityInCartState
                 ?.copyWith(
                   errorMessageParam: response.errorMessage,
@@ -207,8 +214,6 @@ class CartCubit extends Cubit<CartState> {
                 ),
           ),
         );
-        log('quantity update failed');
-        log(response.errorMessage);
         break;
     }
   }
