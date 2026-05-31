@@ -7,14 +7,10 @@ import 'package:flower_app/features/app_sections/categories/presentation/views/c
 import 'package:flower_app/features/app_sections/profile/presentation/view/profile_view.dart';
 import 'package:flower_app/features/app_sections/profile/presentation/view_model/cubit/profile_cubit.dart';
 import 'package:flower_app/features/app_sections/profile/presentation/view_model/intent/profile_intent.dart';
-import 'package:flower_app/features/change_password/presentation/view/change_password_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../config/di/di.dart';
 import '../../l10n/app_localizations.dart';
-import '../change_password/presentation/view_model/cubit/change_password_cubit.dart';
 import 'home/presentation/view/home_view.dart';
 
 class AppSections extends StatefulWidget {

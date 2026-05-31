@@ -80,6 +80,9 @@ abstract class AppTheme {
             foregroundColor: AppColors.whiteColor,
             elevation: 0,
             textStyle: AppTextStyles.textStyleMedium16,
+            disabledBackgroundColor: AppColors.primaryColor.withValues(
+              alpha: 0.6,
+            ),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(50),
             ),
