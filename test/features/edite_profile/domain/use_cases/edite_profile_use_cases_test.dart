@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:flower_app/config/base_response/base_response.dart';
-import 'package:flower_app/features/edite_profile/domain/entities/user_profile_entity.dart';
-import 'package:flower_app/features/edite_profile/domain/repositories/edite_profile_repo_contract.dart';
-import 'package:flower_app/features/edite_profile/domain/use_cases/edit_profile_use_case.dart';
-import 'package:flower_app/features/edite_profile/domain/use_cases/get_profile_use_case.dart';
-import 'package:flower_app/features/edite_profile/domain/use_cases/upload_profile_photo_use_case.dart';
+import 'package:flower_app/features/edit_profile/domain/entities/user_profile_entity.dart';
+import 'package:flower_app/features/edit_profile/domain/repositories/edit_profile_repo_contract.dart';
+import 'package:flower_app/features/edit_profile/domain/use_cases/edit_profile_use_case.dart';
+import 'package:flower_app/features/edit_profile/domain/use_cases/get_profile_use_case.dart';
+import 'package:flower_app/features/edit_profile/domain/use_cases/upload_profile_photo_use_case.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-class _FakeEditeProfileRepo implements EditeProfileRepoContract {
+class _FakeEditeProfileRepo implements EditProfileRepoContract {
   BaseResponse<UserProfileEntity>? getProfileResponse;
   BaseResponse<UserProfileEntity>? editProfileResponse;
   BaseResponse<UserProfileEntity>? uploadPhotoResponse;

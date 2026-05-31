@@ -1,22 +1,22 @@
 import 'dart:io';
 
 import 'package:flower_app/config/base_response/base_response.dart';
-import 'package:flower_app/features/edite_profile/domain/entities/edit_profile_body.dart';
-import 'package:flower_app/features/edite_profile/domain/entities/user_profile_entity.dart';
-import 'package:flower_app/features/edite_profile/domain/repositories/edite_profile_repo_contract.dart';
-import 'package:flower_app/features/edite_profile/domain/use_cases/edit_profile_use_case.dart';
-import 'package:flower_app/features/edite_profile/domain/use_cases/get_profile_use_case.dart';
-import 'package:flower_app/features/edite_profile/domain/use_cases/upload_profile_photo_use_case.dart';
-import 'package:flower_app/features/edite_profile/presentation/view_model/cubit/edite_profile_cubit.dart';
-import 'package:flower_app/features/edite_profile/presentation/view_model/intent/edite_profile_intent.dart';
-import 'package:flower_app/features/edite_profile/presentation/view_model/state/edite_profile_state.dart';
+import 'package:flower_app/features/edit_profile/domain/entities/edit_profile_body.dart';
+import 'package:flower_app/features/edit_profile/domain/entities/user_profile_entity.dart';
+import 'package:flower_app/features/edit_profile/domain/repositories/edit_profile_repo_contract.dart';
+import 'package:flower_app/features/edit_profile/domain/use_cases/edit_profile_use_case.dart';
+import 'package:flower_app/features/edit_profile/domain/use_cases/get_profile_use_case.dart';
+import 'package:flower_app/features/edit_profile/domain/use_cases/upload_profile_photo_use_case.dart';
+import 'package:flower_app/features/edit_profile/presentation/view_model/cubit/edit_profile_cubit.dart';
+import 'package:flower_app/features/edit_profile/presentation/view_model/intent/edit_profile_intent.dart';
+import 'package:flower_app/features/edit_profile/presentation/view_model/state/edit_profile_state.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 class _MockSecureStorage extends Mock implements FlutterSecureStorage {}
 
-class _FakeEditeProfileRepo implements EditeProfileRepoContract {
+class _FakeEditeProfileRepo implements EditProfileRepoContract {
   BaseResponse<UserProfileEntity>? getProfileResponse;
   BaseResponse<UserProfileEntity>? editProfileResponse;
   BaseResponse<UserProfileEntity>? uploadPhotoResponse;
@@ -50,7 +50,7 @@ void main() {
     late GetProfileUseCase getProfileUseCase;
     late EditProfileUseCase editProfileUseCase;
     late UploadProfilePhotoUseCase uploadProfilePhotoUseCase;
-    late EditeProfileCubit cubit;
+    late EditProfileCubit cubit;
     late _MockSecureStorage mockSecureStorage;
 
     final dummyUser = UserEntity(
@@ -80,7 +80,7 @@ void main() {
       getProfileUseCase = GetProfileUseCase(fakeRepo);
       editProfileUseCase = EditProfileUseCase(fakeRepo);
       uploadProfilePhotoUseCase = UploadProfilePhotoUseCase(fakeRepo);
-      cubit = EditeProfileCubit(
+      cubit = EditProfileCubit(
         getProfileUseCase,
         editProfileUseCase,
         uploadProfilePhotoUseCase,
@@ -93,7 +93,7 @@ void main() {
     });
 
     test('initial state has correct default values', () {
-      expect(cubit.state.status, EditeProfileStatus.initial);
+      expect(cubit.state.status, EditProfileStatus.initial);
       expect(cubit.state.user, isNull);
       expect(cubit.state.errorMessage, isNull);
       expect(cubit.state.successMessage, isNull);
@@ -118,7 +118,7 @@ void main() {
     test('FetchProfileIntent emits [loading, success] on success', () async {
       fakeRepo.getProfileResponse = SuccessBaseResponse(data: dummyProfile);
 
-      final emitted = <EditeProfileState>[];
+      final emitted = <EditProfileState>[];
       final sub = cubit.stream.listen(emitted.add);
 
       cubit.handleIntent(const FetchProfileIntent());
@@ -126,8 +126,8 @@ void main() {
       await sub.cancel();
 
       expect(emitted, hasLength(2));
-      expect(emitted[0].status, EditeProfileStatus.loading);
-      expect(emitted[1].status, EditeProfileStatus.success);
+      expect(emitted[0].status, EditProfileStatus.loading);
+      expect(emitted[1].status, EditProfileStatus.success);
       expect(emitted[1].user, dummyUser);
     });
 
@@ -136,7 +136,7 @@ void main() {
         errorMessage: 'Network error',
       );
 
-      final emitted = <EditeProfileState>[];
+      final emitted = <EditProfileState>[];
       final sub = cubit.stream.listen(emitted.add);
 
       cubit.handleIntent(const FetchProfileIntent());
@@ -144,8 +144,8 @@ void main() {
       await sub.cancel();
 
       expect(emitted, hasLength(2));
-      expect(emitted[0].status, EditeProfileStatus.loading);
-      expect(emitted[1].status, EditeProfileStatus.error);
+      expect(emitted[0].status, EditProfileStatus.loading);
+      expect(emitted[1].status, EditProfileStatus.error);
       expect(emitted[1].errorMessage, 'Network error');
     });
 
@@ -189,7 +189,7 @@ void main() {
           data: UserProfileEntity(message: 'success', user: updatedUser),
         );
 
-        final emitted = <EditeProfileState>[];
+        final emitted = <EditProfileState>[];
         final sub = cubit.stream.listen(emitted.add);
 
         cubit.handleIntent(UploadPhotoIntent(File('test.png')));
@@ -197,7 +197,7 @@ void main() {
         await sub.cancel();
 
         expect(fakeRepo.getProfileCalls, 2);
-        expect(emitted.last.status, EditeProfileStatus.success);
+        expect(emitted.last.status, EditProfileStatus.success);
         expect(emitted.last.user?.photo, 'https://example.com/new_photo.jpg');
         expect(emitted.last.localPhotoFile, isNull);
       },
@@ -229,7 +229,7 @@ void main() {
           data: finalProfileResponse,
         );
 
-        final emitted = <EditeProfileState>[];
+        final emitted = <EditProfileState>[];
         final sub = cubit.stream.listen(emitted.add);
 
         cubit.handleIntent(const SubmitProfileUpdateIntent());
@@ -243,8 +243,8 @@ void main() {
           'gender': 'male',
         });
         expect(emitted, hasLength(2));
-        expect(emitted[0].status, EditeProfileStatus.loading);
-        expect(emitted[1].status, EditeProfileStatus.success);
+        expect(emitted[0].status, EditProfileStatus.loading);
+        expect(emitted[1].status, EditProfileStatus.success);
         expect(emitted[1].user?.firstName, 'Bob');
         expect(emitted[1].user?.lastName, 'Jones');
         expect(emitted[1].successMessage, 'Profile updated successfully');
@@ -317,7 +317,7 @@ void main() {
       cubit.handleIntent(const SubmitProfileUpdateIntent());
       await Future<void>.delayed(Duration.zero);
 
-      expect(cubit.state.status, EditeProfileStatus.error);
+      expect(cubit.state.status, EditProfileStatus.error);
       expect(cubit.state.errorMessage, 'No changes to save');
       expect(fakeRepo.lastEditBody, isNull);
     });
@@ -331,7 +331,7 @@ void main() {
       cubit.handleIntent(const SubmitProfileUpdateIntent());
       await Future<void>.delayed(Duration.zero);
 
-      expect(cubit.state.status, EditeProfileStatus.error);
+      expect(cubit.state.status, EditProfileStatus.error);
       expect(cubit.state.errorMessage, 'Please enter a valid email address');
       expect(fakeRepo.lastEditBody, isNull);
     });
