@@ -114,6 +114,7 @@
   "change": "تغيير",
   "currentPassword": "كلمة المرور الحالية",
   "confirmLogout": "تأكيد تسجيل الخروج!!",
+  "logout": "تسجيل الخروج",
   "cancel": "إلغاء",
   "loading": "جاري التحميل",
   "storeCacheExceptionMessage": "فشل في تخزين البيانات محلياً، يرجى المحاولة لاحقاً",

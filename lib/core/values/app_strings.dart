@@ -37,6 +37,8 @@ abstract class AppStrings {
       'Creating an account, you agree to our';
   static const String termsAndConditions = 'Terms&Conditions';
   static const String signUpSuccessMessage = 'Sign up successfully';
+  static const String changePasswordSuccess = 'Password changed successfully';
+  static const String changePasswordError = 'Failed to change password';
   static const String enterEmail =
       'Please enter your email associated to\nyour account';
   static const String alreadyHaveAnAccount = 'Already have an account?';
@@ -50,6 +52,9 @@ abstract class AppStrings {
   static const String verifyButton = 'Didn\'t receive code? ';
   static const String resendButton = 'Resend';
   static const String resetPassword = 'Reset password';
+  static const String editProfile = 'Edit profile';
+  static const String updateProfile = 'Update';
+
   static const String resetPasswordHint =
       'Password must not be empty and must contain \n 6 characters with upper case letter and one \n number at least ';
   static const String newPassword = 'New Password';
@@ -128,6 +133,7 @@ abstract class AppStrings {
   static const String change = 'Change';
   static const String currentPassword = 'Current password';
   static const String confirmLogout = 'Confirm logout!!';
+  static const String logout = 'Logout';
   static const String cancel = 'Cancel';
   static const String loading = 'Loading';
 
