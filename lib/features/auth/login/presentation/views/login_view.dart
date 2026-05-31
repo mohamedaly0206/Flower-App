@@ -59,7 +59,8 @@ class _LoginViewState extends State<LoginView> {
                 children: [
                   TextFormField(
                     controller: _emailController,
-                    validator: AppValidators.validateEmail,
+                    validator: (value) =>
+                        AppValidators.validateEmail(context, value),
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       hintText: AppLocalizations.of(context)!.email,
@@ -214,7 +215,7 @@ class _PasswordField extends StatelessWidget {
       builder: (context, state) {
         return TextFormField(
           controller: controller,
-          validator: AppValidators.validatePassword,
+          validator: (value) => AppValidators.validatePassword(context, value),
           obscureText: state.obscurePassword,
           textInputAction: TextInputAction.done,
           onFieldSubmitted: (_) => onSubmitted(),

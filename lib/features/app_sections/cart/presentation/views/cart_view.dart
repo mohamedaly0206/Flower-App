@@ -4,7 +4,7 @@ import 'package:flower_app/core/widgets/custom_app_bar.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/view_model/cubit/cart_cubit.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/view_model/state/cart_state.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/widgets/cart_item.dart';
-import 'package:flower_app/features/app_sections/cart/presentation/widgets/checkout_totals.dart';
+import 'package:flower_app/features/app_sections/cart/presentation/widgets/cart_checkout_prices.dart';
 import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +15,22 @@ class CartView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CartCubit, CartState>(
+    final appLocalizations = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+
+    final itemCount = context.select<CartCubit, int>(
+      (cubit) => cubit.state.itemCount,
+    );
+
+    final appBarTitle = itemCount > 0
+        ? '${appLocalizations.cart} ($itemCount ${appLocalizations.items})'
+        : appLocalizations.cart;
+
+    return BlocListener<CartCubit, CartState>(
+      listenWhen: (previous, current) =>
+          previous.removeItemFromCartState != current.removeItemFromCartState ||
+          previous.updateItemQuantityInCartState !=
+              current.updateItemQuantityInCartState,
       listener: (context, state) {
         if (state.removeItemFromCartState?.errorMessage != null) {
           AppMessages.showError(
@@ -30,128 +45,111 @@ class CartView extends StatelessWidget {
           );
         }
       },
-      builder: (context, state) {
-        final getCartState = state.getCartItemsState;
-        final cartResponse = getCartState?.data;
-        final cartData = cartResponse?.cart;
-        final cartItems = cartData?.cartItems ?? [];
-        final itemCount = cartResponse?.numOfCartItems ?? 0;
-        double subTotal = 0.0;
-        for (var item in cartItems) {
-          final price =
-              item.product?.priceAfterDiscount ?? item.product?.price ?? 0;
-          final quantity = item.quantity ?? 1;
-          subTotal += (price * quantity);
-        }
-        //if u need to get the subTotal from the cartResponse
-        // final subTotal = cartData?.totalPriceAfterDiscount ?? 0.0;
-        const deliveryFee = 10.0;
-        final total = subTotal + deliveryFee;
-        String appBarTitle = itemCount > 0
-            ? '${AppLocalizations.of(context)!.cart} ($itemCount ${AppLocalizations.of(context)!.items})'
-            : AppLocalizations.of(context)!.cart;
+      child: Scaffold(
+        appBar: CustomAppBar(title: appBarTitle, hasBackButton: false),
+        body: BlocBuilder<CartCubit, CartState>(
+          buildWhen: (previous, current) =>
+              previous.getCartItemsState != current.getCartItemsState,
+          builder: (context, state) {
+            if (state.getCartItemsState?.isLoading == true &&
+                state.isCartEmpty) {
+              return Center(
+                child: SpinKitFadingCircle(color: theme.colorScheme.primary),
+              );
+            }
 
-        return Scaffold(
-          appBar: CustomAppBar(title: appBarTitle, hasBackButton: false),
-          body: state.getCartItemsState!.isLoading && cartItems.isEmpty
-              ? Center(
-                  child: SpinKitFadingCircle(
-                    color: Theme.of(context).colorScheme.primary,
+            if (state.getCartItemsState?.errorMessage != null &&
+                state.isCartEmpty) {
+              return Center(
+                child: Text(
+                  state.getCartItemsState!.errorMessage ??
+                      appLocalizations.errorMessage,
+                  style: theme.textTheme.displayLarge!.copyWith(
+                    color: theme.colorScheme.primary,
                   ),
-                )
-              : state.getCartItemsState!.errorMessage != null &&
-                    cartItems.isNotEmpty
-              ? Center(
-                  child: Text(
-                    getCartState!.errorMessage ??
-                        AppLocalizations.of(context)!.errorMessage,
-                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                )
-              : cartItems.isEmpty
-              ? Center(
-                  child: Text(
-                    AppLocalizations.of(context)!.emptyCart,
-                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                )
-              : Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Column(
-                    children: [
-                      const AddressWidget(),
-                      const SizedBox(height: 16),
-                      Expanded(
-                        child: cartItems.isEmpty
-                            ? Center(
-                                child: Text(AppLocalizations.of(context)!.cart),
-                              )
-                            : ListView.builder(
-                                itemCount: cartItems.length,
-                                itemBuilder: (context, index) {
-                                  final item = cartItems[index];
-                                  final product = item.product;
+                  textAlign: TextAlign.center,
+                ),
+              );
+            }
 
-                                  return CartItem(
-                                    productId: product?.id ?? '',
-                                    title: product?.title ?? '',
-                                    subtitle: product?.description ?? '',
-                                    imageUrl: product?.imageCover ?? '',
-                                    price: product?.priceAfterDiscount ?? 0,
-                                    quantity: item.quantity ?? 0,
-                                  );
-                                },
-                              ),
-                      ),
-                      if (cartItems.isNotEmpty)
-                        Container(
-                          padding: const EdgeInsets.only(top: 16, bottom: 30),
-                          child: Column(
-                            children: [
-                              CheckoutTotals(
-                                title: AppLocalizations.of(context)!.subTotal,
-                                value: '$subTotal\$',
-                              ),
-                              const SizedBox(height: 12),
-                              CheckoutTotals(
-                                title: AppLocalizations.of(
-                                  context,
-                                )!.deliveryFee,
-                                value: '$deliveryFee\$',
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(vertical: 16.0),
-                                child: Divider(thickness: 1, height: 1),
-                              ),
-                              CheckoutTotals(
-                                title: AppLocalizations.of(context)!.total,
-                                value: '$total\$',
-                                isTotal: true,
-                              ),
-                              const SizedBox(height: 24),
-                              SizedBox(
-                                width: double.infinity,
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    AppLocalizations.of(context)!.checkout,
-                                  ),
-                                ),
-                              ),
-                            ],
+            if (state.isCartEmpty) {
+              return Center(
+                child: Text(
+                  appLocalizations.emptyCart,
+                  style: theme.textTheme.displayLarge!.copyWith(
+                    color: theme.colorScheme.primary,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            }
+
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                children: [
+                  const AddressWidget(),
+                  const SizedBox(height: 16),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: state.cartItems.length,
+                      itemBuilder: (context, index) {
+                        final item = state.cartItems[index];
+                        final product = item.product;
+
+                        return CartItem(
+                          productId: product?.id ?? '',
+                          title: product?.title ?? '',
+                          subtitle: product?.description ?? '',
+                          imageUrl: product?.imageCover ?? '',
+                          price:
+                              product?.priceAfterDiscount ??
+                              product?.price ??
+                              0,
+                          quantity: item.quantity ?? 0,
+                        );
+                      },
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(top: 16, bottom: 30),
+                    child: Column(
+                      children: [
+                        CartCheckoutPrices(
+                          title: appLocalizations.subTotal,
+                          value: '${state.subTotal}\$',
+                        ),
+                        const SizedBox(height: 12),
+                        CartCheckoutPrices(
+                          title: appLocalizations.deliveryFee,
+                          value: '${state.deliveryFee}\$',
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 16.0),
+                          child: Divider(thickness: 1, height: 1),
+                        ),
+                        CartCheckoutPrices(
+                          title: appLocalizations.total,
+                          value: '${state.totalPrice}\$',
+                          isTotal: true,
+                        ),
+                        const SizedBox(height: 24),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: Text(appLocalizations.checkout),
                           ),
                         ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-        );
-      },
+                ],
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }

@@ -40,7 +40,7 @@ class ForgetPasswordEmailView extends StatelessWidget {
                 labelText: AppLocalizations.of(context)!.email,
                 hintText: AppLocalizations.of(context)!.enterYourEmail,
               ),
-              validator: AppValidators.validateEmail,
+              validator: (value) => AppValidators.validateEmail(context, value),
               controller: emailController,
             ),
             SizedBox(height: 48),

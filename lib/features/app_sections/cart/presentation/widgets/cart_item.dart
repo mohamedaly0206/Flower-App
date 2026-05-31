@@ -3,17 +3,20 @@ import 'package:flower_app/core/values/assets.gen.dart';
 import 'package:flower_app/features/app_sections/cart/data/models/request/update_cart_item_quantity_request.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/view_model/cubit/cart_cubit.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/view_model/intent/cart_intent.dart';
+import 'package:flower_app/features/app_sections/cart/presentation/view_model/state/cart_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CartItem extends StatefulWidget {
+class CartItem extends StatelessWidget {
   final String productId;
   final String title;
   final String subtitle;
   final String imageUrl;
   final num price;
   final int quantity;
+
   const CartItem({
     super.key,
     required this.productId,
@@ -24,11 +27,6 @@ class CartItem extends StatefulWidget {
     required this.quantity,
   });
 
-  @override
-  State<CartItem> createState() => _CartItemState();
-}
-
-class _CartItemState extends State<CartItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,7 +48,7 @@ class _CartItemState extends State<CartItem> {
               color: Theme.of(context).colorScheme.secondary,
               borderRadius: BorderRadius.circular(8),
               image: DecorationImage(
-                image: CachedNetworkImageProvider(widget.imageUrl),
+                image: CachedNetworkImageProvider(imageUrl),
                 fit: BoxFit.cover,
                 onError: (error, stackTrace) => Icon(
                   Icons.image_not_supported_outlined,
@@ -72,37 +70,55 @@ class _CartItemState extends State<CartItem> {
                     children: [
                       Expanded(
                         child: Text(
-                          widget.title,
+                          title,
                           style: Theme.of(context).textTheme.headlineMedium,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      SizedBox(width: 8),
-                      InkWell(
-                        onTap: () {
-                          context.read<CartCubit>().cartIntentHandler(
-                            RemoveItemFromCartIntent(
-                              productId: widget.productId,
-                            ),
+                      const SizedBox(width: 8),
+                      // --- DELETE BUTTON ---
+                      BlocBuilder<CartCubit, CartState>(
+                        builder: (context, state) {
+                          // Check global state if THIS item is being deleted
+                          final isDeleteLoading = state.deletingProductIds
+                              .contains(productId);
+
+                          return InkWell(
+                            onTap: isDeleteLoading
+                                ? null // Disable tap while loading
+                                : () {
+                                    context.read<CartCubit>().cartIntentHandler(
+                                      RemoveItemFromCartIntent(
+                                        productId: productId,
+                                      ),
+                                    );
+                                  },
+                            child: isDeleteLoading
+                                ? SpinKitFadingCircle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.primary,
+                                    size: 20,
+                                  )
+                                : SvgPicture.asset(
+                                    Assets.icons.deleteIcon,
+                                    width: 20,
+                                    height: 20,
+                                    colorFilter: ColorFilter.mode(
+                                      Theme.of(context).colorScheme.error,
+                                      BlendMode.srcIn,
+                                    ),
+                                  ),
                           );
                         },
-                        child: SvgPicture.asset(
-                          Assets.icons.deleteIcon,
-                          width: 20,
-                          height: 20,
-                          colorFilter: ColorFilter.mode(
-                            Theme.of(context).colorScheme.error,
-                            BlendMode.srcIn,
-                          ),
-                        ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 4),
                   // Subtitle
                   Text(
-                    widget.subtitle,
+                    subtitle,
                     style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                       color: Theme.of(context).colorScheme.onInverseSurface,
                     ),
@@ -113,48 +129,73 @@ class _CartItemState extends State<CartItem> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '\$${widget.price.toInt()}',
+                        '\$${price.toInt()}',
                         style: Theme.of(context).textTheme.displayLarge!
                             .copyWith(fontWeight: FontWeight.w600),
                       ),
-                      Row(
-                        children: [
-                          CountItem(
-                            onTap: () {
-                              if (widget.quantity > 1) {
-                                context.read<CartCubit>().cartIntentHandler(
-                                  UpdateCartItemQuantityIntent(
-                                    productId: widget.productId,
-                                    quantity: UpdateCartQuantityRequest(
-                                      quantity: widget.quantity - 1,
+                      // --- QUANTITY CONTROLS ---
+                      BlocBuilder<CartCubit, CartState>(
+                        builder: (context, state) {
+                          // Check global state if THIS item's quantity is updating
+                          final isQuantityLoading = state.updatingProductIds
+                              .contains(productId);
+
+                          return Row(
+                            children: [
+                              CountItem(
+                                onTap: () {
+                                  if (quantity > 1 && !isQuantityLoading) {
+                                    context.read<CartCubit>().cartIntentHandler(
+                                      UpdateCartItemQuantityIntent(
+                                        productId: productId,
+                                        quantity: UpdateCartQuantityRequest(
+                                          quantity: quantity - 1,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
+                                iconPath: Assets.icons.removeIcon,
+                              ),
+                              const SizedBox(width: 4),
+                              isQuantityLoading
+                                  ? SpinKitFadingCircle(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
+                                      size: 15,
+                                    )
+                                  : Text(
+                                      quantity.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayLarge!
+                                          .copyWith(
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                     ),
-                                  ),
-                                );
-                              }
-                            },
-                            iconPath: Assets.icons.removeIcon,
-                          ),
-                          const SizedBox(width: 4),
-                          Text(
-                            widget.quantity.toString(),
-                            style: Theme.of(context).textTheme.displayLarge!
-                                .copyWith(fontWeight: FontWeight.w600),
-                          ),
-                          const SizedBox(width: 4),
-                          CountItem(
-                            onTap: () {
-                              context.read<CartCubit>().cartIntentHandler(
-                                UpdateCartItemQuantityIntent(
-                                  productId: widget.productId,
-                                  quantity: UpdateCartQuantityRequest(
-                                    quantity: widget.quantity + 1,
-                                  ),
-                                ),
-                              );
-                            },
-                            iconPath: Assets.icons.addIcon,
-                          ),
-                        ],
+                              const SizedBox(width: 4),
+                              CountItem(
+                                onTap: isQuantityLoading
+                                    ? () {}
+                                    : () {
+                                        context
+                                            .read<CartCubit>()
+                                            .cartIntentHandler(
+                                              UpdateCartItemQuantityIntent(
+                                                productId: productId,
+                                                quantity:
+                                                    UpdateCartQuantityRequest(
+                                                      quantity: quantity + 1,
+                                                    ),
+                                              ),
+                                            );
+                                      },
+                                iconPath: Assets.icons.addIcon,
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ],
                   ),

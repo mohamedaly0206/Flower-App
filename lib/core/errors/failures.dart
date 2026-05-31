@@ -1,26 +1,6 @@
 import 'package:dio/dio.dart';
-import '../../l10n/app_localizations.dart';
-import '../router/app_router.dart';
+import '../values/app_strings.dart';
 import 'exceptions.dart';
-
-/// A safe helper to retrieve localizations that won't crash during unit tests
-/// or when the context isn't fully initialized yet.
-String _getTranslation(
-  String Function(AppLocalizations) selector, [
-  String fallback = 'Something went wrong, please try again later',
-]) {
-  try {
-    final context = navigatorKey.currentContext;
-    if (context == null) return fallback;
-
-    final loc = AppLocalizations.of(context);
-    if (loc == null) return fallback;
-
-    return selector(loc);
-  } catch (_) {
-    return fallback;
-  }
-}
 
 abstract class Failure {
   final String errorMessage;
@@ -35,39 +15,37 @@ class ServerFailure extends Failure {
     if (e is DioException) {
       return ServerFailure.fromDioException(e);
     } else {
-      return ServerFailure(
-        _getTranslation((loc) => loc.errorMessage),
-      );
+      return ServerFailure(AppStrings.errorMessage);
     }
   }
 
   factory ServerFailure.fromDioException(DioException exception) {
     switch (exception.type) {
       case DioExceptionType.connectionTimeout:
-        return ServerFailure(_getTranslation((loc) => loc.serverConnTimeout));
+        return ServerFailure(AppStrings.serverConnTimeout);
       case DioExceptionType.sendTimeout:
-        return ServerFailure(_getTranslation((loc) => loc.serverSendTimeout));
+        return ServerFailure(AppStrings.serverSendTimeout);
       case DioExceptionType.receiveTimeout:
-        return ServerFailure(_getTranslation((loc) => loc.serverRecTimeout));
+        return ServerFailure(AppStrings.serverRecTimeout);
       case DioExceptionType.badCertificate:
-        return ServerFailure(_getTranslation((loc) => loc.serverCertError));
+        return ServerFailure(AppStrings.serverCertError);
       case DioExceptionType.badResponse:
         return ServerFailure.fromResponse(
           exception.response?.statusCode,
           exception.response?.data,
         );
       case DioExceptionType.cancel:
-        return ServerFailure(_getTranslation((loc) => loc.serverCancel));
+        return ServerFailure(AppStrings.serverCancel);
       case DioExceptionType.connectionError:
-        return ServerFailure(_getTranslation((loc) => loc.serverConnError));
+        return ServerFailure(AppStrings.serverConnError);
       case DioExceptionType.unknown:
-        return ServerFailure(_getTranslation((loc) => loc.serverNoInternet));
+        return ServerFailure(AppStrings.serverNoInternet);
     }
   }
 
   factory ServerFailure.fromResponse(int? statusCode, dynamic response) {
     if (statusCode == null) {
-      return ServerFailure(_getTranslation((loc) => loc.serverDefaultError));
+      return ServerFailure(AppStrings.serverDefaultError);
     }
 
     switch (statusCode) {
@@ -75,33 +53,29 @@ class ServerFailure extends Failure {
       case 401:
       case 403:
         final String errorMessageRes =
-            response?['message'] ??
-                response?['error'] ??
-                _getTranslation((loc) => loc.errorMessage);
+            response?['message'] ?? AppStrings.errorMessage;
         return ServerFailure(errorMessageRes);
 
       case 404:
-        return ServerFailure(_getTranslation((loc) => loc.serverNotFound));
+        return ServerFailure(AppStrings.serverNotFound);
 
       case 409:
         final message =
-            response?['message']?.toString() ?? _getTranslation((loc) => loc.errorMessage);
+            response?['message']?.toString() ?? AppStrings.errorMessage;
         return ServerFailure(message);
 
       case 500:
-        return ServerFailure(_getTranslation((loc) => loc.serverInternalError));
+        return ServerFailure(AppStrings.serverInternalError);
 
       default:
-        return ServerFailure(_getTranslation((loc) => loc.serverDefaultError));
+        return ServerFailure(AppStrings.serverDefaultError);
     }
   }
 }
 
 class CacheFailure extends Failure {
   CacheFailure(Object e)
-      : super(
-          e is CacheException
-              ? e.errorMessage
-              : _getTranslation((loc) => loc.cacheStorageError, 'Cache storage error'),
-        );
+    : super(
+        e is CacheException ? e.errorMessage : AppStrings.cacheStorageError,
+      );
 }

@@ -3,21 +3,19 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i3;
 
-import 'package:flower_app/config/base_response/base_response.dart' as _i5;
+import 'package:flower_app/config/base_response/base_response.dart' as _i4;
 import 'package:flower_app/features/app_sections/cart/data/data_sources/cart_remote_data_source_contract.dart'
-    as _i3;
-import 'package:flower_app/features/app_sections/cart/data/models/request/add_to_cart_request.dart'
-    as _i8;
-import 'package:flower_app/features/app_sections/cart/data/models/request/update_cart_item_quantity_request.dart'
-    as _i9;
-import 'package:flower_app/features/app_sections/cart/data/models/response/cart_response_dto.dart'
-    as _i6;
-import 'package:flower_app/features/app_sections/cart/domain/entities/cart_response_entity.dart'
     as _i2;
+import 'package:flower_app/features/app_sections/cart/data/models/request/add_to_cart_request.dart'
+    as _i7;
+import 'package:flower_app/features/app_sections/cart/data/models/request/update_cart_item_quantity_request.dart'
+    as _i8;
+import 'package:flower_app/features/app_sections/cart/data/models/response/cart_response_dto.dart'
+    as _i5;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i7;
+import 'package:mockito/src/dummies.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -34,77 +32,71 @@ import 'package:mockito/src/dummies.dart' as _i7;
 // ignore_for_file: subtype_of_sealed_class
 // ignore_for_file: invalid_use_of_internal_member
 
-class _FakeCartResponseEntity_0 extends _i1.SmartFake
-    implements _i2.CartResponseEntity {
-  _FakeCartResponseEntity_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
-}
-
 /// A class which mocks [CartRemoteDataSourceContract].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockCartRemoteDataSourceContract extends _i1.Mock
-    implements _i3.CartRemoteDataSourceContract {
+    implements _i2.CartRemoteDataSourceContract {
   MockCartRemoteDataSourceContract() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<_i5.BaseResponse<_i6.CartResponseDto>> getCartItems() =>
+  _i3.Future<_i4.BaseResponse<_i5.CartResponseDto>> getCartItems() =>
       (super.noSuchMethod(
             Invocation.method(#getCartItems, []),
             returnValue:
-                _i4.Future<_i5.BaseResponse<_i6.CartResponseDto>>.value(
-                  _i7.dummyValue<_i5.BaseResponse<_i6.CartResponseDto>>(
+                _i3.Future<_i4.BaseResponse<_i5.CartResponseDto>>.value(
+                  _i6.dummyValue<_i4.BaseResponse<_i5.CartResponseDto>>(
                     this,
                     Invocation.method(#getCartItems, []),
                   ),
                 ),
           )
-          as _i4.Future<_i5.BaseResponse<_i6.CartResponseDto>>);
+          as _i3.Future<_i4.BaseResponse<_i5.CartResponseDto>>);
 
   @override
-  _i4.Future<_i5.BaseResponse<_i6.CartResponseDto>> addItemToCart(
-    _i8.AddToCartRequest? request,
+  _i3.Future<_i4.BaseResponse<_i5.CartResponseDto>> addItemToCart(
+    _i7.AddToCartRequest? request,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#addItemToCart, [request]),
             returnValue:
-                _i4.Future<_i5.BaseResponse<_i6.CartResponseDto>>.value(
-                  _i7.dummyValue<_i5.BaseResponse<_i6.CartResponseDto>>(
+                _i3.Future<_i4.BaseResponse<_i5.CartResponseDto>>.value(
+                  _i6.dummyValue<_i4.BaseResponse<_i5.CartResponseDto>>(
                     this,
                     Invocation.method(#addItemToCart, [request]),
                   ),
                 ),
           )
-          as _i4.Future<_i5.BaseResponse<_i6.CartResponseDto>>);
+          as _i3.Future<_i4.BaseResponse<_i5.CartResponseDto>>);
 
   @override
-  _i4.Future<_i5.BaseResponse<_i6.CartResponseDto>> removeItemFromCart(
+  _i3.Future<_i4.BaseResponse<_i5.CartResponseDto>> removeItemFromCart(
     String? productId,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#removeItemFromCart, [productId]),
             returnValue:
-                _i4.Future<_i5.BaseResponse<_i6.CartResponseDto>>.value(
-                  _i7.dummyValue<_i5.BaseResponse<_i6.CartResponseDto>>(
+                _i3.Future<_i4.BaseResponse<_i5.CartResponseDto>>.value(
+                  _i6.dummyValue<_i4.BaseResponse<_i5.CartResponseDto>>(
                     this,
                     Invocation.method(#removeItemFromCart, [productId]),
                   ),
                 ),
           )
-          as _i4.Future<_i5.BaseResponse<_i6.CartResponseDto>>);
+          as _i3.Future<_i4.BaseResponse<_i5.CartResponseDto>>);
 
   @override
-  _i4.Future<_i5.BaseResponse<_i6.CartResponseDto>> updateCartItemQuantity(
+  _i3.Future<_i4.BaseResponse<_i5.CartResponseDto>> updateCartItemQuantity(
     String? productId,
-    _i9.UpdateCartQuantityRequest? request,
+    _i8.UpdateCartQuantityRequest? request,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#updateCartItemQuantity, [productId, request]),
             returnValue:
-                _i4.Future<_i5.BaseResponse<_i6.CartResponseDto>>.value(
-                  _i7.dummyValue<_i5.BaseResponse<_i6.CartResponseDto>>(
+                _i3.Future<_i4.BaseResponse<_i5.CartResponseDto>>.value(
+                  _i6.dummyValue<_i4.BaseResponse<_i5.CartResponseDto>>(
                     this,
                     Invocation.method(#updateCartItemQuantity, [
                       productId,
@@ -113,43 +105,5 @@ class MockCartRemoteDataSourceContract extends _i1.Mock
                   ),
                 ),
           )
-          as _i4.Future<_i5.BaseResponse<_i6.CartResponseDto>>);
-}
-
-/// A class which mocks [CartResponseDto].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockCartResponseDto extends _i1.Mock implements _i6.CartResponseDto {
-  MockCartResponseDto() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  Map<String, dynamic> toJson() =>
-      (super.noSuchMethod(
-            Invocation.method(#toJson, []),
-            returnValue: <String, dynamic>{},
-          )
-          as Map<String, dynamic>);
-
-  @override
-  _i2.CartResponseEntity toDomain() =>
-      (super.noSuchMethod(
-            Invocation.method(#toDomain, []),
-            returnValue: _FakeCartResponseEntity_0(
-              this,
-              Invocation.method(#toDomain, []),
-            ),
-          )
-          as _i2.CartResponseEntity);
-}
-
-/// A class which mocks [CartResponseEntity].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockCartResponseEntity extends _i1.Mock
-    implements _i2.CartResponseEntity {
-  MockCartResponseEntity() {
-    _i1.throwOnMissingStub(this);
-  }
+          as _i3.Future<_i4.BaseResponse<_i5.CartResponseDto>>);
 }

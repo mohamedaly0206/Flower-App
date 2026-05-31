@@ -19,9 +19,7 @@ void main() {
 
   setUpAll(() {
     provideDummy<BaseResponse<CartResponseDto>>(
-      SuccessBaseResponse<CartResponseDto>(
-        data: CartResponseDto(), 
-      ),
+      SuccessBaseResponse<CartResponseDto>(data: CartResponseDto()),
     );
   });
 
@@ -31,8 +29,11 @@ void main() {
   });
 
   const tProductId = 'product_id_123';
-  final tCartResponseDto = CartResponseDto(); 
-  final tAddToCartRequest = AddToCartRequest(productId: tProductId, quantity: 1);
+  final tCartResponseDto = CartResponseDto();
+  final tAddToCartRequest = AddToCartRequest(
+    productId: tProductId,
+    quantity: 1,
+  );
   final tUpdateCartQuantityRequest = UpdateCartQuantityRequest(quantity: 5);
   const tFallbackErrorMessage = 'Something went wrong, please try again later';
 
@@ -41,8 +42,9 @@ void main() {
       'should return SuccessBaseResponse when the API call is successful',
       () async {
         // Arrange
-        when(mockApiClient.addItemToCart(any))
-            .thenAnswer((_) async => tCartResponseDto);
+        when(
+          mockApiClient.addItemToCart(any),
+        ).thenAnswer((_) async => tCartResponseDto);
 
         // Act
         final result = await dataSource.addItemToCart(tAddToCartRequest);
@@ -60,8 +62,9 @@ void main() {
       'should return ErrorBaseResponse with custom fallback message when API throws an Exception',
       () async {
         // Arrange
-        when(mockApiClient.addItemToCart(any))
-            .thenThrow(Exception('Server connection failed'));
+        when(
+          mockApiClient.addItemToCart(any),
+        ).thenThrow(Exception('Server connection failed'));
 
         // Act
         final result = await dataSource.addItemToCart(tAddToCartRequest);
@@ -79,8 +82,9 @@ void main() {
       'should return SuccessBaseResponse when fetching cart items is successful',
       () async {
         // Arrange
-        when(mockApiClient.getCartItems())
-            .thenAnswer((_) async => tCartResponseDto);
+        when(
+          mockApiClient.getCartItems(),
+        ).thenAnswer((_) async => tCartResponseDto);
 
         // Act
         final result = await dataSource.getCartItems();
@@ -98,7 +102,9 @@ void main() {
       'should return ErrorBaseResponse with custom fallback message when API throws an Exception',
       () async {
         // Arrange
-        when(mockApiClient.getCartItems()).thenThrow(Exception('Data corruption'));
+        when(
+          mockApiClient.getCartItems(),
+        ).thenThrow(Exception('Data corruption'));
 
         // Act
         final result = await dataSource.getCartItems();
@@ -116,8 +122,9 @@ void main() {
       'should return SuccessBaseResponse when item is successfully removed from cart',
       () async {
         // Arrange
-        when(mockApiClient.removeItemFromCart(any))
-            .thenAnswer((_) async => tCartResponseDto);
+        when(
+          mockApiClient.removeItemFromCart(any),
+        ).thenAnswer((_) async => tCartResponseDto);
 
         // Act
         final result = await dataSource.removeItemFromCart(tProductId);
@@ -135,8 +142,9 @@ void main() {
       'should return ErrorBaseResponse with custom fallback message when removal throws an Exception',
       () async {
         // Arrange
-        when(mockApiClient.removeItemFromCart(any))
-            .thenThrow(Exception('Forbidden action'));
+        when(
+          mockApiClient.removeItemFromCart(any),
+        ).thenThrow(Exception('Forbidden action'));
 
         // Act
         final result = await dataSource.removeItemFromCart(tProductId);
@@ -154,8 +162,9 @@ void main() {
       'should return SuccessBaseResponse when item quantity is successfully updated',
       () async {
         // Arrange
-        when(mockApiClient.updateCartItemQuantity(any, any))
-            .thenAnswer((_) async => tCartResponseDto);
+        when(
+          mockApiClient.updateCartItemQuantity(any, any),
+        ).thenAnswer((_) async => tCartResponseDto);
 
         // Act
         final result = await dataSource.updateCartItemQuantity(
@@ -166,10 +175,12 @@ void main() {
         // Assert
         expect(result, isA<SuccessBaseResponse<CartResponseDto>>());
         expect((result as SuccessBaseResponse).data, equals(tCartResponseDto));
-        verify(mockApiClient.updateCartItemQuantity(
-          tProductId,
-          argThat(isA<UpdateCartQuantityRequest>()),
-        )).called(1);
+        verify(
+          mockApiClient.updateCartItemQuantity(
+            tProductId,
+            argThat(isA<UpdateCartQuantityRequest>()),
+          ),
+        ).called(1);
       },
     );
   });
@@ -179,8 +190,9 @@ void main() {
       'should return ErrorBaseResponse when quantity modification fails with an unhandled runtime error',
       () async {
         // Arrange
-        when(mockApiClient.updateCartItemQuantity(any, any))
-            .thenThrow(ArgumentError('Negative values not allowed'));
+        when(
+          mockApiClient.updateCartItemQuantity(any, any),
+        ).thenThrow(ArgumentError('Negative values not allowed'));
 
         // Act
         final result = await dataSource.updateCartItemQuantity(
