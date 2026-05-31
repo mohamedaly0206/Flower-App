@@ -221,46 +221,52 @@ void main() {
     // Verifies that SelectTabIntent emits a new state with the updated
     // selectedTabIndex and that the occasions list remains unchanged.
     // -----------------------------------------------------------------------
-    test('SelectTabIntent updates selectedTabIndex inside OccasionStatus.success state', () async {
-      // Arrange — put cubit into success state first
-      final occasions = _makeOccasions(['Christmas']);
-      repo.response = SuccessBaseResponse(
-        data: OccasionsResponseEntity(message: 'ok', occasions: occasions),
-      );
-      cubit.handleIntent(const LoadOccasionsIntent());
-      await Future<void>.delayed(Duration.zero);
+    test(
+      'SelectTabIntent updates selectedTabIndex inside OccasionStatus.success state',
+      () async {
+        // Arrange — put cubit into success state first
+        final occasions = _makeOccasions(['Christmas']);
+        repo.response = SuccessBaseResponse(
+          data: OccasionsResponseEntity(message: 'ok', occasions: occasions),
+        );
+        cubit.handleIntent(const LoadOccasionsIntent());
+        await Future<void>.delayed(Duration.zero);
 
-      final emitted = <OccasionState>[];
-      final sub = cubit.stream.listen(emitted.add);
+        final emitted = <OccasionState>[];
+        final sub = cubit.stream.listen(emitted.add);
 
-      // Act
-      cubit.handleIntent(const SelectTabIntent(2));
-      await Future<void>.delayed(Duration.zero);
-      await sub.cancel();
+        // Act
+        cubit.handleIntent(const SelectTabIntent(2));
+        await Future<void>.delayed(Duration.zero);
+        await sub.cancel();
 
-      // Assert
-      expect(emitted, hasLength(1));
-      final updated = emitted.first;
-      expect(updated.selectedTabIndex, 2);
-      expect(updated.occasions, hasLength(1));
-    });
+        // Assert
+        expect(emitted, hasLength(1));
+        final updated = emitted.first;
+        expect(updated.selectedTabIndex, 2);
+        expect(updated.occasions, hasLength(1));
+      },
+    );
 
     // -----------------------------------------------------------------------
     // selectTab — no-op when not in success state
     // Verifies SelectTabIntent does nothing when called before occasions are loaded.
     // -----------------------------------------------------------------------
-    test('SelectTabIntent is a no-op when state status is not success', () async {
-      // Arrange — cubit is in OccasionStatus.initial
-      final emitted = <OccasionState>[];
-      final sub = cubit.stream.listen(emitted.add);
+    test(
+      'SelectTabIntent is a no-op when state status is not success',
+      () async {
+        // Arrange — cubit is in OccasionStatus.initial
+        final emitted = <OccasionState>[];
+        final sub = cubit.stream.listen(emitted.add);
 
-      // Act
-      cubit.handleIntent(const SelectTabIntent(1));
-      await Future<void>.delayed(Duration.zero);
-      await sub.cancel();
+        // Act
+        cubit.handleIntent(const SelectTabIntent(1));
+        await Future<void>.delayed(Duration.zero);
+        await sub.cancel();
 
-      // Assert — no new state was emitted
-      expect(emitted, isEmpty);
-    });
+        // Assert — no new state was emitted
+        expect(emitted, isEmpty);
+      },
+    );
   });
 }

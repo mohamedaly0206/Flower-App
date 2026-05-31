@@ -75,9 +75,6 @@ class UserProfileDto {
   Map<String, dynamic> toJson() => _$UserProfileDtoToJson(this);
 
   UserProfileEntity toEntity() {
-    return UserProfileEntity(
-      message: message,
-      user: user?.toEntity(),
-    );
+    return UserProfileEntity(message: message, user: user?.toEntity());
   }
 }

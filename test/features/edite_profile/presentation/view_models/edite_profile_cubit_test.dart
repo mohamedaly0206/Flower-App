@@ -72,7 +72,10 @@ void main() {
       fakeRepo = _FakeEditeProfileRepo();
       mockSecureStorage = _MockSecureStorage();
       when(
-        () => mockSecureStorage.write(key: any(named: 'key'), value: any(named: 'value')),
+        () => mockSecureStorage.write(
+          key: any(named: 'key'),
+          value: any(named: 'value'),
+        ),
       ).thenAnswer((_) async {});
       getProfileUseCase = GetProfileUseCase(fakeRepo);
       editProfileUseCase = EditProfileUseCase(fakeRepo);
@@ -96,18 +99,21 @@ void main() {
       expect(cubit.state.successMessage, isNull);
     });
 
-    test('FetchProfileIntent normalizes API gender to lowercase signup values', () async {
-      final profileFromApi = UserProfileEntity(
-        message: 'success',
-        user: dummyUser.copyWith(gender: 'Female'),
-      );
-      fakeRepo.getProfileResponse = SuccessBaseResponse(data: profileFromApi);
+    test(
+      'FetchProfileIntent normalizes API gender to lowercase signup values',
+      () async {
+        final profileFromApi = UserProfileEntity(
+          message: 'success',
+          user: dummyUser.copyWith(gender: 'Female'),
+        );
+        fakeRepo.getProfileResponse = SuccessBaseResponse(data: profileFromApi);
 
-      cubit.handleIntent(const FetchProfileIntent());
-      await Future<void>.delayed(Duration.zero);
+        cubit.handleIntent(const FetchProfileIntent());
+        await Future<void>.delayed(Duration.zero);
 
-      expect(cubit.state.user?.gender, 'female');
-    });
+        expect(cubit.state.user?.gender, 'female');
+      },
+    );
 
     test('FetchProfileIntent emits [loading, success] on success', () async {
       fakeRepo.getProfileResponse = SuccessBaseResponse(data: dummyProfile);

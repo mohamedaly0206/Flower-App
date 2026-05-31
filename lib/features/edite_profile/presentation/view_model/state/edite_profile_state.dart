@@ -33,15 +33,24 @@ class EditeProfileState extends Equatable {
     return EditeProfileState(
       status: status ?? this.status,
       user: user ?? this.user,
-      errorMessage: clearErrorMessage ? null : (errorMessage ?? this.errorMessage),
-      successMessage:
-          clearSuccessMessage ? null : (successMessage ?? this.successMessage),
-      localPhotoFile:
-          clearLocalPhotoFile ? null : (localPhotoFile ?? this.localPhotoFile),
+      errorMessage: clearErrorMessage
+          ? null
+          : (errorMessage ?? this.errorMessage),
+      successMessage: clearSuccessMessage
+          ? null
+          : (successMessage ?? this.successMessage),
+      localPhotoFile: clearLocalPhotoFile
+          ? null
+          : (localPhotoFile ?? this.localPhotoFile),
     );
   }
 
   @override
-  List<Object?> get props =>
-      [status, user, errorMessage, successMessage, localPhotoFile];
+  List<Object?> get props => [
+    status,
+    user,
+    errorMessage,
+    successMessage,
+    localPhotoFile,
+  ];
 }

@@ -60,10 +60,7 @@ void main() {
       photo: 'https://example.com/photo.jpg',
     );
 
-    final dummyProfile = UserProfileEntity(
-      message: 'success',
-      user: dummyUser,
-    );
+    final dummyProfile = UserProfileEntity(message: 'success', user: dummyUser);
 
     setUp(() {
       fakeRepo = _FakeEditeProfileRepo();
@@ -72,15 +69,21 @@ void main() {
       uploadProfilePhotoUseCase = UploadProfilePhotoUseCase(fakeRepo);
     });
 
-    test('GetProfileUseCase forwards call to repository and returns response', () async {
-      fakeRepo.getProfileResponse = SuccessBaseResponse(data: dummyProfile);
+    test(
+      'GetProfileUseCase forwards call to repository and returns response',
+      () async {
+        fakeRepo.getProfileResponse = SuccessBaseResponse(data: dummyProfile);
 
-      final result = await getProfileUseCase();
+        final result = await getProfileUseCase();
 
-      expect(result, isA<SuccessBaseResponse<UserProfileEntity>>());
-      expect((result as SuccessBaseResponse<UserProfileEntity>).data, dummyProfile);
-      expect(fakeRepo.getProfileCalls, 1);
-    });
+        expect(result, isA<SuccessBaseResponse<UserProfileEntity>>());
+        expect(
+          (result as SuccessBaseResponse<UserProfileEntity>).data,
+          dummyProfile,
+        );
+        expect(fakeRepo.getProfileCalls, 1);
+      },
+    );
 
     test('EditProfileUseCase forwards body map and returns response', () async {
       fakeRepo.editProfileResponse = SuccessBaseResponse(data: dummyProfile);
@@ -93,15 +96,18 @@ void main() {
       expect(fakeRepo.lastEditBody, body);
     });
 
-    test('UploadProfilePhotoUseCase forwards file and returns response', () async {
-      fakeRepo.uploadPhotoResponse = SuccessBaseResponse(data: dummyProfile);
-      final file = File('test_path.png');
+    test(
+      'UploadProfilePhotoUseCase forwards file and returns response',
+      () async {
+        fakeRepo.uploadPhotoResponse = SuccessBaseResponse(data: dummyProfile);
+        final file = File('test_path.png');
 
-      final result = await uploadProfilePhotoUseCase(file);
+        final result = await uploadProfilePhotoUseCase(file);
 
-      expect(result, isA<SuccessBaseResponse<UserProfileEntity>>());
-      expect(fakeRepo.uploadPhotoCalls, 1);
-      expect(fakeRepo.lastFile, file);
-    });
+        expect(result, isA<SuccessBaseResponse<UserProfileEntity>>());
+        expect(fakeRepo.uploadPhotoCalls, 1);
+        expect(fakeRepo.lastFile, file);
+      },
+    );
   });
 }

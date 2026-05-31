@@ -31,5 +31,10 @@ class OccasionState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [status, occasions, selectedTabIndex, errorMessage];
+  List<Object?> get props => [
+    status,
+    occasions,
+    selectedTabIndex,
+    errorMessage,
+  ];
 }
