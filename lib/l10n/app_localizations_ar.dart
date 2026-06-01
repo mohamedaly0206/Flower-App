@@ -444,4 +444,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get phoneInvalid => 'رقم هاتف مصري غير صالح';
+
+  @override
+  String get noActiveOrdersFound => 'لم يتم العثور على الطلبات النشطة';
+
+  @override
+  String get noCompletedFound => 'لم يتم العثور على الطلبات المكتملة';
+
+  @override
+  String get reorder => 'إعادة الطلب';
 }
