@@ -142,5 +142,8 @@
   "nameOnlyLetters": "must contain letters only",
   "nameNoSpaces": "cannot contain spaces",
   "phoneRequired": "Phone number is required",
-  "phoneInvalid": "Invalid Egyptian phone number"
+  "phoneInvalid": "Invalid Egyptian phone number",
+  "noActiveOrdersFound": "No active orders found",
+  "noCompletedFound": "No completed orders found",
+  "reorder": "Reorder"
 }
