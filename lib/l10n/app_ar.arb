@@ -69,6 +69,7 @@
   "noProductsFound": "لم يتم العثور على منتجات",
   "checkout": "الدفع",
   "deliveryTime": "وقت التوصيل",
+  "instant": "توصيل فوري",
   "schedule": "جدولة",
   "deliveryAddress": "عنوان التوصيل",
   "addNew": "إضافة جديد",

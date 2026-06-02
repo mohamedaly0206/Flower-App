@@ -221,6 +221,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get deliveryTime => 'وقت التوصيل';
 
   @override
+  String get instant => 'توصيل فوري';
+
+  @override
   String get schedule => 'جدولة';
 
   @override
@@ -258,6 +261,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get successAddToCart => 'تم اضافه المنتج للسله';
+
+  @override
+  String get placeOrder => 'إتمام الطلب';
 
   @override
   String get address => 'العنوان';

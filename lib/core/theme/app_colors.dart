@@ -13,4 +13,5 @@ abstract class AppColors {
   static const greyColor = Color(0xFF535353);
   static const placeHolderColor = Color(0xFFA6A6A6);
   static const transparentColor = Colors.transparent;
+  static const dividerColor = Color(0xFFEAEAEA);
 }

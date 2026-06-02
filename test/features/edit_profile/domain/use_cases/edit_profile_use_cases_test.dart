@@ -8,7 +8,7 @@ import 'package:flower_app/features/edit_profile/domain/use_cases/get_profile_us
 import 'package:flower_app/features/edit_profile/domain/use_cases/upload_profile_photo_use_case.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-class _FakeEditeProfileRepo implements EditProfileRepoContract {
+class _FakeEditProfileRepo implements EditProfileRepoContract {
   BaseResponse<UserProfileEntity>? getProfileResponse;
   BaseResponse<UserProfileEntity>? editProfileResponse;
   BaseResponse<UserProfileEntity>? uploadPhotoResponse;
@@ -45,7 +45,7 @@ class _FakeEditeProfileRepo implements EditProfileRepoContract {
 
 void main() {
   group('Edit Profile Use Cases Tests', () {
-    late _FakeEditeProfileRepo fakeRepo;
+    late _FakeEditProfileRepo fakeRepo;
     late GetProfileUseCase getProfileUseCase;
     late EditProfileUseCase editProfileUseCase;
     late UploadProfilePhotoUseCase uploadProfilePhotoUseCase;
@@ -63,7 +63,7 @@ void main() {
     final dummyProfile = UserProfileEntity(message: 'success', user: dummyUser);
 
     setUp(() {
-      fakeRepo = _FakeEditeProfileRepo();
+      fakeRepo = _FakeEditProfileRepo();
       getProfileUseCase = GetProfileUseCase(fakeRepo);
       editProfileUseCase = EditProfileUseCase(fakeRepo);
       uploadProfilePhotoUseCase = UploadProfilePhotoUseCase(fakeRepo);

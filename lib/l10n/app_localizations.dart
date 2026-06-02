@@ -518,6 +518,12 @@ abstract class AppLocalizations {
   /// **'Delivery time'**
   String get deliveryTime;
 
+  /// No description provided for @instant.
+  ///
+  /// In en, this message translates to:
+  /// **'instant,'**
+  String get instant;
+
   /// No description provided for @schedule.
   ///
   /// In en, this message translates to:
@@ -595,6 +601,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Item added to cart'**
   String get successAddToCart;
+
+  /// No description provided for @placeOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Place order'**
+  String get placeOrder;
 
   /// No description provided for @address.
   ///

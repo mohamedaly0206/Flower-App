@@ -223,6 +223,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deliveryTime => 'Delivery time';
 
   @override
+  String get instant => 'instant,';
+
+  @override
   String get schedule => 'Schedule';
 
   @override
@@ -261,6 +264,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get successAddToCart => 'Item added to cart';
+
+  @override
+  String get placeOrder => 'Place order';
 
   @override
   String get address => 'Address';
