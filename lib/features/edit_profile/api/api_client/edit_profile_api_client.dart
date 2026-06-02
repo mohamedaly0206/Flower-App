@@ -5,7 +5,7 @@ import 'package:retrofit/error_logger.dart';
 import 'package:flower_app/core/values/api_endpoints.dart';
 import 'package:flower_app/features/edit_profile/data/models/responses/user_profile_dto.dart';
 
-part 'edite_profile_api_client.g.dart';
+part 'edit_profile_api_client.g.dart';
 
 @injectable
 @RestApi()
