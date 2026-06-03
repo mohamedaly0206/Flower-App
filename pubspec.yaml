@@ -50,6 +50,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   image_picker: ^1.2.2
+  firebase_core: ^4.10.0
 
 
 
