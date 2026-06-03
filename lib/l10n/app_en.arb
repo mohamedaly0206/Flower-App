@@ -142,5 +142,14 @@
   "nameOnlyLetters": "must contain letters only",
   "nameNoSpaces": "cannot contain spaces",
   "phoneRequired": "Phone number is required",
-  "phoneInvalid": "Invalid Egyptian phone number"
+  "phoneInvalid": "Invalid Egyptian phone number",
+  "loginNow": "Login Now",
+  "toManageyoursavedaddressespleaselogin": "To manage your saved addresses, please login.",
+  "toManageyourorderspleaselogin": "To manage your orders, please login.",
+  "guestUser": "Guest User",
+  "signIntoexploremore": "Sign in to explore more",
+  "continueasguest": "Continue as guest",
+  "pleaseSignInToAddItemstoyourcartandenjoyfullshoppingfeatures": "Please sign in to add items to your cart and enjoy full shopping features",
+  "signInRequired": "Sign in required",
+  "signIn": "sign in"
 }

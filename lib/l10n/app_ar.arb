@@ -143,5 +143,14 @@
   "nameOnlyLetters": "يجب أن يحتوي على أحرف فقط",
   "nameNoSpaces": "لا يمكن أن يحتوي على مسافات",
   "phoneRequired": "رقم الهاتف مطلوب",
-  "phoneInvalid": "رقم هاتف مصري غير صالح"
+  "phoneInvalid": "رقم هاتف مصري غير صالح",
+  "loginNow": "سجّل الدخول الآن",
+  "toManageyoursavedaddressespleaselogin": "لإدارة عناوينك المحفوظة، يُرجى تسجيل الدخول",
+  "toManageyourorderspleaselogin": "لإدارة طلباتك، يُرجى تسجيل الدخول",
+  "guestUser": "زائر",
+  "signIntoexploremore": "سجّل الدخول للاطلاع على المزيد",
+  "continueasguest": "تابع كضيف",
+  "pleaseSignInToAddItemstoyourcartandenjoyfullshoppingfeatures": "يرجى تسجيل الدخول لإضافة المنتجات إلى سلة التسوق والاستمتاع بكافة مزايا التسوق",
+  "signInRequired": "تسجيل الدخول مطلوب.",
+  "signIn": "تسجيل الدخول"
 }
