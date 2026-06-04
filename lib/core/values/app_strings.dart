@@ -35,7 +35,7 @@ abstract class AppStrings {
   static const String male = 'Male';
   static const String creatingAnAccountYouAgreeToOur =
       'Creating an account, you agree to our';
-  static const String termsAndConditions = 'Terms&Conditions';
+  static const String termsAndConditions = 'Terms & Conditions';
   static const String signUpSuccessMessage = 'Sign up successfully';
   static const String changePasswordSuccess = 'Password changed successfully';
   static const String changePasswordError = 'Failed to change password';
