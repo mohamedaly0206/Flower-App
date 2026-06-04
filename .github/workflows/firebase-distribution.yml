@@ -2,16 +2,11 @@ name: Build & Distribute
 
 on:
   push:
-
   workflow_dispatch:
 
 jobs:
   distribute:
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: android
 
     steps:
       - name: Checkout Repository
@@ -29,24 +24,23 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Install Ruby
+      - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2
+          ruby-version: '3.3'
           bundler-cache: true
 
-      - name: Install Fastlane
-        run: gem install fastlane
-
-      - name: Install Firebase Plugin
-        run: fastlane add_plugin firebase_app_distribution
+      - name: Install Gems
+        working-directory: android
+        run: bundle install
 
       - name: Flutter Pub Get
         run: flutter pub get
-        working-directory: .
 
       - name: Build APK
-        run: fastlane build
+        working-directory: android
+        run: bundle exec fastlane build
 
-      - name: Deploy to Firebase
-        run: fastlane deploy
+      - name: Deploy
+        working-directory: android
+        run: bundle exec fastlane deploy
