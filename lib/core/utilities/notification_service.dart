@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 
 // receive notification when app is in background or terminated state
 // will be called when user clicks on the notification and app is in background or terminated
+@pragma('vm:entry-point')
+//do not encrypt this function as it will be called by the system when the app is in background or terminated
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   if (kDebugMode) {
     print("app is in background or terminated: ${message.notification?.title}");
