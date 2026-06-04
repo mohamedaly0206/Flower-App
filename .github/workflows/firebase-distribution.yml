@@ -1,0 +1,52 @@
+name: Build & Distribute
+
+on:
+  push:
+
+  workflow_dispatch:
+
+jobs:
+  distribute:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: android
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+          bundler-cache: true
+
+      - name: Install Fastlane
+        run: gem install fastlane
+
+      - name: Install Firebase Plugin
+        run: fastlane add_plugin firebase_app_distribution
+
+      - name: Flutter Pub Get
+        run: flutter pub get
+        working-directory: .
+
+      - name: Build APK
+        run: fastlane build
+
+      - name: Deploy to Firebase
+        run: fastlane deploy
