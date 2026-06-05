@@ -1,5 +1,8 @@
+import 'package:flower_app/features/checkout/presentation/view_model/cubit/checkout_cubit.dart';
+import 'package:flower_app/features/checkout/presentation/view_model/intent/checkout_intent.dart';
 import 'package:flower_app/features/checkout/presentation/view_model/state/checkout_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PaymentMethodsCard extends StatelessWidget {
   const PaymentMethodsCard({
@@ -22,7 +25,11 @@ class PaymentMethodsCard extends StatelessWidget {
       child: Column(
         children: [
           InkWell(
-            // onTap: () => context.read<CheckoutCubit>().selectPaymentMethod(method),
+            onTap: () {
+              context.read<CheckoutCubit>().handleCheckoutIntent(
+                SelectPaymentMethodIntent(paymentMethod: method),
+              );
+            },
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               decoration: BoxDecoration(

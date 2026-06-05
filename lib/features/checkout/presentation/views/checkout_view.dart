@@ -1,5 +1,6 @@
 import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/core/widgets/custom_app_bar.dart';
+import 'package:flower_app/features/checkout/presentation/view_model/cubit/checkout_cubit.dart';
 import 'package:flower_app/features/checkout/presentation/view_model/state/checkout_state.dart';
 import 'package:flower_app/features/checkout/presentation/widgets/delivery_address_widget.dart';
 import 'package:flower_app/features/checkout/presentation/widgets/delivery_time_widget.dart';
@@ -9,6 +10,7 @@ import 'package:flower_app/features/checkout/presentation/widgets/payment_method
 import 'package:flower_app/features/checkout/presentation/widgets/prices_checkout_widget.dart';
 import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CheckoutView extends StatelessWidget {
   final double subTotal;
@@ -53,23 +55,38 @@ class CheckoutView extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             // Payment Method Section
-            PaymentMethodsCard(
-              method: PaymentMethod.cashOnDelivery,
-              title: appLocalizations.cashOnDelivery,
-              state: CheckoutState(),
-            ),
-            const SizedBox(height: 8),
-            PaymentMethodsCard(
-              method: PaymentMethod.creditCard,
-              title: appLocalizations.creditCard,
-              state: CheckoutState(),
+            BlocBuilder<CheckoutCubit, CheckoutState>(
+              builder: (context, state) {
+                return Column(
+                  children: [
+                    PaymentMethodsCard(
+                      method: PaymentMethod.cashOnDelivery,
+                      title: appLocalizations.cashOnDelivery,
+                      state:
+                          state.selectedPaymentMethod ==
+                              PaymentMethod.cashOnDelivery
+                          ? state
+                          : CheckoutState(),
+                    ),
+                    const SizedBox(height: 8),
+                    PaymentMethodsCard(
+                      method: PaymentMethod.creditCard,
+                      title: appLocalizations.creditCard,
+                      state:
+                          state.selectedPaymentMethod ==
+                              PaymentMethod.creditCard
+                          ? state
+                          : CheckoutState(),
+                    ),
+                  ],
+                );
+              },
             ),
             const SizedBox(height: 24),
             const DividerWidget(),
 
             // Gift Section
             GiftWidget(),
-            const SizedBox(height: 24),
             const DividerWidget(),
             const SizedBox(height: 24),
             PricesCheckoutWidget(

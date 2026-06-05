@@ -4,12 +4,12 @@ enum PaymentMethod { cashOnDelivery, creditCard }
 
 class CheckoutState extends Equatable {
   final String selectedAddressId;
-  final PaymentMethod selectedPaymentMethod;
+  final PaymentMethod? selectedPaymentMethod;
   final bool isGift;
 
   const CheckoutState({
     this.selectedAddressId = 'home', // Defaulting to home
-    this.selectedPaymentMethod = PaymentMethod.cashOnDelivery,
+    this.selectedPaymentMethod, 
     this.isGift = false,
   });
 
