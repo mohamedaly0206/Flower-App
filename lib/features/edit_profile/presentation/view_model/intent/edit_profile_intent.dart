@@ -1,18 +1,18 @@
 import 'dart:io';
 import 'package:equatable/equatable.dart';
 
-sealed class EditeProfileIntent extends Equatable {
-  const EditeProfileIntent();
+sealed class EditProfileIntent extends Equatable {
+  const EditProfileIntent();
 
   @override
   List<Object?> get props => [];
 }
 
-class FetchProfileIntent extends EditeProfileIntent {
+class FetchProfileIntent extends EditProfileIntent {
   const FetchProfileIntent();
 }
 
-class UpdateFirstNameIntent extends EditeProfileIntent {
+class UpdateFirstNameIntent extends EditProfileIntent {
   final String firstName;
   const UpdateFirstNameIntent(this.firstName);
 
@@ -20,7 +20,7 @@ class UpdateFirstNameIntent extends EditeProfileIntent {
   List<Object?> get props => [firstName];
 }
 
-class UpdateLastNameIntent extends EditeProfileIntent {
+class UpdateLastNameIntent extends EditProfileIntent {
   final String lastName;
   const UpdateLastNameIntent(this.lastName);
 
@@ -28,7 +28,7 @@ class UpdateLastNameIntent extends EditeProfileIntent {
   List<Object?> get props => [lastName];
 }
 
-class UpdatePhoneIntent extends EditeProfileIntent {
+class UpdatePhoneIntent extends EditProfileIntent {
   final String phone;
   const UpdatePhoneIntent(this.phone);
 
@@ -36,7 +36,7 @@ class UpdatePhoneIntent extends EditeProfileIntent {
   List<Object?> get props => [phone];
 }
 
-class UpdateEmailIntent extends EditeProfileIntent {
+class UpdateEmailIntent extends EditProfileIntent {
   final String email;
   const UpdateEmailIntent(this.email);
 
@@ -44,7 +44,7 @@ class UpdateEmailIntent extends EditeProfileIntent {
   List<Object?> get props => [email];
 }
 
-class UpdateGenderIntent extends EditeProfileIntent {
+class UpdateGenderIntent extends EditProfileIntent {
   final String gender;
   const UpdateGenderIntent(this.gender);
 
@@ -52,7 +52,7 @@ class UpdateGenderIntent extends EditeProfileIntent {
   List<Object?> get props => [gender];
 }
 
-class UploadPhotoIntent extends EditeProfileIntent {
+class UploadPhotoIntent extends EditProfileIntent {
   final File file;
   const UploadPhotoIntent(this.file);
 
@@ -60,6 +60,6 @@ class UploadPhotoIntent extends EditeProfileIntent {
   List<Object?> get props => [file];
 }
 
-class SubmitProfileUpdateIntent extends EditeProfileIntent {
+class SubmitProfileUpdateIntent extends EditProfileIntent {
   const SubmitProfileUpdateIntent();
 }

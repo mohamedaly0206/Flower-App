@@ -27,7 +27,7 @@ class EditProfileCubit extends Cubit<EditProfileState> {
     this._secureStorage,
   ) : super(const EditProfileState());
 
-  void handleIntent(EditeProfileIntent intent) {
+  void handleIntent(EditProfileIntent intent) {
     switch (intent) {
       case FetchProfileIntent():
         _fetchProfile();
