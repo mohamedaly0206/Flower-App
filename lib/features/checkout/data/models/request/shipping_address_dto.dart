@@ -1,4 +1,3 @@
-import 'package:flower_app/features/checkout/domain/entities/request/shipping_address_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'shipping_address_dto.g.dart';
@@ -22,13 +21,4 @@ class ShippingAddress {
       _$ShippingAddressFromJson(json);
 
   Map<String, dynamic> toJson() => _$ShippingAddressToJson(this);
-  ShippingAddressEntity toDomain() {
-    return ShippingAddressEntity(
-      street: street,
-      phone: phone,
-      city: city,
-      lat: lat,
-      long: long,
-    );
-  }
 }

@@ -24,5 +24,15 @@ class OrderEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [user, orderItems, totalPrice, paymentType, isPaid, isDelivered, state, id, orderNumber];
+  List<Object?> get props => [
+    user,
+    orderItems,
+    totalPrice,
+    paymentType,
+    isPaid,
+    isDelivered,
+    state,
+    id,
+    orderNumber,
+  ];
 }

@@ -5,33 +5,27 @@ import 'dart:convert';
 
 part 'checkout_response_dto.g.dart';
 
-CheckoutResponseDto checkoutResponseDtoFromJson(String str) => CheckoutResponseDto.fromJson(json.decode(str));
+CheckoutResponseDto checkoutResponseDtoFromJson(String str) =>
+    CheckoutResponseDto.fromJson(json.decode(str));
 
-String checkoutResponseDtoToJson(CheckoutResponseDto data) => json.encode(data.toJson());
+String checkoutResponseDtoToJson(CheckoutResponseDto data) =>
+    json.encode(data.toJson());
 
 @JsonSerializable()
 class CheckoutResponseDto {
-    @JsonKey(name: "message")
-    final String? message;
-    @JsonKey(name: "order")
-    final OrderDto? order;
+  @JsonKey(name: "message")
+  final String? message;
+  @JsonKey(name: "order")
+  final OrderDto? order;
 
-    CheckoutResponseDto({
-        this.message,
-        this.order,
-    });
+  CheckoutResponseDto({this.message, this.order});
 
-    factory CheckoutResponseDto.fromJson(Map<String, dynamic> json) => _$CheckoutResponseDtoFromJson(json);
+  factory CheckoutResponseDto.fromJson(Map<String, dynamic> json) =>
+      _$CheckoutResponseDtoFromJson(json);
 
-    Map<String, dynamic> toJson() => _$CheckoutResponseDtoToJson(this);
+  Map<String, dynamic> toJson() => _$CheckoutResponseDtoToJson(this);
 
-    CheckoutResponseEntity toDomain() {
-      return CheckoutResponseEntity(
-        message: message,
-        order: order?.toDomain(),
-      );
-    }
+  CheckoutResponseEntity toDomain() {
+    return CheckoutResponseEntity(message: message, order: order?.toDomain());
+  }
 }
-
-
-

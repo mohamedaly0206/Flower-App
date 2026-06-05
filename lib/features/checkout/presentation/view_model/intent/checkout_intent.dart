@@ -1,8 +1,15 @@
+import 'package:flower_app/features/checkout/data/models/request/checkout_request.dart';
 import 'package:flower_app/features/checkout/presentation/view_model/state/checkout_state.dart';
 
 sealed class CheckoutIntent {}
 
-class PlaceOrderIntent extends CheckoutIntent {}
+class PlaceCashOrderIntent extends CheckoutIntent {
+  final CheckoutRequest checkoutRequest;
+  PlaceCashOrderIntent({required this.checkoutRequest});
+}
+
+class PlaceCreditCardOrderIntent extends CheckoutIntent {}
+
 
 class SelectPaymentMethodIntent extends CheckoutIntent {
   final PaymentMethod paymentMethod;

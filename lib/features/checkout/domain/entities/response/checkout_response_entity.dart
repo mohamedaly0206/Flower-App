@@ -5,10 +5,7 @@ class CheckoutResponseEntity extends Equatable {
   final String? message;
   final OrderEntity? order;
 
- const  CheckoutResponseEntity({
-    this.message,
-    this.order,
-  });
+  const CheckoutResponseEntity({this.message, this.order});
 
   @override
   List<Object?> get props => [message, order];
