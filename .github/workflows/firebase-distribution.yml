@@ -54,8 +54,15 @@ jobs:
           FIREBASE_TOKEN: ${{ github.event.inputs.firebase_token || secrets.FIREBASE_TOKEN || vars.FIREBASE_TOKEN }}
           FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON || vars.FIREBASE_SERVICE_ACCOUNT_JSON }}
         run: |
-          if [ ! -z "$FIREBASE_SERVICE_ACCOUNT_JSON" ]; then
+          if [ -n "$FIREBASE_SERVICE_ACCOUNT_JSON" ]; then
+            echo "Auth method: Service Account JSON"
             echo "$FIREBASE_SERVICE_ACCOUNT_JSON" > service-account.json
             export GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/service-account.json
+          elif [ -n "$FIREBASE_TOKEN" ]; then
+            echo "Auth method: Firebase CLI Token"
+            export FIREBASE_TOKEN="$FIREBASE_TOKEN"
+          else
+            echo "::error::Missing authentication! Provide FIREBASE_TOKEN or FIREBASE_SERVICE_ACCOUNT_JSON in GitHub Variables or via Manual Input."
+            exit 1
           fi
           bundle exec fastlane deploy
