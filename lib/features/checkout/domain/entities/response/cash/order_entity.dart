@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flower_app/features/checkout/domain/entities/response/order_item_entity.dart';
+import 'package:flower_app/features/checkout/domain/entities/response/cash/order_item_entity.dart';
 
 class OrderEntity extends Equatable {
   final String? user;

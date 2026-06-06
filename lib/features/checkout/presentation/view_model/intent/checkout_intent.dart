@@ -10,7 +10,6 @@ class PlaceCashOrderIntent extends CheckoutIntent {
 
 class PlaceCreditCardOrderIntent extends CheckoutIntent {}
 
-
 class SelectPaymentMethodIntent extends CheckoutIntent {
   final PaymentMethod paymentMethod;
   SelectPaymentMethodIntent({required this.paymentMethod});

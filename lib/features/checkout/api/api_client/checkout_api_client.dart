@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flower_app/core/values/api_endpoints.dart';
 import 'package:flower_app/features/checkout/data/models/request/checkout_request.dart';
-import 'package:flower_app/features/checkout/data/models/response/checkout_response_dto.dart';
+import 'package:flower_app/features/checkout/data/models/response/cash/cash_checkout_response_dto.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -14,7 +14,7 @@ abstract class CheckoutApiClient {
   factory CheckoutApiClient(Dio dio) = _CheckoutApiClient;
 
   @POST(ApiEndpoints.orders)
-  Future<CheckoutResponseDto> checkoutCashOrder(
+  Future<CashCheckoutResponseDto> checkoutCashOrder(
     @Body() CheckoutRequest checkoutRequest,
   );
 }

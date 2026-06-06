@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flower_app/config/base_response/base_response.dart';
 import 'package:flower_app/features/checkout/data/models/request/checkout_request.dart';
-import 'package:flower_app/features/checkout/domain/entities/response/checkout_response_entity.dart';
+import 'package:flower_app/features/checkout/domain/entities/response/cash/cash_checkout_response_entity.dart';
 import 'package:flower_app/features/checkout/domain/use_cases/checkout_cash_use_case.dart';
 import 'package:flower_app/features/checkout/presentation/view_model/intent/checkout_intent.dart';
 import 'package:flower_app/features/checkout/presentation/view_model/state/checkout_state.dart';
@@ -74,7 +74,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
     );
     final response = await _checkoutCashUseCase.call(checkoutRequest);
     switch (response) {
-      case SuccessBaseResponse<CheckoutResponseEntity>():
+      case SuccessBaseResponse<CashCheckoutResponseEntity>():
         emit(
           state.copyWith(
             checkoutCashState: state.checkoutCashState.copyWith(
@@ -85,7 +85,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
           ),
         );
         break;
-      case ErrorBaseResponse<CheckoutResponseEntity>():
+      case ErrorBaseResponse<CashCheckoutResponseEntity>():
         emit(
           state.copyWith(
             checkoutCashState: state.checkoutCashState.copyWith(

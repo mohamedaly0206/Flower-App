@@ -5,7 +5,7 @@ import 'package:flower_app/core/errors/failures.dart';
 import 'package:flower_app/features/checkout/api/api_client/checkout_api_client.dart';
 import 'package:flower_app/features/checkout/data/data_sources/checkout_remote_data_source_contract.dart';
 import 'package:flower_app/features/checkout/data/models/request/checkout_request.dart';
-import 'package:flower_app/features/checkout/data/models/response/checkout_response_dto.dart';
+import 'package:flower_app/features/checkout/data/models/response/cash/cash_checkout_response_dto.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable(as: CheckoutRemoteDataSourceContract)
@@ -16,15 +16,15 @@ class CheckoutRemoteDataSourceImpl implements CheckoutRemoteDataSourceContract {
   CheckoutRemoteDataSourceImpl(this.apiClient);
 
   @override
-  Future<BaseResponse<CheckoutResponseDto>> checkoutCashOrder(
+  Future<BaseResponse<CashCheckoutResponseDto>> checkoutCashOrder(
     CheckoutRequest checkoutRequest,
   ) async {
     try {
       final response = await apiClient.checkoutCashOrder(checkoutRequest);
-      return SuccessBaseResponse<CheckoutResponseDto>(data: response);
+      return SuccessBaseResponse<CashCheckoutResponseDto>(data: response);
     } catch (e) {
       log('Error in checkoutCashOrder: ${e.toString()}');
-      return ErrorBaseResponse<CheckoutResponseDto>(
+      return ErrorBaseResponse<CashCheckoutResponseDto>(
         errorMessage: ServerFailure.failureHandler(e).errorMessage,
       );
     }

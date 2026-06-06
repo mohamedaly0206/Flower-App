@@ -10,7 +10,7 @@ class CheckoutState extends Equatable {
   final bool isGift;
 
   const CheckoutState({
-    this.selectedAddressId , // Defaulting to home
+    this.selectedAddressId, // Defaulting to home
     this.selectedPaymentMethod,
     this.isGift = false,
     this.checkoutCashState = const BaseState(),

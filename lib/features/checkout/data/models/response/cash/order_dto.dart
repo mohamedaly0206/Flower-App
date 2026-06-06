@@ -1,5 +1,5 @@
-import 'package:flower_app/features/checkout/data/models/response/order_item_dto.dart';
-import 'package:flower_app/features/checkout/domain/entities/response/order_entity.dart';
+import 'package:flower_app/features/checkout/data/models/response/cash/order_item_dto.dart';
+import 'package:flower_app/features/checkout/domain/entities/response/cash/order_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'order_dto.g.dart';
