@@ -29,6 +29,7 @@ abstract class ApiEndpoints {
   static const String uploads = 'https://flower.elevateegy.com/uploads';
   //orders
   static const String orders = '$baseUrl/orders';
+  static const String creditCardCheckout = '$baseUrl/orders/checkout';
   static const String addresses = '$baseUrl/addresses';
   static const String subscribe = '$baseUrl/subscriptions/subscribe';
   static const String unsubscribe = '$baseUrl/subscriptions/unsubscribe';

@@ -16,8 +16,11 @@ class CheckoutView extends StatelessWidget {
   final double subTotal;
   final double deliveryFee;
   final double total;
+  final _giftFormKey = GlobalKey<FormState>();
+  final _giftNameController = TextEditingController();
+  final _giftPhoneController = TextEditingController();
 
-  const CheckoutView({
+   CheckoutView({
     super.key,
     required this.subTotal,
     required this.deliveryFee,
@@ -86,13 +89,18 @@ class CheckoutView extends StatelessWidget {
             const DividerWidget(),
 
             // Gift Section
-            GiftWidget(),
+            GiftWidget(
+              formKey: _giftFormKey,
+              nameController: _giftNameController,
+              phoneController: _giftPhoneController,
+            ),
             const DividerWidget(),
             const SizedBox(height: 24),
             PricesCheckoutWidget(
               subTotal: subTotal,
               deliveryFee: deliveryFee,
               total: total,
+              giftFormKey: _giftFormKey,
             ),
 
             // Price Summary

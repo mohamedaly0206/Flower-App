@@ -8,7 +8,10 @@ class PlaceCashOrderIntent extends CheckoutIntent {
   PlaceCashOrderIntent({required this.checkoutRequest});
 }
 
-class PlaceCreditCardOrderIntent extends CheckoutIntent {}
+class PlaceCreditCardOrderIntent extends CheckoutIntent {
+  final CheckoutRequest checkoutRequest;
+  PlaceCreditCardOrderIntent({required this.checkoutRequest});
+}
 
 class SelectPaymentMethodIntent extends CheckoutIntent {
   final PaymentMethod paymentMethod;

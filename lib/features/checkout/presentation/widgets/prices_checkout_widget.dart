@@ -18,8 +18,10 @@ class PricesCheckoutWidget extends StatelessWidget {
   final double subTotal;
   final double deliveryFee;
   final double total;
+  final GlobalKey<FormState> giftFormKey;
   const PricesCheckoutWidget({
     super.key,
+    required this.giftFormKey,
     required this.subTotal,
     required this.deliveryFee,
     required this.total,
@@ -72,7 +74,22 @@ class PricesCheckoutWidget extends StatelessWidget {
                   context,
                   message: state.checkoutCashState.errorMessage!,
                 );
+              } else if (state.checkoutCreditState.errorMessage != null) {
+                AppMessages.showError(
+                  context,
+                  message: state.checkoutCreditState.errorMessage!,
+                );
               }
+              // else if (state.checkoutCashState.data != null) {
+              //   AppMessages.showSuccess(
+              //     context,
+              //     message: appLocalizations.orderPlacedSuccessfully,
+              //   );
+              //   context.read<CartCubit>().cartIntentHandler(
+              //     ClearCartAfterCheckoutIntent(),
+              //   );
+              //   GoRouter.of(context).go(AppRouterPaths.kAppSections, extra: 2);
+              // }
             },
             builder: (context, state) {
               return SizedBox(
@@ -90,11 +107,37 @@ class PricesCheckoutWidget extends StatelessWidget {
                       ),
                     );
                     if (state.selectedPaymentMethod != null &&
-                        state.selectedAddressId != null) {
+                        state.selectedAddressId != null &&
+                        state.selectedPaymentMethod ==
+                            PaymentMethod.creditCard &&
+                        state.isGift == false) {
+                      context.read<CheckoutCubit>().handleCheckoutIntent(
+                        PlaceCreditCardOrderIntent(
+                          checkoutRequest: checkoutRequest,
+                        ),
+                      );
+                    }
+                    if (state.selectedPaymentMethod != null &&
+                        state.selectedAddressId != null &&
+                        state.selectedPaymentMethod ==
+                            PaymentMethod.creditCard &&
+                        state.isGift == true &&
+                        giftFormKey.currentState!.validate()) {
+                      context.read<CheckoutCubit>().handleCheckoutIntent(
+                        PlaceCreditCardOrderIntent(
+                          checkoutRequest: checkoutRequest,
+                        ),
+                      );
+                    }
+                    if (state.selectedPaymentMethod != null &&
+                        state.selectedAddressId != null &&
+                        state.selectedPaymentMethod ==
+                            PaymentMethod.cashOnDelivery) {
                       context.read<CheckoutCubit>().handleCheckoutIntent(
                         PlaceCashOrderIntent(checkoutRequest: checkoutRequest),
                       );
-                    } else {
+                    } else if (state.selectedPaymentMethod == null ||
+                        state.selectedAddressId == null) {
                       AppMessages.showError(
                         context,
                         message:
@@ -103,7 +146,9 @@ class PricesCheckoutWidget extends StatelessWidget {
                     }
                   },
 
-                  child: state.checkoutCashState.isLoading
+                  child:
+                      state.checkoutCashState.isLoading ||
+                          state.checkoutCreditState.isLoading
                       ? SpinKitFadingCircle(
                           color: theme.colorScheme.secondary,
                           size: 24,

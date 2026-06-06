@@ -5,11 +5,13 @@ enum PaymentMethod { cashOnDelivery, creditCard }
 
 class CheckoutState extends Equatable {
   final BaseState checkoutCashState;
+  final BaseState checkoutCreditState;
   final String? selectedAddressId;
   final PaymentMethod? selectedPaymentMethod;
   final bool isGift;
 
   const CheckoutState({
+    this.checkoutCreditState = const BaseState(),
     this.selectedAddressId, // Defaulting to home
     this.selectedPaymentMethod,
     this.isGift = false,
@@ -21,6 +23,7 @@ class CheckoutState extends Equatable {
     PaymentMethod? selectedPaymentMethod,
     bool? isGift,
     BaseState? checkoutCashState,
+    BaseState? checkoutCreditState,
   }) {
     return CheckoutState(
       selectedAddressId: selectedAddressId ?? this.selectedAddressId,
@@ -28,6 +31,7 @@ class CheckoutState extends Equatable {
           selectedPaymentMethod ?? this.selectedPaymentMethod,
       isGift: isGift ?? this.isGift,
       checkoutCashState: checkoutCashState ?? this.checkoutCashState,
+      checkoutCreditState: checkoutCreditState ?? this.checkoutCreditState,
     );
   }
 
@@ -37,5 +41,6 @@ class CheckoutState extends Equatable {
     selectedPaymentMethod,
     isGift,
     checkoutCashState,
+    checkoutCreditState,
   ];
 }

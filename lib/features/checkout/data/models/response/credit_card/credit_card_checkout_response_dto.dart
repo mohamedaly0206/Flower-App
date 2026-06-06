@@ -16,8 +16,8 @@ class CreditCardCheckoutResponseDto {
   factory CreditCardCheckoutResponseDto.fromJson(Map<String, dynamic> json) =>
       _$CreditCardCheckoutResponseDtoFromJson(json);
   Map<String, dynamic> toJson() => _$CreditCardCheckoutResponseDtoToJson(this);
-  CreditCardResponseEntity toDomain() {
-    return CreditCardResponseEntity(
+  CreditCardCheckoutResponseEntity toDomain() {
+    return CreditCardCheckoutResponseEntity(
       message: message,
       session: session?.toDomain(),
     );

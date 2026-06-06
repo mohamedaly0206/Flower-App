@@ -8,10 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GiftWidget extends StatelessWidget {
-  GiftWidget({super.key});
-  final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _phoneNumberController = TextEditingController();
+  final GlobalKey<FormState> formKey;
+  final TextEditingController nameController;
+  final TextEditingController phoneController;
+
+  const GiftWidget({
+    super.key,
+    required this.formKey,
+    required this.nameController,
+    required this.phoneController,
+  });
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -62,11 +68,11 @@ class GiftWidget extends StatelessWidget {
               if (state.isGift) ...[
                 const SizedBox(height: 16),
                 Form(
-                  key: _formKey,
+                  key: formKey,
                   child: Column(
                     children: [
                       TextFormField(
-                        controller: _nameController,
+                        controller: nameController,
                         decoration: InputDecoration(
                           labelText: appLocalizations.userName,
                           hintText: appLocalizations.enterTheName,
@@ -79,7 +85,7 @@ class GiftWidget extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       TextFormField(
-                        controller: _phoneNumberController,
+                        controller: phoneController,
                         decoration: InputDecoration(
                           labelText: appLocalizations.phone,
                           hintText: appLocalizations.enterPhoneNumber,
