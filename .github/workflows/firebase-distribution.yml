@@ -3,6 +3,10 @@ name: Build & Distribute
 on:
   push:
   workflow_dispatch:
+    inputs:
+      firebase_token:
+        description: 'Firebase CLI Token (Optional if Secret/Variable is set)'
+        required: false
 
 jobs:
   distribute:
@@ -44,14 +48,14 @@ jobs:
         working-directory: android
         run: bundle exec fastlane build
 
-      - name: Create Service Account Key
-        run: |
-          echo "$FIREBASE_SERVICE_ACCOUNT_JSON" > service-account.json
-        env:
-          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
-
       - name: Deploy
         working-directory: android
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account.json
-        run: bundle exec fastlane deploy
+          FIREBASE_TOKEN: ${{ github.event.inputs.firebase_token || secrets.FIREBASE_TOKEN || vars.FIREBASE_TOKEN }}
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON || vars.FIREBASE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          if [ ! -z "$FIREBASE_SERVICE_ACCOUNT_JSON" ]; then
+            echo "$FIREBASE_SERVICE_ACCOUNT_JSON" > service-account.json
+            export GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/service-account.json
+          fi
+          bundle exec fastlane deploy
