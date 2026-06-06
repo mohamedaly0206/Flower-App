@@ -44,6 +44,14 @@ jobs:
         working-directory: android
         run: bundle exec fastlane build
 
+      - name: Create Service Account Key
+        run: |
+          echo "$FIREBASE_SERVICE_ACCOUNT_JSON" > service-account.json
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+
       - name: Deploy
         working-directory: android
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/service-account.json
         run: bundle exec fastlane deploy
