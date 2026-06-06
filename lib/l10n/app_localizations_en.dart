@@ -448,4 +448,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get phoneInvalid => 'Invalid Egyptian phone number';
+
+  @override
+  String get filter => 'Filter';
+
+  @override
+  String get lowesPrice => 'Lowes Price';
+
+  @override
+  String get highestPrice => 'Highest Price';
+
+  @override
+  String get newProduct => 'New';
+
+  @override
+  String get old => 'Old';
+
+  @override
+  String get discount => 'Discount';
+
+  @override
+  String get noProductsFoundInThisCategory =>
+      'No products found in this category';
 }

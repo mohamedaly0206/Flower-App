@@ -7,8 +7,11 @@ import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_sh
 import 'package:flower_app/core/shared_features/shared_view_model/states/home_shared_states.dart';
 import 'package:flower_app/features/app_sections/categories/domain/entities/category_entity.dart';
 import 'package:flower_app/features/app_sections/categories/domain/use_cases/categories_use_case.dart';
+import 'package:flower_app/features/app_sections/categories/presentation/widgets/product_sort_bottom_sheet.dart';
+import 'package:flower_app/features/app_sections/categories/presentation/widgets/product_sort_type.dart';
 import 'package:flower_app/features/best_seller/domain/use_case/best_seller_use_case.dart';
 import 'package:flower_app/features/occasion/domain/use_cases/get_occasions_use_case.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../features/occasion/domain/entities/occasions_response_entity.dart';
@@ -60,6 +63,9 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
 
       case SearchIntent():
         _searchProducts(intent);
+        break;
+      case SortProductsIntent():
+        _sortProductsList(intent.sortType);
         break;
     }
   }
@@ -208,6 +214,8 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
               dataParam: result.data,
               isLoadingParam: false,
             ),
+            originalProducts: result.data.products,
+            selectedSortType: ProductSortType.newest,
           ),
         );
 
@@ -297,6 +305,52 @@ class HomeSharedCubit extends Cubit<HomeSharedStates> {
 
         break;
     }
+  }
+
+  void _sortProductsList(ProductSortType sortType) {
+    final currentProducts = state.originalProducts;
+    if (currentProducts == null || currentProducts.isEmpty) return;
+
+    List<dynamic> sortedList = List.from(currentProducts);
+
+    switch (sortType) {
+      case ProductSortType.lowestPrice:
+        sortedList.sort((a, b) => (a.price ?? 0).compareTo(b.price ?? 0));
+        break;
+      case ProductSortType.highestPrice:
+        sortedList.sort((a, b) => (b.price ?? 0).compareTo(a.price ?? 0));
+        break;
+      case ProductSortType.newest:
+        sortedList.sort((a, b) => (b.id ?? '').compareTo(a.id ?? ''));
+        break;
+      case ProductSortType.oldest:
+        sortedList.sort((a, b) => (a.id ?? '').compareTo(b.id ?? ''));
+        break;
+      case ProductSortType.discount:
+        sortedList.sort((a, b) => (b.discount ?? 0).compareTo(a.discount ?? 0));
+        break;
+    }
+
+    if (isClosed) return;
+
+    emit(
+      state.copyWith(
+        productsState: state.productsState.copyWith(
+          dataParam: ProductsResponseEntity(products: sortedList.cast()),
+        ),
+        selectedSortType: sortType,
+      ),
+    );
+  }
+
+  void openFilterBottomSheet(BuildContext context) {
+    showProductSortBottomSheet(
+      context,
+      currentSortType: state.selectedSortType,
+      onSortSelected: (newSortType) {
+        handleHomeSharedIntent(SortProductsIntent(newSortType));
+      },
+    );
   }
 
   @override

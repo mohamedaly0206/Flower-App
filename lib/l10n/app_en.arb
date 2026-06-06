@@ -142,5 +142,12 @@
   "nameOnlyLetters": "must contain letters only",
   "nameNoSpaces": "cannot contain spaces",
   "phoneRequired": "Phone number is required",
-  "phoneInvalid": "Invalid Egyptian phone number"
+  "phoneInvalid": "Invalid Egyptian phone number",
+  "filter": "Filter",
+  "lowesPrice": "Lowes Price",
+  "highestPrice": "Highest Price",
+  "newProduct": "New",
+  "old": "Old",
+  "discount": "Discount",
+  "noProductsFoundInThisCategory": "No products found in this category"
 }
