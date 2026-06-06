@@ -311,6 +311,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get orderPlacedSuccessfully => 'Your order placed successfully!';
 
   @override
+  String get noPaymentMethodOrAddressSelected =>
+      'No Payment or Address Selected';
+
+  @override
   String get estimatedArrival => 'Estimated arrival';
 
   @override

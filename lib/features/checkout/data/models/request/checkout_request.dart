@@ -15,7 +15,7 @@ class CheckoutRequest {
   @JsonKey(name: "shippingAddress")
   final ShippingAddress? shippingAddress;
 
-  CheckoutRequest({this.shippingAddress});
+  CheckoutRequest({required this.shippingAddress});
 
   factory CheckoutRequest.fromJson(Map<String, dynamic> json) =>
       _$CheckoutRequestFromJson(json);

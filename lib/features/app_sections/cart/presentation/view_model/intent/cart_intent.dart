@@ -5,6 +5,8 @@ sealed class CartIntent {}
 
 class GetCartItemsIntent extends CartIntent {}
 
+class ClearCartAfterCheckoutIntent extends CartIntent {}
+
 class RemoveItemFromCartIntent extends CartIntent {
   final String productId;
   RemoveItemFromCartIntent({required this.productId});

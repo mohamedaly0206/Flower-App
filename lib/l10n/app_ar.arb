@@ -98,6 +98,7 @@
   "next": "التالي",
   "trackOrder": "تتبع الطلب",
   "orderPlacedSuccessfully": "تم تقديم طلبك بنجاح!",
+  "noPaymentMethodOrAddressSelected": "لم يتم تحديد طريقة دفع أو عنوان",
   "estimatedArrival": "الوصول المقدر",
   "showMap": "عرض الخريطة",
   "orderDelivered": "تم توصيل الطلب",

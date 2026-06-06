@@ -308,6 +308,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get orderPlacedSuccessfully => 'تم تقديم طلبك بنجاح!';
 
   @override
+  String get noPaymentMethodOrAddressSelected =>
+      'لم يتم تحديد طريقة دفع أو عنوان';
+
+  @override
   String get estimatedArrival => 'الوصول المقدر';
 
   @override

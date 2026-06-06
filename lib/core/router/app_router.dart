@@ -66,12 +66,17 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: AppRouterPaths.kAppSections,
-        builder: (context, state) => BlocProvider(
-          create: (context) =>
-              getIt<HomeSharedCubit>()
-                ..handleHomeSharedIntent(GetAllHomeDataIntent()),
-          child: const AppSections(),
-        ),
+        builder: (context, state) {
+          final extraParam = state.extra;
+          final initialIndex = extraParam is int ? extraParam : 0;
+
+          return BlocProvider(
+            create: (context) =>
+                getIt<HomeSharedCubit>()
+                  ..handleHomeSharedIntent(GetAllHomeDataIntent()),
+            child: AppSections(initialIndex: initialIndex),
+          );
+        },
       ),
       GoRoute(
         path: AppRouterPaths.kForgetPasswordView,

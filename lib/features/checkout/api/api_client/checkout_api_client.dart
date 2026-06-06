@@ -11,7 +11,7 @@ part 'checkout_api_client.g.dart';
 @RestApi()
 abstract class CheckoutApiClient {
   @factoryMethod
-  factory CheckoutApiClient(Dio dio) => _CheckoutApiClient(dio);
+  factory CheckoutApiClient(Dio dio) = _CheckoutApiClient;
 
   @POST(ApiEndpoints.orders)
   Future<CheckoutResponseDto> checkoutCashOrder(

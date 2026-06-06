@@ -98,6 +98,7 @@
   "next": "Next",
   "trackOrder": "Track order",
   "orderPlacedSuccessfully": "Your order placed successfully!",
+  "noPaymentMethodOrAddressSelected":"No Payment or Address Selected",
   "estimatedArrival": "Estimated arrival",
   "showMap": "Show map",
   "orderDelivered": "Order Delivered",

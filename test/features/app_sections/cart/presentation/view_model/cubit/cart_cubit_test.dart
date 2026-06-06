@@ -3,8 +3,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flower_app/config/base_response/base_response.dart';
+import 'package:flower_app/config/base_state/base_state.dart';
 import 'package:flower_app/features/app_sections/cart/data/models/request/add_to_cart_request.dart';
 import 'package:flower_app/features/app_sections/cart/data/models/request/update_cart_item_quantity_request.dart';
+import 'package:flower_app/features/app_sections/cart/domain/entities/cart_entity.dart';
+import 'package:flower_app/features/app_sections/cart/domain/entities/cart_item_entity.dart';
 import 'package:flower_app/features/app_sections/cart/domain/entities/cart_response_entity.dart';
 import 'package:flower_app/features/app_sections/cart/domain/use_cases/add_item_to_cart_use_case.dart';
 import 'package:flower_app/features/app_sections/cart/domain/use_cases/get_items_cart_use_case.dart';
@@ -101,6 +104,33 @@ void main() {
           'errorMessage',
           tErrorMessage,
         ),
+      ],
+    );
+  });
+
+  group('CartCubit - ClearCartAfterCheckout', () {
+    const tPopulatedCart = CartResponseEntity(
+      numOfCartItems: 1,
+      cart: CartEntity(cartItems: [CartItemEntity(quantity: 1)]),
+    );
+
+    blocTest<CartCubit, CartState>(
+      'emits an empty cart when ClearCartAfterCheckoutIntent is received',
+      build: () => CartCubit(
+        mockGetItemsUseCase,
+        mockAddItemUseCase,
+        mockRemoveItemUseCase,
+        mockUpdateQuantityUseCase,
+      ),
+      seed: () => const CartState(
+        getCartItemsState: BaseState<CartResponseEntity>(data: tPopulatedCart),
+      ),
+      act: (cubit) => cubit.cartIntentHandler(ClearCartAfterCheckoutIntent()),
+      expect: () => [
+        isA<CartState>()
+            .having((s) => s.itemCount, 'itemCount', 0)
+            .having((s) => s.isCartEmpty, 'isCartEmpty', true)
+            .having((s) => s.getCartItemsState?.data, 'data', isNotNull),
       ],
     );
   });

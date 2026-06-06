@@ -692,6 +692,12 @@ abstract class AppLocalizations {
   /// **'Your order placed successfully!'**
   String get orderPlacedSuccessfully;
 
+  /// No description provided for @noPaymentMethodOrAddressSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'No Payment or Address Selected'**
+  String get noPaymentMethodOrAddressSelected;
+
   /// No description provided for @estimatedArrival.
   ///
   /// In en, this message translates to:

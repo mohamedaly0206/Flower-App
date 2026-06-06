@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flower_app/config/base_response/base_response.dart';
 import 'package:flower_app/core/errors/failures.dart';
 import 'package:flower_app/features/checkout/api/api_client/checkout_api_client.dart';
@@ -21,6 +23,7 @@ class CheckoutRemoteDataSourceImpl implements CheckoutRemoteDataSourceContract {
       final response = await apiClient.checkoutCashOrder(checkoutRequest);
       return SuccessBaseResponse<CheckoutResponseDto>(data: response);
     } catch (e) {
+      log('Error in checkoutCashOrder: ${e.toString()}');
       return ErrorBaseResponse<CheckoutResponseDto>(
         errorMessage: ServerFailure.failureHandler(e).errorMessage,
       );
