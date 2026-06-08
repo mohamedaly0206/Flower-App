@@ -1,8 +1,9 @@
+import 'package:equatable/equatable.dart';
 import 'package:flower_app/features/orders/domain/models/orders_model.dart';
 
 enum OrdersStatus { initial, loading, success, error }
 
-class OrdersState {
+class OrdersState extends Equatable {
   final OrdersStatus status;
   final List<OrdersModel> allOrders;
   final List<OrdersModel> activeOrders;
@@ -32,4 +33,13 @@ class OrdersState {
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
+
+  @override
+  List<Object?> get props => [
+    status,
+    allOrders,
+    activeOrders,
+    completedOrders,
+    errorMessage,
+  ];
 }
