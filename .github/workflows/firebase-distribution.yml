@@ -50,21 +50,4 @@ jobs:
 
       - name: Deploy
         working-directory: android
-        run: |
-          cat <<EOF > service-account.json
-          {
-            "type": "service_account",
-            "project_id": "flower-app-be078",
-            "private_key_id": "6e376df0fc53f3f92b1b16ab1fb228899ddb3740",
-            "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDRTFRz+xqYTUMv\nCXy3EfsUe3npvmewsg6l4BuqXDIOnY7lMSo66RGYNMIYhPA5Is4BBzRBMfZwE+rC\n5fYzbazJaEWEukJjVOoU0rxadH0XbTUKyznFL+xytSAfj7KxMWEfBMkJDYYbtZqQ\nfqVkvL8gd6SWw1KSO3Rbi71PsVEc+W8cZF28EE+Tyimy8oprS4VVH2t4cC6RG5ZB\n5Z1TuZfSJSHI/2veGy4AhTa9VmUVy92wK191YCLpoKiYkQSdEK7OEdagvpFudd2h\nJMh24G7qfII5wTesSyebjoPh58r4f2cERLi63RVV2zPnI+flzHfBjHxzb6yoyT8T\nqy2eFi1jAgMBAAECggEAGIMriu/YRAkcerhOOnSpJtN1SkpqA3g/He863j9w/2Q1\nlaMl8oNUc7KOHugG6HIqlVU+KfqLhcHXZ18ecBSCvY3wQmS8HL0XszuhIqjs857v\nLOXzTKRZuW98JSYjw/voB4V8dAp47+rbgNvMTBmM+uT4Sk3y8Dx1WrlpgRlfyhg4\nQlhxMMArHB4ei4isGJQEvVKU+Lso1uSowuws5Upt9p75Dttr4Zw0rVSoaMRCrXyn\nc/W9LACdAi6X2vPRNAB3BdbCyRk7N6xbSHUZ5UZMGnIDieGZi/QNyIP+x1tTcAUm\nRPoLsp1wxu23+NamzVEVK1Cnrs24HauYfJ0zsJK4mQKBgQDy2ve21vafFPCqcXQf\nGEnYRCUv4mdTvaP/Epmuw0nWtyV0i3OnGe2RIGxYqqZ/wgqT5uGejEBMKYtWRkre\nl3hIhkOzi/Js0MWatCPOo19RNMPCCFQUEeOgyJqWCPo0E4aI7mZeWCmhLOzNg1AC\nWA6XJJenQcjXxmNX/ykKDVXyCQKBgQDcoGPYd7Dh9wdvbL7JNEjj+G+KrAbEk/JX\nNhHA/RbgifL/JOHYLThcCUKVe6SXTnll6mauyr8/oqEaK5h5k6xG6yzBR1OUGeRk\nt+0z2QBLbbV7krID4f41AdIuzpoUqBVkKOcNZtlL0u5WKXB718FuEOncGXDWAWA1\n8+II9RRPCwKBgEi74+zSvNIwR1QE3q5ha9xlrG2G9UNTTMacH4MD4h14hLM/AMhP\nL6ODfm+fzHX++4QIZhJCFw+4cY7JRqsb2l5+N9CSXWzRqh0HTqIYs/dyQh7et6+7\nG92PtxywW581Kdng7K/c37rx5Yo3hcLt9JC32OOzBB/7vs0gEn58N/1hAoGBAMS+\ntytT2UY478V6uUxeNt4tLvL/420r7gG9suliCSOlgS/saQZJlSfmDh2VzDot/e5X\nsMgQ/6m00muvEuLgQNJhaGDXxX2d9WGn73y7+BpLtHqFYAA8aWBFxnR9Q0RGfAT8\nwMbfv8lxSZ9Ghwu5ZMJNjO79NPVy9qRGX3zTaQ/vAoGANKQxGrM4mNVrJVfQMVrp\nJWgTApCkc3c39jk5ZM/6ysDR3igZHRONqTn78fAc+TqVkcTmYzkbVEU5DlEpbHf8\nz3X1VaZhIdXg2vVZ3OeIBWApReBeo4Lo/f2k7ydKcyVceYpB5vYKSTz0SVz64lOx\nufB8anqXYrwOb4aTtz0KUDM=\n-----END PRIVATE KEY-----\n",
-            "client_email": "firebase-adminsdk-fbsvc@flower-app-be078.iam.gserviceaccount.com",
-            "client_id": "113526239111518495715",
-            "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-            "token_uri": "https://oauth2.googleapis.com/token",
-            "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-            "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40flower-app-be078.iam.gserviceaccount.com",
-            "universe_domain": "googleapis.com"
-          }
-          EOF
-          export GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/service-account.json
-          bundle exec fastlane deploy
+        run: bundle exec fastlane deploy
