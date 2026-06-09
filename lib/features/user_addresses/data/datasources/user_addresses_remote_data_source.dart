@@ -4,4 +4,8 @@ abstract interface class UserAddressesRemoteDataSource {
   Future<UserAddressesDto> getUserAddresses();
 
   Future<void> deleteAddress(String id);
+
+  Future<void> addAddress(Map<String, dynamic> body);
+
+  Future<void> updateAddress(String id, Map<String, dynamic> body);
 }

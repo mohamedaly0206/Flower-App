@@ -5,12 +5,11 @@ import 'package:flower_app/core/widgets/app_loading.dart';
 import 'package:flower_app/core/widgets/app_messages.dart';
 import 'package:flower_app/core/widgets/custom_app_bar.dart';
 import 'package:flower_app/features/user_addresses/domain/entities/user_addresses_entity.dart';
-import 'package:flower_app/features/user_addresses/presentation/view/add_address_view.dart';
-import 'package:flower_app/features/user_addresses/presentation/view/edit_address_view.dart';
+import 'package:flower_app/features/user_addresses/presentation/view/address_form_view.dart';
 import 'package:flower_app/features/user_addresses/presentation/view_model/cubit/user_addresses_cubit.dart';
 import 'package:flower_app/features/user_addresses/presentation/view_model/intent/user_addresses_intent.dart';
 import 'package:flower_app/features/user_addresses/presentation/view_model/state/user_addresses_state.dart';
-import 'package:flower_app/features/user_addresses/presentation/widgets/user_address_card.dart';
+import 'package:flower_app/features/user_addresses/presentation/widgets/address_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,31 +26,44 @@ class _UserAddressesViewState extends State<UserAddressesView> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<UserAddressesCubit>().handleIntent(
-        const FetchUserAddressesIntent(),
+        const FetchAddressesIntent(),
       );
     });
   }
 
-  void _openAddAddress() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(builder: (_) => const AddAddressView()),
-    );
-  }
+  Future<void> _openAddressForm({AddressEntity? address}) async {
+    final cubit = context.read<UserAddressesCubit>();
 
-  void _openEditAddress(AddressEntity address) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => EditAddressView(address: address),
+    if (address == null) {
+      cubit.prepareAddForm();
+    } else {
+      cubit.prepareEditForm(address);
+    }
+
+    AppLoading.toggle(context: context, isLoading: false);
+
+    final saved = await Navigator.of(context).push<bool>(
+      MaterialPageRoute<bool>(
+        builder: (_) => BlocProvider.value(
+          value: cubit,
+          child: AddressFormView(address: address),
+        ),
       ),
     );
+
+    if (saved == true && mounted) {
+      context.read<UserAddressesCubit>().handleIntent(
+        const FetchAddressesIntent(),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserAddressesCubit, UserAddressesState>(
+      listenWhen: (_, _) => ModalRoute.of(context)?.isCurrent ?? true,
       listener: (context, state) {
-        final isBusy = state.status == UserAddressesStatus.loading ||
-            state.status == UserAddressesStatus.deleting;
+        final isBusy = state.status == UserAddressesStatus.loading;
         AppLoading.toggle(context: context, isLoading: isBusy);
 
         if (state.status == UserAddressesStatus.error &&
@@ -71,14 +83,13 @@ class _UserAddressesViewState extends State<UserAddressesView> {
 
   Widget _buildBody(BuildContext context, UserAddressesState state) {
     if (state.status == UserAddressesStatus.loading &&
-        (state.addresses == null || state.addresses!.isEmpty)) {
+        state.addresses.isEmpty) {
       return const Center(
         child: CircularProgressIndicator(color: AppColors.primaryColor),
       );
     }
 
-    if (state.status == UserAddressesStatus.error &&
-        (state.addresses == null || state.addresses!.isEmpty)) {
+    if (state.status == UserAddressesStatus.error && state.addresses.isEmpty) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(24),
@@ -95,7 +106,7 @@ class _UserAddressesViewState extends State<UserAddressesView> {
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () => context.read<UserAddressesCubit>().handleIntent(
-                  const FetchUserAddressesIntent(),
+                  const FetchAddressesIntent(),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryColor,
@@ -109,12 +120,10 @@ class _UserAddressesViewState extends State<UserAddressesView> {
       );
     }
 
-    final addresses = state.addresses ?? [];
-
     return Column(
       children: [
         Expanded(
-          child: addresses.isEmpty
+          child: state.addresses.isEmpty
               ? Center(
                   child: Text(
                     AppStrings.enterAddress,
@@ -125,11 +134,11 @@ class _UserAddressesViewState extends State<UserAddressesView> {
                 )
               : ListView.separated(
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-                  itemCount: addresses.length,
+                  itemCount: state.addresses.length,
                   separatorBuilder: (_, _) => const SizedBox(height: 12),
                   itemBuilder: (context, index) {
-                    final address = addresses[index];
-                    return UserAddressCard(
+                    final address = state.addresses[index];
+                    return AddressCard(
                       address: address,
                       onDelete: () {
                         final id = address.id;
@@ -138,7 +147,7 @@ class _UserAddressesViewState extends State<UserAddressesView> {
                           DeleteAddressIntent(id),
                         );
                       },
-                      onEdit: () => _openEditAddress(address),
+                      onEdit: () => _openAddressForm(address: address),
                     );
                   },
                 ),
@@ -149,7 +158,7 @@ class _UserAddressesViewState extends State<UserAddressesView> {
             width: double.infinity,
             height: 52,
             child: ElevatedButton(
-              onPressed: _openAddAddress,
+              onPressed: () => _openAddressForm(),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primaryColor,
                 foregroundColor: Colors.white,

@@ -14,6 +14,13 @@ abstract class UserAddressesApiClient {
   factory UserAddressesApiClient(Dio dio) = _UserAddressesApiClient;
   @GET(ApiEndpoints.addresses)
   Future<UserAddressesDto> getUserAddresses();
+  @PATCH(ApiEndpoints.addresses)
+  Future<void> addAddress(@Body() Map<String, dynamic> body);
+  @PATCH("${ApiEndpoints.addresses}/{id}")
+  Future<void> updateAddress(
+    @Path("id") String id,
+    @Body() Map<String, dynamic> body,
+  );
   @DELETE("${ApiEndpoints.addresses}/{id}")
   Future<void> deleteAddress(@Path("id") String id);
 }

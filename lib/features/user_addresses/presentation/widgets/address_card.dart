@@ -5,12 +5,12 @@ import 'package:flower_app/features/user_addresses/domain/entities/user_addresse
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class UserAddressCard extends StatelessWidget {
+class AddressCard extends StatelessWidget {
   final AddressEntity address;
   final VoidCallback onDelete;
   final VoidCallback onEdit;
 
-  const UserAddressCard({
+  const AddressCard({
     super.key,
     required this.address,
     required this.onDelete,
@@ -24,7 +24,9 @@ class UserAddressCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.placeHolderColor.withValues(alpha: 0.4)),
+        border: Border.all(
+          color: AppColors.placeHolderColor.withValues(alpha: 0.4),
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,6 +41,15 @@ class UserAddressCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if ((address.username ?? '').isNotEmpty) ...[
+                  Text(
+                    address.username!,
+                    style: AppTextStyles.textStyleMedium14.copyWith(
+                      color: AppColors.greyColor,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                ],
                 Text(
                   address.city ?? '',
                   style: AppTextStyles.textStyleMedium16.copyWith(
