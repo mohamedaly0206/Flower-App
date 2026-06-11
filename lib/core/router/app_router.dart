@@ -15,6 +15,7 @@ import 'package:flower_app/features/change_password/presentation/view/change_pas
 import 'package:flower_app/features/change_password/presentation/view_model/cubit/change_password_cubit.dart';
 import 'package:flower_app/features/checkout/presentation/view_model/cubit/checkout_cubit.dart';
 import 'package:flower_app/features/checkout/presentation/views/checkout_view.dart';
+import 'package:flower_app/features/checkout/presentation/widgets/credit_card_web_view_payment.dart';
 import 'package:flower_app/features/occasion/presentation/view_model/intent/occasion_intent.dart';
 import 'package:flower_app/features/occasion/presentation/view/occasion_view.dart';
 import 'package:flower_app/features/product_details/presentation/view/product_details_view.dart';
@@ -141,8 +142,6 @@ abstract class AppRouter {
         path: AppRouterPaths.kCheckoutView,
         builder: (context, state) {
           final args = state.extra as Map<String, dynamic>;
-
-          // 2. Extract each value using the exact keys you set in CartView
           final double subTotal = args['subTotal'] as double;
           final double deliveryFee = args['deliveryFee'] as double;
           final double total = args['totalPrice'] as double;
@@ -153,6 +152,18 @@ abstract class AppRouter {
               deliveryFee: deliveryFee,
               total: total,
             ),
+          );
+        },
+      ),
+      GoRoute(
+        path: AppRouterPaths.kCreditCardWebView,
+        builder: (context, state) {
+          final args = state.extra as Map<String, String>;
+
+          return CreditCardWebViewPayment(
+            initialUrl: args['initialUrl'] ?? '',
+            successUrl: args['successUrl'] ?? '',
+            cancelUrl: args['cancelUrl'] ?? '',
           );
         },
       ),

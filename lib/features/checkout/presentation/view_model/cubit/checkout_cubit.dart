@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flower_app/config/base_response/base_response.dart';
+import 'package:flower_app/config/base_state/base_state.dart';
 import 'package:flower_app/core/values/api_param.dart';
 import 'package:flower_app/features/checkout/data/models/request/checkout_request.dart';
 import 'package:flower_app/features/checkout/domain/entities/response/cash/cash_checkout_response_entity.dart';
@@ -10,7 +11,6 @@ import 'package:flower_app/features/checkout/presentation/view_model/intent/chec
 import 'package:flower_app/features/checkout/presentation/view_model/state/checkout_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 @injectable
 class CheckoutCubit extends Cubit<CheckoutState> {
@@ -39,6 +39,9 @@ class CheckoutCubit extends Cubit<CheckoutState> {
         break;
       case PlaceCreditCardOrderIntent():
         _placeCreditCardOrder(intent.checkoutRequest);
+        break;
+      case ResetCreditStateIntent():
+        _resetCreditCardData();
         break;
     }
   }
@@ -135,25 +138,6 @@ class CheckoutCubit extends Cubit<CheckoutState> {
           ),
         );
         log('Credit card checkout success...');
-        final stripeUrl = response.data.session?.url;
-
-        if (stripeUrl != null && stripeUrl.isNotEmpty) {
-          final Uri uri = Uri.parse(stripeUrl);
-          if (await canLaunchUrl(uri)) {
-            await launchUrl(uri, mode: LaunchMode.inAppBrowserView);
-          } else {
-            log('Could not launch $stripeUrl');
-            emit(
-              state.copyWith(
-                checkoutCreditState: state.checkoutCreditState.copyWith(
-                  errorMessageParam: 'Could not launch $stripeUrl',
-                  isLoadingParam: false,
-                  dataParam: null,
-                ),
-              ),
-            );
-          }
-        }
         break;
       case ErrorBaseResponse<CreditCardCheckoutResponseEntity>():
         emit(
@@ -167,5 +151,9 @@ class CheckoutCubit extends Cubit<CheckoutState> {
         );
         log('Credit card checkout error: ${response.errorMessage}');
     }
+  }
+
+  void _resetCreditCardData() {
+    emit(state.copyWith(checkoutCreditState: const BaseState()));
   }
 }

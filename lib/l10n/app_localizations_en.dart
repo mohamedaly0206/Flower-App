@@ -315,6 +315,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'No Payment or Address Selected';
 
   @override
+  String get creditCardPaymentFailed => 'Credit card payment isn\'t completed';
+
+  @override
+  String get creditCardPayment => 'Credit Card Payment';
+
+  @override
   String get estimatedArrival => 'Estimated arrival';
 
   @override

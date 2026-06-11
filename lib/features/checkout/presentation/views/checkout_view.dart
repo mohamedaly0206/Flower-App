@@ -20,7 +20,7 @@ class CheckoutView extends StatelessWidget {
   final _giftNameController = TextEditingController();
   final _giftPhoneController = TextEditingController();
 
-   CheckoutView({
+  CheckoutView({
     super.key,
     required this.subTotal,
     required this.deliveryFee,

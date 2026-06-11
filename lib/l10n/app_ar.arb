@@ -99,6 +99,8 @@
   "trackOrder": "تتبع الطلب",
   "orderPlacedSuccessfully": "تم تقديم طلبك بنجاح!",
   "noPaymentMethodOrAddressSelected": "لم يتم تحديد طريقة دفع أو عنوان",
+  "creditCardPaymentFailed":"لم يتم اكتمال عمليه الدفع بالكارت",
+  "creditCardPayment":"الدفع بالكارت",
   "estimatedArrival": "الوصول المقدر",
   "showMap": "عرض الخريطة",
   "orderDelivered": "تم توصيل الطلب",

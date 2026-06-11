@@ -1,4 +1,5 @@
 import 'package:flower_app/core/router/router_paths.dart';
+import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/core/widgets/app_messages.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/view_model/cubit/cart_cubit.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/view_model/intent/cart_intent.dart';
@@ -31,6 +32,7 @@ class PricesCheckoutWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context);
     final theme = Theme.of(context);
+    final checkoutCubit = context.read<CheckoutCubit>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
@@ -79,72 +81,114 @@ class PricesCheckoutWidget extends StatelessWidget {
                   context,
                   message: state.checkoutCreditState.errorMessage!,
                 );
+              } else if (state.checkoutCreditState.data != null) {
+                final String paymentUrl =
+                    state.checkoutCreditState.data.session?.url;
+                final String successUrl =
+                    state.checkoutCreditState.data.session?.successUrl;
+                final String cancelUrl =
+                    state.checkoutCreditState.data.session?.cancelUrl;
+
+                GoRouter.of(context)
+                    .push<bool?>(
+                      // Expect a boolean result
+                      AppRouterPaths.kCreditCardWebView,
+                      extra: {
+                        AppStrings.initialUrl: paymentUrl,
+                        AppStrings.successUrl: successUrl,
+                        AppStrings.cancelUrl: cancelUrl,
+                      },
+                    )
+                    .then((isSuccess) {
+                      if (!context.mounted) return;
+                      checkoutCubit.handleCheckoutIntent(
+                        ResetCreditStateIntent(),
+                      );
+
+                      if (isSuccess == true) {
+                        AppMessages.showSuccess(
+                          context,
+                          message: appLocalizations.orderPlacedSuccessfully,
+                        );
+
+                        context.read<CartCubit>().cartIntentHandler(
+                          ClearCartAfterCheckoutIntent(),
+                        );
+
+                        GoRouter.of(
+                          context,
+                        ).go(AppRouterPaths.kAppSections, extra: 2);
+                      } else if (isSuccess == false) {
+                        AppMessages.showError(
+                          context,
+                          message: appLocalizations.creditCardPaymentFailed,
+                        );
+                      }
+                    });
               }
-              // else if (state.checkoutCashState.data != null) {
-              //   AppMessages.showSuccess(
-              //     context,
-              //     message: appLocalizations.orderPlacedSuccessfully,
-              //   );
-              //   context.read<CartCubit>().cartIntentHandler(
-              //     ClearCartAfterCheckoutIntent(),
-              //   );
-              //   GoRouter.of(context).go(AppRouterPaths.kAppSections, extra: 2);
-              // }
             },
             builder: (context, state) {
               return SizedBox(
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: () {
-                    final CheckoutRequest checkoutRequest = CheckoutRequest(
-                      shippingAddress: ShippingAddress(
-                        street: 'salah Salem St', // Replace with actual data
-                        phone: '0123456789', // Replace with actual data
-                        city: 'Cairo', // Replace with actual data
-                        lat: '30.0444', // Replace with actual data
-                        long: '31.2357', // Replace with actual data
-                      ),
-                    );
-                    if (state.selectedPaymentMethod != null &&
-                        state.selectedAddressId != null &&
-                        state.selectedPaymentMethod ==
-                            PaymentMethod.creditCard &&
-                        state.isGift == false) {
-                      context.read<CheckoutCubit>().handleCheckoutIntent(
-                        PlaceCreditCardOrderIntent(
-                          checkoutRequest: checkoutRequest,
-                        ),
-                      );
-                    }
-                    if (state.selectedPaymentMethod != null &&
-                        state.selectedAddressId != null &&
-                        state.selectedPaymentMethod ==
-                            PaymentMethod.creditCard &&
-                        state.isGift == true &&
-                        giftFormKey.currentState!.validate()) {
-                      context.read<CheckoutCubit>().handleCheckoutIntent(
-                        PlaceCreditCardOrderIntent(
-                          checkoutRequest: checkoutRequest,
-                        ),
-                      );
-                    }
-                    if (state.selectedPaymentMethod != null &&
-                        state.selectedAddressId != null &&
-                        state.selectedPaymentMethod ==
-                            PaymentMethod.cashOnDelivery) {
-                      context.read<CheckoutCubit>().handleCheckoutIntent(
-                        PlaceCashOrderIntent(checkoutRequest: checkoutRequest),
-                      );
-                    } else if (state.selectedPaymentMethod == null ||
-                        state.selectedAddressId == null) {
-                      AppMessages.showError(
-                        context,
-                        message:
-                            appLocalizations.noPaymentMethodOrAddressSelected,
-                      );
-                    }
-                  },
+                  onPressed:
+                      (state.checkoutCashState.isLoading ||
+                          state.checkoutCreditState.isLoading)
+                      ? null
+                      : () {
+                          final CheckoutRequest
+                          checkoutRequest = CheckoutRequest(
+                            shippingAddress: ShippingAddress(
+                              street:
+                                  'salah Salem St', // Replace with actual data
+                              phone: '0123456789', // Replace with actual data
+                              city: 'Cairo', // Replace with actual data
+                              lat: '30.0444', // Replace with actual data
+                              long: '31.2357', // Replace with actual data
+                            ),
+                          );
+                          if (state.selectedPaymentMethod != null &&
+                              state.selectedAddressId != null &&
+                              state.selectedPaymentMethod ==
+                                  PaymentMethod.creditCard &&
+                              state.isGift == false) {
+                            checkoutCubit.handleCheckoutIntent(
+                              PlaceCreditCardOrderIntent(
+                                checkoutRequest: checkoutRequest,
+                              ),
+                            );
+                          }
+                          if (state.selectedPaymentMethod != null &&
+                              state.selectedAddressId != null &&
+                              state.selectedPaymentMethod ==
+                                  PaymentMethod.creditCard &&
+                              state.isGift == true &&
+                              giftFormKey.currentState!.validate()) {
+                            checkoutCubit.handleCheckoutIntent(
+                              PlaceCreditCardOrderIntent(
+                                checkoutRequest: checkoutRequest,
+                              ),
+                            );
+                          }
+                          if (state.selectedPaymentMethod != null &&
+                              state.selectedAddressId != null &&
+                              state.selectedPaymentMethod ==
+                                  PaymentMethod.cashOnDelivery) {
+                            checkoutCubit.handleCheckoutIntent(
+                              PlaceCashOrderIntent(
+                                checkoutRequest: checkoutRequest,
+                              ),
+                            );
+                          } else if (state.selectedPaymentMethod == null ||
+                              state.selectedAddressId == null) {
+                            AppMessages.showError(
+                              context,
+                              message: appLocalizations
+                                  .noPaymentMethodOrAddressSelected,
+                            );
+                          }
+                        },
 
                   child:
                       state.checkoutCashState.isLoading ||

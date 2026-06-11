@@ -109,6 +109,9 @@ abstract class AppStrings {
   static const String searchForAnyProduct = 'Search For Any Product You Want';
   static const next = 'Next';
   static const productId = 'productId';
+  static const String initialUrl = 'initialUrl';
+  static const String successUrl = 'successUrl';
+  static const String cancelUrl = 'cancelUrl';
 
   //track order
   static const String trackOrder = 'Track order';

@@ -312,6 +312,12 @@ class AppLocalizationsAr extends AppLocalizations {
       'لم يتم تحديد طريقة دفع أو عنوان';
 
   @override
+  String get creditCardPaymentFailed => 'لم يتم اكتمال عمليه الدفع بالكارت';
+
+  @override
+  String get creditCardPayment => 'الدفع بالكارت';
+
+  @override
   String get estimatedArrival => 'الوصول المقدر';
 
   @override

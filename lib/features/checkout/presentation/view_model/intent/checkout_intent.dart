@@ -27,3 +27,5 @@ class SelectIsItGiftIntent extends CheckoutIntent {
   final bool isGift;
   SelectIsItGiftIntent({required this.isGift});
 }
+
+class ResetCreditStateIntent extends CheckoutIntent {}

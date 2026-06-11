@@ -99,6 +99,8 @@
   "trackOrder": "Track order",
   "orderPlacedSuccessfully": "Your order placed successfully!",
   "noPaymentMethodOrAddressSelected":"No Payment or Address Selected",
+  "creditCardPaymentFailed":"Credit card payment isn't completed",
+  "creditCardPayment":"Credit Card Payment",
   "estimatedArrival": "Estimated arrival",
   "showMap": "Show map",
   "orderDelivered": "Order Delivered",

@@ -698,6 +698,18 @@ abstract class AppLocalizations {
   /// **'No Payment or Address Selected'**
   String get noPaymentMethodOrAddressSelected;
 
+  /// No description provided for @creditCardPaymentFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Credit card payment isn\'t completed'**
+  String get creditCardPaymentFailed;
+
+  /// No description provided for @creditCardPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Credit Card Payment'**
+  String get creditCardPayment;
+
   /// No description provided for @estimatedArrival.
   ///
   /// In en, this message translates to:
