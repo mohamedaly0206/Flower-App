@@ -321,6 +321,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get creditCardPayment => 'Credit Card Payment';
 
   @override
+  String get arriveBy => 'Arrive By';
+
+  @override
+  String get deliveryClock => '11:00 AM';
+
+  @override
   String get estimatedArrival => 'Estimated arrival';
 
   @override

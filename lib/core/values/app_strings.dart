@@ -112,6 +112,9 @@ abstract class AppStrings {
   static const String initialUrl = 'initialUrl';
   static const String successUrl = 'successUrl';
   static const String cancelUrl = 'cancelUrl';
+  static const String firebaseDeliveryDaysConfig = 'delivery_days';
+  static const String arriveBy = 'Arrive by';
+  static const String deliveryClock = '11:00 AM';
 
   //track order
   static const String trackOrder = 'Track order';

@@ -1,5 +1,8 @@
+import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DeliveryTimeWidget extends StatelessWidget {
   const DeliveryTimeWidget({super.key});
@@ -8,6 +11,24 @@ class DeliveryTimeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final appLocalizations = AppLocalizations.of(context);
+
+    // 1. Fetch the number of days from Remote Config (Defaults to 2)
+    final int deliveryDays = FirebaseRemoteConfig.instance.getInt(
+      AppStrings.firebaseDeliveryDaysConfig,
+    );
+
+    final DateTime targetDate = DateTime.now().add(
+      Duration(days: deliveryDays),
+    );
+    final locale = Localizations.localeOf(context).languageCode;
+
+
+    final String formattedDate = DateFormat('dd MMM yyyy',
+  locale,).format(targetDate);
+
+    // 4. Construct the final string
+    final String deliveryTimeText =
+        '${appLocalizations?.arriveBy} $formattedDate, ${appLocalizations?.deliveryClock}';
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -33,7 +54,7 @@ class DeliveryTimeWidget extends StatelessWidget {
               ),
               SizedBox(width: 4),
               Text(
-                'Arrive by 03 Sep 2024, 11:00 AM',
+                deliveryTimeText,
                 style: theme.textTheme.displayLarge?.copyWith(
                   color: theme.colorScheme.tertiary,
                 ),

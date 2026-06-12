@@ -101,6 +101,8 @@
   "noPaymentMethodOrAddressSelected":"No Payment or Address Selected",
   "creditCardPaymentFailed":"Credit card payment isn't completed",
   "creditCardPayment":"Credit Card Payment",
+  "arriveBy":"Arrive By",
+  "deliveryClock":"11:00 AM",
   "estimatedArrival": "Estimated arrival",
   "showMap": "Show map",
   "orderDelivered": "Order Delivered",

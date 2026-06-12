@@ -710,6 +710,18 @@ abstract class AppLocalizations {
   /// **'Credit Card Payment'**
   String get creditCardPayment;
 
+  /// No description provided for @arriveBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Arrive By'**
+  String get arriveBy;
+
+  /// No description provided for @deliveryClock.
+  ///
+  /// In en, this message translates to:
+  /// **'11:00 AM'**
+  String get deliveryClock;
+
   /// No description provided for @estimatedArrival.
   ///
   /// In en, this message translates to:

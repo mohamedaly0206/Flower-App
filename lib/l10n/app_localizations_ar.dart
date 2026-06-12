@@ -318,6 +318,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get creditCardPayment => 'الدفع بالكارت';
 
   @override
+  String get arriveBy => 'التوصيل خلال';
+
+  @override
+  String get deliveryClock => '١١:٠٠ ص';
+
+  @override
   String get estimatedArrival => 'الوصول المقدر';
 
   @override
