@@ -11,8 +11,6 @@ class DeliveryTimeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final appLocalizations = AppLocalizations.of(context);
-
-    // 1. Fetch the number of days from Remote Config (Defaults to 2)
     final int deliveryDays = FirebaseRemoteConfig.instance.getInt(
       AppStrings.firebaseDeliveryDaysConfig,
     );
@@ -22,18 +20,17 @@ class DeliveryTimeWidget extends StatelessWidget {
     );
     final locale = Localizations.localeOf(context).languageCode;
 
+    final String formattedDate = DateFormat(
+      'dd MMM yyyy',
+      locale,
+    ).format(targetDate);
 
-    final String formattedDate = DateFormat('dd MMM yyyy',
-  locale,).format(targetDate);
-
-    // 4. Construct the final string
     final String deliveryTimeText =
         '${appLocalizations?.arriveBy} $formattedDate, ${appLocalizations?.deliveryClock}';
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-
         children: [
           Text(
             appLocalizations!.deliveryTime,
