@@ -1,12 +1,14 @@
 import 'package:flower_app/core/theme/app_colors.dart';
-import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/core/widgets/app_loading.dart';
 import 'package:flower_app/core/widgets/app_messages.dart';
 import 'package:flower_app/core/widgets/custom_app_bar.dart';
 import 'package:flower_app/features/user_addresses/domain/entities/user_addresses_entity.dart';
+import 'package:flower_app/features/user_addresses/presentation/utils/address_localization.dart';
 import 'package:flower_app/features/user_addresses/presentation/view_model/cubit/user_addresses_cubit.dart';
+import 'package:flower_app/features/user_addresses/presentation/view_model/intent/user_addresses_intent.dart';
 import 'package:flower_app/features/user_addresses/presentation/view_model/state/user_addresses_state.dart';
 import 'package:flower_app/features/user_addresses/presentation/widgets/address_form.dart';
+import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,7 +27,6 @@ class _AddressFormViewState extends State<AddressFormView> {
   late final TextEditingController _streetController;
   late final TextEditingController _phoneController;
   late final TextEditingController _usernameController;
-  late final TextEditingController _cityController;
 
   @override
   void initState() {
@@ -35,10 +36,11 @@ class _AddressFormViewState extends State<AddressFormView> {
     _streetController = TextEditingController(text: address?.street ?? '');
     _phoneController = TextEditingController(text: address?.phone ?? '');
     _usernameController = TextEditingController(text: address?.username ?? '');
-    _cityController = TextEditingController(text: address?.city ?? '');
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
+      final cubit = context.read<UserAddressesCubit>();
+      cubit.handleIntent(const LoadEgyptLocationsIntent());
       _syncControllersFromState();
     });
   }
@@ -48,7 +50,6 @@ class _AddressFormViewState extends State<AddressFormView> {
     _streetController.text = formState.street;
     _phoneController.text = formState.phone;
     _usernameController.text = formState.username;
-    _cityController.text = formState.city;
   }
 
   @override
@@ -57,12 +58,13 @@ class _AddressFormViewState extends State<AddressFormView> {
     _streetController.dispose();
     _phoneController.dispose();
     _usernameController.dispose();
-    _cityController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+
     return BlocListener<UserAddressesCubit, UserAddressesState>(
       listenWhen: (previous, current) =>
           previous.status != current.status ||
@@ -76,25 +78,32 @@ class _AddressFormViewState extends State<AddressFormView> {
 
         if (state.status == UserAddressesStatus.error &&
             state.errorMessage != null) {
-          AppMessages.showError(context, message: state.errorMessage!);
+          AppMessages.showError(
+            context,
+            message: localizeAddressMessage(context, state.errorMessage),
+          );
         }
 
         if (state.status == UserAddressesStatus.success &&
             state.successMessage != null) {
-          AppMessages.showSuccess(context, message: state.successMessage!);
+          AppMessages.showSuccess(
+            context,
+            message: localizeAddressMessage(context, state.successMessage),
+          );
           Navigator.of(context).pop(true);
         }
       },
       child: Scaffold(
         backgroundColor: AppColors.whiteColor,
-        appBar: CustomAppBar(title: AppStrings.address),
+        appBar: CustomAppBar(
+          title: widget.isEditMode ? loc.editAddress : loc.addAddress,
+        ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
           child: AddressForm(
             streetController: _streetController,
             phoneController: _phoneController,
             usernameController: _usernameController,
-            cityController: _cityController,
           ),
         ),
       ),

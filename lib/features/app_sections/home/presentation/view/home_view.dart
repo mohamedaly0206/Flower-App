@@ -53,7 +53,7 @@ class HomeView extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 const AddressWidget(),
-                const SizedBox(height: 5),
+                const SizedBox(height: 16),
                 SectionHeader(
                   title: AppLocalizations.of(context)!.categories,
                   onPressed: onViewAllCategories,

@@ -22,74 +22,82 @@ class AddressCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        color: AppColors.whiteColor,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.blackColor.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
         border: Border.all(
           color: AppColors.placeHolderColor.withValues(alpha: 0.4),
         ),
       ),
-      child: Row(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SvgPicture.asset(
-            Assets.icons.locationIcon,
-            width: 22,
-            height: 22,
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if ((address.username ?? '').isNotEmpty) ...[
-                  Text(
-                    address.username!,
-                    style: AppTextStyles.textStyleMedium14.copyWith(
-                      color: AppColors.greyColor,
+          const SizedBox(width: 4),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    Assets.icons.locationIcon,
+                    width: 20,
+                    height: 20,
+                    colorFilter: const ColorFilter.mode(
+                      AppColors.blackColor,
+                      BlendMode.srcIn,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(width: 4),
+                  Text(
+                    address.city!,
+                    style: AppTextStyles.textStyleMedium14.copyWith(
+                      color: AppColors.blackColor,
+                    ),
+                  ),
                 ],
-                Text(
-                  address.city ?? '',
-                  style: AppTextStyles.textStyleMedium16.copyWith(
-                    color: AppColors.blackColor,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  address.street ?? '',
-                  style: AppTextStyles.textStyleMedium14.copyWith(
-                    color: AppColors.greyColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          InkWell(
-            onTap: onDelete,
-            child: SvgPicture.asset(
-              Assets.icons.deleteIcon,
-              width: 22,
-              height: 22,
-              colorFilter: const ColorFilter.mode(
-                AppColors.errorColor,
-                BlendMode.srcIn,
               ),
-            ),
-          ),
-          const SizedBox(width: 12),
-          InkWell(
-            onTap: onEdit,
-            child: SvgPicture.asset(
-              Assets.icons.notePen,
-              width: 22,
-              height: 22,
-              colorFilter: const ColorFilter.mode(
-                AppColors.greyColor,
-                BlendMode.srcIn,
+              Row(
+                children: [
+                  InkWell(
+                    onTap: onDelete,
+                    child: SvgPicture.asset(
+                      Assets.icons.deleteIcon,
+                      width: 24,
+                      height: 24,
+                      colorFilter: const ColorFilter.mode(
+                        AppColors.errorColor,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  InkWell(
+                    onTap: onEdit,
+                    child: SvgPicture.asset(
+                      Assets.icons.notePen,
+                      width: 24,
+                      height: 24,
+                      colorFilter: const ColorFilter.mode(
+                        AppColors.greyColor,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                ],
               ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(
+            address.street ?? '',
+            style: AppTextStyles.textStyleMedium14.copyWith(
+              color: AppColors.greyColor,
             ),
           ),
         ],

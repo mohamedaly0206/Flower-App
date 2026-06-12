@@ -1,81 +1,122 @@
 import 'package:flower_app/core/theme/app_colors.dart';
-import 'package:flower_app/core/values/app_strings.dart';
-import 'package:flower_app/core/values/assets.gen.dart';
 import 'package:flower_app/features/user_addresses/presentation/view_model/cubit/user_addresses_cubit.dart';
 import 'package:flower_app/features/user_addresses/presentation/view_model/intent/user_addresses_intent.dart';
 import 'package:flower_app/features/user_addresses/presentation/view_model/state/user_addresses_state.dart';
+import 'package:flower_app/features/user_addresses/presentation/widgets/address_map_widget.dart';
+import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 
 class AddressForm extends StatelessWidget {
   final TextEditingController streetController;
   final TextEditingController phoneController;
   final TextEditingController usernameController;
-  final TextEditingController cityController;
 
   const AddressForm({
     super.key,
     required this.streetController,
     required this.phoneController,
     required this.usernameController,
-    required this.cityController,
   });
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+
     return BlocBuilder<UserAddressesCubit, UserAddressesState>(
       builder: (context, state) {
+        final isArabic = Localizations.localeOf(context).languageCode == 'ar';
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            BlocBuilder<UserAddressesCubit, UserAddressesState>(
-              builder: (context, state) {
-                return Text('Lat: ${state.lat}\nLong: ${state.long}');
-              },
-            ),
-            _MapPlaceholder(),
-            const SizedBox(height: 16),
+            const AddressMapWidget(),
+            const SizedBox(height: 24),
             _AddressTextField(
               id: 'street',
-              label: AppStrings.address,
-              hint: AppStrings.enterAddress,
+              label: loc.address,
+              hint: loc.enterAddress,
               controller: streetController,
               onChanged: (value) => context
                   .read<UserAddressesCubit>()
                   .handleIntent(UpdateStreetIntent(value)),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 24),
             _AddressTextField(
               id: 'phone',
-              label: AppStrings.phone,
-              hint: AppStrings.enterThePhoneNumber,
+              label: loc.phone,
+              hint: loc.enterThePhoneNumber,
               controller: phoneController,
               keyboardType: TextInputType.phone,
               onChanged: (value) => context
                   .read<UserAddressesCubit>()
                   .handleIntent(UpdatePhoneIntent(value)),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 24),
             _AddressTextField(
               id: 'username',
-              label: AppStrings.recipientName,
-              hint: AppStrings.enterRecipientName,
+              label: loc.recipientName,
+              hint: loc.enterRecipientName,
               controller: usernameController,
               onChanged: (value) => context
                   .read<UserAddressesCubit>()
                   .handleIntent(UpdateUsernameIntent(value)),
             ),
-            const SizedBox(height: 16),
-            _AddressTextField(
-              id: 'city',
-              label: AppStrings.city,
-              hint: AppStrings.city,
-              controller: cityController,
-              onChanged: (value) => context
-                  .read<UserAddressesCubit>()
-                  .handleIntent(UpdateCityIntent(value)),
+            const SizedBox(height: 24),
+            _LocationDropdown(
+              label: loc.governorate,
+              hint: loc.selectGovernorate,
+              value: state.governorateId.isEmpty ? null : state.governorateId,
+              items: state.governorates
+                  .map(
+                    (governorate) => DropdownMenuItem<String>(
+                      value: governorate.id,
+                      child: Text(
+                        isArabic ? governorate.nameAr : governorate.nameEn,
+                      ),
+                    ),
+                  )
+                  .toList(),
+              onChanged: (value) {
+                if (value == null) return;
+                final governorate = state.governorates.firstWhere(
+                  (g) => g.id == value,
+                );
+                context.read<UserAddressesCubit>().handleIntent(
+                  UpdateGovernorateIntent(
+                    governorateId: governorate.id,
+                    governorateName: isArabic
+                        ? governorate.nameAr
+                        : governorate.nameEn,
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: 24),
+            _LocationDropdown(
+              label: loc.city,
+              hint: loc.selectCity,
+              value: state.cityId.isEmpty ? null : state.cityId,
+              enabled: state.governorateId.isNotEmpty,
+              items: state.filteredCities
+                  .map(
+                    (city) => DropdownMenuItem<String>(
+                      value: city.id,
+                      child: Text(isArabic ? city.nameAr : city.nameEn),
+                    ),
+                  )
+                  .toList(),
+              onChanged: state.governorateId.isEmpty
+                  ? null
+                  : (value) {
+                      if (value == null) return;
+                      final city = state.filteredCities.firstWhere(
+                        (c) => c.id == value,
+                      );
+                      context.read<UserAddressesCubit>().handleIntent(
+                        UpdateCityIntent(cityId: city.id, city: city.nameEn),
+                      );
+                    },
             ),
             const SizedBox(height: 24),
             SizedBox(
@@ -92,17 +133,18 @@ class AddressForm extends StatelessWidget {
                         }
                       },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.placeHolderColor,
+                  backgroundColor: AppColors.primaryColor,
                   disabledBackgroundColor: AppColors.placeHolderColor
                       .withValues(alpha: 0.6),
-                  foregroundColor: Colors.white,
+                  foregroundColor: AppColors.whiteColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(26),
                   ),
                   elevation: 0,
+                  enableFeedback: false,
                 ),
                 child: Text(
-                  AppStrings.saveAddress,
+                  loc.saveAddress,
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -117,65 +159,69 @@ class AddressForm extends StatelessWidget {
   }
 }
 
-class _MapPlaceholder extends StatefulWidget {
-  @override
-  State<_MapPlaceholder> createState() => _MapPlaceholderState();
-}
+class _LocationDropdown extends StatelessWidget {
+  final String label;
+  final String hint;
+  final String? value;
+  final List<DropdownMenuItem<String>> items;
+  final bool enabled;
+  final ValueChanged<String?>? onChanged;
 
-class _MapPlaceholderState extends State<_MapPlaceholder> {
-  MapboxMap? _mapboxMap;
+  const _LocationDropdown({
+    required this.label,
+    required this.hint,
+    required this.value,
+    required this.items,
+    this.enabled = true,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(8),
-      child: SizedBox(
-        height: 300,
-        width: double.infinity,
-        child: MapWidget(
-          key: const ValueKey("address_map"),
-          styleUri: MapboxStyles.STANDARD,
-          onMapCreated: (mapboxMap) {
-            _mapboxMap = mapboxMap;
-          },
-          onTapListener: (tapContext) {
-            final point = tapContext.point.coordinates;
-
-            final lat = point.lat.toString();
-            final long = point.lng.toString();
-
-            context.read<UserAddressesCubit>().handleIntent(
-              UpdateLocationIntent(lat: lat, long: long),
-            );
-
-            debugPrint('LAT: $lat');
-            debugPrint('LONG: $long');
-          },
+    return DropdownButtonFormField<String>(
+      value: items.any((item) => item.value == value) ? value : null,
+      items: items,
+      onChanged: enabled ? onChanged : null,
+      decoration: InputDecoration(
+        labelText: label,
+        hintText: hint,
+        labelStyle: const TextStyle(
+          fontSize: 12,
+          color: AppColors.placeHolderColor,
+        ),
+        hintStyle: const TextStyle(
+          fontSize: 14,
+          color: AppColors.placeHolderColor,
+        ),
+        filled: true,
+        fillColor: AppColors.whiteColor,
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4),
+          borderSide: const BorderSide(color: AppColors.greyColor),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4),
+          borderSide: const BorderSide(color: AppColors.greyColor),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4),
+          borderSide: const BorderSide(
+            color: AppColors.primaryColor,
+            width: 1.5,
+          ),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4),
+          borderSide: const BorderSide(color: Color(0xFFEEEEEE)),
         ),
       ),
     );
   }
 }
-
-/*class _MapGridPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = const Color(0xFFD0D0D0)
-      ..strokeWidth = 1;
-
-    const spacing = 40.0;
-    for (var x = 0.0; x < size.width; x += spacing) {
-      canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
-    }
-    for (var y = 0.0; y < size.height; y += spacing) {
-      canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}*/
 
 class _AddressTextField extends StatelessWidget {
   final String id;
@@ -206,15 +252,15 @@ class _AddressTextField extends StatelessWidget {
         labelText: label,
         hintText: hint,
         labelStyle: const TextStyle(
-          fontSize: 13,
+          fontSize: 12,
           color: AppColors.placeHolderColor,
         ),
         hintStyle: const TextStyle(
-          fontSize: 13,
+          fontSize: 14,
           color: AppColors.placeHolderColor,
         ),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: AppColors.whiteColor,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 14,

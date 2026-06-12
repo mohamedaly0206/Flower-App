@@ -11,6 +11,10 @@ class FetchAddressesIntent extends UserAddressesIntent {
   const FetchAddressesIntent();
 }
 
+class LoadEgyptLocationsIntent extends UserAddressesIntent {
+  const LoadEgyptLocationsIntent();
+}
+
 class DeleteAddressIntent extends UserAddressesIntent {
   final String id;
 
@@ -46,13 +50,27 @@ class UpdatePhoneIntent extends UserAddressesIntent {
   List<Object?> get props => [phone];
 }
 
-class UpdateCityIntent extends UserAddressesIntent {
-  final String city;
+class UpdateGovernorateIntent extends UserAddressesIntent {
+  final String governorateId;
+  final String governorateName;
 
-  const UpdateCityIntent(this.city);
+  const UpdateGovernorateIntent({
+    required this.governorateId,
+    required this.governorateName,
+  });
 
   @override
-  List<Object?> get props => [city];
+  List<Object?> get props => [governorateId, governorateName];
+}
+
+class UpdateCityIntent extends UserAddressesIntent {
+  final String cityId;
+  final String city;
+
+  const UpdateCityIntent({required this.cityId, required this.city});
+
+  @override
+  List<Object?> get props => [cityId, city];
 }
 
 class UpdateStreetIntent extends UserAddressesIntent {
@@ -72,4 +90,8 @@ class UpdateLocationIntent extends UserAddressesIntent {
 
   @override
   List<Object?> get props => [lat, long];
+}
+
+class RequestCurrentLocationIntent extends UserAddressesIntent {
+  const RequestCurrentLocationIntent();
 }
