@@ -56,4 +56,6 @@ abstract class ApiEndpoints {
   static const String driversEditProfile = '$baseUrl/drivers/editProfile';
   static const String vehicle = '$baseUrl/vehicles';
   static const String orderState = '$baseUrl/orders/complete';
+  static const String aboutUs = 'https://elevate-flutter-team.github.io/flower_app_web_views/about.html';
+  static const String termsAndConditions = 'https://elevate-flutter-team.github.io/flower_app_web_views/terms.html';
 }

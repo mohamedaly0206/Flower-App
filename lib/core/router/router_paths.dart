@@ -13,5 +13,6 @@ abstract class AppRouterPaths {
   static const kResetPasswordView = '/resetPasswordView';
   static const kAppSections = '/appSections';
   static const kEditProfileView = '/editProfileView';
+  static const String kWebView = '/webView';
   static const kOrdersView = '/ordersView';
 }
