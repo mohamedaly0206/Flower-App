@@ -962,6 +962,23 @@ abstract class AppLocalizations {
   /// **'Invalid Egyptian phone number'**
   String get phoneInvalid;
 
+  /// No description provided for @noActiveOrdersFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No active orders found'**
+  String get noActiveOrdersFound;
+
+  /// No description provided for @noCompletedFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No completed orders found'**
+  String get noCompletedFound;
+
+  /// No description provided for @reorder.
+  ///
+  /// In en, this message translates to:
+  /// **'Reorder'**
+  String get reorder;
   /// No description provided for @addAddress.
   ///
   /// In en, this message translates to:

@@ -48,7 +48,9 @@ class ProfileView extends StatelessWidget {
                   CustomProfileMenuTile(
                     icon: SvgPicture.asset(Assets.icons.transactionOrder),
                     title: AppLocalizations.of(context)!.myOrders,
-                    onTap: () {},
+                    onTap: () {
+                      GoRouter.of(context).push(AppRouterPaths.kOrdersView);
+                    },
                   ),
                   CustomProfileMenuTile(
                     icon: SvgPicture.asset(Assets.icons.locationIcon),

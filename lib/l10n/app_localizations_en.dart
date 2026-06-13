@@ -450,6 +450,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get phoneInvalid => 'Invalid Egyptian phone number';
 
   @override
+  String get noActiveOrdersFound => 'No active orders found';
+
+  @override
+  String get noCompletedFound => 'No completed orders found';
+
+  @override
+  String get reorder => 'Reorder';
   String get addAddress => 'Add address';
 
   @override
