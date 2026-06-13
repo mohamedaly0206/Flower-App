@@ -962,6 +962,47 @@ abstract class AppLocalizations {
   /// **'Invalid Egyptian phone number'**
   String get phoneInvalid;
 
+  /// No description provided for @filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get filter;
+
+  /// No description provided for @lowesPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Lowes Price'**
+  String get lowesPrice;
+
+  /// No description provided for @highestPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Highest Price'**
+  String get highestPrice;
+
+  /// No description provided for @newProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get newProduct;
+
+  /// No description provided for @old.
+  ///
+  /// In en, this message translates to:
+  /// **'Old'**
+  String get old;
+
+  /// No description provided for @discount.
+  ///
+  /// In en, this message translates to:
+  /// **'Discount'**
+  String get discount;
+
+  /// No description provided for @noProductsFoundInThisCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'No products found in this category'**
+  String get noProductsFoundInThisCategory;
   /// No description provided for @noActiveOrdersFound.
   ///
   /// In en, this message translates to:

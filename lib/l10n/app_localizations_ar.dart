@@ -446,6 +446,26 @@ class AppLocalizationsAr extends AppLocalizations {
   String get phoneInvalid => 'رقم هاتف مصري غير صالح';
 
   @override
+  String get filter => 'تصفية';
+
+  @override
+  String get lowesPrice => 'أقل سعر';
+
+  @override
+  String get highestPrice => 'أعلى سعر';
+
+  @override
+  String get newProduct => 'جديد';
+
+  @override
+  String get old => 'قديم';
+
+  @override
+  String get discount => 'خصم';
+
+  @override
+  String get noProductsFoundInThisCategory =>
+      'لم يتم العثور على أي منتجات في هذه الفئة';
   String get noActiveOrdersFound => 'لم يتم العثور على الطلبات النشطة';
 
   @override
