@@ -28,6 +28,10 @@ class LoginSuccess extends LoginState {
   List<Object?> get props => [response, obscurePassword, rememberMe];
 }
 
+class LoginGuestSuccess extends LoginState {
+  const LoginGuestSuccess({super.obscurePassword, super.rememberMe});
+}
+
 class LoginFailure extends LoginState {
   final String errorMessage;
 
