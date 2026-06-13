@@ -15,6 +15,7 @@ import 'package:toastification/toastification.dart';
 import 'config/di/di.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/theme.dart';
+import 'core/utilities/notification_service.dart';
 import 'firebase_options.dart';
 import 'l10n/app_localizations.dart';
 
@@ -40,6 +41,9 @@ Future<void> main() async {
 
   MapboxOptions.setAccessToken(mapboxToken);
   configureDependencies();
+  final notificationService = NotificationService();
+  await notificationService.initialize();
+
   final initialLocation = await _getInitialLocation();
   final initialLocale = await _getInitialLocale();
   runApp(
