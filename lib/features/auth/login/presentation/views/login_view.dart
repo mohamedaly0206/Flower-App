@@ -120,21 +120,18 @@ class _LoginViewState extends State<LoginView> {
                   Row(
                     children: [
                       Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: BlocBuilder<LoginCubit, LoginState>(
-                            builder: (context, state) {
-                              return ElevatedButton(
-                                onPressed: state is LoginLoading
-                                    ? null
-                                    : () => _submitLogin(context),
-                                child: Text(
-                                  AppLocalizations.of(context)!.login,
-                                  style: AppTextStyles.textStyleMedium16,
-                                ),
-                              );
-                            },
-                          ),
+                        child: BlocBuilder<LoginCubit, LoginState>(
+                          builder: (context, state) {
+                            return ElevatedButton(
+                              onPressed: state is LoginLoading
+                                  ? null
+                                  : () => _submitLogin(context),
+                              child: Text(
+                                AppLocalizations.of(context)!.login,
+                                style: AppTextStyles.textStyleMedium16,
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ],
@@ -143,31 +140,28 @@ class _LoginViewState extends State<LoginView> {
                   Row(
                     children: [
                       Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: BlocBuilder<LoginCubit, LoginState>(
-                            builder: (context, state) {
-                              return ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  side: const BorderSide(
-                                    color: AppColors.greyColor,
-                                    width: 1,
-                                  ),
-                                  backgroundColor: AppColors.whiteColor,
+                        child: BlocBuilder<LoginCubit, LoginState>(
+                          builder: (context, state) {
+                            return ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                side: const BorderSide(
+                                  color: AppColors.greyColor,
+                                  width: 1,
                                 ),
-                                onPressed: () {
-                                  context.read<LoginCubit>().doIntent(
-                                    ContinueAsGuestIntent(),
-                                  );
-                                },
-                                child: Text(
-                                  AppLocalizations.of(context)!.continueasguest,
-                                  style: AppTextStyles.textStyleMedium16
-                                      .copyWith(color: AppColors.greyColor),
-                                ),
-                              );
-                            },
-                          ),
+                                backgroundColor: AppColors.whiteColor,
+                              ),
+                              onPressed: () {
+                                context.read<LoginCubit>().doIntent(
+                                  ContinueAsGuestIntent(),
+                                );
+                              },
+                              child: Text(
+                                AppLocalizations.of(context)!.continueasguest,
+                                style: AppTextStyles.textStyleMedium16
+                                    .copyWith(color: AppColors.greyColor),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ],

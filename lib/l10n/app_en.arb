@@ -151,17 +151,17 @@
   "continueasguest": "Continue as guest",
   "pleaseSignInToAddItemstoyourcartandenjoyfullshoppingfeatures": "Please sign in to add items to your cart and enjoy full shopping features",
   "signInRequired": "Sign in required",
-  "signIn": "sign in"
+  "signIn": "sign in",
   "filter": "Filter",
   "lowesPrice": "Lowes Price",
   "highestPrice": "Highest Price",
   "newProduct": "New",
   "old": "Old",
   "discount": "Discount",
-  "noProductsFoundInThisCategory": "No products found in this category"
+  "noProductsFoundInThisCategory": "No products found in this category",
   "noActiveOrdersFound": "No active orders found",
   "noCompletedFound": "No completed orders found",
-  "reorder": "Reorder"
+  "reorder": "Reorder",
   "addAddress": "Add address",
   "editAddress": "Edit address",
   "governorate": "Governorate",

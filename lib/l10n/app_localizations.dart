@@ -962,6 +962,60 @@ abstract class AppLocalizations {
   /// **'Invalid Egyptian phone number'**
   String get phoneInvalid;
 
+  /// No description provided for @loginNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Login Now'**
+  String get loginNow;
+
+  /// No description provided for @toManageyoursavedaddressespleaselogin.
+  ///
+  /// In en, this message translates to:
+  /// **'To manage your saved addresses, please login.'**
+  String get toManageyoursavedaddressespleaselogin;
+
+  /// No description provided for @toManageyourorderspleaselogin.
+  ///
+  /// In en, this message translates to:
+  /// **'To manage your orders, please login.'**
+  String get toManageyourorderspleaselogin;
+
+  /// No description provided for @guestUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest User'**
+  String get guestUser;
+
+  /// No description provided for @signIntoexploremore.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to explore more'**
+  String get signIntoexploremore;
+
+  /// No description provided for @continueasguest.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue as guest'**
+  String get continueasguest;
+
+  /// No description provided for @pleaseSignInToAddItemstoyourcartandenjoyfullshoppingfeatures.
+  ///
+  /// In en, this message translates to:
+  /// **'Please sign in to add items to your cart and enjoy full shopping features'**
+  String get pleaseSignInToAddItemstoyourcartandenjoyfullshoppingfeatures;
+
+  /// No description provided for @signInRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in required'**
+  String get signInRequired;
+
+  /// No description provided for @signIn.
+  ///
+  /// In en, this message translates to:
+  /// **'sign in'**
+  String get signIn;
+
   /// No description provided for @filter.
   ///
   /// In en, this message translates to:
@@ -1003,6 +1057,7 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No products found in this category'**
   String get noProductsFoundInThisCategory;
+
   /// No description provided for @noActiveOrdersFound.
   ///
   /// In en, this message translates to:
@@ -1020,6 +1075,7 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reorder'**
   String get reorder;
+
   /// No description provided for @addAddress.
   ///
   /// In en, this message translates to:

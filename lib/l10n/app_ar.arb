@@ -152,19 +152,17 @@
   "continueasguest": "تابع كضيف",
   "pleaseSignInToAddItemstoyourcartandenjoyfullshoppingfeatures": "يرجى تسجيل الدخول لإضافة المنتجات إلى سلة التسوق والاستمتاع بكافة مزايا التسوق",
   "signInRequired": "تسجيل الدخول مطلوب.",
-  "signIn": "تسجيل الدخول"
-}
-  "filter": "تصفية",
+  "signIn": "تسجيل الدخول",
+  "filter": "فرز",
   "lowesPrice": "أقل سعر",
   "highestPrice": "أعلى سعر",
   "newProduct": "جديد",
   "old": "قديم",
   "discount": "خصم",
-  "noProductsFoundInThisCategory": "لم يتم العثور على أي منتجات في هذه الفئة"
-}
+  "noProductsFoundInThisCategory": "لم يتم العثور على أي منتجات في هذه الفئة",
   "noActiveOrdersFound": "لم يتم العثور على الطلبات النشطة",
   "noCompletedFound": "لم يتم العثور على الطلبات المكتملة",
-  "reorder": "إعادة الطلب"
+  "reorder": "إعادة الطلب",
   "addAddress": "إضافة عنوان",
   "editAddress": "تعديل العنوان",
   "governorate": "المحافظة",

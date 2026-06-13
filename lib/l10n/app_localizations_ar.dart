@@ -446,7 +446,37 @@ class AppLocalizationsAr extends AppLocalizations {
   String get phoneInvalid => 'رقم هاتف مصري غير صالح';
 
   @override
-  String get filter => 'تصفية';
+  String get loginNow => 'سجّل الدخول الآن';
+
+  @override
+  String get toManageyoursavedaddressespleaselogin =>
+      'لإدارة عناوينك المحفوظة، يُرجى تسجيل الدخول';
+
+  @override
+  String get toManageyourorderspleaselogin =>
+      'لإدارة طلباتك، يُرجى تسجيل الدخول';
+
+  @override
+  String get guestUser => 'زائر';
+
+  @override
+  String get signIntoexploremore => 'سجّل الدخول للاطلاع على المزيد';
+
+  @override
+  String get continueasguest => 'تابع كضيف';
+
+  @override
+  String get pleaseSignInToAddItemstoyourcartandenjoyfullshoppingfeatures =>
+      'يرجى تسجيل الدخول لإضافة المنتجات إلى سلة التسوق والاستمتاع بكافة مزايا التسوق';
+
+  @override
+  String get signInRequired => 'تسجيل الدخول مطلوب.';
+
+  @override
+  String get signIn => 'تسجيل الدخول';
+
+  @override
+  String get filter => 'فرز';
 
   @override
   String get lowesPrice => 'أقل سعر';
@@ -466,6 +496,8 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get noProductsFoundInThisCategory =>
       'لم يتم العثور على أي منتجات في هذه الفئة';
+
+  @override
   String get noActiveOrdersFound => 'لم يتم العثور على الطلبات النشطة';
 
   @override
@@ -473,6 +505,8 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get reorder => 'إعادة الطلب';
+
+  @override
   String get addAddress => 'إضافة عنوان';
 
   @override

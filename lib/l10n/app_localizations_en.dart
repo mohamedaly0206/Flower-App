@@ -450,6 +450,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String get phoneInvalid => 'Invalid Egyptian phone number';
 
   @override
+  String get loginNow => 'Login Now';
+
+  @override
+  String get toManageyoursavedaddressespleaselogin =>
+      'To manage your saved addresses, please login.';
+
+  @override
+  String get toManageyourorderspleaselogin =>
+      'To manage your orders, please login.';
+
+  @override
+  String get guestUser => 'Guest User';
+
+  @override
+  String get signIntoexploremore => 'Sign in to explore more';
+
+  @override
+  String get continueasguest => 'Continue as guest';
+
+  @override
+  String get pleaseSignInToAddItemstoyourcartandenjoyfullshoppingfeatures =>
+      'Please sign in to add items to your cart and enjoy full shopping features';
+
+  @override
+  String get signInRequired => 'Sign in required';
+
+  @override
+  String get signIn => 'sign in';
+
+  @override
   String get filter => 'Filter';
 
   @override
@@ -470,6 +500,8 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noProductsFoundInThisCategory =>
       'No products found in this category';
+
+  @override
   String get noActiveOrdersFound => 'No active orders found';
 
   @override
@@ -477,6 +509,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reorder => 'Reorder';
+
+  @override
   String get addAddress => 'Add address';
 
   @override
