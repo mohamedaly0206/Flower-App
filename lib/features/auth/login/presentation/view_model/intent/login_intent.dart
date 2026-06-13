@@ -16,3 +16,5 @@ class SubmitLoginIntent extends LoginIntent {
 
   SubmitLoginIntent({required this.email, required this.password});
 }
+
+class ContinueAsGuestIntent extends LoginIntent {}

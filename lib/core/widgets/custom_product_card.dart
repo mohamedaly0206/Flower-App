@@ -1,3 +1,4 @@
+import 'package:flower_app/core/widgets/check_guest_and_show_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -149,7 +150,11 @@ class CustomProductCard extends StatelessWidget {
                     style: ElevatedButton.styleFrom(padding: EdgeInsets.zero),
                     onPressed: isThisItemLoading
                         ? null // Disable the button while processing
-                        : () {
+                        : () async {
+                            final isGuest = await checkGuestAndShowDialog(
+                              context,
+                            );
+                            if (isGuest) return;
                             context.read<CartCubit>().cartIntentHandler(
                               AddItemToCartIntent(
                                 request: AddToCartRequest(

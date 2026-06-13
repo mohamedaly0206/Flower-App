@@ -55,7 +55,7 @@ Future<void> main() async {
 Future<String> _getInitialLocation() async {
   final securityStorage = getIt<SecurityStorage>();
   final token = await securityStorage.getSecuredString(ApiParam.token);
-  if (token.isNotEmpty) {
+  if (token.isNotEmpty && token != 'GUEST') {
     return AppRouterPaths.kAppSections;
   }
   return AppRouterPaths.kLoginView;
