@@ -1,4 +1,5 @@
 import 'package:flower_app/core/router/router_paths.dart';
+import 'package:flower_app/core/shared_features/user_addresses/presentation/view_model/cubit/user_addresses_cubit.dart';
 import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/core/widgets/app_messages.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/view_model/cubit/cart_cubit.dart';
@@ -33,6 +34,7 @@ class PricesCheckoutWidget extends StatelessWidget {
     final appLocalizations = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final checkoutCubit = context.read<CheckoutCubit>();
+    final userAddressesState = context.watch<UserAddressesCubit>().state;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
@@ -137,15 +139,17 @@ class PricesCheckoutWidget extends StatelessWidget {
                           state.checkoutCreditState.isLoading)
                       ? null
                       : () {
-                          final CheckoutRequest
-                          checkoutRequest = CheckoutRequest(
+                        final selectedAddress = userAddressesState.addresses.firstWhere(
+                            (addr) => addr.id == state.selectedAddressId,
+                            orElse: () => userAddressesState.addresses.first,
+                          );
+                         final CheckoutRequest checkoutRequest = CheckoutRequest(
                             shippingAddress: ShippingAddress(
-                              street:
-                                  'salah Salem St', // Replace with actual data
-                              phone: '0123456789', // Replace with actual data
-                              city: 'Cairo', // Replace with actual data
-                              lat: '30.0444', // Replace with actual data
-                              long: '31.2357', // Replace with actual data
+                              street: selectedAddress.street ?? '',
+                              phone: selectedAddress.phone ?? userAddressesState.phone, 
+                              city: selectedAddress.city ?? '',
+                              lat: selectedAddress.lat ?? '',
+                              long: selectedAddress.long ?? '',
                             ),
                           );
                           if (state.selectedPaymentMethod != null &&

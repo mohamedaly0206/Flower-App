@@ -12,8 +12,8 @@ import 'package:flower_app/features/app_sections/widgets/custom_profile_info.dar
 import 'package:flower_app/features/app_sections/widgets/custom_profile_menu_tile.dart';
 import 'package:flower_app/features/app_sections/widgets/profile_language_bottom_sheet.dart';
 import 'package:flower_app/features/app_sections/widgets/profile_logout_dialog.dart';
-import 'package:flower_app/features/user_addresses/presentation/view/user_addresses_view.dart';
-import 'package:flower_app/features/user_addresses/presentation/view_model/cubit/user_addresses_cubit.dart';
+import 'package:flower_app/core/shared_features/user_addresses/presentation/view/user_addresses_view.dart';
+import 'package:flower_app/core/shared_features/user_addresses/presentation/view_model/cubit/user_addresses_cubit.dart';
 import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
