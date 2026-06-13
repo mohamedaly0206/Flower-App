@@ -154,3 +154,39 @@
   "signInRequired": "تسجيل الدخول مطلوب.",
   "signIn": "تسجيل الدخول"
 }
+  "filter": "تصفية",
+  "lowesPrice": "أقل سعر",
+  "highestPrice": "أعلى سعر",
+  "newProduct": "جديد",
+  "old": "قديم",
+  "discount": "خصم",
+  "noProductsFoundInThisCategory": "لم يتم العثور على أي منتجات في هذه الفئة"
+}
+  "noActiveOrdersFound": "لم يتم العثور على الطلبات النشطة",
+  "noCompletedFound": "لم يتم العثور على الطلبات المكتملة",
+  "reorder": "إعادة الطلب"
+  "addAddress": "إضافة عنوان",
+  "editAddress": "تعديل العنوان",
+  "governorate": "المحافظة",
+  "selectGovernorate": "اختر المحافظة",
+  "selectCity": "اختر المدينة",
+  "recipientNameRequired": "اسم المستلم مطلوب",
+  "governorateRequired": "المحافظة مطلوبة",
+  "cityRequired": "المدينة مطلوبة",
+  "streetAddressRequired": "عنوان الشارع مطلوب",
+  "streetAddressMinLength": "يجب أن يكون عنوان الشارع 5 أحرف على الأقل",
+  "selectLocationOnMap": "يرجى تحديد الموقع على الخريطة",
+  "addressSavedSuccessfully": "تم حفظ العنوان بنجاح",
+  "addressUpdatedSuccessfully": "تم تحديث العنوان بنجاح",
+  "addressNotFound": "العنوان غير موجود. يرجى المحاولة مرة أخرى.",
+  "failedLoadLocations": "فشل تحميل المحافظات والمدن",
+  "locationServicesDisabled": "خدمات الموقع معطلة",
+  "locationPermissionRequired": "إذن الموقع مطلوب",
+  "locationPermissionDeniedForever": "تم رفض إذن الموقع بشكل دائم",
+  "failedGetCurrentLocation": "فشل الحصول على الموقع الحالي",
+  "retry": "إعادة المحاولة",
+  "noSavedAddressFound": "لا يوجد عنوان ",
+  "tapToAddFirstAddress": "اضغط هنا لإضافة عنوان",
+  "noSavedAddressesYet": "ليس لديك عناوين محفوظة بعد",
+  "addYourFirstAddress": "أضف عنوانك الأول"
+}

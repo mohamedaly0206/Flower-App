@@ -4,7 +4,9 @@ import 'package:flower_app/core/shared_features/shared_view_model/cubit/home_sha
 import 'package:flower_app/core/shared_features/shared_view_model/states/home_shared_states.dart';
 import 'package:flower_app/core/widgets/custom_product_card.dart';
 import 'package:flower_app/core/widgets/custom_tab_bar.dart';
+import 'package:flower_app/features/app_sections/categories/presentation/widgets/custom_floating_action_button.dart';
 import 'package:flower_app/features/app_sections/categories/presentation/widgets/search_and_filter_bar.dart';
+import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -16,95 +18,114 @@ class CategoriesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            SearchAndFilterBar(),
-            const SizedBox(height: 16),
-            BlocBuilder<HomeSharedCubit, HomeSharedStates>(
-              builder: (context, state) {
-                return CustomTabBar(
-                  tabs:
-                      state.categoriesState.data?.categories
-                          .map((e) => e.name)
-                          .toList() ??
-                      [],
-                  selectedIndex: state.selectedIndex,
-                  onTabSelected: (index) {
-                    context.read<HomeSharedCubit>().handleHomeSharedIntent(
-                      ChangeTabIntent(index),
+    return BlocBuilder<HomeSharedCubit, HomeSharedStates>(
+      builder: (context, state) {
+        final products = state.productsState.data?.products ?? [];
+        final cubit = context.read<HomeSharedCubit>();
+        return Scaffold(
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          floatingActionButton:
+              (state.productsState.isLoading || products.isEmpty)
+              ? null
+              : CustomFloatingActionButton(cubit: cubit),
+          body: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                SearchAndFilterBar(
+                  onFilterTap: () => cubit.openFilterBottomSheet(context),
+                ),
+                const SizedBox(height: 16),
+                BlocBuilder<HomeSharedCubit, HomeSharedStates>(
+                  builder: (context, state) {
+                    return CustomTabBar(
+                      tabs:
+                          state.categoriesState.data?.categories
+                              .map((e) => e.name)
+                              .toList() ??
+                          [],
+                      selectedIndex: state.selectedIndex,
+                      onTabSelected: (index) {
+                        context.read<HomeSharedCubit>().handleHomeSharedIntent(
+                          ChangeTabIntent(index),
+                        );
+                      },
                     );
                   },
-                );
-              },
-            ),
-            SizedBox(height: 28),
-            BlocBuilder<HomeSharedCubit, HomeSharedStates>(
-              builder: (context, state) {
-                final products = state.productsState.data?.products ?? [];
-                return Expanded(
-                  child: state.productsState.isLoading
-                      ? Center(
-                          child: SpinKitFadingCircle(
-                            color: Theme.of(context).colorScheme.primary,
-                            size: 50,
-                          ),
-                        )
-                      : products.isEmpty
-                      ? Center(
-                          child: Text(
-                            'No products found in this category',
-                            style: Theme.of(context).textTheme.bodyMedium!
-                                .copyWith(
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                          ),
-                        )
-                      : GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount:
-                                    MediaQuery.of(context).size.width > 600
-                                    ? 3
-                                    : 2,
-                                mainAxisSpacing: 18,
-                                crossAxisSpacing: 18,
-                                childAspectRatio: 0.72,
+                ),
+                SizedBox(height: 28),
+                BlocBuilder<HomeSharedCubit, HomeSharedStates>(
+                  builder: (context, state) {
+                    final products = state.productsState.data?.products ?? [];
+                    return Expanded(
+                      child: state.productsState.isLoading
+                          ? Center(
+                              child: SpinKitFadingCircle(
+                                color: Theme.of(context).colorScheme.primary,
+                                size: 50,
                               ),
-                          itemBuilder: (context, index) {
-                            final product =
-                                state.productsState.data?.products?[index];
-                            return CustomProductCard(
-                              productId: product?.id,
-                              title: product?.title ?? 'Product Title',
-                              imageProvider: CachedNetworkImageProvider(
-                                product?.imageCover ?? '',
+                            )
+                          : products.isEmpty
+                          ? Center(
+                              child: Text(
+                                AppLocalizations.of(
+                                  context,
+                                )!.noProductsFoundInThisCategory,
+                                style: Theme.of(context).textTheme.bodyMedium!
+                                    .copyWith(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primary,
+                                    ),
                               ),
-                              price: product?.priceAfterDiscount ?? 0,
+                            )
+                          : GridView.builder(
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount:
+                                        MediaQuery.of(context).size.width > 600
+                                        ? 3
+                                        : 2,
+                                    mainAxisSpacing: 18,
+                                    crossAxisSpacing: 18,
+                                    childAspectRatio: 0.72,
+                                  ),
+                              itemBuilder: (context, index) {
+                                final product =
+                                    state.productsState.data?.products?[index];
+                                return CustomProductCard(
+                                  productId: product?.id,
+                                  title: product?.title ?? 'Product Title',
+                                  imageProvider: CachedNetworkImageProvider(
+                                    product?.imageCover ?? '',
+                                  ),
+                                  price: product?.priceAfterDiscount ?? 0,
 
-                              oldPrice: product?.price ?? 9000,
-                              discountPercent: product?.discount ?? 0,
-                              onTap: () {
-                                GoRouter.of(context).push(
-                                  AppRouterPaths.kProductDetailsView,
-                                  extra: product,
+                                  oldPrice: product?.price ?? 9000,
+                                  discountPercent: product?.discount ?? 0,
+                                  onTap: () {
+                                    GoRouter.of(context).push(
+                                      AppRouterPaths.kProductDetailsView,
+                                      extra: product,
+                                    );
+                                  },
                                 );
                               },
-                            );
-                          },
-                          shrinkWrap: true,
-                          itemCount:
-                              state.productsState.data?.products?.length ?? 0,
-                          scrollDirection: Axis.vertical,
-                        ),
-                );
-              },
+                              shrinkWrap: true,
+                              itemCount:
+                                  state.productsState.data?.products?.length ??
+                                  0,
+                              scrollDirection: Axis.vertical,
+                            ),
+                    );
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
