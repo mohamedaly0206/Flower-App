@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flower_app/features/user_addresses/domain/entities/user_addresses_entity.dart';
 
 sealed class UserAddressesIntent extends Equatable {
   const UserAddressesIntent();
@@ -8,8 +7,12 @@ sealed class UserAddressesIntent extends Equatable {
   List<Object?> get props => [];
 }
 
-class FetchUserAddressesIntent extends UserAddressesIntent {
-  const FetchUserAddressesIntent();
+class FetchAddressesIntent extends UserAddressesIntent {
+  const FetchAddressesIntent();
+}
+
+class LoadEgyptLocationsIntent extends UserAddressesIntent {
+  const LoadEgyptLocationsIntent();
 }
 
 class DeleteAddressIntent extends UserAddressesIntent {
@@ -21,15 +24,74 @@ class DeleteAddressIntent extends UserAddressesIntent {
   List<Object?> get props => [id];
 }
 
-class NavigateToAddAddressIntent extends UserAddressesIntent {
-  const NavigateToAddAddressIntent();
+class AddAddressIntent extends UserAddressesIntent {
+  const AddAddressIntent();
 }
 
-class NavigateToEditAddressIntent extends UserAddressesIntent {
-  final AddressEntity address;
+class UpdateAddressIntent extends UserAddressesIntent {
+  const UpdateAddressIntent();
+}
 
-  const NavigateToEditAddressIntent(this.address);
+class UpdateUsernameIntent extends UserAddressesIntent {
+  final String username;
+
+  const UpdateUsernameIntent(this.username);
 
   @override
-  List<Object?> get props => [address];
+  List<Object?> get props => [username];
+}
+
+class UpdatePhoneIntent extends UserAddressesIntent {
+  final String phone;
+
+  const UpdatePhoneIntent(this.phone);
+
+  @override
+  List<Object?> get props => [phone];
+}
+
+class UpdateGovernorateIntent extends UserAddressesIntent {
+  final String governorateId;
+  final String governorateName;
+
+  const UpdateGovernorateIntent({
+    required this.governorateId,
+    required this.governorateName,
+  });
+
+  @override
+  List<Object?> get props => [governorateId, governorateName];
+}
+
+class UpdateCityIntent extends UserAddressesIntent {
+  final String cityId;
+  final String city;
+
+  const UpdateCityIntent({required this.cityId, required this.city});
+
+  @override
+  List<Object?> get props => [cityId, city];
+}
+
+class UpdateStreetIntent extends UserAddressesIntent {
+  final String street;
+
+  const UpdateStreetIntent(this.street);
+
+  @override
+  List<Object?> get props => [street];
+}
+
+class UpdateLocationIntent extends UserAddressesIntent {
+  final String lat;
+  final String long;
+
+  const UpdateLocationIntent({required this.lat, required this.long});
+
+  @override
+  List<Object?> get props => [lat, long];
+}
+
+class RequestCurrentLocationIntent extends UserAddressesIntent {
+  const RequestCurrentLocationIntent();
 }

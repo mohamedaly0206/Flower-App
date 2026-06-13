@@ -54,10 +54,11 @@ class ProfileView extends StatelessWidget {
                     icon: SvgPicture.asset(Assets.icons.locationIcon),
                     title: AppLocalizations.of(context)!.savedAddress,
                     onTap: () {
+                      final cubit = getIt<UserAddressesCubit>();
                       Navigator.of(context).push(
                         MaterialPageRoute<void>(
-                          builder: (_) => BlocProvider(
-                            create: (_) => getIt<UserAddressesCubit>(),
+                          builder: (_) => BlocProvider.value(
+                            value: cubit,
                             child: const UserAddressesView(),
                           ),
                         ),

@@ -448,4 +448,78 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get phoneInvalid => 'Invalid Egyptian phone number';
+
+  @override
+  String get addAddress => 'Add address';
+
+  @override
+  String get editAddress => 'Edit address';
+
+  @override
+  String get governorate => 'Governorate';
+
+  @override
+  String get selectGovernorate => 'Select governorate';
+
+  @override
+  String get selectCity => 'Select city';
+
+  @override
+  String get recipientNameRequired => 'Recipient name is required';
+
+  @override
+  String get governorateRequired => 'Governorate is required';
+
+  @override
+  String get cityRequired => 'City is required';
+
+  @override
+  String get streetAddressRequired => 'Street address is required';
+
+  @override
+  String get streetAddressMinLength =>
+      'Street address must be at least 5 characters';
+
+  @override
+  String get selectLocationOnMap => 'Please select a location on the map';
+
+  @override
+  String get addressSavedSuccessfully => 'Address saved successfully';
+
+  @override
+  String get addressUpdatedSuccessfully => 'Address updated successfully';
+
+  @override
+  String get addressNotFound => 'Address not found. Please try again.';
+
+  @override
+  String get failedLoadLocations => 'Failed to load governorates and cities';
+
+  @override
+  String get locationServicesDisabled => 'Location services are disabled';
+
+  @override
+  String get locationPermissionRequired => 'Location permission is required';
+
+  @override
+  String get locationPermissionDeniedForever =>
+      'Location permission is permanently denied';
+
+  @override
+  String get failedGetCurrentLocation => 'Failed to get current location';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get noSavedAddressFound => 'No address found';
+
+  @override
+  String get tapToAddFirstAddress => 'Tap here to add';
+
+  @override
+  String get noSavedAddressesYet => 'You have no saved addresses yet';
+
+  @override
+  String get addYourFirstAddress => 'Add your first address';
 }

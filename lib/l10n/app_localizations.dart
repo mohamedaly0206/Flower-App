@@ -961,6 +961,150 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Invalid Egyptian phone number'**
   String get phoneInvalid;
+
+  /// No description provided for @addAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Add address'**
+  String get addAddress;
+
+  /// No description provided for @editAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit address'**
+  String get editAddress;
+
+  /// No description provided for @governorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Governorate'**
+  String get governorate;
+
+  /// No description provided for @selectGovernorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Select governorate'**
+  String get selectGovernorate;
+
+  /// No description provided for @selectCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Select city'**
+  String get selectCity;
+
+  /// No description provided for @recipientNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipient name is required'**
+  String get recipientNameRequired;
+
+  /// No description provided for @governorateRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Governorate is required'**
+  String get governorateRequired;
+
+  /// No description provided for @cityRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'City is required'**
+  String get cityRequired;
+
+  /// No description provided for @streetAddressRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Street address is required'**
+  String get streetAddressRequired;
+
+  /// No description provided for @streetAddressMinLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Street address must be at least 5 characters'**
+  String get streetAddressMinLength;
+
+  /// No description provided for @selectLocationOnMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a location on the map'**
+  String get selectLocationOnMap;
+
+  /// No description provided for @addressSavedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Address saved successfully'**
+  String get addressSavedSuccessfully;
+
+  /// No description provided for @addressUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Address updated successfully'**
+  String get addressUpdatedSuccessfully;
+
+  /// No description provided for @addressNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Address not found. Please try again.'**
+  String get addressNotFound;
+
+  /// No description provided for @failedLoadLocations.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load governorates and cities'**
+  String get failedLoadLocations;
+
+  /// No description provided for @locationServicesDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Location services are disabled'**
+  String get locationServicesDisabled;
+
+  /// No description provided for @locationPermissionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission is required'**
+  String get locationPermissionRequired;
+
+  /// No description provided for @locationPermissionDeniedForever.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission is permanently denied'**
+  String get locationPermissionDeniedForever;
+
+  /// No description provided for @failedGetCurrentLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to get current location'**
+  String get failedGetCurrentLocation;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// No description provided for @noSavedAddressFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No address found'**
+  String get noSavedAddressFound;
+
+  /// No description provided for @tapToAddFirstAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap here to add'**
+  String get tapToAddFirstAddress;
+
+  /// No description provided for @noSavedAddressesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no saved addresses yet'**
+  String get noSavedAddressesYet;
+
+  /// No description provided for @addYourFirstAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first address'**
+  String get addYourFirstAddress;
 }
 
 class _AppLocalizationsDelegate

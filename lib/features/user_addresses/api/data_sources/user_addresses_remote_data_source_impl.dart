@@ -19,4 +19,14 @@ class UserAddressesRemoteDataSourceImpl
   Future<void> deleteAddress(String id) {
     return _apiClient.deleteAddress(id);
   }
+
+  @override
+  Future<void> addAddress(Map<String, dynamic> body) {
+    return _apiClient.addAddress(body);
+  }
+
+  @override
+  Future<void> updateAddress(String id, Map<String, dynamic> body) {
+    return _apiClient.updateAddress(id, body);
+  }
 }
