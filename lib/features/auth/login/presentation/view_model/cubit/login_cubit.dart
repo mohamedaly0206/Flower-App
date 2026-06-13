@@ -4,13 +4,15 @@ import 'package:flower_app/features/auth/login/domain/use_case/login_use_case.da
 import 'package:flower_app/features/auth/login/presentation/view_model/intent/login_intent.dart';
 import 'package:flower_app/features/auth/login/presentation/view_model/state/login_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
 class LoginCubit extends Cubit<LoginState> {
   final LoginUseCase _loginUseCase;
-
-  LoginCubit(this._loginUseCase) : super(const LoginInitial());
+  final FlutterSecureStorage _secureStorage;
+  LoginCubit(this._loginUseCase, this._secureStorage)
+    : super(const LoginInitial());
 
   void doIntent(LoginIntent intent) {
     switch (intent) {
@@ -22,6 +24,31 @@ class LoginCubit extends Cubit<LoginState> {
         toggleRememberMe(intent.value);
       case SubmitLoginIntent():
         login(email: intent.email, password: intent.password);
+      case ContinueAsGuestIntent():
+        loginAsGuest();
+    }
+  }
+
+  Future<void> loginAsGuest() async {
+    final obscurePassword = state.obscurePassword;
+    final rememberMe = state.rememberMe;
+
+    try {
+      await _secureStorage.write(key: 'token', value: 'GUEST');
+      emit(
+        LoginGuestSuccess(
+          obscurePassword: obscurePassword,
+          rememberMe: rememberMe,
+        ),
+      );
+    } catch (error) {
+      emit(
+        LoginFailure(
+          'Failed to continue as guest: ${error.toString()}',
+          obscurePassword: obscurePassword,
+          rememberMe: rememberMe,
+        ),
+      );
     }
   }
 

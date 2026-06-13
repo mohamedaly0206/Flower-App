@@ -1,12 +1,12 @@
 import 'package:flower_app/config/di/di.dart';
 import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/shared_features/products/domain/entities/product_entity.dart';
-import 'package:flower_app/core/shared_features/shared_view_model/cubit/home_shared_cubit.dart';
 import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_shared_intent.dart';
-import 'package:flower_app/features/app_sections/categories/presentation/views/categories_view.dart';
-import 'package:flower_app/features/auth/forget_password/presentation/view_model/cubit/forget_password_cubit.dart';
-import 'package:flower_app/features/auth/forget_password/presentation/view/forget_password_screen.dart';
+import 'package:flower_app/core/shared_features/shared_view_model/cubit/home_shared_cubit.dart';
 import 'package:flower_app/features/app_sections/app_sections.dart';
+import 'package:flower_app/features/app_sections/categories/presentation/views/categories_view.dart';
+import 'package:flower_app/features/auth/forget_password/presentation/view/forget_password_screen.dart';
+import 'package:flower_app/features/auth/forget_password/presentation/view_model/cubit/forget_password_cubit.dart';
 import 'package:flower_app/features/auth/login/presentation/view_model/cubit/login_cubit.dart';
 import 'package:flower_app/features/auth/login/presentation/views/login_view.dart';
 import 'package:flower_app/features/auth/signup/presentation/screens/register_screen.dart';
@@ -17,17 +17,23 @@ import 'package:flower_app/features/checkout/presentation/view_model/cubit/check
 import 'package:flower_app/features/checkout/presentation/views/checkout_view.dart';
 import 'package:flower_app/features/checkout/presentation/widgets/credit_card_web_view_payment.dart';
 import 'package:flower_app/features/occasion/presentation/view_model/intent/occasion_intent.dart';
+import 'package:flower_app/features/edit_profile/presentation/view/edit_profile_view.dart';
+import 'package:flower_app/features/edit_profile/presentation/view_model/cubit/edit_profile_cubit.dart';
 import 'package:flower_app/features/occasion/presentation/view/occasion_view.dart';
+import 'package:flower_app/features/occasion/presentation/view_model/cubit/occasion_cubit.dart';
+import 'package:flower_app/features/occasion/presentation/view_model/intent/occasion_intent.dart';
+import 'package:flower_app/features/orders/presentation/view_model/cubit/orders_cubit.dart';
+import 'package:flower_app/features/orders/presentation/view_model/intent/orders_intent.dart';
+import 'package:flower_app/features/orders/presentation/views/orders_view.dart';
 import 'package:flower_app/features/product_details/presentation/view/product_details_view.dart';
 import 'package:flower_app/features/search/presentation/views/search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:flower_app/features/occasion/presentation/view_model/cubit/occasion_cubit.dart';
-import 'package:flower_app/features/edit_profile/presentation/view_model/cubit/edit_profile_cubit.dart';
-import 'package:flower_app/features/edit_profile/presentation/view/edit_profile_view.dart';
+import '../../config/models/web_view_args.dart';
 import '../../l10n/app_localizations.dart';
+import '../widgets/app_web_view.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -112,6 +118,13 @@ abstract class AppRouter {
         ),
       ),
       GoRoute(
+        path: AppRouterPaths.kOrdersView,
+        builder: (context, state) => BlocProvider.value(
+          value: getIt<OrdersCubit>()..handleIntent(FetchOrdersIntent()),
+          child: const OrdersView(),
+        ),
+      ),
+      GoRoute(
         path: AppRouterPaths.kOccasionView,
         builder: (context, state) {
           final extraParam = state.extra;
@@ -165,6 +178,11 @@ abstract class AppRouter {
             successUrl: args['successUrl'] ?? '',
             cancelUrl: args['cancelUrl'] ?? '',
           );
+        path: AppRouterPaths.kWebView,
+        builder: (context, state) {
+          final args = state.extra as WebViewArgs;
+
+          return AppWebView(args: args);
         },
       ),
     ],

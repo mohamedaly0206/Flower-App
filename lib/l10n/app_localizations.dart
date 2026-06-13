@@ -1003,6 +1003,264 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Invalid Egyptian phone number'**
   String get phoneInvalid;
+
+  /// No description provided for @loginNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Login Now'**
+  String get loginNow;
+
+  /// No description provided for @toManageyoursavedaddressespleaselogin.
+  ///
+  /// In en, this message translates to:
+  /// **'To manage your saved addresses, please login.'**
+  String get toManageyoursavedaddressespleaselogin;
+
+  /// No description provided for @toManageyourorderspleaselogin.
+  ///
+  /// In en, this message translates to:
+  /// **'To manage your orders, please login.'**
+  String get toManageyourorderspleaselogin;
+
+  /// No description provided for @guestUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest User'**
+  String get guestUser;
+
+  /// No description provided for @signIntoexploremore.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to explore more'**
+  String get signIntoexploremore;
+
+  /// No description provided for @continueasguest.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue as guest'**
+  String get continueasguest;
+
+  /// No description provided for @pleaseSignInToAddItemstoyourcartandenjoyfullshoppingfeatures.
+  ///
+  /// In en, this message translates to:
+  /// **'Please sign in to add items to your cart and enjoy full shopping features'**
+  String get pleaseSignInToAddItemstoyourcartandenjoyfullshoppingfeatures;
+
+  /// No description provided for @signInRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in required'**
+  String get signInRequired;
+
+  /// No description provided for @signIn.
+  ///
+  /// In en, this message translates to:
+  /// **'sign in'**
+  String get signIn;
+
+  /// No description provided for @filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get filter;
+
+  /// No description provided for @lowesPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Lowes Price'**
+  String get lowesPrice;
+
+  /// No description provided for @highestPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Highest Price'**
+  String get highestPrice;
+
+  /// No description provided for @newProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get newProduct;
+
+  /// No description provided for @old.
+  ///
+  /// In en, this message translates to:
+  /// **'Old'**
+  String get old;
+
+  /// No description provided for @discount.
+  ///
+  /// In en, this message translates to:
+  /// **'Discount'**
+  String get discount;
+
+  /// No description provided for @noProductsFoundInThisCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'No products found in this category'**
+  String get noProductsFoundInThisCategory;
+
+  /// No description provided for @noActiveOrdersFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No active orders found'**
+  String get noActiveOrdersFound;
+
+  /// No description provided for @noCompletedFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No completed orders found'**
+  String get noCompletedFound;
+
+  /// No description provided for @reorder.
+  ///
+  /// In en, this message translates to:
+  /// **'Reorder'**
+  String get reorder;
+
+  /// No description provided for @addAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Add address'**
+  String get addAddress;
+
+  /// No description provided for @editAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit address'**
+  String get editAddress;
+
+  /// No description provided for @governorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Governorate'**
+  String get governorate;
+
+  /// No description provided for @selectGovernorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Select governorate'**
+  String get selectGovernorate;
+
+  /// No description provided for @selectCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Select city'**
+  String get selectCity;
+
+  /// No description provided for @recipientNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Recipient name is required'**
+  String get recipientNameRequired;
+
+  /// No description provided for @governorateRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Governorate is required'**
+  String get governorateRequired;
+
+  /// No description provided for @cityRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'City is required'**
+  String get cityRequired;
+
+  /// No description provided for @streetAddressRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Street address is required'**
+  String get streetAddressRequired;
+
+  /// No description provided for @streetAddressMinLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Street address must be at least 5 characters'**
+  String get streetAddressMinLength;
+
+  /// No description provided for @selectLocationOnMap.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a location on the map'**
+  String get selectLocationOnMap;
+
+  /// No description provided for @addressSavedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Address saved successfully'**
+  String get addressSavedSuccessfully;
+
+  /// No description provided for @addressUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Address updated successfully'**
+  String get addressUpdatedSuccessfully;
+
+  /// No description provided for @addressNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Address not found. Please try again.'**
+  String get addressNotFound;
+
+  /// No description provided for @failedLoadLocations.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load governorates and cities'**
+  String get failedLoadLocations;
+
+  /// No description provided for @locationServicesDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Location services are disabled'**
+  String get locationServicesDisabled;
+
+  /// No description provided for @locationPermissionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission is required'**
+  String get locationPermissionRequired;
+
+  /// No description provided for @locationPermissionDeniedForever.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission is permanently denied'**
+  String get locationPermissionDeniedForever;
+
+  /// No description provided for @failedGetCurrentLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to get current location'**
+  String get failedGetCurrentLocation;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// No description provided for @noSavedAddressFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No address found'**
+  String get noSavedAddressFound;
+
+  /// No description provided for @tapToAddFirstAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap here to add'**
+  String get tapToAddFirstAddress;
+
+  /// No description provided for @noSavedAddressesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no saved addresses yet'**
+  String get noSavedAddressesYet;
+
+  /// No description provided for @addYourFirstAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first address'**
+  String get addYourFirstAddress;
 }
 
 class _AppLocalizationsDelegate
