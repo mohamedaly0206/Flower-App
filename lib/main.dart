@@ -1,26 +1,49 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flower_app/config/security_storage/security_storage.dart';
 import 'package:flower_app/core/localization/app_locale_controller.dart';
 import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/values/api_param.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/view_model/cubit/cart_cubit.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/view_model/intent/cart_intent.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:toastification/toastification.dart';
 import 'config/di/di.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/theme.dart';
+import 'core/utilities/notification_service.dart';
 import 'firebase_options.dart';
 import 'l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  if (kDebugMode) {
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+  } else {
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+  }
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FirebaseCrashlytics.instance.recordFlutterFatalError(details);
+  };
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  const mapboxToken = String.fromEnvironment('MAPBOX_ACCESS_TOKEN');
+
+  MapboxOptions.setAccessToken(mapboxToken);
   configureDependencies();
+  final notificationService = NotificationService();
+  await notificationService.initialize();
+
   final initialLocation = await _getInitialLocation();
   final initialLocale = await _getInitialLocale();
   runApp(
@@ -36,7 +59,7 @@ Future<void> main() async {
 Future<String> _getInitialLocation() async {
   final securityStorage = getIt<SecurityStorage>();
   final token = await securityStorage.getSecuredString(ApiParam.token);
-  if (token.isNotEmpty) {
+  if (token.isNotEmpty && token != 'GUEST') {
     return AppRouterPaths.kAppSections;
   }
   return AppRouterPaths.kLoginView;

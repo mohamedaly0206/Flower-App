@@ -1,3 +1,5 @@
+import 'package:flower_app/features/app_sections/categories/presentation/widgets/product_sort_type.dart';
+
 sealed class HomeSharedIntent {}
 
 class GetAllHomeDataIntent extends HomeSharedIntent {}
@@ -23,4 +25,9 @@ class ChangeTabIntent extends HomeSharedIntent {
 class SearchIntent extends HomeSharedIntent {
   final String search;
   SearchIntent(this.search);
+}
+
+class SortProductsIntent extends HomeSharedIntent {
+  final ProductSortType sortType;
+  SortProductsIntent(this.sortType);
 }

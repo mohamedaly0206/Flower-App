@@ -52,6 +52,10 @@ dependencies:
     sdk: flutter
   image_picker: ^1.2.2
   firebase_core: ^4.10.0
+  firebase_messaging: ^16.3.0
+  firebase_crashlytics: ^5.2.3
+  mapbox_maps_flutter: ^2.24.3
+  geolocator: ^14.0.2
 
 
 
@@ -85,6 +89,8 @@ flutter:
 
   assets:
     - assets/icons/
+    - assets/states.json
+    - assets/cities.json
 
   fonts:
     - family: Inter
