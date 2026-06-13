@@ -1,3 +1,4 @@
+import 'package:flower_app/config/di/di.dart';
 import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
@@ -9,6 +10,8 @@ import 'package:flower_app/features/app_sections/widgets/custom_profile_info.dar
 import 'package:flower_app/features/app_sections/widgets/custom_profile_menu_tile.dart';
 import 'package:flower_app/features/app_sections/widgets/profile_language_bottom_sheet.dart';
 import 'package:flower_app/features/app_sections/widgets/profile_logout_dialog.dart';
+import 'package:flower_app/features/user_addresses/presentation/view/user_addresses_view.dart';
+import 'package:flower_app/features/user_addresses/presentation/view_model/cubit/user_addresses_cubit.dart';
 import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,12 +48,24 @@ class ProfileView extends StatelessWidget {
                   CustomProfileMenuTile(
                     icon: SvgPicture.asset(Assets.icons.transactionOrder),
                     title: AppLocalizations.of(context)!.myOrders,
-                    onTap: () {},
+                    onTap: () {
+                      GoRouter.of(context).push(AppRouterPaths.kOrdersView);
+                    },
                   ),
                   CustomProfileMenuTile(
                     icon: SvgPicture.asset(Assets.icons.locationIcon),
                     title: AppLocalizations.of(context)!.savedAddress,
-                    onTap: () {},
+                    onTap: () {
+                      final cubit = getIt<UserAddressesCubit>();
+                      Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => BlocProvider.value(
+                            value: cubit,
+                            child: const UserAddressesView(),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   Divider(color: AppColors.placeHolderColor),
                   CustomProfileMenuTile(
