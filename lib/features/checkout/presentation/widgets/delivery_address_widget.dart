@@ -1,3 +1,5 @@
+import 'package:flower_app/core/shared_features/user_addresses/presentation/view_model/cubit/user_addresses_cubit.dart';
+import 'package:flower_app/core/shared_features/user_addresses/presentation/view_model/state/user_addresses_state.dart';
 import 'package:flower_app/core/values/assets.gen.dart';
 import 'package:flower_app/features/checkout/presentation/view_model/cubit/checkout_cubit.dart';
 import 'package:flower_app/features/checkout/presentation/view_model/state/checkout_state.dart';
@@ -15,7 +17,7 @@ class DeliveryAddressWidget extends StatelessWidget {
     final theme = Theme.of(context);
     final appLocalizations = AppLocalizations.of(context);
     return BlocBuilder<CheckoutCubit, CheckoutState>(
-      builder: (context, state) {
+      builder: (context, checkoutState) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
@@ -27,28 +29,31 @@ class DeliveryAddressWidget extends StatelessWidget {
                 style: theme.textTheme.titleMedium,
               ),
               const SizedBox(height: 12),
-              ListView.builder(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: 2, // Replace with actual address count
-                itemBuilder: (context, index) {
-                  // Replace with actual address data
-                  final addressId = index == 0 ? 'home' : 'office';
-                  final addressTitle = index == 0 ? 'Home' : 'Office';
-                  final addressDetails = index == 0
-                      ? '2XVP+XC - Sheikh Zayed'
-                      : '3YVP+XC - Downtown';
-                  return Padding(
-                    padding: index >= 0
-                        ? const EdgeInsets.only(bottom: 16)
-                        : EdgeInsets.zero,
-                    child: AddressCard(
-                      id: addressId,
-                      title: addressTitle,
-                      address: addressDetails,
-                      state: state, // Pass actual state here
-                    ),
+              BlocBuilder<UserAddressesCubit, UserAddressesState>(
+                builder: (context, addressState) {
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: addressState.addresses.length,
+                    itemBuilder: (context, index) {
+                      // Replace with actual address data
+                      final addressId = addressState.addresses[index].id;
+                      final addressTitle = addressState.addresses[index].street;
+                      final addressDetails = addressState.addresses[index].city;
+                      return Padding(
+                        padding: index >= 0
+                            ? const EdgeInsets.only(bottom: 16)
+                            : EdgeInsets.zero,
+                        child: AddressCard(
+                          id: addressId ?? '',
+                          title: addressTitle ?? '',
+                          address: addressDetails ?? '',
+                          isSelected:
+                              checkoutState.selectedAddressId == addressId,
+                        ),
+                      );
+                    },
                   );
                 },
               ),

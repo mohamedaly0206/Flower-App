@@ -1,11 +1,11 @@
 import 'package:flower_app/config/di/di.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
-import 'package:flower_app/features/user_addresses/domain/entities/user_addresses_entity.dart';
-import 'package:flower_app/features/user_addresses/presentation/view/address_form_view.dart';
-import 'package:flower_app/features/user_addresses/presentation/view_model/cubit/user_addresses_cubit.dart';
-import 'package:flower_app/features/user_addresses/presentation/view_model/intent/user_addresses_intent.dart';
-import 'package:flower_app/features/user_addresses/presentation/view_model/state/user_addresses_state.dart';
+import 'package:flower_app/core/shared_features/user_addresses/domain/entities/user_addresses_entity.dart';
+import 'package:flower_app/core/shared_features/user_addresses/presentation/view/address_form_view.dart';
+import 'package:flower_app/core/shared_features/user_addresses/presentation/view_model/cubit/user_addresses_cubit.dart';
+import 'package:flower_app/core/shared_features/user_addresses/presentation/view_model/intent/user_addresses_intent.dart';
+import 'package:flower_app/core/shared_features/user_addresses/presentation/view_model/state/user_addresses_state.dart';
 import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -4,6 +4,8 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flower_app/config/security_storage/security_storage.dart';
 import 'package:flower_app/core/localization/app_locale_controller.dart';
 import 'package:flower_app/core/router/router_paths.dart';
+import 'package:flower_app/core/shared_features/user_addresses/presentation/view_model/cubit/user_addresses_cubit.dart';
+import 'package:flower_app/core/shared_features/user_addresses/presentation/view_model/intent/user_addresses_intent.dart';
 import 'package:flower_app/core/values/api_param.dart';
 import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/view_model/cubit/cart_cubit.dart';
@@ -50,9 +52,7 @@ Future<void> main() async {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   const mapboxToken = String.fromEnvironment('MAPBOX_ACCESS_TOKEN');
 
   MapboxOptions.setAccessToken(mapboxToken);
@@ -114,9 +114,18 @@ class FlowerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          getIt<CartCubit>()..cartIntentHandler(GetCartItemsIntent()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) =>
+              getIt<CartCubit>()..cartIntentHandler(GetCartItemsIntent()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              getIt<UserAddressesCubit>()
+                ..handleIntent(const FetchAddressesIntent()),
+        ),
+      ],
       child: MaterialApp.router(
         routerConfig: _getRouter(),
         debugShowCheckedModeBanner: false,

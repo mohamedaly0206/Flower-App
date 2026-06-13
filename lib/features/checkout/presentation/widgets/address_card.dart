@@ -1,7 +1,6 @@
 import 'package:flower_app/core/values/assets.gen.dart';
 import 'package:flower_app/features/checkout/presentation/view_model/cubit/checkout_cubit.dart';
 import 'package:flower_app/features/checkout/presentation/view_model/intent/checkout_intent.dart';
-import 'package:flower_app/features/checkout/presentation/view_model/state/checkout_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,19 +8,18 @@ class AddressCard extends StatelessWidget {
   final String id;
   final String title;
   final String address;
-  final CheckoutState state;
+  final bool isSelected; // Replace with actual selection logic from state;
   const AddressCard({
     super.key,
     required this.id,
     required this.title,
     required this.address,
-    required this.state,
+    required this.isSelected,
   });
 
   @override
   Widget build(BuildContext context) {
-    final isSelected =
-        state.selectedAddressId == id; // Replace with actual selection logic
+        // Replace with actual selection logic
     final theme = Theme.of(context);
     return InkWell(
       onTap: () {
