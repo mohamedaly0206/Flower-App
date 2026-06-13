@@ -77,7 +77,10 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                       hintText: AppStrings.currentPassword,
                     ),
                     validator: (value) =>
-                        AppValidators.validateEmptyTextFormField(context,value),
+                        AppValidators.validateEmptyTextFormField(
+                          context,
+                          value,
+                        ),
                     obscureText: true,
                   ),
                   const SizedBox(height: 24),
@@ -87,7 +90,8 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                       labelText: AppStrings.newPassword,
                       hintText: AppStrings.newPassword,
                     ),
-                    validator: (value) => AppValidators.validatePassword(context,value),
+                    validator: (value) =>
+                        AppValidators.validatePassword(context, value),
                     obscureText: true,
                   ),
                   const SizedBox(height: 24),

@@ -63,10 +63,9 @@ class OccasionView extends StatelessWidget {
                       ),
                       const SizedBox(height: 24),
                       ElevatedButton(
-                        onPressed: () =>
-                            context.read<OccasionCubit>().handleIntent(
-                              const LoadOccasionsIntent(),
-                            ),
+                        onPressed: () => context
+                            .read<OccasionCubit>()
+                            .handleIntent(const LoadOccasionsIntent()),
                         child: const Text('Retry'),
                       ),
                     ],
