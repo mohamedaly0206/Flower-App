@@ -1,0 +1,53 @@
+name: Build & Distribute
+
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      firebase_token:
+        description: 'Firebase CLI Token (Optional if Secret/Variable is set)'
+        required: false
+
+jobs:
+  distribute:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Install Gems
+        working-directory: android
+        run: bundle install
+
+      - name: Flutter Pub Get
+        run: flutter pub get
+
+      - name: Run build-runner
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Build APK
+        working-directory: android
+        run: bundle exec fastlane build
+
+      - name: Deploy
+        working-directory: android
+        run: bundle exec fastlane deploy
