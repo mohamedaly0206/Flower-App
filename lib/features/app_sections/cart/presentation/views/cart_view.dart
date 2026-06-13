@@ -1,3 +1,4 @@
+import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/widgets/address_widget.dart';
 import 'package:flower_app/core/widgets/app_messages.dart';
 import 'package:flower_app/core/widgets/custom_app_bar.dart';
@@ -9,6 +10,7 @@ import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:go_router/go_router.dart';
 
 class CartView extends StatelessWidget {
   const CartView({super.key});
@@ -137,7 +139,17 @@ class CartView extends StatelessWidget {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              final double subTotal = state.subTotal.toDouble();
+                              GoRouter.of(context).push(
+                                AppRouterPaths.kCheckoutView,
+                                extra: {
+                                  'subTotal': subTotal,
+                                  'deliveryFee': state.deliveryFee,
+                                  'totalPrice': state.totalPrice,
+                                },
+                              );
+                            },
                             child: Text(appLocalizations.checkout),
                           ),
                         ),

@@ -518,6 +518,12 @@ abstract class AppLocalizations {
   /// **'Delivery time'**
   String get deliveryTime;
 
+  /// No description provided for @instant.
+  ///
+  /// In en, this message translates to:
+  /// **'instant,'**
+  String get instant;
+
   /// No description provided for @schedule.
   ///
   /// In en, this message translates to:
@@ -595,6 +601,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Item added to cart'**
   String get successAddToCart;
+
+  /// No description provided for @placeOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Place order'**
+  String get placeOrder;
 
   /// No description provided for @address.
   ///
@@ -679,6 +691,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your order placed successfully!'**
   String get orderPlacedSuccessfully;
+
+  /// No description provided for @noPaymentMethodOrAddressSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'No Payment or Address Selected'**
+  String get noPaymentMethodOrAddressSelected;
+
+  /// No description provided for @creditCardPaymentFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Credit card payment isn\'t completed'**
+  String get creditCardPaymentFailed;
+
+  /// No description provided for @creditCardPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Credit Card Payment'**
+  String get creditCardPayment;
+
+  /// No description provided for @arriveBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Arrive By'**
+  String get arriveBy;
+
+  /// No description provided for @deliveryClock.
+  ///
+  /// In en, this message translates to:
+  /// **'11:00 AM'**
+  String get deliveryClock;
 
   /// No description provided for @estimatedArrival.
   ///

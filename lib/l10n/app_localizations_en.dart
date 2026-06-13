@@ -223,6 +223,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deliveryTime => 'Delivery time';
 
   @override
+  String get instant => 'instant,';
+
+  @override
   String get schedule => 'Schedule';
 
   @override
@@ -261,6 +264,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get successAddToCart => 'Item added to cart';
+
+  @override
+  String get placeOrder => 'Place order';
 
   @override
   String get address => 'Address';
@@ -303,6 +309,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get orderPlacedSuccessfully => 'Your order placed successfully!';
+
+  @override
+  String get noPaymentMethodOrAddressSelected =>
+      'No Payment or Address Selected';
+
+  @override
+  String get creditCardPaymentFailed => 'Credit card payment isn\'t completed';
+
+  @override
+  String get creditCardPayment => 'Credit Card Payment';
+
+  @override
+  String get arriveBy => 'Arrive By';
+
+  @override
+  String get deliveryClock => '11:00 AM';
 
   @override
   String get estimatedArrival => 'Estimated arrival';

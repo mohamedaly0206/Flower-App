@@ -1,6 +1,5 @@
 import 'package:flower_app/config/di/di.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
-
 import 'package:flower_app/core/values/assets.gen.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/views/cart_view.dart';
 import 'package:flower_app/features/app_sections/categories/presentation/views/categories_view.dart';
@@ -14,14 +13,34 @@ import '../../l10n/app_localizations.dart';
 import 'home/presentation/view/home_view.dart';
 
 class AppSections extends StatefulWidget {
-  const AppSections({super.key});
+  final int initialIndex;
+
+  const AppSections({super.key, this.initialIndex = 0});
 
   @override
   State<AppSections> createState() => _AppSectionsState();
 }
 
 class _AppSectionsState extends State<AppSections> {
-  int _currentIndex = 0;
+  late int _currentIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = _normalizeIndex(widget.initialIndex);
+  }
+
+  @override
+  void didUpdateWidget(covariant AppSections oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.initialIndex != widget.initialIndex) {
+      _currentIndex = _normalizeIndex(widget.initialIndex);
+    }
+  }
+
+  int _normalizeIndex(int index) {
+    return index >= 0 && index <= 3 ? index : 0;
+  }
 
   List<_AppSection> get _sections => [
     _AppSection(

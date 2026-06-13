@@ -31,6 +31,7 @@ abstract class AppTheme {
       onTertiaryFixedVariant: AppColors.transparentColor,
       onTertiaryFixed: AppColors.placeHolderColor,
       onInverseSurface: AppColors.greyColor,
+      surfaceDim: AppColors.dividerColor,
     ),
     // AppBarTheme
     appBarTheme: AppBarTheme(

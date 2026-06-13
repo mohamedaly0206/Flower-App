@@ -1,15 +1,18 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flower_app/config/security_storage/security_storage.dart';
 import 'package:flower_app/core/localization/app_locale_controller.dart';
 import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/values/api_param.dart';
+import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/view_model/cubit/cart_cubit.dart';
 import 'package:flower_app/features/app_sections/cart/presentation/view_model/intent/cart_intent.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:toastification/toastification.dart';
 import 'config/di/di.dart';
@@ -22,6 +25,19 @@ import 'l10n/app_localizations.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  final remoteConfig = FirebaseRemoteConfig.instance;
+  await remoteConfig.setConfigSettings(
+    RemoteConfigSettings(
+      fetchTimeout: const Duration(seconds: 10),
+      minimumFetchInterval: Duration.zero,
+    ),
+  );
+  await remoteConfig.setDefaults(const {
+    AppStrings.firebaseDeliveryDaysConfig: 2,
+  });
+
+  // Fetch the latest values from Firebase
+  await remoteConfig.fetchAndActivate();
   if (kDebugMode) {
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
   } else {
@@ -46,6 +62,7 @@ Future<void> main() async {
 
   final initialLocation = await _getInitialLocation();
   final initialLocale = await _getInitialLocale();
+  await initializeDateFormatting();
   runApp(
     AppLocaleScope(
       initialLocale: initialLocale,

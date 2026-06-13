@@ -221,6 +221,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get deliveryTime => 'وقت التوصيل';
 
   @override
+  String get instant => 'توصيل فوري';
+
+  @override
   String get schedule => 'جدولة';
 
   @override
@@ -258,6 +261,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get successAddToCart => 'تم اضافه المنتج للسله';
+
+  @override
+  String get placeOrder => 'إتمام الطلب';
 
   @override
   String get address => 'العنوان';
@@ -300,6 +306,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get orderPlacedSuccessfully => 'تم تقديم طلبك بنجاح!';
+
+  @override
+  String get noPaymentMethodOrAddressSelected =>
+      'لم يتم تحديد طريقة دفع أو عنوان';
+
+  @override
+  String get creditCardPaymentFailed => 'لم يتم اكتمال عمليه الدفع بالكارت';
+
+  @override
+  String get creditCardPayment => 'الدفع بالكارت';
+
+  @override
+  String get arriveBy => 'التوصيل خلال';
+
+  @override
+  String get deliveryClock => '١١:٠٠ ص';
 
   @override
   String get estimatedArrival => 'الوصول المقدر';

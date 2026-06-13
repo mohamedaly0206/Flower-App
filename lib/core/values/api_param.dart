@@ -9,4 +9,5 @@ abstract class ApiParam {
   static const String rememberMe = 'rememberMe';
   static const String resetCode = 'resetCode';
   static const String newPassword = 'newPassword';
+  static const String urlCreditCardCheckout = 'http://localhost:3000';
 }

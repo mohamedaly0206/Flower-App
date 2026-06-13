@@ -16,7 +16,7 @@ import 'package:mocktail/mocktail.dart';
 
 class _MockSecureStorage extends Mock implements FlutterSecureStorage {}
 
-class _FakeEditeProfileRepo implements EditProfileRepoContract {
+class _FakeEditProfileRepo implements EditProfileRepoContract {
   BaseResponse<UserProfileEntity>? getProfileResponse;
   BaseResponse<UserProfileEntity>? editProfileResponse;
   BaseResponse<UserProfileEntity>? uploadPhotoResponse;
@@ -45,8 +45,8 @@ class _FakeEditeProfileRepo implements EditProfileRepoContract {
 }
 
 void main() {
-  group('EditeProfileCubit MVI Tests', () {
-    late _FakeEditeProfileRepo fakeRepo;
+  group('EditProfileCubit MVI Tests', () {
+    late _FakeEditProfileRepo fakeRepo;
     late GetProfileUseCase getProfileUseCase;
     late EditProfileUseCase editProfileUseCase;
     late UploadProfilePhotoUseCase uploadProfilePhotoUseCase;
@@ -69,7 +69,7 @@ void main() {
     );
 
     setUp(() {
-      fakeRepo = _FakeEditeProfileRepo();
+      fakeRepo = _FakeEditProfileRepo();
       mockSecureStorage = _MockSecureStorage();
       when(
         () => mockSecureStorage.write(
@@ -173,7 +173,7 @@ void main() {
     );
 
     test(
-      'UploadPhotoIntent refetches profile when API returns message-only',
+      'UploadPhotoIntent re fetches profile when API returns message-only',
       () async {
         fakeRepo.getProfileResponse = SuccessBaseResponse(data: dummyProfile);
         cubit.handleIntent(const FetchProfileIntent());
