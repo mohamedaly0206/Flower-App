@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/flutter_svg.dart'; // Added as SvgPicture is used
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../config/models/web_view_args.dart';
@@ -29,106 +29,6 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProfileCubit, ProfileState>(
-      listener: (context, state) {
-        if (state is LogoutSuccess) {
-          context.go(AppRouterPaths.kLoginView);
-        }
-      },
-      builder: (context, state) {
-        if (state is ProfileSuccess) {
-          return Scaffold(
-            backgroundColor: AppColors.whiteColor,
-            body: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 15),
-                  const CustomProfileHeader(),
-                  const SizedBox(height: 15),
-                  CustomProfileInfo(state: state),
-                  const SizedBox(height: 15),
-                  CustomProfileMenuTile(
-                    icon: SvgPicture.asset(Assets.icons.transactionOrder),
-                    title: AppLocalizations.of(context)!.myOrders,
-                    onTap: () {},
-                  ),
-                  CustomProfileMenuTile(
-                    icon: SvgPicture.asset(Assets.icons.locationIcon),
-                    title: AppLocalizations.of(context)!.savedAddress,
-                    onTap: () {},
-                  ),
-                  Divider(color: AppColors.placeHolderColor),
-                  CustomProfileMenuTile(
-                    icon: Switch(
-                      value: true,
-                      activeThumbColor: AppColors.whiteColor,
-                      activeTrackColor: AppColors.primaryColor,
-                      inactiveThumbColor: AppColors.whiteColor,
-                      inactiveTrackColor: AppColors.placeHolderColor,
-                      onChanged: (_) {},
-                    ),
-                    title: AppLocalizations.of(context)!.notification,
-                    onTap: () {},
-                  ),
-                  Divider(color: AppColors.placeHolderColor),
-                  CustomProfileMenuTile(
-                    icon: SvgPicture.asset(Assets.icons.translateIcon),
-                    title: AppLocalizations.of(context)!.language,
-                    trailing: Text(
-                      languageName(context, state.languageCode),
-                      style: AppTextStyles.textStyleRegular12.copyWith(
-                        color: AppColors.primaryColor,
-                      ),
-                    ),
-                    onTap: () => showLanguageBottomSheet(
-                      context,
-                      selectedLanguageCode: state.languageCode,
-                    ),
-                  ),
-                  CustomProfileMenuTile(
-                    title: AppLocalizations.of(context)!.aboutUs,
-                    onTap: () {
-                      GoRouter.of(context).push(
-                        AppRouterPaths.kWebView,
-                        extra: WebViewArgs(
-                          url: ApiEndpoints.aboutUs,
-                          title: AppLocalizations.of(context)!.aboutUs,
-                        ),
-                      );
-                    },
-                  ),
-                  CustomProfileMenuTile(
-                    title: AppLocalizations.of(context)!.termsAndConditions,
-                    onTap: () {
-                      GoRouter.of(context).push(
-                        AppRouterPaths.kWebView,
-                        extra: WebViewArgs(
-                          url: ApiEndpoints.termsAndConditions,
-                          title: AppLocalizations.of(context)!.termsAndConditions,
-                        ),
-                      );
-                    },
-                  ),
-                  Divider(color: AppColors.placeHolderColor),
-                  CustomProfileMenuTile(
-                    icon: SvgPicture.asset(Assets.icons.logoutIcon),
-                    title: AppLocalizations.of(context)!.logout,
-                    trailing: SvgPicture.asset(Assets.icons.logoutIcon),
-                    onTap: () => showLogoutDialog(context),
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'v 6.3.0 - (446)',
-                    textAlign: TextAlign.center,
-                    style: AppTextStyles.textStyleRegular12.copyWith(
-                      color: AppColors.greyColor,
-                    ),
-                  ),
-                ],
-              ),
     return FutureBuilder<String?>(
       future: getIt<FlutterSecureStorage>().read(key: 'token'),
       builder: (context, tokenSnapshot) {
@@ -139,7 +39,7 @@ class ProfileView extends StatelessWidget {
               child: SpinKitFadingCircle(
                 color: AppColors.primaryColor,
                 size: 50,
-              ), // <-- These closing tags were missing!
+              ),
             ),
           );
         }
@@ -147,7 +47,7 @@ class ProfileView extends StatelessWidget {
         // 2. Handle Guest State
         final isGuest = tokenSnapshot.data == 'GUEST';
         if (isGuest) {
-          return const CustomGuest(); // Assuming CustomGuest doesn't require parameters
+          return const CustomGuest();
         }
 
         // 3. Handle Authenticated User State
@@ -212,7 +112,7 @@ class ProfileView extends StatelessWidget {
                         icon: SvgPicture.asset(Assets.icons.translateIcon),
                         title: AppLocalizations.of(context)!.language,
                         trailing: Text(
-                          languageName(context, state.languageCode), // Assuming this is defined in your file
+                          languageName(context, state.languageCode),
                           style: AppTextStyles.textStyleRegular12.copyWith(
                             color: AppColors.primaryColor,
                           ),
@@ -224,11 +124,27 @@ class ProfileView extends StatelessWidget {
                       ),
                       CustomProfileMenuTile(
                         title: AppLocalizations.of(context)!.aboutUs,
-                        onTap: () {},
+                        onTap: () {
+                          GoRouter.of(context).push(
+                            AppRouterPaths.kWebView,
+                            extra: WebViewArgs(
+                              url: ApiEndpoints.aboutUs,
+                              title: AppLocalizations.of(context)!.aboutUs,
+                            ),
+                          );
+                        },
                       ),
                       CustomProfileMenuTile(
                         title: AppLocalizations.of(context)!.termsAndConditions,
-                        onTap: () {},
+                        onTap: () {
+                          GoRouter.of(context).push(
+                            AppRouterPaths.kWebView,
+                            extra: WebViewArgs(
+                              url: ApiEndpoints.termsAndConditions,
+                              title: AppLocalizations.of(context)!.termsAndConditions,
+                            ),
+                          );
+                        },
                       ),
                       const Divider(color: AppColors.placeHolderColor),
                       CustomProfileMenuTile(

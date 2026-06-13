@@ -21,7 +21,6 @@ import 'package:flower_app/features/edit_profile/presentation/view/edit_profile_
 import 'package:flower_app/features/edit_profile/presentation/view_model/cubit/edit_profile_cubit.dart';
 import 'package:flower_app/features/occasion/presentation/view/occasion_view.dart';
 import 'package:flower_app/features/occasion/presentation/view_model/cubit/occasion_cubit.dart';
-import 'package:flower_app/features/occasion/presentation/view_model/intent/occasion_intent.dart';
 import 'package:flower_app/features/orders/presentation/view_model/cubit/orders_cubit.dart';
 import 'package:flower_app/features/orders/presentation/view_model/intent/orders_intent.dart';
 import 'package:flower_app/features/orders/presentation/views/orders_view.dart';
@@ -178,6 +177,9 @@ abstract class AppRouter {
             successUrl: args['successUrl'] ?? '',
             cancelUrl: args['cancelUrl'] ?? '',
           );
+        },
+      ),
+      GoRoute(
         path: AppRouterPaths.kWebView,
         builder: (context, state) {
           final args = state.extra as WebViewArgs;
