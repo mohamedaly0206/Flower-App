@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flower_app/config/security_storage/security_storage.dart';
 import 'package:flower_app/core/localization/app_locale_controller.dart';
 import 'package:flower_app/core/router/router_paths.dart';
@@ -7,14 +8,22 @@ import 'package:flower_app/features/app_sections/cart/presentation/view_model/in
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
 import 'package:toastification/toastification.dart';
 import 'config/di/di.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/theme.dart';
+import 'firebase_options.dart';
 import 'l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  const mapboxToken = String.fromEnvironment('MAPBOX_ACCESS_TOKEN');
+
+  MapboxOptions.setAccessToken(mapboxToken);
   configureDependencies();
   final initialLocation = await _getInitialLocation();
   final initialLocale = await _getInitialLocale();

@@ -453,4 +453,75 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get reorder => 'إعادة الطلب';
+  String get addAddress => 'إضافة عنوان';
+
+  @override
+  String get editAddress => 'تعديل العنوان';
+
+  @override
+  String get governorate => 'المحافظة';
+
+  @override
+  String get selectGovernorate => 'اختر المحافظة';
+
+  @override
+  String get selectCity => 'اختر المدينة';
+
+  @override
+  String get recipientNameRequired => 'اسم المستلم مطلوب';
+
+  @override
+  String get governorateRequired => 'المحافظة مطلوبة';
+
+  @override
+  String get cityRequired => 'المدينة مطلوبة';
+
+  @override
+  String get streetAddressRequired => 'عنوان الشارع مطلوب';
+
+  @override
+  String get streetAddressMinLength =>
+      'يجب أن يكون عنوان الشارع 5 أحرف على الأقل';
+
+  @override
+  String get selectLocationOnMap => 'يرجى تحديد الموقع على الخريطة';
+
+  @override
+  String get addressSavedSuccessfully => 'تم حفظ العنوان بنجاح';
+
+  @override
+  String get addressUpdatedSuccessfully => 'تم تحديث العنوان بنجاح';
+
+  @override
+  String get addressNotFound => 'العنوان غير موجود. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get failedLoadLocations => 'فشل تحميل المحافظات والمدن';
+
+  @override
+  String get locationServicesDisabled => 'خدمات الموقع معطلة';
+
+  @override
+  String get locationPermissionRequired => 'إذن الموقع مطلوب';
+
+  @override
+  String get locationPermissionDeniedForever => 'تم رفض إذن الموقع بشكل دائم';
+
+  @override
+  String get failedGetCurrentLocation => 'فشل الحصول على الموقع الحالي';
+
+  @override
+  String get retry => 'إعادة المحاولة';
+
+  @override
+  String get noSavedAddressFound => 'لا يوجد عنوان ';
+
+  @override
+  String get tapToAddFirstAddress => 'اضغط هنا لإضافة عنوان';
+
+  @override
+  String get noSavedAddressesYet => 'ليس لديك عناوين محفوظة بعد';
+
+  @override
+  String get addYourFirstAddress => 'أضف عنوانك الأول';
 }
