@@ -25,9 +25,14 @@ class NotificationService {
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       //will be removed
       if (kDebugMode) print('user accepted notification permission');
-
-      String? token = await _fcm.getToken();
-      if (kDebugMode) print("FCM Token: $token");
+      await Future.delayed(const Duration(seconds: 2));
+     
+      try {
+         String? token = await _fcm.getToken();
+        if (kDebugMode) print("FCM Token: $token");
+      }  catch (e) {
+        if (kDebugMode) print("Error fetching FCM token: $e");
+      }
 
       FirebaseMessaging.onBackgroundMessage(
         _firebaseMessagingBackgroundHandler,
