@@ -20,7 +20,7 @@ void showLogoutDialog(BuildContext context) {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                AppLocalizations.of(context)!.logout,
+                AppLocalizations.of(dialogContext)!.logout,
                 style: AppTextStyles.textStyleMedium16.copyWith(
                   color: AppColors.blackColor,
                   fontWeight: FontWeight.w700,
@@ -28,7 +28,7 @@ void showLogoutDialog(BuildContext context) {
               ),
               const SizedBox(height: 8),
               Text(
-                AppLocalizations.of(context)!.confirmLogout,
+                AppLocalizations.of(dialogContext)!.confirmLogout,
                 style: AppTextStyles.textStyleRegular14.copyWith(
                   color: AppColors.blackColor,
                 ),
@@ -37,16 +37,14 @@ void showLogoutDialog(BuildContext context) {
               Row(
                 children: [
                   Expanded(
-                    child: OutlinedButton(
+                    child: ElevatedButton(
                       onPressed: () => Navigator.of(dialogContext).pop(),
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: AppColors.blackColor,
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: AppColors.greyColor,
+                        backgroundColor: AppColors.whiteColor,
                         side: const BorderSide(color: AppColors.greyColor),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
-                        ),
                       ),
-                      child: Text(AppLocalizations.of(context)!.cancel),
+                      child: Text(AppLocalizations.of(dialogContext)!.cancel),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -56,14 +54,11 @@ void showLogoutDialog(BuildContext context) {
                         Navigator.of(dialogContext).pop();
                         context.read<ProfileCubit>().doIntent(LogoutIntent());
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryColor,
-                        foregroundColor: AppColors.whiteColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
-                        ),
+                      child: Text(
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        AppLocalizations.of(dialogContext)!.logout,
                       ),
-                      child: Text(AppLocalizations.of(context)!.logout),
                     ),
                   ),
                 ],

@@ -221,6 +221,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get deliveryTime => 'وقت التوصيل';
 
   @override
+  String get instant => 'توصيل فوري';
+
+  @override
   String get schedule => 'جدولة';
 
   @override
@@ -258,6 +261,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get successAddToCart => 'تم اضافه المنتج للسله';
+
+  @override
+  String get placeOrder => 'إتمام الطلب';
 
   @override
   String get address => 'العنوان';
@@ -300,6 +306,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get orderPlacedSuccessfully => 'تم تقديم طلبك بنجاح!';
+
+  @override
+  String get noPaymentMethodOrAddressSelected =>
+      'لم يتم تحديد طريقة دفع أو عنوان';
+
+  @override
+  String get creditCardPaymentFailed => 'لم يتم اكتمال عمليه الدفع بالكارت';
+
+  @override
+  String get creditCardPayment => 'الدفع بالكارت';
+
+  @override
+  String get arriveBy => 'التوصيل خلال';
+
+  @override
+  String get deliveryClock => '١١:٠٠ ص';
 
   @override
   String get estimatedArrival => 'الوصول المقدر';
@@ -444,4 +466,138 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get phoneInvalid => 'رقم هاتف مصري غير صالح';
+
+  @override
+  String get loginNow => 'سجّل الدخول الآن';
+
+  @override
+  String get toManageyoursavedaddressespleaselogin =>
+      'لإدارة عناوينك المحفوظة، يُرجى تسجيل الدخول';
+
+  @override
+  String get toManageyourorderspleaselogin =>
+      'لإدارة طلباتك، يُرجى تسجيل الدخول';
+
+  @override
+  String get guestUser => 'زائر';
+
+  @override
+  String get signIntoexploremore => 'سجّل الدخول للاطلاع على المزيد';
+
+  @override
+  String get continueasguest => 'تابع كضيف';
+
+  @override
+  String get pleaseSignInToAddItemstoyourcartandenjoyfullshoppingfeatures =>
+      'يرجى تسجيل الدخول لإضافة المنتجات إلى سلة التسوق والاستمتاع بكافة مزايا التسوق';
+
+  @override
+  String get signInRequired => 'تسجيل الدخول مطلوب.';
+
+  @override
+  String get signIn => 'تسجيل الدخول';
+
+  @override
+  String get filter => 'فرز';
+
+  @override
+  String get lowesPrice => 'أقل سعر';
+
+  @override
+  String get highestPrice => 'أعلى سعر';
+
+  @override
+  String get newProduct => 'جديد';
+
+  @override
+  String get old => 'قديم';
+
+  @override
+  String get discount => 'خصم';
+
+  @override
+  String get noProductsFoundInThisCategory =>
+      'لم يتم العثور على أي منتجات في هذه الفئة';
+
+  @override
+  String get noActiveOrdersFound => 'لم يتم العثور على الطلبات النشطة';
+
+  @override
+  String get noCompletedFound => 'لم يتم العثور على الطلبات المكتملة';
+
+  @override
+  String get reorder => 'إعادة الطلب';
+
+  @override
+  String get addAddress => 'إضافة عنوان';
+
+  @override
+  String get editAddress => 'تعديل العنوان';
+
+  @override
+  String get governorate => 'المحافظة';
+
+  @override
+  String get selectGovernorate => 'اختر المحافظة';
+
+  @override
+  String get selectCity => 'اختر المدينة';
+
+  @override
+  String get recipientNameRequired => 'اسم المستلم مطلوب';
+
+  @override
+  String get governorateRequired => 'المحافظة مطلوبة';
+
+  @override
+  String get cityRequired => 'المدينة مطلوبة';
+
+  @override
+  String get streetAddressRequired => 'عنوان الشارع مطلوب';
+
+  @override
+  String get streetAddressMinLength =>
+      'يجب أن يكون عنوان الشارع 5 أحرف على الأقل';
+
+  @override
+  String get selectLocationOnMap => 'يرجى تحديد الموقع على الخريطة';
+
+  @override
+  String get addressSavedSuccessfully => 'تم حفظ العنوان بنجاح';
+
+  @override
+  String get addressUpdatedSuccessfully => 'تم تحديث العنوان بنجاح';
+
+  @override
+  String get addressNotFound => 'العنوان غير موجود. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get failedLoadLocations => 'فشل تحميل المحافظات والمدن';
+
+  @override
+  String get locationServicesDisabled => 'خدمات الموقع معطلة';
+
+  @override
+  String get locationPermissionRequired => 'إذن الموقع مطلوب';
+
+  @override
+  String get locationPermissionDeniedForever => 'تم رفض إذن الموقع بشكل دائم';
+
+  @override
+  String get failedGetCurrentLocation => 'فشل الحصول على الموقع الحالي';
+
+  @override
+  String get retry => 'إعادة المحاولة';
+
+  @override
+  String get noSavedAddressFound => 'لا يوجد عنوان ';
+
+  @override
+  String get tapToAddFirstAddress => 'اضغط هنا لإضافة عنوان';
+
+  @override
+  String get noSavedAddressesYet => 'ليس لديك عناوين محفوظة بعد';
+
+  @override
+  String get addYourFirstAddress => 'أضف عنوانك الأول';
 }

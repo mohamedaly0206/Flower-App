@@ -223,6 +223,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deliveryTime => 'Delivery time';
 
   @override
+  String get instant => 'instant,';
+
+  @override
   String get schedule => 'Schedule';
 
   @override
@@ -261,6 +264,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get successAddToCart => 'Item added to cart';
+
+  @override
+  String get placeOrder => 'Place order';
 
   @override
   String get address => 'Address';
@@ -303,6 +309,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get orderPlacedSuccessfully => 'Your order placed successfully!';
+
+  @override
+  String get noPaymentMethodOrAddressSelected =>
+      'No Payment or Address Selected';
+
+  @override
+  String get creditCardPaymentFailed => 'Credit card payment isn\'t completed';
+
+  @override
+  String get creditCardPayment => 'Credit Card Payment';
+
+  @override
+  String get arriveBy => 'Arrive By';
+
+  @override
+  String get deliveryClock => '11:00 AM';
 
   @override
   String get estimatedArrival => 'Estimated arrival';
@@ -448,4 +470,139 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get phoneInvalid => 'Invalid Egyptian phone number';
+
+  @override
+  String get loginNow => 'Login Now';
+
+  @override
+  String get toManageyoursavedaddressespleaselogin =>
+      'To manage your saved addresses, please login.';
+
+  @override
+  String get toManageyourorderspleaselogin =>
+      'To manage your orders, please login.';
+
+  @override
+  String get guestUser => 'Guest User';
+
+  @override
+  String get signIntoexploremore => 'Sign in to explore more';
+
+  @override
+  String get continueasguest => 'Continue as guest';
+
+  @override
+  String get pleaseSignInToAddItemstoyourcartandenjoyfullshoppingfeatures =>
+      'Please sign in to add items to your cart and enjoy full shopping features';
+
+  @override
+  String get signInRequired => 'Sign in required';
+
+  @override
+  String get signIn => 'sign in';
+
+  @override
+  String get filter => 'Filter';
+
+  @override
+  String get lowesPrice => 'Lowes Price';
+
+  @override
+  String get highestPrice => 'Highest Price';
+
+  @override
+  String get newProduct => 'New';
+
+  @override
+  String get old => 'Old';
+
+  @override
+  String get discount => 'Discount';
+
+  @override
+  String get noProductsFoundInThisCategory =>
+      'No products found in this category';
+
+  @override
+  String get noActiveOrdersFound => 'No active orders found';
+
+  @override
+  String get noCompletedFound => 'No completed orders found';
+
+  @override
+  String get reorder => 'Reorder';
+
+  @override
+  String get addAddress => 'Add address';
+
+  @override
+  String get editAddress => 'Edit address';
+
+  @override
+  String get governorate => 'Governorate';
+
+  @override
+  String get selectGovernorate => 'Select governorate';
+
+  @override
+  String get selectCity => 'Select city';
+
+  @override
+  String get recipientNameRequired => 'Recipient name is required';
+
+  @override
+  String get governorateRequired => 'Governorate is required';
+
+  @override
+  String get cityRequired => 'City is required';
+
+  @override
+  String get streetAddressRequired => 'Street address is required';
+
+  @override
+  String get streetAddressMinLength =>
+      'Street address must be at least 5 characters';
+
+  @override
+  String get selectLocationOnMap => 'Please select a location on the map';
+
+  @override
+  String get addressSavedSuccessfully => 'Address saved successfully';
+
+  @override
+  String get addressUpdatedSuccessfully => 'Address updated successfully';
+
+  @override
+  String get addressNotFound => 'Address not found. Please try again.';
+
+  @override
+  String get failedLoadLocations => 'Failed to load governorates and cities';
+
+  @override
+  String get locationServicesDisabled => 'Location services are disabled';
+
+  @override
+  String get locationPermissionRequired => 'Location permission is required';
+
+  @override
+  String get locationPermissionDeniedForever =>
+      'Location permission is permanently denied';
+
+  @override
+  String get failedGetCurrentLocation => 'Failed to get current location';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get noSavedAddressFound => 'No address found';
+
+  @override
+  String get tapToAddFirstAddress => 'Tap here to add';
+
+  @override
+  String get noSavedAddressesYet => 'You have no saved addresses yet';
+
+  @override
+  String get addYourFirstAddress => 'Add your first address';
 }

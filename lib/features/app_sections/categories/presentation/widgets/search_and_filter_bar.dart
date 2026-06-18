@@ -8,8 +8,8 @@ import 'package:go_router/go_router.dart';
 import '../../../../../l10n/app_localizations.dart';
 
 class SearchAndFilterBar extends StatelessWidget {
-  const SearchAndFilterBar({super.key});
-
+  const SearchAndFilterBar({super.key, this.onFilterTap});
+  final void Function()? onFilterTap;
   @override
   Widget build(BuildContext context) {
     var onTertiaryFixed = Theme.of(context).colorScheme.onTertiaryFixed;
@@ -44,7 +44,7 @@ class SearchAndFilterBar extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         InkWell(
-          onTap: () {},
+          onTap: onFilterTap,
           child: Container(
             height: 48,
             width: 64,

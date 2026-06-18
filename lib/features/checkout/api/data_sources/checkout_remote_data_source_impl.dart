@@ -1,0 +1,51 @@
+import 'dart:developer';
+import 'package:flower_app/config/base_response/base_response.dart';
+import 'package:flower_app/core/errors/failures.dart';
+import 'package:flower_app/features/checkout/api/api_client/checkout_api_client.dart';
+import 'package:flower_app/features/checkout/data/data_sources/checkout_remote_data_source_contract.dart';
+import 'package:flower_app/features/checkout/data/models/request/checkout_request.dart';
+import 'package:flower_app/features/checkout/data/models/response/cash/cash_checkout_response_dto.dart';
+import 'package:flower_app/features/checkout/data/models/response/credit_card/credit_card_checkout_response_dto.dart';
+import 'package:injectable/injectable.dart';
+
+@Injectable(as: CheckoutRemoteDataSourceContract)
+class CheckoutRemoteDataSourceImpl implements CheckoutRemoteDataSourceContract {
+  @override
+  final CheckoutApiClient apiClient;
+
+  CheckoutRemoteDataSourceImpl(this.apiClient);
+
+  @override
+  Future<BaseResponse<CashCheckoutResponseDto>> checkoutCashOrder(
+    CheckoutRequest checkoutRequest,
+  ) async {
+    try {
+      final response = await apiClient.checkoutCashOrder(checkoutRequest);
+      return SuccessBaseResponse<CashCheckoutResponseDto>(data: response);
+    } catch (e) {
+      log('Error in checkoutCashOrder: ${e.toString()}');
+      return ErrorBaseResponse<CashCheckoutResponseDto>(
+        errorMessage: ServerFailure.failureHandler(e).errorMessage,
+      );
+    }
+  }
+
+  @override
+  Future<BaseResponse<CreditCardCheckoutResponseDto>> checkoutCreditCardOrder(
+    String url,
+    CheckoutRequest checkoutRequest,
+  ) async {
+    try {
+      final response = await apiClient.checkoutCreditCardOrder(
+        url,
+        checkoutRequest,
+      );
+      return SuccessBaseResponse<CreditCardCheckoutResponseDto>(data: response);
+    } catch (e) {
+      log('Error in checkoutCreditCardOrder: ${e.toString()}');
+      return ErrorBaseResponse<CreditCardCheckoutResponseDto>(
+        errorMessage: ServerFailure.failureHandler(e).errorMessage,
+      );
+    }
+  }
+}

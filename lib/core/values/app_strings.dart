@@ -35,7 +35,7 @@ abstract class AppStrings {
   static const String male = 'Male';
   static const String creatingAnAccountYouAgreeToOur =
       'Creating an account, you agree to our';
-  static const String termsAndConditions = 'Terms&Conditions';
+  static const String termsAndConditions = 'Terms & Conditions';
   static const String signUpSuccessMessage = 'Sign up successfully';
   static const String changePasswordSuccess = 'Password changed successfully';
   static const String changePasswordError = 'Failed to change password';
@@ -109,6 +109,12 @@ abstract class AppStrings {
   static const String searchForAnyProduct = 'Search For Any Product You Want';
   static const next = 'Next';
   static const productId = 'productId';
+  static const String initialUrl = 'initialUrl';
+  static const String successUrl = 'successUrl';
+  static const String cancelUrl = 'cancelUrl';
+  static const String firebaseDeliveryDaysConfig = 'delivery_days';
+  static const String arriveBy = 'Arrive by';
+  static const String deliveryClock = '11:00 AM';
 
   //track order
   static const String trackOrder = 'Track order';

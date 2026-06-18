@@ -120,21 +120,49 @@ class _LoginViewState extends State<LoginView> {
                   Row(
                     children: [
                       Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: BlocBuilder<LoginCubit, LoginState>(
-                            builder: (context, state) {
-                              return ElevatedButton(
-                                onPressed: state is LoginLoading
-                                    ? null
-                                    : () => _submitLogin(context),
-                                child: Text(
-                                  AppLocalizations.of(context)!.login,
-                                  style: AppTextStyles.textStyleMedium16,
+                        child: BlocBuilder<LoginCubit, LoginState>(
+                          builder: (context, state) {
+                            return ElevatedButton(
+                              onPressed: state is LoginLoading
+                                  ? null
+                                  : () => _submitLogin(context),
+                              child: Text(
+                                AppLocalizations.of(context)!.login,
+                                style: AppTextStyles.textStyleMedium16,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 22),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: BlocBuilder<LoginCubit, LoginState>(
+                          builder: (context, state) {
+                            return ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                side: const BorderSide(
+                                  color: AppColors.greyColor,
+                                  width: 1,
                                 ),
-                              );
-                            },
-                          ),
+                                backgroundColor: AppColors.whiteColor,
+                              ),
+                              onPressed: () {
+                                context.read<LoginCubit>().doIntent(
+                                  ContinueAsGuestIntent(),
+                                );
+                              },
+                              child: Text(
+                                AppLocalizations.of(context)!.continueasguest,
+                                style: AppTextStyles.textStyleMedium16.copyWith(
+                                  color: AppColors.greyColor,
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ],
@@ -188,6 +216,8 @@ class _LoginViewState extends State<LoginView> {
       case LoginInitial():
       case LoginLoading():
         break;
+      case LoginGuestSuccess():
+        context.go(AppRouterPaths.kAppSections);
     }
   }
 

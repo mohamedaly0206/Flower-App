@@ -29,6 +29,7 @@ abstract class ApiEndpoints {
   static const String uploads = 'https://flower.elevateegy.com/uploads';
   //orders
   static const String orders = '$baseUrl/orders';
+  static const String creditCardCheckout = '$baseUrl/orders/checkout';
   static const String addresses = '$baseUrl/addresses';
   static const String subscribe = '$baseUrl/subscriptions/subscribe';
   static const String unsubscribe = '$baseUrl/subscriptions/unsubscribe';
@@ -56,4 +57,8 @@ abstract class ApiEndpoints {
   static const String driversEditProfile = '$baseUrl/drivers/editProfile';
   static const String vehicle = '$baseUrl/vehicles';
   static const String orderState = '$baseUrl/orders/complete';
+  static const String aboutUs =
+      'https://elevate-flutter-team.github.io/flower_app_web_views/about.html';
+  static const String termsAndConditions =
+      'https://elevate-flutter-team.github.io/flower_app_web_views/terms.html';
 }

@@ -1,5 +1,7 @@
 import 'package:flower_app/config/base_response/base_response.dart';
+import 'package:flower_app/config/base_state/base_state.dart';
 import 'package:flower_app/features/app_sections/cart/data/models/request/update_cart_item_quantity_request.dart';
+import 'package:flower_app/features/app_sections/cart/domain/entities/cart_entity.dart';
 import 'package:flower_app/features/app_sections/cart/domain/entities/cart_response_entity.dart';
 import 'package:flower_app/features/app_sections/cart/domain/use_cases/add_item_to_cart_use_case.dart';
 import 'package:flower_app/features/app_sections/cart/domain/use_cases/get_items_cart_use_case.dart';
@@ -30,6 +32,9 @@ class CartCubit extends Cubit<CartState> {
       case GetCartItemsIntent():
         await _getItemsCart();
         break;
+      case ClearCartAfterCheckoutIntent():
+        _clearCartAfterCheckout();
+        break;
       case AddItemToCartIntent():
         await _addItemToCart(intent.request);
         break;
@@ -40,6 +45,19 @@ class CartCubit extends Cubit<CartState> {
         await _updateCartItemQuantityInCart(intent.productId, intent.quantity);
         break;
     }
+  }
+
+  void _clearCartAfterCheckout() {
+    emit(
+      state.copyWith(
+        getCartItemsState: const BaseState<CartResponseEntity>(
+          data: CartResponseEntity(
+            numOfCartItems: 0,
+            cart: CartEntity(cartItems: []),
+          ),
+        ),
+      ),
+    );
   }
 
   Future<void> _getItemsCart() async {

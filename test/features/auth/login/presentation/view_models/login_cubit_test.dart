@@ -6,6 +6,7 @@ import 'package:flower_app/features/auth/login/domain/repo/login_repository.dart
 import 'package:flower_app/features/auth/login/domain/use_case/login_use_case.dart';
 import 'package:flower_app/features/auth/login/presentation/view_model/cubit/login_cubit.dart';
 import 'package:flower_app/features/auth/login/presentation/view_model/state/login_states.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class _FakeLoginRepository implements LoginRepository {
@@ -47,7 +48,7 @@ void main() {
 
     setUp(() {
       repository = _FakeLoginRepository();
-      cubit = LoginCubit(LoginUseCase(repository));
+      cubit = LoginCubit(LoginUseCase(repository), FlutterSecureStorage());
     });
 
     tearDown(() async {

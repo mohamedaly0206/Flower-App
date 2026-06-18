@@ -1,0 +1,20 @@
+default_platform(:android)
+
+platform :android do
+  desc "Build Flutter APK"
+  lane :build do
+    sh("flutter pub get")
+    sh("flutter build apk --release")
+  end
+
+  desc "Deploy to Firebase App Distribution"
+  lane :deploy do
+    firebase_app_distribution(
+      app: "1:195057298331:android:befe11f83ac5496d740f3e",
+      apk_path: "../build/app/outputs/flutter-apk/app-release.apk",
+      firebase_cli_token: "1//03E_PFguKEyN3CgYIARAAGAMSNwF-L9IrbypD5yLxKPEd7s86V-_ocFlCW8V_MedweJnG_qeAXH3XNoUbrEkIy9WKF1wkuDsrIzw",
+      testers: "kerlos.girgis1@gmail.com",
+      release_notes: "Automated build from GitHub Actions"
+    )
+  end
+end
