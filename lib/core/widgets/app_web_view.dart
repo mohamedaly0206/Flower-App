@@ -41,15 +41,12 @@ class _AppWebViewState extends State<AppWebView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
-      appBar: CustomAppBar(
-        title: widget.args.title,
-        hasBackButton: true,
-      ),
+      appBar: CustomAppBar(title: widget.args.title, hasBackButton: true),
       body: Stack(
         children: [
           WebViewWidget(controller: _webViewController),
           if (_isLoading)
-             Center(
+            Center(
               child: SpinKitFadingCircle(
                 color: Theme.of(context).colorScheme.primary,
                 size: 50,

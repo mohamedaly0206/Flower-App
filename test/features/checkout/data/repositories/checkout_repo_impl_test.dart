@@ -26,7 +26,9 @@ void main() {
       SuccessBaseResponse<CashCheckoutResponseDto>(data: tCashResponseDto),
     );
     provideDummy<BaseResponse<CreditCardCheckoutResponseDto>>(
-      SuccessBaseResponse<CreditCardCheckoutResponseDto>(data: tCreditCardResponseDto),
+      SuccessBaseResponse<CreditCardCheckoutResponseDto>(
+        data: tCreditCardResponseDto,
+      ),
     );
   });
 
@@ -34,7 +36,7 @@ void main() {
     mockRemoteDataSource = MockCheckoutRemoteDataSourceContract();
     repository = CheckoutRepoImpl(mockRemoteDataSource);
   });
-final ShippingAddress shippingAddress = ShippingAddress(
+  final ShippingAddress shippingAddress = ShippingAddress(
     street: '123 Main St',
     phone: '1234567890',
     city: 'New York',
@@ -42,9 +44,7 @@ final ShippingAddress shippingAddress = ShippingAddress(
     long: "-74.0060",
   );
 
-  final tCheckoutRequest = CheckoutRequest(
-    shippingAddress: shippingAddress
-  );
+  final tCheckoutRequest = CheckoutRequest(shippingAddress: shippingAddress);
   const tStripeUrl = 'https://checkout.stripe.com/pay/test_session';
   const tErrorMessage = 'Connection lost';
 
@@ -54,7 +54,9 @@ final ShippingAddress shippingAddress = ShippingAddress(
       () async {
         // Arrange
         when(mockRemoteDataSource.checkoutCashOrder(any)).thenAnswer(
-          (_) async => SuccessBaseResponse<CashCheckoutResponseDto>(data: tCashResponseDto),
+          (_) async => SuccessBaseResponse<CashCheckoutResponseDto>(
+            data: tCashResponseDto,
+          ),
         );
 
         // Act
@@ -62,27 +64,30 @@ final ShippingAddress shippingAddress = ShippingAddress(
 
         // Assert
         expect(result, isA<SuccessBaseResponse<CashCheckoutResponseEntity>>());
-        verify(mockRemoteDataSource.checkoutCashOrder(tCheckoutRequest)).called(1);
+        verify(
+          mockRemoteDataSource.checkoutCashOrder(tCheckoutRequest),
+        ).called(1);
       },
     );
 
-    test(
-      'should return ErrorBaseResponse when data source fails',
-      () async {
-        // Arrange
-        when(mockRemoteDataSource.checkoutCashOrder(any)).thenAnswer(
-          (_) async => ErrorBaseResponse<CashCheckoutResponseDto>(errorMessage: tErrorMessage),
-        );
+    test('should return ErrorBaseResponse when data source fails', () async {
+      // Arrange
+      when(mockRemoteDataSource.checkoutCashOrder(any)).thenAnswer(
+        (_) async => ErrorBaseResponse<CashCheckoutResponseDto>(
+          errorMessage: tErrorMessage,
+        ),
+      );
 
-        // Act
-        final result = await repository.checkoutCashOrder(tCheckoutRequest);
+      // Act
+      final result = await repository.checkoutCashOrder(tCheckoutRequest);
 
-        // Assert
-        expect(result, isA<ErrorBaseResponse<CashCheckoutResponseEntity>>());
-        expect((result as ErrorBaseResponse).errorMessage, equals(tErrorMessage));
-        verify(mockRemoteDataSource.checkoutCashOrder(tCheckoutRequest)).called(1);
-      },
-    );
+      // Assert
+      expect(result, isA<ErrorBaseResponse<CashCheckoutResponseEntity>>());
+      expect((result as ErrorBaseResponse).errorMessage, equals(tErrorMessage));
+      verify(
+        mockRemoteDataSource.checkoutCashOrder(tCheckoutRequest),
+      ).called(1);
+    });
   });
 
   group('checkoutCreditCardOrder', () {
@@ -91,34 +96,57 @@ final ShippingAddress shippingAddress = ShippingAddress(
       () async {
         // Arrange
         when(mockRemoteDataSource.checkoutCreditCardOrder(any, any)).thenAnswer(
-          (_) async => SuccessBaseResponse<CreditCardCheckoutResponseDto>(data: tCreditCardResponseDto),
+          (_) async => SuccessBaseResponse<CreditCardCheckoutResponseDto>(
+            data: tCreditCardResponseDto,
+          ),
         );
 
         // Act
-        final result = await repository.checkoutCreditCardOrder(tStripeUrl, tCheckoutRequest);
-
-        // Assert
-        expect(result, isA<SuccessBaseResponse<CreditCardCheckoutResponseEntity>>());
-        verify(mockRemoteDataSource.checkoutCreditCardOrder(tStripeUrl, tCheckoutRequest)).called(1);
-      },
-    );
-
-    test(
-      'should return ErrorBaseResponse when data source fails',
-      () async {
-        // Arrange
-        when(mockRemoteDataSource.checkoutCreditCardOrder(any, any)).thenAnswer(
-          (_) async => ErrorBaseResponse<CreditCardCheckoutResponseDto>(errorMessage: tErrorMessage),
+        final result = await repository.checkoutCreditCardOrder(
+          tStripeUrl,
+          tCheckoutRequest,
         );
 
-        // Act
-        final result = await repository.checkoutCreditCardOrder(tStripeUrl, tCheckoutRequest);
-
         // Assert
-        expect(result, isA<ErrorBaseResponse<CreditCardCheckoutResponseEntity>>());
-        expect((result as ErrorBaseResponse).errorMessage, equals(tErrorMessage));
-        verify(mockRemoteDataSource.checkoutCreditCardOrder(tStripeUrl, tCheckoutRequest)).called(1);
+        expect(
+          result,
+          isA<SuccessBaseResponse<CreditCardCheckoutResponseEntity>>(),
+        );
+        verify(
+          mockRemoteDataSource.checkoutCreditCardOrder(
+            tStripeUrl,
+            tCheckoutRequest,
+          ),
+        ).called(1);
       },
     );
+
+    test('should return ErrorBaseResponse when data source fails', () async {
+      // Arrange
+      when(mockRemoteDataSource.checkoutCreditCardOrder(any, any)).thenAnswer(
+        (_) async => ErrorBaseResponse<CreditCardCheckoutResponseDto>(
+          errorMessage: tErrorMessage,
+        ),
+      );
+
+      // Act
+      final result = await repository.checkoutCreditCardOrder(
+        tStripeUrl,
+        tCheckoutRequest,
+      );
+
+      // Assert
+      expect(
+        result,
+        isA<ErrorBaseResponse<CreditCardCheckoutResponseEntity>>(),
+      );
+      expect((result as ErrorBaseResponse).errorMessage, equals(tErrorMessage));
+      verify(
+        mockRemoteDataSource.checkoutCreditCardOrder(
+          tStripeUrl,
+          tCheckoutRequest,
+        ),
+      ).called(1);
+    });
   });
 }

@@ -26,11 +26,11 @@ class NotificationService {
       //will be removed
       if (kDebugMode) print('user accepted notification permission');
       await Future.delayed(const Duration(seconds: 2));
-     
+
       try {
-         String? token = await _fcm.getToken();
+        String? token = await _fcm.getToken();
         if (kDebugMode) print("FCM Token: $token");
-      }  catch (e) {
+      } catch (e) {
         if (kDebugMode) print("Error fetching FCM token: $e");
       }
 

@@ -20,10 +20,14 @@ void main() {
 
   setUpAll(() {
     provideDummy<BaseResponse<CashCheckoutResponseDto>>(
-      SuccessBaseResponse<CashCheckoutResponseDto>(data: CashCheckoutResponseDto()),
+      SuccessBaseResponse<CashCheckoutResponseDto>(
+        data: CashCheckoutResponseDto(),
+      ),
     );
     provideDummy<BaseResponse<CreditCardCheckoutResponseDto>>(
-      SuccessBaseResponse<CreditCardCheckoutResponseDto>(data: CreditCardCheckoutResponseDto()),
+      SuccessBaseResponse<CreditCardCheckoutResponseDto>(
+        data: CreditCardCheckoutResponseDto(),
+      ),
     );
   });
 
@@ -39,9 +43,7 @@ void main() {
     long: "-74.0060",
   );
 
-  final tCheckoutRequest = CheckoutRequest(
-    shippingAddress: shippingAddress
-  );
+  final tCheckoutRequest = CheckoutRequest(shippingAddress: shippingAddress);
   const tStripeUrl = 'https://checkout.stripe.com/pay/test_session';
   final tCashResponseDto = CashCheckoutResponseDto();
   final tCreditCardResponseDto = CreditCardCheckoutResponseDto();
@@ -51,8 +53,9 @@ void main() {
       'should return SuccessBaseResponse when the API call is successful',
       () async {
         // Arrange
-        when(mockApiClient.checkoutCashOrder(any))
-            .thenAnswer((_) async => tCashResponseDto);
+        when(
+          mockApiClient.checkoutCashOrder(any),
+        ).thenAnswer((_) async => tCashResponseDto);
 
         // Act
         final result = await dataSource.checkoutCashOrder(tCheckoutRequest);
@@ -68,8 +71,9 @@ void main() {
       'should return ErrorBaseResponse when the API call throws an Exception',
       () async {
         // Arrange
-        when(mockApiClient.checkoutCashOrder(any))
-            .thenThrow(Exception('Server configuration error'));
+        when(
+          mockApiClient.checkoutCashOrder(any),
+        ).thenThrow(Exception('Server configuration error'));
 
         // Act
         final result = await dataSource.checkoutCashOrder(tCheckoutRequest);
@@ -86,8 +90,9 @@ void main() {
       'should return SuccessBaseResponse when the API call is successful',
       () async {
         // Arrange
-        when(mockApiClient.checkoutCreditCardOrder(any, any))
-            .thenAnswer((_) async => tCreditCardResponseDto);
+        when(
+          mockApiClient.checkoutCreditCardOrder(any, any),
+        ).thenAnswer((_) async => tCreditCardResponseDto);
 
         // Act
         final result = await dataSource.checkoutCreditCardOrder(
@@ -96,9 +101,17 @@ void main() {
         );
 
         // Assert
-        expect(result, isA<SuccessBaseResponse<CreditCardCheckoutResponseDto>>());
-        expect((result as SuccessBaseResponse).data, equals(tCreditCardResponseDto));
-        verify(mockApiClient.checkoutCreditCardOrder(tStripeUrl, tCheckoutRequest)).called(1);
+        expect(
+          result,
+          isA<SuccessBaseResponse<CreditCardCheckoutResponseDto>>(),
+        );
+        expect(
+          (result as SuccessBaseResponse).data,
+          equals(tCreditCardResponseDto),
+        );
+        verify(
+          mockApiClient.checkoutCreditCardOrder(tStripeUrl, tCheckoutRequest),
+        ).called(1);
       },
     );
 
@@ -106,8 +119,9 @@ void main() {
       'should return ErrorBaseResponse when the API call throws an Exception',
       () async {
         // Arrange
-        when(mockApiClient.checkoutCreditCardOrder(any, any))
-            .thenThrow(Exception('Payment gateway timeout'));
+        when(
+          mockApiClient.checkoutCreditCardOrder(any, any),
+        ).thenThrow(Exception('Payment gateway timeout'));
 
         // Act
         final result = await dataSource.checkoutCreditCardOrder(
@@ -117,7 +131,9 @@ void main() {
 
         // Assert
         expect(result, isA<ErrorBaseResponse<CreditCardCheckoutResponseDto>>());
-        verify(mockApiClient.checkoutCreditCardOrder(tStripeUrl, tCheckoutRequest)).called(1);
+        verify(
+          mockApiClient.checkoutCreditCardOrder(tStripeUrl, tCheckoutRequest),
+        ).called(1);
       },
     );
   });

@@ -157,8 +157,9 @@ class _LoginViewState extends State<LoginView> {
                               },
                               child: Text(
                                 AppLocalizations.of(context)!.continueasguest,
-                                style: AppTextStyles.textStyleMedium16
-                                    .copyWith(color: AppColors.greyColor),
+                                style: AppTextStyles.textStyleMedium16.copyWith(
+                                  color: AppColors.greyColor,
+                                ),
                               ),
                             );
                           },

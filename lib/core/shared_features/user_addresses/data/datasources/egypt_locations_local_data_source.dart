@@ -26,9 +26,7 @@ class EgyptLocationsLocalDataSource {
     List<CityModel> cities,
     String governorateId,
   ) {
-    return cities
-        .where((city) => city.governorateId == governorateId)
-        .toList();
+    return cities.where((city) => city.governorateId == governorateId).toList();
   }
 
   List<Map<String, dynamic>> _extractTableData(

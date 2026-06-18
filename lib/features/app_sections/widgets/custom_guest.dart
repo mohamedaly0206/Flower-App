@@ -74,7 +74,7 @@ class CustomGuest extends StatelessWidget {
                   color: AppColors.primaryColor,
                 ),
               ),
-              onTap: (){}
+              onTap: () {},
             ),
             CustomProfileMenuTile(
               title: AppLocalizations.of(context)!.aboutUs,

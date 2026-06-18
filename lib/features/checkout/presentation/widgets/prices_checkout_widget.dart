@@ -139,19 +139,24 @@ class PricesCheckoutWidget extends StatelessWidget {
                           state.checkoutCreditState.isLoading)
                       ? null
                       : () {
-                        final selectedAddress = userAddressesState.addresses.firstWhere(
-                            (addr) => addr.id == state.selectedAddressId,
-                            orElse: () => userAddressesState.addresses.first,
-                          );
-                         final CheckoutRequest checkoutRequest = CheckoutRequest(
-                            shippingAddress: ShippingAddress(
-                              street: selectedAddress.street ?? '',
-                              phone: selectedAddress.phone ?? userAddressesState.phone, 
-                              city: selectedAddress.city ?? '',
-                              lat: selectedAddress.lat ?? '',
-                              long: selectedAddress.long ?? '',
-                            ),
-                          );
+                          final selectedAddress = userAddressesState.addresses
+                              .firstWhere(
+                                (addr) => addr.id == state.selectedAddressId,
+                                orElse: () =>
+                                    userAddressesState.addresses.first,
+                              );
+                          final CheckoutRequest checkoutRequest =
+                              CheckoutRequest(
+                                shippingAddress: ShippingAddress(
+                                  street: selectedAddress.street ?? '',
+                                  phone:
+                                      selectedAddress.phone ??
+                                      userAddressesState.phone,
+                                  city: selectedAddress.city ?? '',
+                                  lat: selectedAddress.lat ?? '',
+                                  long: selectedAddress.long ?? '',
+                                ),
+                              );
                           if (state.selectedPaymentMethod != null &&
                               state.selectedAddressId != null &&
                               state.selectedPaymentMethod ==

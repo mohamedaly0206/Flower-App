@@ -48,7 +48,7 @@ void main() {
 
     setUp(() {
       repository = _FakeLoginRepository();
-      cubit = LoginCubit(LoginUseCase(repository),FlutterSecureStorage());
+      cubit = LoginCubit(LoginUseCase(repository), FlutterSecureStorage());
     });
 
     tearDown(() async {

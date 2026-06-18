@@ -141,7 +141,9 @@ class ProfileView extends StatelessWidget {
                             AppRouterPaths.kWebView,
                             extra: WebViewArgs(
                               url: ApiEndpoints.termsAndConditions,
-                              title: AppLocalizations.of(context)!.termsAndConditions,
+                              title: AppLocalizations.of(
+                                context,
+                              )!.termsAndConditions,
                             ),
                           );
                         },
@@ -168,11 +170,7 @@ class ProfileView extends StatelessWidget {
             }
 
             if (state is ProfileError) {
-              return Scaffold(
-                body: Center(
-                  child: Text(state.message),
-                ),
-              );
+              return Scaffold(body: Center(child: Text(state.message)));
             }
 
             // Fallback loading state while cubit processes
