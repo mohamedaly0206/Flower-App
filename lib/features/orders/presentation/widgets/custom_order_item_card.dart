@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/theme/app_text_styles.dart';
 import 'package:flower_app/features/orders/domain/models/orders_model.dart';
 import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 class OrderItemCard extends StatelessWidget {
@@ -35,17 +37,21 @@ class OrderItemCard extends StatelessWidget {
                   order.productImage ??
                   "https://imgs.search.brave.com/iZkFC-cgkxOzKo8z-nVJdD67At_hFBSca7wvu0Ugqks/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTAy/Nzk4NzgwNC92ZWN0/b3IvZXJyb3ItbWVz/c2FnZS5qcGc_cz02/MTJ4NjEyJnc9MCZr/PTIwJmM9RnozQWRR/OFhtdlVkM1d2eHdU/RHk3OFVnQlk0ODhj/UTdQdFpTaVctRTVs/ND0",
               fit: BoxFit.cover,
+              errorWidget: (context, url, error) => Container(
+                color: Theme.of(context).colorScheme.secondary,
+                child: Center(
+                  child: Icon(
+                    Icons.image_not_supported_outlined,
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+                ),
+              ),
               placeholder: (context, url) => const Center(
                 child: SizedBox(
                   width: 18,
                   height: 18,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 ),
-              ),
-              errorWidget: (context, url, error) => const Icon(
-                Icons.local_florist_outlined,
-                color: AppColors.primaryColor,
-                size: 34,
               ),
             ),
           ),
@@ -86,7 +92,13 @@ class OrderItemCard extends StatelessWidget {
                   child: SizedBox(
                     height: 30,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (isActive) {
+                          GoRouter.of(context).push(AppRouterPaths.kTrackingOrderView,
+                            extra: {'orderId': order.id},
+                          );
+                        }
+                      },
                       child: Text(
                         isActive
                             ? AppLocalizations.of(context)!.trackOrder

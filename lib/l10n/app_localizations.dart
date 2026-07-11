@@ -710,6 +710,12 @@ abstract class AppLocalizations {
   /// **'Credit Card Payment'**
   String get creditCardPayment;
 
+  /// No description provided for @orderPlacedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Once your order has been accepted,\nyou can track your order.'**
+  String get orderPlacedMessage;
+
   /// No description provided for @arriveBy.
   ///
   /// In en, this message translates to:

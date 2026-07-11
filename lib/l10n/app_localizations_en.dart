@@ -321,6 +321,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get creditCardPayment => 'Credit Card Payment';
 
   @override
+  String get orderPlacedMessage =>
+      'Once your order has been accepted,\nyou can track your order.';
+
+  @override
   String get arriveBy => 'Arrive By';
 
   @override

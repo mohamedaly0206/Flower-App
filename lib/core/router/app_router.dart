@@ -26,6 +26,9 @@ import 'package:flower_app/features/orders/presentation/view_model/intent/orders
 import 'package:flower_app/features/orders/presentation/views/orders_view.dart';
 import 'package:flower_app/features/product_details/presentation/view/product_details_view.dart';
 import 'package:flower_app/features/search/presentation/views/search_view.dart';
+import 'package:flower_app/features/tracking_order/presentation/view_model/intent/order_tracking_intent.dart';
+import 'package:flower_app/features/tracking_order/presentation/views/tracking_order_view.dart';
+import 'package:flower_app/features/tracking_order/presentation/view_model/cubit/order_tracking_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -185,6 +188,24 @@ abstract class AppRouter {
           final args = state.extra as WebViewArgs;
 
           return AppWebView(args: args);
+        },
+      ),
+      GoRoute(
+        path: AppRouterPaths.kTrackingOrderView,
+        builder: (context, state) {
+          final args = state.extra as Map<String, dynamic>?;
+          final orderId = args?['orderId'] as String?;
+          
+          return BlocProvider(
+            create: (context) {
+              final cubit = getIt<OrderTrackingCubit>();
+              if (orderId != null) {
+                cubit.doIntent(ListenToOrderIntent(orderId));
+              }
+              return cubit;
+            },
+            child: TrackingOrderView(orderId: orderId),
+          );
         },
       ),
     ],

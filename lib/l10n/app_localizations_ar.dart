@@ -318,6 +318,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get creditCardPayment => 'الدفع بالكارت';
 
   @override
+  String get orderPlacedMessage => 'بمجرد قبول طلبك، يمكنك تتبع طلبك.';
+
+  @override
   String get arriveBy => 'التوصيل خلال';
 
   @override
