@@ -5,10 +5,9 @@ import 'package:flower_app/features/tracking_order/data/data_sources/tracking_or
 import 'package:flower_app/features/tracking_order/data/models/tracking_order_dto.dart';
 import 'package:injectable/injectable.dart';
 
-
-
 @Injectable(as: TrackingOrderRemoteDataSource)
-class TrackingOrderRemoteDataSourceImpl implements TrackingOrderRemoteDataSource {
+class TrackingOrderRemoteDataSourceImpl
+    implements TrackingOrderRemoteDataSource {
   TrackingOrderRemoteDataSourceImpl();
 
   @override
@@ -19,36 +18,42 @@ class TrackingOrderRemoteDataSourceImpl implements TrackingOrderRemoteDataSource
           .doc(orderId)
           .snapshots()
           .map((snapshot) {
-        if (!snapshot.exists) {
-          return  ErrorBaseResponse<TrackingOrderDto>(errorMessage: 'Order not found');
-        }
-        final data = snapshot.data();
-        if (data == null) {
-           return  ErrorBaseResponse<TrackingOrderDto>(errorMessage: 'Order data is empty');
-        }
+            if (!snapshot.exists) {
+              return ErrorBaseResponse<TrackingOrderDto>(
+                errorMessage: 'Order not found',
+              );
+            }
+            final data = snapshot.data();
+            if (data == null) {
+              return ErrorBaseResponse<TrackingOrderDto>(
+                errorMessage: 'Order data is empty',
+              );
+            }
 
-        final dto = TrackingOrderDto.fromJson(data, snapshot.id);
-        return SuccessBaseResponse<TrackingOrderDto>(data: dto);
-      }).handleError((e) {
-         return ErrorBaseResponse<TrackingOrderDto>(
-           errorMessage: ServerFailure.failureHandler(e).errorMessage,
-         );
-      });
+            final dto = TrackingOrderDto.fromJson(data, snapshot.id);
+            return SuccessBaseResponse<TrackingOrderDto>(data: dto);
+          })
+          .handleError((e) {
+            return ErrorBaseResponse<TrackingOrderDto>(
+              errorMessage: ServerFailure.failureHandler(e).errorMessage,
+            );
+          });
     } catch (e) {
-      return Stream.value(ErrorBaseResponse<TrackingOrderDto>(
-        errorMessage: ServerFailure.failureHandler(e).errorMessage,
-      ));
+      return Stream.value(
+        ErrorBaseResponse<TrackingOrderDto>(
+          errorMessage: ServerFailure.failureHandler(e).errorMessage,
+        ),
+      );
     }
   }
 
   @override
   Future<BaseResponse<void>> completeOrder(String orderId) async {
     try {
-      await FirebaseFirestore.instance.collection('orders').doc(orderId).update({
-        'status': 'completed',
-        'state': 'completed',
-      });
-      return  SuccessBaseResponse<void>(data: null);
+      await FirebaseFirestore.instance.collection('orders').doc(orderId).update(
+        {'status': 'completed', 'state': 'completed'},
+      );
+      return SuccessBaseResponse<void>(data: null);
     } catch (e) {
       return ErrorBaseResponse<void>(
         errorMessage: ServerFailure.failureHandler(e).errorMessage,

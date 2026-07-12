@@ -102,6 +102,7 @@
   "creditCardPaymentFailed":"Credit card payment isn't completed",
   "creditCardPayment":"Credit Card Payment",
   "orderPlacedMessage":"Once your order has been accepted,\nyou can track your order.",
+  "deliveryHeroToday": "is your delivery hero for today",
   "arriveBy":"Arrive By",
   "deliveryClock":"11:00 AM",
   "estimatedArrival": "Estimated arrival",
@@ -193,5 +194,9 @@
   "noSavedAddressFound": "No address found",
   "tapToAddFirstAddress": "Tap here to add",
   "noSavedAddressesYet": "You have no saved addresses yet",
-  "addYourFirstAddress": "Add your first address"
+  "addYourFirstAddress": "Add your first address",
+  "orderReceived": "Received your order",
+  "orderPreparing": "Preparing your order",
+  "orderOutForDelivery": "Out for delivery",
+  "delivered": "Delivered"
 }

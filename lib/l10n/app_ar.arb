@@ -102,6 +102,7 @@
   "creditCardPaymentFailed":"لم يتم اكتمال عمليه الدفع بالكارت",
   "creditCardPayment":"الدفع بالكارت",
   "orderPlacedMessage":"بمجرد قبول طلبك، يمكنك تتبع طلبك.",
+  "deliveryHeroToday": "هو بطل التوصيل الخاص بك اليوم",
   "arriveBy":"التوصيل خلال",
   "deliveryClock":"١١:٠٠ ص",
   "estimatedArrival": "الوصول المقدر",
@@ -193,5 +194,9 @@
   "noSavedAddressFound": "لا يوجد عنوان ",
   "tapToAddFirstAddress": "اضغط هنا لإضافة عنوان",
   "noSavedAddressesYet": "ليس لديك عناوين محفوظة بعد",
-  "addYourFirstAddress": "أضف عنوانك الأول"
+  "addYourFirstAddress": "أضف عنوانك الأول",
+  "orderReceived": "تم استلام طلبك",
+  "orderPreparing": "جارٍ تحضير طلبك",
+  "orderOutForDelivery": "خرج للتوصيل",
+  "delivered": "تم التوصيل"
 }

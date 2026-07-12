@@ -195,7 +195,7 @@ abstract class AppRouter {
         builder: (context, state) {
           final args = state.extra as Map<String, dynamic>?;
           final orderId = args?['orderId'] as String?;
-          
+
           return BlocProvider(
             create: (context) {
               final cubit = getIt<OrderTrackingCubit>();

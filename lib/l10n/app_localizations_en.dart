@@ -325,6 +325,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Once your order has been accepted,\nyou can track your order.';
 
   @override
+  String get deliveryHeroToday => 'is your delivery hero for today';
+
+  @override
   String get arriveBy => 'Arrive By';
 
   @override
@@ -609,4 +612,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addYourFirstAddress => 'Add your first address';
+
+  @override
+  String get orderReceived => 'Received your order';
+
+  @override
+  String get orderPreparing => 'Preparing your order';
+
+  @override
+  String get orderOutForDelivery => 'Out for delivery';
+
+  @override
+  String get delivered => 'Delivered';
 }

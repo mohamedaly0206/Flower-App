@@ -716,6 +716,12 @@ abstract class AppLocalizations {
   /// **'Once your order has been accepted,\nyou can track your order.'**
   String get orderPlacedMessage;
 
+  /// No description provided for @deliveryHeroToday.
+  ///
+  /// In en, this message translates to:
+  /// **'is your delivery hero for today'**
+  String get deliveryHeroToday;
+
   /// No description provided for @arriveBy.
   ///
   /// In en, this message translates to:
@@ -1267,6 +1273,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add your first address'**
   String get addYourFirstAddress;
+
+  /// No description provided for @orderReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'Received your order'**
+  String get orderReceived;
+
+  /// No description provided for @orderPreparing.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing your order'**
+  String get orderPreparing;
+
+  /// No description provided for @orderOutForDelivery.
+  ///
+  /// In en, this message translates to:
+  /// **'Out for delivery'**
+  String get orderOutForDelivery;
+
+  /// No description provided for @delivered.
+  ///
+  /// In en, this message translates to:
+  /// **'Delivered'**
+  String get delivered;
 }
 
 class _AppLocalizationsDelegate

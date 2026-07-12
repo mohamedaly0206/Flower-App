@@ -1,3 +1,4 @@
+import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class OrderActionsWidget extends StatelessWidget {
@@ -12,26 +13,21 @@ class OrderActionsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Row(
       children: [
         Expanded(
           child: ElevatedButton(
             onPressed: () {},
-            child: const Text(
-              'Show map',
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
+            child: Text(localizations.showMap),
           ),
         ),
-        if (status == 'delivered') ...[
+        if (status == localizations.delivered) ...[
           const SizedBox(width: 16),
           Expanded(
             child: ElevatedButton(
               onPressed: onOrderDelivered,
-              child: const Text(
-                'Order Delivered',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
+              child: Text(localizations.orderDelivered),
             ),
           ),
         ],

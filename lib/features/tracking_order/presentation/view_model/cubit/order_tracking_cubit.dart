@@ -17,10 +17,8 @@ class OrderTrackingCubit extends Cubit<OrderTrackingState> {
   final CompleteOrderUseCase _completeOrderUseCase;
   StreamSubscription? _subscription;
 
-  OrderTrackingCubit(
-    this._trackOrderUseCase,
-    this._completeOrderUseCase,
-  ) : super(const OrderTrackingState());
+  OrderTrackingCubit(this._trackOrderUseCase, this._completeOrderUseCase)
+    : super(const OrderTrackingState());
 
   void doIntent(OrderTrackingIntent intent) {
     switch (intent) {
@@ -32,46 +30,44 @@ class OrderTrackingCubit extends Cubit<OrderTrackingState> {
   }
 
   void _listenToOrder(String orderId) {
-    emit(state.copyWith(
-      trackOrderState: const BaseState(isLoading: true),
-    ));
+    emit(state.copyWith(trackOrderState: const BaseState(isLoading: true)));
 
     _subscription?.cancel();
     _subscription = _trackOrderUseCase(orderId).listen(
       (response) {
         if (response is SuccessBaseResponse<TrackingOrderEntity>) {
-          emit(state.copyWith(
-            trackOrderState: BaseState(data: response.data),
-          ));
+          emit(state.copyWith(trackOrderState: BaseState(data: response.data)));
         } else if (response is ErrorBaseResponse<TrackingOrderEntity>) {
-          emit(state.copyWith(
-            trackOrderState: BaseState(errorMessage: response.errorMessage),
-          ));
+          emit(
+            state.copyWith(
+              trackOrderState: BaseState(errorMessage: response.errorMessage),
+            ),
+          );
         }
       },
       onError: (error) {
-        emit(state.copyWith(
-          trackOrderState: BaseState(errorMessage: error.toString()),
-        ));
+        emit(
+          state.copyWith(
+            trackOrderState: BaseState(errorMessage: error.toString()),
+          ),
+        );
       },
     );
   }
 
   Future<void> _markOrderCompleted(String orderId) async {
-    emit(state.copyWith(
-      completeOrderState: const BaseState(isLoading: true),
-    ));
+    emit(state.copyWith(completeOrderState: const BaseState(isLoading: true)));
 
     final response = await _completeOrderUseCase(orderId);
 
     if (response is SuccessBaseResponse<void>) {
-      emit(state.copyWith(
-        completeOrderState: const BaseState(data: null),
-      ));
+      emit(state.copyWith(completeOrderState: const BaseState(data: null)));
     } else if (response is ErrorBaseResponse<void>) {
-      emit(state.copyWith(
-        completeOrderState: BaseState(errorMessage: response.errorMessage),
-      ));
+      emit(
+        state.copyWith(
+          completeOrderState: BaseState(errorMessage: response.errorMessage),
+        ),
+      );
     }
   }
 

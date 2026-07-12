@@ -1,19 +1,26 @@
+import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class OrderTimelineWidget extends StatelessWidget {
-  const OrderTimelineWidget({super.key, required this.currentStep});
-
+  const OrderTimelineWidget({
+    super.key,
+    required this.currentStep,
+    required this.updatedAt,
+  });
+  final DateTime updatedAt;
   final int currentStep;
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    final formattedTime = DateFormat('dd MMM yyyy, hh:mm a').format(updatedAt);
     final theme = Theme.of(context);
     final steps = [
-      {'title': 'Received your order', 'desc': ''},
-      {'title': 'Preparing your order', 'desc': ''},
-      {'title': 'Out for delivery', 'desc': ''},
-      {'title': 'Delivered', 'desc': ''},
+      {'title': localizations.orderReceived},
+      {'title': localizations.orderPreparing},
+      {'title': localizations.orderOutForDelivery},
+      {'title': localizations.delivered},
     ];
 
     int visualStep = 0;
@@ -32,22 +39,22 @@ class OrderTimelineWidget extends StatelessWidget {
             Column(
               children: [
                 Container(
-                  width: 20,
-                  height: 20,
+                  width: 24,
+                  height: 24,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: isCompleted
                           ? theme.colorScheme.primary
-                          : Colors.grey,
+                          : theme.colorScheme.onInverseSurface,
                       width: 2,
                     ),
                   ),
                   child: Center(
                     child: isCompleted
                         ? Container(
-                            width: 10,
-                            height: 10,
+                            width: 12,
+                            height: 12,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: theme.colorScheme.primary,
@@ -62,7 +69,7 @@ class OrderTimelineWidget extends StatelessWidget {
                     height: 50,
                     color: isCompleted
                         ? theme.colorScheme.primary
-                        : Colors.grey,
+                        : theme.colorScheme.onInverseSurface,
                   ),
               ],
             ),
@@ -75,17 +82,13 @@ class OrderTimelineWidget extends StatelessWidget {
                   children: [
                     Text(
                       steps[index]['title']!,
-                      style: theme.textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: theme.textTheme.bodyMedium,
                     ),
                     if (isCompleted)
                       Text(
-                        DateFormat(
-                          'dd MMM yyyy - hh:mm',
-                        ).format(DateTime.now()), // Placeholder
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: Colors.grey,
+                        formattedTime, // Placeholder
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.colorScheme.onInverseSurface,
                         ),
                       ),
                   ],

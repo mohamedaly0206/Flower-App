@@ -24,7 +24,7 @@ class _TrackingOrderViewState extends State<TrackingOrderView> {
     'outForDelivery',
     'arrived',
     'delivered',
-    'completed'
+    'completed',
   ];
 
   @override
@@ -47,20 +47,23 @@ class _TrackingOrderViewState extends State<TrackingOrderView> {
           if (order != null) {
             if (_trackingStatuses.contains(order.status)) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                if (pageController.hasClients && pageController.page?.round() != 1) {
+                if (pageController.hasClients &&
+                    pageController.page?.round() != 1) {
                   pageController.jumpToPage(1);
                 }
               });
             } else {
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                if (pageController.hasClients && pageController.page?.round() != 0) {
+                if (pageController.hasClients &&
+                    pageController.page?.round() != 0) {
                   pageController.jumpToPage(0);
                 }
               });
             }
           } else {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              if (pageController.hasClients && pageController.page?.round() != 0) {
+              if (pageController.hasClients &&
+                  pageController.page?.round() != 0) {
                 pageController.jumpToPage(0);
               }
             });

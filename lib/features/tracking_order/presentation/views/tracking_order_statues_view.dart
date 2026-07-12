@@ -10,11 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class TrackingOrderStatuesView extends StatelessWidget {
-  const TrackingOrderStatuesView({
-    super.key,
-    required this.controller,
-  });
-
+  const TrackingOrderStatuesView({super.key, required this.controller});
   final PageController controller;
 
   @override
@@ -23,21 +19,25 @@ class TrackingOrderStatuesView extends StatelessWidget {
       builder: (context, state) {
         final order = state.trackOrderState?.data;
         if (order == null) return const SizedBox.shrink();
-
         final currentStep = state.currentStep;
 
         return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const ArrivalEstimateWidget(),
-              const SizedBox(height: 24),
+              ArrivalEstimateWidget(
+                estimatedArrivalTime: order.acceptedAt ?? DateTime.now(),
+              ),
+              const SizedBox(height: 40),
               DeliveryHeroWidget(driverName: order.driverName ?? 'Driver'),
-              const SizedBox(height: 24),
+              const SizedBox(height: 40),
               Center(child: SvgPicture.asset(Assets.icons.car, height: 100)),
-              const SizedBox(height: 24),
-              OrderTimelineWidget(currentStep: currentStep),
-              const SizedBox(height: 32),
+              const SizedBox(height: 40),
+              OrderTimelineWidget(
+                currentStep: currentStep,
+                updatedAt: order.updatedAt ?? DateTime.now(),
+              ),
+              const SizedBox(height: 40),
               OrderActionsWidget(
                 status: order.status,
                 onOrderDelivered: () {
@@ -46,7 +46,6 @@ class TrackingOrderStatuesView extends StatelessWidget {
                   );
                 },
               ),
-              const SizedBox(height: 32),
             ],
           ),
         );

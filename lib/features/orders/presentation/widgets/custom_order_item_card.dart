@@ -94,7 +94,8 @@ class OrderItemCard extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         if (isActive) {
-                          GoRouter.of(context).push(AppRouterPaths.kTrackingOrderView,
+                          GoRouter.of(context).push(
+                            AppRouterPaths.kTrackingOrderView,
                             extra: {'orderId': order.id},
                           );
                         }

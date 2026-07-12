@@ -6,6 +6,8 @@ class TrackingOrderEntity extends Equatable {
   final String? driverName;
   final String? driverPhone;
   final String status;
+  final DateTime? updatedAt;
+  final DateTime? acceptedAt;
 
   const TrackingOrderEntity({
     required this.orderId,
@@ -13,8 +15,18 @@ class TrackingOrderEntity extends Equatable {
     this.driverName,
     this.driverPhone,
     required this.status,
+    this.updatedAt,
+    this.acceptedAt,
   });
 
   @override
-  List<Object?> get props => [orderId, driverId, driverName, driverPhone, status];
+  List<Object?> get props => [
+    orderId,
+    driverId,
+    driverName,
+    driverPhone,
+    status,
+    updatedAt,
+    acceptedAt,
+  ];
 }

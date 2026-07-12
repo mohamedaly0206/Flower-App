@@ -113,6 +113,8 @@ abstract class AppStrings {
   static const String successUrl = 'successUrl';
   static const String cancelUrl = 'cancelUrl';
   static const String firebaseDeliveryDaysConfig = 'delivery_days';
+  static const String firebaseDeliveryEstimatedArrivalsConfig =
+      'estimated_arrival';
   static const String arriveBy = 'Arrive by';
   static const String deliveryClock = '11:00 AM';
 
