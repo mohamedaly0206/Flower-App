@@ -34,9 +34,7 @@ class OrderItemCard extends StatelessWidget {
           Expanded(
             child: CachedNetworkImage(
               imageUrl:
-                  order.productImage ??
-                  "https://imgs.search.brave.com/iZkFC-cgkxOzKo8z-nVJdD67At_hFBSca7wvu0Ugqks/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTAy/Nzk4NzgwNC92ZWN0/b3IvZXJyb3ItbWVz/c2FnZS5qcGc_cz02/MTJ4NjEyJnc9MCZr/PTIwJmM9RnozQWRR/OFhtdlVkM1d2eHdU/RHk3OFVnQlk0ODhj/UTdQdFpTaVctRTVs/ND0",
-              fit: BoxFit.cover,
+                  order.productImage ??"",
               errorWidget: (context, url, error) => Container(
                 color: Theme.of(context).colorScheme.secondary,
                 child: Center(
