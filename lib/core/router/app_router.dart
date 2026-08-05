@@ -26,6 +26,9 @@ import 'package:flower_app/features/orders/presentation/view_model/intent/orders
 import 'package:flower_app/features/orders/presentation/views/orders_view.dart';
 import 'package:flower_app/features/product_details/presentation/view/product_details_view.dart';
 import 'package:flower_app/features/search/presentation/views/search_view.dart';
+import 'package:flower_app/features/tracker_order/presentation/models/order_tracking_args.dart';
+import 'package:flower_app/features/tracker_order/presentation/view_model/cubit/tracker_order_cubit.dart';
+import 'package:flower_app/features/tracker_order/presentation/views/tracker_order_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -38,7 +41,7 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 abstract class AppRouter {
   static GoRouter getRouter({
-    String initialLocation = AppRouterPaths.kLoginView,
+    String initialLocation = AppRouterPaths.kTrackerOrders,
   }) => GoRouter(
     navigatorKey: navigatorKey,
     initialLocation: initialLocation,
@@ -186,6 +189,21 @@ abstract class AppRouter {
 
           return AppWebView(args: args);
         },
+      ),
+      GoRoute(
+        path: AppRouterPaths.kTrackerOrders,
+        builder: (context, state) => BlocProvider(
+          create: (context) =>
+              getIt<TrackerOrderCubit>()
+                ..loadOrderTracking('6a5e03653be1266dec7a5cdd'),
+          child: TrackerOrderView(
+            args: OrderTrackingArgs(
+              orderId: '6a5e03653be1266dec7a5cdd',
+              driverName: 'Muhamed',
+              estimatedDate: '03 Sep 2024, 11:00 AM',
+            ),
+          ),
+        ),
       ),
     ],
   );
