@@ -36,6 +36,7 @@ Future<void> main() async {
   );
   await remoteConfig.setDefaults(const {
     AppStrings.firebaseDeliveryDaysConfig: 2,
+    AppStrings.firebaseDeliveryEstimatedArrivalsConfig: 30,
   });
 
   // Fetch the latest values from Firebase

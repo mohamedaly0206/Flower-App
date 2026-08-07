@@ -151,11 +151,13 @@ class CustomProductCard extends StatelessWidget {
                     onPressed: isThisItemLoading
                         ? null // Disable the button while processing
                         : () async {
+                            final cartCubit = context.read<CartCubit>();
                             final isGuest = await checkGuestAndShowDialog(
                               context,
                             );
                             if (isGuest) return;
-                            context.read<CartCubit>().cartIntentHandler(
+
+                            cartCubit.cartIntentHandler(
                               AddItemToCartIntent(
                                 request: AddToCartRequest(
                                   productId: productId!,

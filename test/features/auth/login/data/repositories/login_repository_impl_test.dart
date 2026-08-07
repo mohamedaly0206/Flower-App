@@ -1,4 +1,6 @@
 import 'package:flower_app/config/base_response/base_response.dart';
+import 'package:flower_app/config/di/di.dart';
+import 'package:flower_app/config/security_storage/security_storage.dart';
 import 'package:flower_app/core/router/app_router.dart';
 import 'package:flower_app/core/values/api_param.dart';
 import 'package:flower_app/core/values/app_strings.dart';
@@ -64,6 +66,8 @@ class _FakeLoginLocalDataSource implements LoginLocalDataSource {
 
 void main() {
   group('LoginRepositoryImpl', () {
+            final SecurityStorage securityStorage = getIt<SecurityStorage>();
+
     test(
       'returns success response and stores token on successful login',
       () async {
@@ -74,6 +78,7 @@ void main() {
         final repository = LoginRepositoryImpl(
           remoteDataSource,
           localDataSource,
+          securityStorage,
         );
 
         final result = await repository.login(
@@ -107,7 +112,7 @@ void main() {
       final remoteDataSource = _FakeLoginRemoteDataSource()
         ..response = loginResponse;
       final localDataSource = _FakeLoginLocalDataSource();
-      final repository = LoginRepositoryImpl(remoteDataSource, localDataSource);
+      final repository = LoginRepositoryImpl(remoteDataSource, localDataSource, securityStorage,);
 
       await repository.login(
         email: 'test@mail.com',
@@ -123,11 +128,13 @@ void main() {
     });
 
     test('stores token even when remember me is false', () async {
+                  final SecurityStorage securityStorage = getIt<SecurityStorage>();
+
       final loginResponse = LoginResponse(message: 'success', token: 'token');
       final remoteDataSource = _FakeLoginRemoteDataSource()
         ..response = loginResponse;
       final localDataSource = _FakeLoginLocalDataSource();
-      final repository = LoginRepositoryImpl(remoteDataSource, localDataSource);
+      final repository = LoginRepositoryImpl(remoteDataSource, localDataSource, securityStorage);
 
       final result = await repository.login(
         email: 'user@mail.com',
@@ -146,7 +153,8 @@ void main() {
       final remoteDataSource = _FakeLoginRemoteDataSource()
         ..response = loginResponse;
       final localDataSource = _FakeLoginLocalDataSource();
-      final repository = LoginRepositoryImpl(remoteDataSource, localDataSource);
+      final SecurityStorage securityStorage = getIt<SecurityStorage>();
+      final repository = LoginRepositoryImpl(remoteDataSource, localDataSource, securityStorage);
 
       final result = await repository.login(
         email: 'user@mail.com',
@@ -167,7 +175,7 @@ void main() {
       final remoteDataSource = _FakeLoginRemoteDataSource()
         ..error = Exception('network error');
       final localDataSource = _FakeLoginLocalDataSource();
-      final repository = LoginRepositoryImpl(remoteDataSource, localDataSource);
+      final repository = LoginRepositoryImpl(remoteDataSource, localDataSource , securityStorage);
 
       final result = await repository.login(
         email: 'user@mail.com',
@@ -198,8 +206,7 @@ void main() {
       final remoteDataSource = _FakeLoginRemoteDataSource()
         ..response = LoginResponse(message: 'success');
       final localDataSource = _FakeLoginLocalDataSource();
-      final repository = LoginRepositoryImpl(remoteDataSource, localDataSource);
-
+      final repository = LoginRepositoryImpl(remoteDataSource, localDataSource, securityStorage);
       final result = await repository.login(
         email: 'user@mail.com',
         password: 'password123',
