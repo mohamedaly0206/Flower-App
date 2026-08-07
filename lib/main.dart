@@ -57,7 +57,7 @@ Future<void> main() async {
 
   MapboxOptions.setAccessToken(mapboxToken);
   configureDependencies();
-  final notificationService = NotificationService();
+  final notificationService = getIt<NotificationService>();
   await notificationService.initialize();
 
   final initialLocation = await _getInitialLocation();

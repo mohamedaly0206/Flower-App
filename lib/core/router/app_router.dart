@@ -5,6 +5,7 @@ import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_sh
 import 'package:flower_app/core/shared_features/shared_view_model/cubit/home_shared_cubit.dart';
 import 'package:flower_app/features/app_sections/app_sections.dart';
 import 'package:flower_app/features/app_sections/categories/presentation/views/categories_view.dart';
+import 'package:flower_app/features/notifications/presentation/views/notification_view.dart';
 import 'package:flower_app/features/auth/forget_password/presentation/view/forget_password_screen.dart';
 import 'package:flower_app/features/auth/forget_password/presentation/view_model/cubit/forget_password_cubit.dart';
 import 'package:flower_app/features/auth/login/presentation/view_model/cubit/login_cubit.dart';
@@ -186,6 +187,10 @@ abstract class AppRouter {
 
           return AppWebView(args: args);
         },
+      ),
+      GoRoute(
+        path: AppRouterPaths.kNotificationView,
+        builder: (context, state) => const NotificationView(),
       ),
     ],
   );

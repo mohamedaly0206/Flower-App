@@ -130,6 +130,7 @@ abstract class AppStrings {
   static const String notification = 'Notification';
 
   //profile
+  static const String userId = 'UserID';
   static const String language = 'Language';
   static const String aboutUs = 'About us';
   static const String changeLanguage = 'Change Language';
@@ -142,6 +143,7 @@ abstract class AppStrings {
   static const String logout = 'Logout';
   static const String cancel = 'Cancel';
   static const String loading = 'Loading';
+  static const String noNotificationsFound = 'No notifications found';
 
   //storage errors
   static const String storeCacheExceptionMessage =
@@ -167,6 +169,7 @@ abstract class AppStrings {
       'Internal server error, please try again later';
   static const String serverDefaultError =
       'Opps there was an error, please try again';
+  static const String userIdNotFound = 'User not found, please login again';
 
   // Validator Messages
   static const String emailRequired = 'Email is required';
