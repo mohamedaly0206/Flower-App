@@ -187,4 +187,5 @@ abstract class AppStrings {
   static const String nameNoSpaces = 'cannot contain spaces';
   static const String phoneRequired = 'Phone number is required';
   static const String phoneInvalid = 'Invalid Egyptian phone number';
+  static const String isYourDeliveryHeroForToday = 'is your delivery hero for today';
 }

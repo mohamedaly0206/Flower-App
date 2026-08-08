@@ -30,7 +30,7 @@ class CustomGuest extends StatelessWidget {
             const CustomProfileInfo(state: null, isGuest: true),
             const SizedBox(height: 15),
             CustomProfileMenuTile(
-              icon: SvgPicture.asset(Assets.icons.transactionOrder),
+              icon: SvgPicture.asset(Assets.icons.addIcon),
               title: AppLocalizations.of(context)!.myOrders,
               onTap: () {
                 showLoginRequiredDialog(
