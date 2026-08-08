@@ -318,6 +318,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get creditCardPayment => 'الدفع بالكارت';
 
   @override
+  String get orderPlacedMessage => 'بمجرد قبول طلبك، يمكنك تتبع طلبك.';
+
+  @override
+  String get deliveryHeroToday => 'هو بطل التوصيل الخاص بك اليوم';
+
+  @override
   String get arriveBy => 'التوصيل خلال';
 
   @override
@@ -482,7 +488,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get guestUser => 'زائر';
 
   @override
-  String get signIntoexploremore => 'سجّل الدخول للاطلاع على المزيد';
+  String get signInToExploreMore => 'سجّل الدخول لاستكشاف المزيد';
 
   @override
   String get continueasguest => 'تابع كضيف';
@@ -600,4 +606,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get addYourFirstAddress => 'أضف عنوانك الأول';
+
+  @override
+  String get orderReceived => 'تم استلام طلبك';
+
+  @override
+  String get orderPreparing => 'جارٍ تحضير طلبك';
+
+  @override
+  String get orderOutForDelivery => 'خرج للتوصيل';
+
+  @override
+  String get delivered => 'تم التوصيل';
 }

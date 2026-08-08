@@ -5,6 +5,7 @@ import 'package:flower_app/core/shared_features/shared_view_model/Intent/home_sh
 import 'package:flower_app/core/shared_features/shared_view_model/cubit/home_shared_cubit.dart';
 import 'package:flower_app/features/app_sections/app_sections.dart';
 import 'package:flower_app/features/app_sections/categories/presentation/views/categories_view.dart';
+import 'package:flower_app/features/notifications/presentation/views/notification_view.dart';
 import 'package:flower_app/features/auth/forget_password/presentation/view/forget_password_screen.dart';
 import 'package:flower_app/features/auth/forget_password/presentation/view_model/cubit/forget_password_cubit.dart';
 import 'package:flower_app/features/auth/login/presentation/view_model/cubit/login_cubit.dart';
@@ -29,6 +30,9 @@ import 'package:flower_app/features/search/presentation/views/search_view.dart';
 import 'package:flower_app/features/tracker_order/presentation/models/order_tracking_args.dart';
 import 'package:flower_app/features/tracker_order/presentation/view_model/cubit/tracker_order_cubit.dart';
 import 'package:flower_app/features/tracker_order/presentation/views/tracker_order_view.dart';
+import 'package:flower_app/features/tracking_order/presentation/view_model/intent/order_tracking_intent.dart';
+import 'package:flower_app/features/tracking_order/presentation/views/tracking_order_view.dart';
+import 'package:flower_app/features/tracking_order/presentation/view_model/cubit/order_tracking_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -204,6 +208,26 @@ abstract class AppRouter {
             ),
           ),
         ),
+        path: AppRouterPaths.kTrackingOrderView,
+        builder: (context, state) {
+          final args = state.extra as Map<String, dynamic>?;
+          final orderId = args?['orderId'] as String?;
+
+          return BlocProvider(
+            create: (context) {
+              final cubit = getIt<OrderTrackingCubit>();
+              if (orderId != null) {
+                cubit.doIntent(ListenToOrderIntent(orderId));
+              }
+              return cubit;
+            },
+            child: TrackingOrderView(orderId: orderId),
+          );
+        },
+      ),
+      GoRoute(
+        path: AppRouterPaths.kNotificationView,
+        builder: (context, state) => const NotificationView(),
       ),
     ],
   );

@@ -321,6 +321,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get creditCardPayment => 'Credit Card Payment';
 
   @override
+  String get orderPlacedMessage =>
+      'Once your order has been accepted,\nyou can track your order.';
+
+  @override
+  String get deliveryHeroToday => 'is your delivery hero for today';
+
+  @override
   String get arriveBy => 'Arrive By';
 
   @override
@@ -486,7 +493,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get guestUser => 'Guest User';
 
   @override
-  String get signIntoexploremore => 'Sign in to explore more';
+  String get signInToExploreMore => 'Sign in to explore more';
 
   @override
   String get continueasguest => 'Continue as guest';
@@ -605,4 +612,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addYourFirstAddress => 'Add your first address';
+
+  @override
+  String get orderReceived => 'Received your order';
+
+  @override
+  String get orderPreparing => 'Preparing your order';
+
+  @override
+  String get orderOutForDelivery => 'Out for delivery';
+
+  @override
+  String get delivered => 'Delivered';
 }

@@ -101,6 +101,8 @@
   "noPaymentMethodOrAddressSelected":"No Payment or Address Selected",
   "creditCardPaymentFailed":"Credit card payment isn't completed",
   "creditCardPayment":"Credit Card Payment",
+  "orderPlacedMessage":"Once your order has been accepted,\nyou can track your order.",
+  "deliveryHeroToday": "is your delivery hero for today",
   "arriveBy":"Arrive By",
   "deliveryClock":"11:00 AM",
   "estimatedArrival": "Estimated arrival",
@@ -154,7 +156,7 @@
   "toManageyoursavedaddressespleaselogin": "To manage your saved addresses, please login.",
   "toManageyourorderspleaselogin": "To manage your orders, please login.",
   "guestUser": "Guest User",
-  "signIntoexploremore": "Sign in to explore more",
+  "signInToExploreMore": "Sign in to explore more",
   "continueasguest": "Continue as guest",
   "pleaseSignInToAddItemstoyourcartandenjoyfullshoppingfeatures": "Please sign in to add items to your cart and enjoy full shopping features",
   "signInRequired": "Sign in required",
@@ -192,5 +194,9 @@
   "noSavedAddressFound": "No address found",
   "tapToAddFirstAddress": "Tap here to add",
   "noSavedAddressesYet": "You have no saved addresses yet",
-  "addYourFirstAddress": "Add your first address"
+  "addYourFirstAddress": "Add your first address",
+  "orderReceived": "Received your order",
+  "orderPreparing": "Preparing your order",
+  "orderOutForDelivery": "Out for delivery",
+  "delivered": "Delivered"
 }

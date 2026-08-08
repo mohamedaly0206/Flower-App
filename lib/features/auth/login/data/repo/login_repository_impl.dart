@@ -1,12 +1,17 @@
 import 'package:flower_app/config/base_response/base_response.dart';
+import 'package:flower_app/config/security_storage/security_storage.dart';
 import 'package:flower_app/core/errors/exceptions.dart';
 import 'package:flower_app/core/errors/failures.dart';
 import 'package:flower_app/core/values/api_param.dart';
+import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/features/auth/login/data/data_sources/login_local_data_source.dart';
 import 'package:flower_app/features/auth/login/data/data_sources/login_remote_data_source.dart';
 import 'package:flower_app/features/auth/login/data/models/login_response/login_response.dart';
 import 'package:flower_app/features/auth/login/domain/repo/login_repository.dart';
 import 'package:injectable/injectable.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flower_app/core/utilities/notification_service.dart';
+import 'package:flower_app/config/di/di.dart';
 
 import '../../../../../core/router/app_router.dart';
 import '../../../../../l10n/app_localizations.dart';
@@ -15,8 +20,13 @@ import '../../../../../l10n/app_localizations.dart';
 class LoginRepositoryImpl implements LoginRepository {
   final LoginRemoteDataSource _remoteDataSource;
   final LoginLocalDataSource _localDataSource;
+  final SecurityStorage _secureStorage;
 
-  LoginRepositoryImpl(this._remoteDataSource, this._localDataSource);
+  LoginRepositoryImpl(
+    this._remoteDataSource,
+    this._localDataSource,
+    this._secureStorage,
+  );
 
   @override
   Future<BaseResponse<LoginResponse>> login({
@@ -26,6 +36,10 @@ class LoginRepositoryImpl implements LoginRepository {
   }) async {
     try {
       final response = await _remoteDataSource.login(email, password);
+      await _secureStorage.setSecuredString(
+        AppStrings.userId,
+        response.user!.id.toString(),
+      );
       final token = response.token;
       if (token == null || token.isEmpty) {
         throw CacheException(
@@ -45,6 +59,17 @@ class LoginRepositoryImpl implements LoginRepository {
             user?.photo ??
             'https://imgs.search.brave.com/2IB7Irk4sEHgNdKDJmVoI-PU8O8sgZHGf_Rcsk4Oe34/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jZG4u/Y3JlYXRlLnZpc3Rh/LmNvbS9hcGkvbWVk/aWEvc21hbGwvNDE0/MzgyNDU4L3N0b2Nr/LXZlY3Rvci1waWN0/dXJlLXByb2ZpbGUt/aWNvbi1tYWxlLWlj/b24taHVtYW4tcGVv/cGxlLXNpZ24tc3lt/Ym9sLXZlY3Rvcg',
       });
+
+      try {
+        final fcm = FirebaseMessaging.instance;
+        final fcmToken = await fcm.getToken();
+        if (fcmToken != null) {
+          await getIt<NotificationService>().saveTokenToFirestore(fcmToken);
+        }
+      } catch (e) {
+        // Ignore FCM errors during login
+      }
+
       return SuccessBaseResponse(data: response);
     } catch (error) {
       return ErrorBaseResponse(

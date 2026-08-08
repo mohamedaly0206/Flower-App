@@ -105,7 +105,11 @@ class ProfileView extends StatelessWidget {
                           onChanged: (_) {},
                         ),
                         title: AppLocalizations.of(context)!.notification,
-                        onTap: () {},
+                        onTap: () {
+                          GoRouter.of(
+                            context,
+                          ).push(AppRouterPaths.kNotificationView);
+                        },
                       ),
                       const Divider(color: AppColors.placeHolderColor),
                       CustomProfileMenuTile(
