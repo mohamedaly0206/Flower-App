@@ -15,6 +15,8 @@ class ApiInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
+    const String testToken =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNmE3MjgyODMzYmUxMjY2ZGVjN2M0NWM1Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODU4OTEyOTZ9.nMJNB-megBE2Y9SukbJeoexApa4qGnczbgtMC9JvU2c";
     if (options.extra[AppStrings.noToken] == true) {
       return handler.next(options);
     }
@@ -26,7 +28,7 @@ class ApiInterceptor extends Interceptor {
 
       if (token.isNotEmpty) {
         options.headers[AppStrings.authorization] =
-            '${AppStrings.bearer} $token';
+            '${AppStrings.bearer} $testToken';
       }
 
       return handler.next(options);
