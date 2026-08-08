@@ -1,7 +1,7 @@
 import 'package:flower_app/core/theme/app_colors.dart';
 import 'package:flower_app/core/values/app_strings.dart';
 import 'package:flower_app/core/values/assets.gen.dart';
-import 'package:flower_app/features/tracker_order/presentation/models/order_tracking_args.dart';
+import 'package:flower_app/features/tracking_order_map/presentation/models/order_tracking_args.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';

@@ -27,9 +27,9 @@ import 'package:flower_app/features/orders/presentation/view_model/intent/orders
 import 'package:flower_app/features/orders/presentation/views/orders_view.dart';
 import 'package:flower_app/features/product_details/presentation/view/product_details_view.dart';
 import 'package:flower_app/features/search/presentation/views/search_view.dart';
-import 'package:flower_app/features/tracker_order/presentation/models/order_tracking_args.dart';
-import 'package:flower_app/features/tracker_order/presentation/view_model/cubit/tracker_order_cubit.dart';
-import 'package:flower_app/features/tracker_order/presentation/views/tracker_order_view.dart';
+import 'package:flower_app/features/tracking_order_map/presentation/models/order_tracking_args.dart';
+import 'package:flower_app/features/tracking_order_map/presentation/view_model/cubit/tracker_order_cubit.dart';
+import 'package:flower_app/features/tracking_order_map/presentation/views/tracker_order_view.dart';
 import 'package:flower_app/features/tracking_order/presentation/view_model/intent/order_tracking_intent.dart';
 import 'package:flower_app/features/tracking_order/presentation/views/tracking_order_view.dart';
 import 'package:flower_app/features/tracking_order/presentation/view_model/cubit/order_tracking_cubit.dart';
@@ -45,7 +45,7 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 abstract class AppRouter {
   static GoRouter getRouter({
-    String initialLocation = AppRouterPaths.kTrackerOrders,
+    String initialLocation = AppRouterPaths.kLoginView,
   }) => GoRouter(
     navigatorKey: navigatorKey,
     initialLocation: initialLocation,
@@ -195,7 +195,7 @@ abstract class AppRouter {
         },
       ),
       GoRoute(
-        path: AppRouterPaths.kTrackerOrders,
+        path: AppRouterPaths.kTrackingOrdersMapView,
         builder: (context, state) => BlocProvider(
           create: (context) =>
               getIt<TrackerOrderCubit>()
@@ -208,6 +208,8 @@ abstract class AppRouter {
             ),
           ),
         ),
+      ),
+      GoRoute(
         path: AppRouterPaths.kTrackingOrderView,
         builder: (context, state) {
           final args = state.extra as Map<String, dynamic>?;

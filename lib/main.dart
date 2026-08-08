@@ -80,7 +80,7 @@ Future<String> _getInitialLocation() async {
   if (token.isNotEmpty && token != 'GUEST') {
     return AppRouterPaths.kAppSections;
   }
-  return AppRouterPaths.kTrackerOrders;
+  return AppRouterPaths.kLoginView;
 }
 
 Future<Locale> _getInitialLocale() async {
@@ -100,7 +100,7 @@ class FlowerApp extends StatelessWidget {
 
   const FlowerApp({
     super.key,
-    this.initialLocation = AppRouterPaths.kTrackerOrders,
+    this.initialLocation = AppRouterPaths.kLoginView,
     this.locale = const Locale('en'),
   });
 
