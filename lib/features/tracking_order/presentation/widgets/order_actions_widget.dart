@@ -1,5 +1,7 @@
+import 'package:flower_app/core/router/router_paths.dart';
 import 'package:flower_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class OrderActionsWidget extends StatelessWidget {
   const OrderActionsWidget({
@@ -18,7 +20,12 @@ class OrderActionsWidget extends StatelessWidget {
       children: [
         Expanded(
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              GoRouter.of(context).push(
+                AppRouterPaths.kTrackingOrdersMapView,
+                
+              );
+            },
             child: Text(localizations.showMap),
           ),
         ),

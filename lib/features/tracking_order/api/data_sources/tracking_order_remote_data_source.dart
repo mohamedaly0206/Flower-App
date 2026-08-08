@@ -11,38 +11,36 @@ class TrackingOrderRemoteDataSourceImpl
   TrackingOrderRemoteDataSourceImpl();
 
   @override
-  Stream<BaseResponse<TrackingOrderDto>> trackOrder(String orderId) {
+  Stream<BaseResponse<TrackingOrderDto>> trackOrder(String orderId) async* {
     try {
-      return FirebaseFirestore.instance
+      final stream = FirebaseFirestore.instance
           .collection('orders')
           .doc(orderId)
-          .snapshots()
-          .map((snapshot) {
-            if (!snapshot.exists) {
-              return ErrorBaseResponse<TrackingOrderDto>(
-                errorMessage: 'Order not found',
-              );
-            }
-            final data = snapshot.data();
-            if (data == null) {
-              return ErrorBaseResponse<TrackingOrderDto>(
-                errorMessage: 'Order data is empty',
-              );
-            }
+          .snapshots();
 
-            final dto = TrackingOrderDto.fromJson(data, snapshot.id);
-            return SuccessBaseResponse<TrackingOrderDto>(data: dto);
-          })
-          .handleError((e) {
-            return ErrorBaseResponse<TrackingOrderDto>(
-              errorMessage: ServerFailure.failureHandler(e).errorMessage,
-            );
-          });
+      await for (final snapshot in stream) {
+        if (!snapshot.exists) {
+          yield ErrorBaseResponse<TrackingOrderDto>(
+            errorMessage: 'Order not found',
+          );
+          continue;
+        }
+
+        final data = snapshot.data();
+        if (data == null) {
+          yield ErrorBaseResponse<TrackingOrderDto>(
+            errorMessage: 'Order data is empty',
+          );
+          continue;
+        }
+
+        final dto = TrackingOrderDto.fromJson(data, snapshot.id);
+        yield SuccessBaseResponse<TrackingOrderDto>(data: dto);
+      }
     } catch (e) {
-      return Stream.value(
-        ErrorBaseResponse<TrackingOrderDto>(
-          errorMessage: ServerFailure.failureHandler(e).errorMessage,
-        ),
+      // Now this will properly emit the error as a state to your UI!
+      yield ErrorBaseResponse<TrackingOrderDto>(
+        errorMessage: ServerFailure.failureHandler(e).errorMessage,
       );
     }
   }

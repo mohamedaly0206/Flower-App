@@ -1295,7 +1295,7 @@ abstract class AppLocalizations {
   /// No description provided for @delivered.
   ///
   /// In en, this message translates to:
-  /// **'Delivered'**
+  /// **'delivered'**
   String get delivered;
 }
 

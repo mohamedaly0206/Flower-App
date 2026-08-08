@@ -38,9 +38,9 @@ class PaymentMethodsCard extends StatelessWidget {
                     color: theme.colorScheme.onTertiaryFixedVariant.withValues(
                       alpha: 0.1,
                     ), // Shadow color
-                    spreadRadius: 0.3, // Extends the shadow radius
-                    blurRadius: 8, // Blurs the edges of the shadow
-                    offset: const Offset(4, 4), // Moves shadow position (x, y)
+                    spreadRadius: 0.3, 
+                    blurRadius: 8, 
+                    offset: const Offset(4, 4), 
                   ),
                 ],
                 borderRadius: BorderRadius.circular(10),

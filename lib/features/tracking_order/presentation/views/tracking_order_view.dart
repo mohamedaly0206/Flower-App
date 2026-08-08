@@ -73,7 +73,7 @@ class _TrackingOrderViewState extends State<TrackingOrderView> {
           final isLoading = state.trackOrderState?.isLoading ?? false;
           if (isLoading && state.trackOrderState?.data == null) {
             return const Center(child: CircularProgressIndicator());
-          }
+          } 
 
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),

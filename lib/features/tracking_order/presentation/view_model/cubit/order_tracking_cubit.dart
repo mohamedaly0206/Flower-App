@@ -36,7 +36,7 @@ class OrderTrackingCubit extends Cubit<OrderTrackingState> {
     _subscription = _trackOrderUseCase(orderId).listen(
       (response) {
         if (response is SuccessBaseResponse<TrackingOrderEntity>) {
-          emit(state.copyWith(trackOrderState: BaseState(data: response.data)));
+          emit(state.copyWith(trackOrderState: BaseState(data: response.data,)));
         } else if (response is ErrorBaseResponse<TrackingOrderEntity>) {
           emit(
             state.copyWith(

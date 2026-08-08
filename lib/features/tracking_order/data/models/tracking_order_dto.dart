@@ -35,9 +35,24 @@ class TrackingOrderDto {
       driverName: json['driverName'] as String?,
       driverPhone: json['driverPhone'] as String?,
       status: status,
-      updatedAt: (json['updatedAt'] as Timestamp?)?.toDate(),
-      acceptedAt: (json['acceptedAt'] as Timestamp?)?.toDate(),
+      // Use the safe parsing helper for dates
+      updatedAt: _parseDateSafely(json['updatedAt']),
+      acceptedAt: _parseDateSafely(json['acceptedAt']),
     );
+  }
+
+  static DateTime? _parseDateSafely(dynamic dateValue) {
+    if (dateValue == null) return null;
+    
+    if (dateValue is Timestamp) {
+      return dateValue.toDate();
+    }
+    
+    if (dateValue is String) {
+      return DateTime.tryParse(dateValue);
+    }
+    
+    return null;
   }
 
   TrackingOrderEntity toDomain() {

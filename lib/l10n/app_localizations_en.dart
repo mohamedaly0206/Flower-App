@@ -623,5 +623,5 @@ class AppLocalizationsEn extends AppLocalizations {
   String get orderOutForDelivery => 'Out for delivery';
 
   @override
-  String get delivered => 'Delivered';
+  String get delivered => 'delivered';
 }
