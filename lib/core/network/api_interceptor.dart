@@ -15,6 +15,7 @@ class ApiInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
+
     if (options.extra[AppStrings.noToken] == true) {
       return handler.next(options);
     }

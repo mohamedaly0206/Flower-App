@@ -1,7 +1,5 @@
 import 'package:flower_app/config/di/di.dart';
 import 'package:flower_app/core/router/router_paths.dart';
-import 'package:flower_app/core/theme/app_colors.dart';
-
 import 'package:flower_app/core/values/assets.gen.dart';
 import 'package:flower_app/core/widgets/address_widget.dart';
 import 'package:flower_app/features/app_sections/home/presentation/widgets/best_seller_list_view.dart';

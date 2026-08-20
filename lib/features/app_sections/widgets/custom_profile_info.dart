@@ -27,7 +27,7 @@ class CustomProfileInfo extends StatelessWidget {
         ? AppLocalizations.of(context)!.guestUser
         : (state?.name ?? '');
     final displayEmail = isGuest
-        ? AppLocalizations.of(context)!.signIntoexploremore
+        ? AppLocalizations.of(context)!.signInToExploreMore
         : (state?.email ?? '');
     return Column(
       children: [
@@ -57,12 +57,12 @@ class CustomProfileInfo extends StatelessWidget {
             if (!isGuest) ...[
               const SizedBox(width: 4),
               InkWell(
-                onTap: () {
-                  context.push(AppRouterPaths.kEditProfileView).then((_) {
-                    context.read<ProfileCubit>().doIntent(
-                      LoadUserProfileIntent(),
-                    );
-                  });
+                onTap: () async {
+                  final profileCubit = context.read<ProfileCubit>();
+                  await context.push(AppRouterPaths.kEditProfileView);
+                  profileCubit.doIntent(
+                    LoadUserProfileIntent(),
+                  );
                 },
                 child: SvgPicture.asset(Assets.icons.notePen),
               ),

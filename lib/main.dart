@@ -36,6 +36,7 @@ Future<void> main() async {
   );
   await remoteConfig.setDefaults(const {
     AppStrings.firebaseDeliveryDaysConfig: 2,
+    AppStrings.firebaseDeliveryEstimatedArrivalsConfig: 30,
   });
 
   // Fetch the latest values from Firebase
@@ -57,7 +58,7 @@ Future<void> main() async {
 
   MapboxOptions.setAccessToken(mapboxToken);
   configureDependencies();
-  final notificationService = NotificationService();
+  final notificationService = getIt<NotificationService>();
   await notificationService.initialize();
 
   final initialLocation = await _getInitialLocation();

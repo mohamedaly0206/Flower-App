@@ -99,9 +99,7 @@ class CartCubit extends Cubit<CartState> {
     emit(
       state.copyWith(
         loadingProductIds: {...state.loadingProductIds, request.productId},
-        addItemToCartState: state.addItemToCartState?.copyWith(
-          isLoadingParam: true,
-        ),
+        addItemToCartState: BaseState(isLoading: true),
       ),
     );
 
@@ -115,12 +113,11 @@ class CartCubit extends Cubit<CartState> {
         emit(
           state.copyWith(
             loadingProductIds: updatedLoadingSet,
-            addItemToCartState: state.addItemToCartState?.copyWith(
-              dataParam: response.data,
-              isLoadingParam: false,
-            ),
+            addItemToCartState: BaseState(data: response.data),
             getCartItemsState: state.getCartItemsState?.copyWith(
               dataParam: response.data,
+              isLoadingParam: false,
+              errorMessageParam: null,
             ),
           ),
         );
@@ -130,9 +127,9 @@ class CartCubit extends Cubit<CartState> {
         emit(
           state.copyWith(
             loadingProductIds: updatedLoadingSet,
-            addItemToCartState: state.addItemToCartState?.copyWith(
-              errorMessageParam: response.errorMessage,
-              isLoadingParam: false,
+            addItemToCartState: BaseState(
+              errorMessage: response.errorMessage,
+              isLoading: false,
             ),
           ),
         );
@@ -147,6 +144,7 @@ class CartCubit extends Cubit<CartState> {
         deletingProductIds: {...state.deletingProductIds, productId},
         removeItemFromCartState: state.removeItemFromCartState?.copyWith(
           isLoadingParam: true,
+          errorMessageParam: null,
         ),
       ),
     );

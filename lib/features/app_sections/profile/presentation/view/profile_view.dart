@@ -73,7 +73,7 @@ class ProfileView extends StatelessWidget {
                       CustomProfileInfo(state: state),
                       const SizedBox(height: 15),
                       CustomProfileMenuTile(
-                        icon: SvgPicture.asset(Assets.icons.transactionOrder),
+                        icon: SvgPicture.asset(Assets.icons.addIcon),
                         title: AppLocalizations.of(context)!.myOrders,
                         onTap: () {
                           GoRouter.of(context).push(AppRouterPaths.kOrdersView);
@@ -105,7 +105,11 @@ class ProfileView extends StatelessWidget {
                           onChanged: (_) {},
                         ),
                         title: AppLocalizations.of(context)!.notification,
-                        onTap: () {},
+                        onTap: () {
+                          GoRouter.of(
+                            context,
+                          ).push(AppRouterPaths.kNotificationView);
+                        },
                       ),
                       const Divider(color: AppColors.placeHolderColor),
                       CustomProfileMenuTile(

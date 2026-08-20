@@ -710,6 +710,18 @@ abstract class AppLocalizations {
   /// **'Credit Card Payment'**
   String get creditCardPayment;
 
+  /// No description provided for @orderPlacedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Once your order has been accepted,\nyou can track your order.'**
+  String get orderPlacedMessage;
+
+  /// No description provided for @deliveryHeroToday.
+  ///
+  /// In en, this message translates to:
+  /// **'is your delivery hero for today'**
+  String get deliveryHeroToday;
+
   /// No description provided for @arriveBy.
   ///
   /// In en, this message translates to:
@@ -1028,11 +1040,11 @@ abstract class AppLocalizations {
   /// **'Guest User'**
   String get guestUser;
 
-  /// No description provided for @signIntoexploremore.
+  /// No description provided for @signInToExploreMore.
   ///
   /// In en, this message translates to:
   /// **'Sign in to explore more'**
-  String get signIntoexploremore;
+  String get signInToExploreMore;
 
   /// No description provided for @continueasguest.
   ///
@@ -1261,6 +1273,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add your first address'**
   String get addYourFirstAddress;
+
+  /// No description provided for @orderReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'Received your order'**
+  String get orderReceived;
+
+  /// No description provided for @orderPreparing.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing your order'**
+  String get orderPreparing;
+
+  /// No description provided for @orderOutForDelivery.
+  ///
+  /// In en, this message translates to:
+  /// **'Out for delivery'**
+  String get orderOutForDelivery;
+
+  /// No description provided for @delivered.
+  ///
+  /// In en, this message translates to:
+  /// **'delivered'**
+  String get delivered;
 }
 
 class _AppLocalizationsDelegate
