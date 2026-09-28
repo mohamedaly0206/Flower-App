@@ -33,8 +33,7 @@ class OrderItemCard extends StatelessWidget {
         children: [
           Expanded(
             child: CachedNetworkImage(
-              imageUrl:
-                  order.productImage ??"",
+              imageUrl: order.productImage ?? "",
               errorWidget: (context, url, error) => Container(
                 color: Theme.of(context).colorScheme.secondary,
                 child: Center(
