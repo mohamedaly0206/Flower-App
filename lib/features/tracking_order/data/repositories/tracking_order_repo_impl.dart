@@ -12,30 +12,30 @@ class TrackingOrderRepoImpl implements TrackingOrderRepo {
 
   TrackingOrderRepoImpl(this._remoteDataSource);
 
- @override
-Stream<BaseResponse<TrackingOrderEntity>> trackOrder(String orderId) {
-  return _remoteDataSource.trackOrder(orderId).map((response) {
-    if (response is SuccessBaseResponse<TrackingOrderDto>) {
-      try {
-        return SuccessBaseResponse<TrackingOrderEntity>(
-          data: response.data.toDomain(),
-        );
-      } catch (e) {
+  @override
+  Stream<BaseResponse<TrackingOrderEntity>> trackOrder(String orderId) {
+    return _remoteDataSource.trackOrder(orderId).map((response) {
+      if (response is SuccessBaseResponse<TrackingOrderDto>) {
+        try {
+          return SuccessBaseResponse<TrackingOrderEntity>(
+            data: response.data.toDomain(),
+          );
+        } catch (e) {
+          return ErrorBaseResponse<TrackingOrderEntity>(
+            errorMessage: 'Data parsing error: ${e.toString()}',
+          );
+        }
+      } else if (response is ErrorBaseResponse<TrackingOrderDto>) {
         return ErrorBaseResponse<TrackingOrderEntity>(
-          errorMessage: 'Data parsing error: ${e.toString()}',
+          errorMessage: response.errorMessage,
+        );
+      } else {
+        return ErrorBaseResponse<TrackingOrderEntity>(
+          errorMessage: AppStrings.errorMessage,
         );
       }
-    } else if (response is ErrorBaseResponse<TrackingOrderDto>) {
-      return ErrorBaseResponse<TrackingOrderEntity>(
-        errorMessage: response.errorMessage,
-      );
-    } else {
-      return ErrorBaseResponse<TrackingOrderEntity>(
-        errorMessage: AppStrings.errorMessage,
-      );
-    }
-  });
-}
+    });
+  }
 
   @override
   Future<BaseResponse<void>> completeOrder(String orderId) {

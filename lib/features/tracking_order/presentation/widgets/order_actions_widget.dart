@@ -21,10 +21,7 @@ class OrderActionsWidget extends StatelessWidget {
         Expanded(
           child: ElevatedButton(
             onPressed: () {
-              GoRouter.of(context).push(
-                AppRouterPaths.kTrackingOrdersMapView,
-                
-              );
+              GoRouter.of(context).push(AppRouterPaths.kTrackingOrdersMapView);
             },
             child: Text(localizations.showMap),
           ),

@@ -60,9 +60,7 @@ class CustomProfileInfo extends StatelessWidget {
                 onTap: () async {
                   final profileCubit = context.read<ProfileCubit>();
                   await context.push(AppRouterPaths.kEditProfileView);
-                  profileCubit.doIntent(
-                    LoadUserProfileIntent(),
-                  );
+                  profileCubit.doIntent(LoadUserProfileIntent());
                 },
                 child: SvgPicture.asset(Assets.icons.notePen),
               ),

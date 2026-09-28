@@ -43,15 +43,15 @@ class TrackingOrderDto {
 
   static DateTime? _parseDateSafely(dynamic dateValue) {
     if (dateValue == null) return null;
-    
+
     if (dateValue is Timestamp) {
       return dateValue.toDate();
     }
-    
+
     if (dateValue is String) {
       return DateTime.tryParse(dateValue);
     }
-    
+
     return null;
   }
 
