@@ -1,140 +1,219 @@
-# 🌸 Flowery App
+# 🌸 Flower App – Flowers & Gifts E-Commerce
 
 <p align="center">
-  <img <img width="89" height="25" alt="Logo" src="https://github.com/user-attachments/assets/3622f571-a3bb-44c0-b2f1-052446bf8c2e" alt="Exam App Logo" width="140" />
+  <img src="flowery_app_cover.png" alt="Flower App Cover" width="100%" />
 </p>
 
 <p align="center">
-  <strong>An enterprise-grade, beautifully designed Flowers & Gifting E-Commerce mobile platform built with Flutter.</strong>
+  <strong>A Modern, Feature-Rich Flowers & Gifts E-Commerce Mobile Application Built with Flutter.</strong>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white" alt="Flutter" />
-  <img src="https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white" alt="Dart" />
-  <img src="https://img.shields.io/badge/Architecture-Clean%20%2F%20Feature--First-success?style=for-the-badge" alt="Architecture" />
-  <img src="https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-blue?style=for-the-badge&logo=githubactions&logoColor=white" alt="CI/CD" />
+  <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter" />
+  <img src="https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart" />
+  <img src="https://img.shields.io/badge/Architecture-Clean%20Architecture-success?style=for-the-badge" alt="Clean Architecture" />
+  <img src="https://img.shields.io/badge/State%20Management-BLoC-blueviolet?style=for-the-badge" alt="BLoC" />
+  <img src="https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-blue?style=for-the-badge&logo=githubactions&logoColor=white" alt="GitHub Actions" />
 </p>
 
-A Flutter e-commerce application for browsing and ordering flowers. The app is built with a feature-first Clean Architecture style and includes authentication, product discovery, cart management, orders, profile management, localization, and API integration with the Elevate Flower backend.
-## Screenshots
+Flower App is a cross-platform Flutter e-commerce application designed to provide a seamless shopping experience for flowers and gifts. Built using Feature-First Clean Architecture, it offers a complete shopping workflow, including authentication, product discovery, cart management, orders, profile management, and bilingual support (English & Arabic).
+
+---
+
+## 📸 Screenshots
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/59067217-0647-4b15-ac76-fa5c2f6b9316" width="22%" height="300"/>
-  <img src="https://github.com/user-attachments/assets/73af289f-4ea2-4d9d-b788-32a429cb08d3" width="22%" height="300"/>
-  <img src="https://github.com/user-attachments/assets/b46d0051-f756-49c2-b5d0-84fa02f359d6" width="22%" height="300"/>
-  <img src="https://github.com/user-attachments/assets/bf1e1672-5885-4c34-aab2-c6f81c5b6e5a" width="22%" height="300"/>
-</p>
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/14cb2ab6-2349-4c58-baa5-c739d91f8094" width="22%" height="300"/>
-  <img src="https://github.com/user-attachments/assets/324ac971-8afe-41d9-92ca-42d4069d7b6b" width="22%" height="300"/>
-  <img src="https://github.com/user-attachments/assets/47eb7785-ac51-459e-bda3-e7b9528951c4" width="22%" height="300"/>
-  <img src="https://github.com/user-attachments/assets/30c5b4f5-c0e5-41e0-89ea-d092516a0eec" width="22%" height="300"/>
+  <img src="https://github.com/user-attachments/assets/59067217-0647-4b15-ac76-fa5c2f6b9316" width="22%" height="300" alt="App Screenshot 1"/>
+  <img src="https://github.com/user-attachments/assets/73af289f-4ea2-4d9d-b788-32a429cb08d3" width="22%" height="300" alt="App Screenshot 2"/>
+  <img src="https://github.com/user-attachments/assets/b46d0051-f756-49c2-b5d0-84fa02f359d6" width="22%" height="300" alt="App Screenshot 3"/>
+  <img src="https://github.com/user-attachments/assets/bf1e1672-5885-4c34-aab2-c6f81c5b6e5a" width="22%" height="300" alt="App Screenshot 4"/>
 </p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/c408b48f-a81b-4404-ae3b-d1d9c307167b" width="22%" height="300"/>
-  <img src="https://github.com/user-attachments/assets/70610b3f-e122-494a-9a23-adfd8e0a1c0b" width="22%" height="300"/>
+  <img src="https://github.com/user-attachments/assets/14cb2ab6-2349-4c58-baa5-c739d91f8094" width="22%" height="300" alt="App Screenshot 5"/>
+  <img src="https://github.com/user-attachments/assets/324ac971-8afe-41d9-92ca-42d4069d7b6b" width="22%" height="300" alt="App Screenshot 6"/>
+  <img src="https://github.com/user-attachments/assets/47eb7785-ac51-459e-bda3-e7b9528951c4" width="22%" height="300" alt="App Screenshot 7"/>
+  <img src="https://github.com/user-attachments/assets/30c5b4f5-c0e5-41e0-89ea-d092516a0eec" width="22%" height="300" alt="App Screenshot 8"/>
 </p>
 
-## Table of Contents
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c408b48f-a81b-4404-ae3b-d1d9c307167b" width="22%" height="300" alt="App Screenshot 9"/>
+  <img src="https://github.com/user-attachments/assets/70610b3f-e122-494a-9a23-adfd8e0a1c0b" width="22%" height="300" alt="App Screenshot 10"/>
+</p>
 
-- [Overview](#overview)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Architecture](#architecture)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [Code Generation](#code-generation)
-- [Localization](#localization)
-- [Testing](#testing)
-- [API](#api)
+---
 
-## Overview
+## 📑 Table of Contents
 
-Flower App is a cross-platform Flutter project that delivers a complete shopping flow for flowers and gifts. It supports guest/authenticated entry, secure token storage, localized English and Arabic UI, product browsing by category and occasion, best sellers, cart actions, orders, and user profile operations.
+- [Overview](#-overview)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Architecture](#-architecture)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [Code Generation](#-code-generation)
+- [Localization](#-localization)
+- [Testing](#-testing)
+- [API Integration](#-api-integration)
+- [Development Notes](#-development-notes)
 
-## Features
+---
 
-- Authentication: login, sign up, logout, change password, and forgot password flow.
-- Home sections: categories, occasions, best sellers, and shared product data.
-- Product browsing: product cards, product details, category listing, sorting, and search.
-- Cart: add items, remove items, update quantity, and view checkout totals.
-- Orders: fetch and display user orders.
-- Profile: profile data, edit profile, upload profile photo, language selection, and guest handling.
-- Localization: English and Arabic support using Flutter generated localizations.
-- Secure persistence: token and app preferences stored with `flutter_secure_storage`.
-- Network layer: `dio` with Retrofit API clients and JSON serialization.
-- State management: `flutter_bloc` Cubits with intent/state separation.
-- Dependency injection: `get_it` and `injectable`.
-- Tests: unit tests for API data sources, repositories, use cases, and Cubits.
+## 🎯 Overview
 
-## Tech Stack
+Flower App is a feature-rich Flutter e-commerce application that delivers a complete shopping experience for flowers and gifts.
 
-- Flutter / Dart
-- `flutter_bloc` for state management
-- `go_router` for navigation
-- `dio` and `retrofit` for networking
-- `json_serializable` for model serialization
-- `get_it` and `injectable` for dependency injection
-- `flutter_secure_storage` for secure local storage
-- `flutter_localizations` and ARB files for localization
-- `mocktail`, `mockito`, and `bloc_test` for testing
+The application supports both guest and authenticated users, allowing customers to explore products, discover collections, manage shopping carts, place orders, and personalize their profiles.
 
-## Architecture
+It integrates with the Elevate Flower REST API and follows modern software engineering principles to maintain clean, scalable, and testable code.
 
-The project follows a feature-first Clean Architecture approach. Most features are split into:
+## ✨ Features
 
-- `presentation`: views, widgets, Cubits, intents, and states.
-- `domain`: entities, repository contracts, and use cases.
-- `data`: DTOs, repository implementations, and data source contracts.
-- `api`: Retrofit API clients and remote data source implementations.
+### 🔐 Authentication & Account Management
+- User registration and login.
+- Guest browsing experience.
+- Logout functionality.
+- Forgot password and change password flows.
+- Secure authentication token storage.
 
-This keeps UI, business rules, data mapping, and network integration separated and easier to test.
+### 🛍️ Product Discovery & Shopping
+- Browse products by categories and occasions.
+- Explore best-selling products.
+- View detailed product information.
+- Search and sort products.
+- Reusable product cards and shared product components.
 
-## Project Structure
+### 🛒 Cart Management
+- Add products to the shopping cart.
+- Remove items and update quantities.
+- Calculate cart totals.
+- Review shopping cart contents.
+
+### 📦 Orders
+- Fetch and display customer orders.
+- View order information and details.
+
+### 👤 Profile Management
+- View and update profile information.
+- Upload profile pictures.
+- Manage application language preferences.
+- Handle guest and authenticated user states.
+
+### 🌍 Localization
+- Full English and Arabic language support.
+- Flutter localization using ARB files.
+- Dynamic language selection.
+
+### 🔒 Secure Storage & Networking
+- Secure token persistence using `flutter_secure_storage`.
+- Centralized networking configuration using Dio.
+- Type-safe REST API integration with Retrofit.
+- JSON serialization and deserialization.
+
+### 🧪 Testing
+- Unit tests for data sources and repositories.
+- Use case testing.
+- Cubit testing.
+- Mocked dependencies using Mocktail and Mockito.
+
+---
+
+## 🛠️ Tech Stack
+
+| Category | Technologies |
+|---|---|
+| Framework | Flutter & Dart |
+| Architecture | Feature-First Clean Architecture |
+| State Management | Flutter BLoC / Cubit |
+| Navigation | GoRouter |
+| Networking | Dio & Retrofit |
+| Serialization | JSON Serializable |
+| Dependency Injection | GetIt & Injectable |
+| Secure Storage | Flutter Secure Storage |
+| Localization | Flutter Localizations & ARB |
+| Testing | Flutter Test, Bloc Test, Mocktail, Mockito |
+| Code Generation | Build Runner |
+
+---
+
+## 🏗️ Architecture
+
+The project follows a **Feature-First Clean Architecture** approach, separating presentation logic, business rules, and data operations into independent layers.
+
+Each feature is organized into the following layers:
+
+| Layer | Responsibility |
+|---|---|
+| Presentation | Screens, reusable widgets, Cubits, intents, and states |
+| Domain | Business entities, repository contracts, and use cases |
+| Data | DTOs, repository implementations, and data source contracts |
+| API | Retrofit clients and remote data source implementations |
+
+### Architecture Benefits
+
+- **Separation of Concerns:** Each layer has a clearly defined responsibility.
+- **Maintainability:** Features are organized independently.
+- **Testability:** Business logic can be tested without depending on UI or external services.
+- **Scalability:** New features can be added without tightly coupling existing modules.
+- **Reusability:** Shared components and business logic can be reused across features.
+
+---
+
+## 📂 Project Structure
 
 ```text
 lib/
-  config/
-    di/                  Dependency injection setup
-    dio/                 Dio configuration
-    security_storage/    Secure storage abstraction
-  core/
-    errors/              Exceptions and failures
-    localization/        App locale controller
-    network/             API interceptor
-    router/              GoRouter setup and route paths
-    shared_features/     Shared products and home data
-    theme/               Colors, text styles, and app theme
-    values/              Generated assets, fonts, API constants
-    widgets/             Shared UI widgets
-  features/
-    app_sections/        Main app shell, home, cart, categories, profile
-    auth/                Login, sign up, and forgot password
-    best_seller/         Best seller listing
-    change_password/     Change password flow
-    edite_profile/       Edit profile flow
-    occasion/            Occasion listing
-    orders/              Orders listing
-    product_details/     Product details screen
-    search/              Product search
-  l10n/                  Localization ARB files and generated classes
-test/                    Unit and Cubit tests
+├── config/
+│   ├── di/                     # Dependency injection setup
+│   ├── dio/                    # Dio configuration
+│   └── security_storage/       # Secure storage abstraction
+│
+├── core/
+│   ├── errors/                 # Exceptions and failures
+│   ├── localization/           # Locale management
+│   ├── network/                # API interceptors
+│   ├── router/                 # GoRouter configuration
+│   ├── shared_features/        # Shared products and home data
+│   ├── theme/                  # Colors, typography, and themes
+│   ├── values/                 # Constants, assets, and fonts
+│   └── widgets/                # Shared UI components
+│
+├── features/
+│   ├── app_sections/           # Main app shell, home, cart, categories, profile
+│   ├── auth/                   # Login, sign up, and forgot password
+│   ├── best_seller/            # Best-selling products
+│   ├── change_password/        # Change password
+│   ├── edite_profile/          # Edit profile
+│   ├── occasion/               # Occasion listing
+│   ├── orders/                 # Customer orders
+│   ├── product_details/        # Product details
+│   └── search/                 # Product search
+│
+├── l10n/                       # Localization ARB files and generated classes
+│
+└── main.dart                   # Application entry point
+
 assets/
-  icons/                 SVG assets
-  fonts/                 Inter font family
+├── icons/                      # SVG icons
+└── fonts/                      # Inter font family
+
+test/                           # Unit and Cubit tests
 ```
 
-## Getting Started
+---
+
+## 🚀 Getting Started
+
+Follow these steps to set up and run the application locally.
 
 ### Prerequisites
 
-- Flutter SDK compatible with Dart `^3.11.0`
-- Android Studio or Xcode for mobile builds
-- A configured emulator, simulator, or physical device
+- Flutter SDK compatible with Dart `^3.11.0`.
+- Android Studio or Visual Studio Code.
+- Xcode for iOS development (macOS only).
+- Configured Android emulator, iOS simulator, or physical device.
 
-Check your Flutter setup:
+Verify your Flutter installation:
 
 ```bash
 flutter doctor
@@ -142,112 +221,161 @@ flutter doctor
 
 ### Installation
 
-Clone the repository and install dependencies:
+**1. Clone the repository**
+
+```bash
+git clone https://github.com/mohamedaly0206/Flower-App.git
+```
+
+**2. Navigate to the project directory**
+
+```bash
+cd Flower-App
+```
+
+**3. Install dependencies**
 
 ```bash
 flutter pub get
 ```
 
-Generate required files:
+**4. Generate required files**
 
 ```bash
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-Run the app:
+**5. Run the application**
 
 ```bash
 flutter run
 ```
 
-Run on a specific platform:
+### Running on Specific Platforms
 
 ```bash
-flutter run -d chrome
 flutter run -d android
+flutter run -d chrome
 flutter run -d ios
 flutter run -d windows
 ```
 
-## Code Generation
+---
 
-This project uses generated code for Retrofit clients, JSON models, dependency injection, assets, fonts, and localization.
+## ⚙️ Code Generation
 
-Run code generation after changing API clients, DTOs, injectable classes, assets, or fonts:
+The project uses code generation for:
+
+- Retrofit API clients.
+- JSON serialization and deserialization.
+- Dependency injection.
+- Generated assets and fonts.
+
+After modifying annotated API clients, models, or dependency injection classes, run:
 
 ```bash
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-For continuous generation during development:
+For continuous code generation during development:
 
 ```bash
 dart run build_runner watch --delete-conflicting-outputs
 ```
 
-## Localization
+---
 
-Localization is configured in `l10n.yaml`.
+## 🌍 Localization
 
-- ARB source files: `lib/l10n/app_en.arb`, `lib/l10n/app_ar.arb`
-- Generated output: `lib/l10n/app_localizations.dart`
-- Supported locales: English and Arabic
+The application supports both English and Arabic using Flutter's localization system.
 
-When localization files change, run:
+### Configuration
+
+- Localization configuration: `l10n.yaml`
+- English translations: `lib/l10n/app_en.arb`
+- Arabic translations: `lib/l10n/app_ar.arb`
+- Generated localization classes: `lib/l10n/app_localizations.dart`
+
+### Supported Locales
+
+- 🇬🇧 English (`en`)
+- 🇪🇬 Arabic (`ar`)
+
+After modifying translation files, regenerate localization classes:
 
 ```bash
 flutter gen-l10n
 ```
 
-## Testing
+---
 
-Run all tests:
+## 🧪 Testing
+
+The project includes unit and Cubit tests to help ensure application reliability and maintainability.
+
+### Run All Tests
 
 ```bash
 flutter test
 ```
 
-Run static analysis:
+### Run Static Analysis
 
 ```bash
 flutter analyze
 ```
 
-The test suite includes coverage for:
+### Testing Coverage Areas
 
-- Remote data sources
-- Repository implementations
-- Use cases
-- Cubits and presentation state handling
+- Remote data sources.
+- Repository implementations.
+- Business use cases.
+- Cubits and presentation state management.
 
-## API
+---
 
-The app integrates with the Elevate Flower API:
+## 🌐 API Integration
+
+The application integrates with the **Elevate Flower REST API**.
+
+**Base URL:**
 
 ```text
 https://flower.elevateegy.com/api/v1
 ```
 
-Main API areas include:
+### Main API Modules
 
-- Authentication and profile
-- Products
-- Categories
-- Occasions
-- Cart
-- Orders
-- Best sellers
+- Authentication and user profile.
+- Products and product details.
+- Categories.
+- Occasions.
+- Shopping cart.
+- Orders.
+- Best sellers.
 
-The API constants are defined in:
+API endpoint definitions are organized in:
 
 ```text
 lib/core/values/api_endpoints.dart
 ```
 
-## Development Notes
+The networking layer uses Dio and Retrofit to provide structured, maintainable, and type-safe API communication.
 
-- Keep generated files updated after modifying annotated models or API clients.
-- Prefer adding new features using the existing feature-first structure.
-- Keep business logic in use cases and Cubits, not directly inside widgets.
-- Add focused tests when changing repositories, use cases, or Cubit behavior.
+---
 
+## 📝 Development Notes
+
+- Follow the existing Feature-First Clean Architecture when adding new features.
+- Keep business logic inside the domain and presentation logic layers rather than directly inside UI widgets.
+- Use Cubits to manage feature-specific state.
+- Keep API communication centralized through Retrofit and Dio.
+- Regenerate generated files whenever annotated source files change.
+- Update localization ARB files when introducing new user-facing strings.
+- Add relevant tests when modifying repositories, use cases, or Cubits.
+
+---
+
+<p align="center">
+  <strong>Built with 💗 using Flutter</strong>
+</p>
